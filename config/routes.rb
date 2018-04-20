@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-
+  resources :sessions, only: %i[index create destroy]
   # Users
   resources :users
   # Splash
