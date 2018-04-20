@@ -20,3 +20,6 @@ fr:
     we_wait_for: Très cher et attendu
 
     invitations: Invitations
+    set_up: "%{full_name} est enregistré. Il faut l'inviter à présent."
+    updated: Correction faite !
+    not_updated: Oups ! La correction n'est pas passée
