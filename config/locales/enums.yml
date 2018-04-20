@@ -1,15 +1,16 @@
 fr:
   enums:
-    member:
+    user:
       role:
         player: Joueur
         admin: Administrateur
         admin_com: Resp. comm
         other: Autre
-    user:
       status:
+        invited: Invité
+        googled: Incription partielle
+        fully_registered: Actif
         archived: A quitté la compagnie
-        active: Actif
     actor:
       stage_role:
         player: Joueur
