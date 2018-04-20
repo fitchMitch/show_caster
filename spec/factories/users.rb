@@ -22,18 +22,20 @@
 
 FactoryBot.define do
   factory :user do
-    firstname "MyString"
-    lastname "MyString"
-    email "MyString"
-    last_sign_in_at "2018-04-20 12:59:32"
-    status 1
-    provider "MyString"
-    uid "MyString"
-    address "MyString"
-    cell_phone_nr "MyString"
-    photo_url "MyString"
-    role 1
-    token "MyString"
-    refresh_token "MyString"
+    firstname               {FFaker::NameFR.unique.first_name}
+    lastname                {FFaker::NameFR.unique.last_name}
+    email                   {FFaker::Internet.free_email}
+    role =                  (0..3).to_a.sample
+    status =                0
+    # last_sign_in_at "2018-04-20 12:59:32"
+    # status 1
+    # provider "MyString"
+    # uid "MyString"
+    # address "MyString"
+    # cell_phone_nr "MyString"
+    # photo_url "MyString"
+    # role 1
+    # token "MyString"
+    # refresh_token "MyString"
   end
 end

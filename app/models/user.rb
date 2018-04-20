@@ -29,8 +29,11 @@ class User < ApplicationRecord
 
   # Enums
   enum status: {
-    :archived => 0,
-    :active => 1
+    :set => 0,
+    :invited => 1,
+    :googled => 2,
+    :full_registered => 3,
+    :has_left => 4
   }
   enum role: {
     :player => 0,
