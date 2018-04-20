@@ -1,0 +1,176 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
+// @import url(https://fonts.googleapis.com/css?family=Roboto:100,300);
+$font-family-sans-serif: "Lato";
+$headings-font-weight: 300;
+
+$brand-primary: darken(#428bca, 6.5%);
+@import 'globals/variables';
+// $navbar-default-bg: lighten( $sesame-blue, 10% );
+$navbar-default-bg: $sesame-blue;
+$navbar-default-border: white;
+$navbar-default-link-color: $sesame-yellow;
+$navbar-default-link-hover-color: white;
+
+// $navbar-default-link-hover-bg: lighten( $sesame-blue, 50% );
+// $navbar-default-link-active-bg: lighten( $brand-primary, 30% );
+$navbar-default-link-active-bg: $sesame-orange;
+$navbar-default-link-active-color: white;
+
+// $body-bg: $sesame-blue;
+$body-bg: $sesame-blue;
+
+$slideup-navbar-height: 150px;
+
+$border-radius-base: 2px;
+$border-radius-large: 2px;
+
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+@import 'components/slideup_header';
+// -------------------
+// CUSTOMIZING
+// -------------------
+@import 'globals/common';
+.showing-off:nth-child(2) > span:nth-child(1) > strong:nth-child(1){
+    color:$sesame-yellow;
+}
+.showing-off:nth-child(2) > span:nth-child(1){
+  font-size: 1.3em;
+  before:{ content: "Prochain spectacle : "}
+}
+// -------------------
+// END CUSTOMIZING
+// -------------------
+
+// $slideup-navbar-height: $navbar-height !default;
+
+.btn-lg {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 12px;
+}
+ul.navbar-right{
+  li{
+    a:hover{
+      color: white;
+    }
+  }
+}
+
+$splash-section-padding: 4em;
+.inner-column {
+  h1 { color:$sesame-yellow;}
+  input {background-color: $sesame-blue;}
+}
+
+body.splash {
+  text-align: center;
+  color: white;
+  background-color: $sesame-blue;
+
+  p.info {
+    font-size: 1.5em;
+  }
+
+  section {
+    padding-top: $splash-section-padding;
+    padding-bottom: $splash-section-padding;
+    @extend .clearfix;
+  }
+
+  header {
+    height: 0;
+  }
+  .affix-top .navbar {
+    background: transparent;
+  }
+
+  .lightimage {
+    padding-top: 4 * $font-size-base + $slideup-navbar-height;
+    background-size: cover;
+    min-height: 600px;
+    p {padding: 2em 0;}
+    overflow: hidden;
+    position: relative;
+
+    .row {
+      position:relative;
+      z-index:2;
+    }
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      opacity: 0.8;
+      background-image: asset-url('general_light3.jpg');
+      background-repeat: no-repeat;
+      background-position: 50% 0;
+      -ms-background-size: cover;
+      -o-background-size: cover;
+      -moz-background-size: cover;
+      -webkit-background-size: cover;
+      background-size: cover;
+    }
+  }
+
+  .colored.primary {
+    background: $sesame-blue;
+    color: white;
+
+    p {
+      padding: 2em 0;
+      font-size: 1.3em;
+    }
+  }
+
+  .inner-column {
+    @extend .col-sm-8;
+    @extend .col-sm-offset-2;
+  }
+
+  .inner-block {
+    @extend .col-md-3;
+    @extend .col-sm-6;
+
+    @media (max-width: $screen-xs-max) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .quarter-block {
+    width: 25%;
+    float: left;
+    border:1px solid $sesame-blue;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    // overflow: hidden;
+    img {
+      @extend .img-responsive;
+    }
+  }
+}
+
+.btn-primary {
+  &:hover {
+    border: 1px solid $brand-primary;
+    background: white;
+    color: $brand-primary;
+  }
+}
+.btn-primary-inverted {
+  background: white;
+  color: $brand-primary;
+
+  &:hover {
+    border: 1px solid white;
+    background: $brand-primary;
+    color: white;
+  }
+}

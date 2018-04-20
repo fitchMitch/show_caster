@@ -1,29 +1,18 @@
 # PostgreSQL. Versions 9.1 and up are supported.
 #
-# Install the pg driver:
-#   gem install pg
-# On OS X with Homebrew:
-#   gem install pg -- --with-pg-config=/usr/local/bin/pg_config
-# On OS X with MacPorts:
-#   gem install pg -- --with-pg-config=/opt/local/lib/postgresql84/bin/pg_config
-# On Windows:
-#   gem install pg
-#       Choose the win32 build.
-#       Install PostgreSQL and put its /bin directory on your path.
-#
-# Configure Using Gemfile
-# gem 'pg'
-#
 default: &default
   adapter: postgresql
   encoding: unicode
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
 
 development:
   <<: *default
-  database: show_caster_development
+  database: show_caster_dev
+  username: sesame
+  password: matwo
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -58,6 +47,8 @@ development:
 test:
   <<: *default
   database: show_caster_test
+  username: sesame
+  password: matwo
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -80,6 +71,6 @@ test:
 #
 production:
   <<: *default
-  database: show_caster_production
+  database: show_caster
   username: show_caster
   password: <%= ENV['SHOW_CASTER_DATABASE_PASSWORD'] %>

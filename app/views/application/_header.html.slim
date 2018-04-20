@@ -1,0 +1,23 @@
+= navbar position: :static do
+  = vertical do
+    = link_to root_path do
+      = fa_icon ("yelp 2x to-orange")
+      = I18n.t("layout.home")
+  = horizontal do
+    = nav class: 'navbar-right' do
+      - if user_signed_in?
+        - unless current_user.member.nil?
+          - if true
+            = link_to t("dashboards.statistics"), dashboard_path
+          - if policy(Location).index?
+            = link_to t("locations.premises_management"), locations_path
+          - if policy(Event).index?
+            = link_to t("events.events_management"), events_path
+          - if policy(current_user).index?
+            = link_to users_path , class: 'btn btn-warning' do
+              span.room-right-5
+                = t("layout.users", theater_company: I18n.t("company_name_short"))
+              span.badge
+                = User.active.count
+        = render partial: "application/account_dropdown"
+        = link_to fa_icon("sign-out"), destroy_user_session_path, :method=>:delete

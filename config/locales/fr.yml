@@ -1,0 +1,121 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n:t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+fr:
+  admin: Administrateur
+  admin_com: Resp. communication
+  account_details: Mes détails
+
+  back: Retour
+
+  company_name_short: Sésames
+  confirm : Whesh ! C'est sûr ?
+
+  deconnect: Déconnexion
+  destroy : Supprimer
+
+  edit: Modifier
+
+  firstname: Prénom
+
+  invitations: Invitations
+
+  lastname: Nom
+  Location: salle
+  location: Salle
+
+
+  other: Autre
+
+  player: Joueur
+  profile: Mon compte
+
+  role: rôle
+
+  show: Voir
+  sure_question: C'est sûr ?
+  submit: Valider
+
+  thanks: Merci !
+  theater_company: Les Sésames
+
+  update: Mise à jour
+
+  helpers:
+    submit:
+      location:
+        create: "Valider la création "
+        update: "Modifier"
+        edit: "Editer"
+        new: "Créer un(e) %{model}"
+      event:
+        create: "Valider la création "
+        update: "Modifier"
+        edit: "Editer"
+        new: "Créer un Spectacle"
+
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'La validation a échoué : %{errors}'
+        restrict_dependent_destroy:
+          has_one: "Vous ne pouvez pas supprimer l'enregistrement car un(e) %{record} dépendant(e) existe"
+          has_many: "Vous ne pouvez pas supprimer l'enregistrement parce que les %{record} dépendants existent"
+      models:
+        user:
+          attributes:
+            reset_password_token:
+              invalid: "--> le lien que vous utilisez est trop vieux : veuillez renouveler  votre demande."
+            firstname:
+              blank: On peut ne peut laisser ce champ vide.
+              too_short: Trop court, mon ami(e)
+            lastname:
+              blank: On peut ne peut laisser ce champ vide
+              too_short: Trop court, mon ami(e)
+            current_password:
+              invalid: Ce mot de passe ne correspond pas
+            email:
+              taken: Cet email est déjà actif
+              blank: Le champ email ne peut pas rester vide :-)
+            password:
+              blank: On peut ne peut laisser ce champ vide
+            cell_phone_nr:
+              too_short: Vous avez dû oublier des chiffres ....
+            current_password:
+              blank: Le mot de passe actuel est obligatoire
+            password_confirmation:
+              blank: Il faut remplir ce champ aussi si vous remplissez le précédent
+    model:
+      Location: Salle
+      Member: Sésame
+    models:
+      Location: Salles
+      Member: Sésames

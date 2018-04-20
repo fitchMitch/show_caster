@@ -1,0 +1,13 @@
+fr:
+  splash:
+    ok_then: Merci de vous être abonné(e) !
+    enthousiast: Vous vous êtes déjà inscrit, mais nous aimons votre enthousiasme. Déjà pensé à faire de l'impro vous-même ?
+    error: "Oops! Bon, ben... ca a comme qui dirait foiré, mon gaillard ! Ca devrait aller mieux plus tard"
+    next: Prochainement
+    us: Nous
+    contact: Contact
+  mailchimp:
+    disclaimer: Les variables d'environnement MAILCHIMP_API_KEY et MAILCHIMP_SPLASH_SIGNUP_LIST_ID doivent être définies pour que l'enregistrement à la mailing liste puisse fonctionner ! If you don't want this feature, you can just remove the mailing list signup feature from app/views/splash/index.html.haml
+    already_signed_up: Vous vous êtes déjà abonné(e) à notre liste. Merci pour votre enthousiasme !
+    oops: Oops! Ca m'a bien l'être d'une erreur. How embarrassing, comme dirait l'autre ... Veuillez essayez un peu plus tard
+    allways_informed: Restez en contact avec nous !

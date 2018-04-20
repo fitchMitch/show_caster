@@ -1,0 +1,17 @@
+- if user_signed_in?
+  li.dropdown
+    a.dropdown-toggle  href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+      = t("layout.account")
+      | <span class="caret"></span>
+    ul.dropdown-menu
+      - if policy(current_user).fully_registered?
+        = link_to t('account_details'), edit_member_path(current_user.member_id)
+      - else
+        = link_to t('account_details'), new_member_path
+    / - if policy(current_user).invite?
+    /   = link_to t("invitations"), new_user_invitation_path
+
+- else
+  /! CONNECT
+  = link_to new_user_session_path do
+    = image_tag('transp.png')

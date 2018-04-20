@@ -1,0 +1,24 @@
+fr:
+  enums:
+    member:
+      role:
+        player: Joueur
+        admin: Administrateur
+        admin_com: Resp. comm
+        other: Autre
+    user:
+      status:
+        archived: A quitté la compagnie
+        active: Actif
+    actor:
+      stage_role:
+        player: Joueur
+        dj: DJ
+        mc: MC
+        other: autre...
+    event:
+      progress:
+        draft: Brouillon
+        finalized: Finalisé
+        sent_to_media_1: Envoyé à media 1
+        ok_with_media_1: Validé par media 1
