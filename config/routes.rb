@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-
-  resources :sessions, only: %i[index create destroy]
+  # Sessions
+  resources :sessions, only: %i[index new create destroy]
+  get '/sesame_login' => 'sessions#new'
+  get '/auth/:provider/callback', to: 'sessions#create'
   # Users
   resources :users
   # Splash

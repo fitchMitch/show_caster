@@ -85,13 +85,12 @@ class User < ApplicationRecord
         firstname: data['first_name'],
         lastname: data['last_name'],
         email: data['email'].downcase,
-        password: Devise.friendly_token[0,20],
         provider: access_token.provider,
         uid: access_token.uid,
         photo_url: data['image'],
-        status: :active
+        status: :googled
     }
-    user.nil? ? User.create(*from_token) : user.update(from_token)
+    user.nil? ? User.create(from_token) : user.update(from_token)
     user
   end
 

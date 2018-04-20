@@ -26,7 +26,10 @@ gem 'gibbon'
 gem 'slim'
 gem 'enum_help'
 gem 'annotate'
-# gem 'bootstrap-rubygem'
+
+gem 'google-api-client', '~> 0.11'
+# gem 'omniauth'
+gem 'omniauth-google-oauth2'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

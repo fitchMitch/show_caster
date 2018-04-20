@@ -1,0 +1,12 @@
+.container
+  .row
+    .profile.center
+      = panel title: I18n.t('sessions.log_in'), context: :primary do
+        .panel-body
+          = image_tag('Logo_h_150.PNG')
+        .panel-footer
+          = link_to '/auth/google_oauth2' do
+            .buttons.btn.btn-primary
+              = t("sessions.omniauth_with")
+              = image_tag('transp')
+              = fa_icon('google 2x')
