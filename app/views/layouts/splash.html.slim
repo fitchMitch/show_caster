@@ -30,6 +30,7 @@ html.no-js
             = link_to t("splash.next"), "#about"
             = link_to t("splash.us"), "#features"
             = link_to t("splash.contact"), "#contact"
+            = link_to image_tag("transp.png"), users_path
             / - if user_signed_in?
             /   = link_to t("layout.users", theater_company: I18n.t("company_name_short")), users_path
             /   = link_to fa_icon("sign-out", text: "X"), destroy_user_session_path, :method=>:delete
