@@ -24,6 +24,9 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def show
+  end
+
   def update
     if @user.update_attributes(user_params)
       redirect_to users_path, notice: I18n.t("users.updated")

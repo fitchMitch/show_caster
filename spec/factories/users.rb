@@ -19,23 +19,47 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
+FactoryBot.define do
+  sequence :email do |n|
+    FFaker::Internet.unique.free_email
+  end
+end
 
 FactoryBot.define do
   factory :user do
     firstname               {FFaker::NameFR.unique.first_name}
     lastname                {FFaker::NameFR.unique.last_name}
-    email                   {FFaker::Internet.free_email}
-    role =                  (0..3).to_a.sample
+    email
+    role =                  0
     status =                0
-    # last_sign_in_at "2018-04-20 12:59:32"
-    # status 1
-    # provider "MyString"
-    # uid "MyString"
-    # address "MyString"
-    # cell_phone_nr "MyString"
-    # photo_url "MyString"
-    # role 1
-    # token "MyString"
-    # refresh_token "MyString"
+
+    trait :player do
+      role =                0
+    end
+    trait :admin_com do
+      role =                1
+    end
+    trait :admin do
+      role =                2
+    end
+    trait :other_player do
+      role =                3
+    end
+
+    trait :set_up do
+      status =            0
+    end
+    trait :invited do
+      status =            1
+    end
+    trait :googled do
+      status =            2
+    end
+    trait :full_registered do
+      status =            3
+    end
+    trait :archived do
+      status =            4
+    end
   end
 end
