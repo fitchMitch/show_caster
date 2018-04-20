@@ -40,6 +40,15 @@ require 'rails_helper'
         expect(response).to redirect_to users_path
       end
     end
+    describe "EDIT" do
+      before :each do
+        @user = create(:user, :admin, :set_up)
+      end
+      it "builds edits User" do
+        get edit_user_path(@user)
+        expect(response).to render_template :edit
+      end
+    end
     describe "POST #create" do
       context "with valid params" do
         it "creates a new User" do
