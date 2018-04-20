@@ -1,0 +1,22 @@
+fr:
+  users:
+    list: Liste des membres
+    delete: Supprimer
+    deleted_name : Ancien Joueur (RIP)
+    cell_phone_nr: Mobile
+    company : La troupe
+    address: Adresse
+    last_sign_in_at: Dernière connexion
+    last_connexion: Dernière connexion
+    role: Rôle
+    status: Statut
+    email: Email
+    promote: Promouvoir
+    promoted: "%{name} a changé de statut"
+    promoted_failed: "%{name} n'a pas pu changer de statut"
+    invitation_accepted_at: Enregistré(e)
+    position: Promouvoir
+    reinvite: Le ré-inviter par mail
+    we_wait_for: Très cher et attendu
+
+    invitations: Invitations

@@ -9,6 +9,8 @@ class UsersController < ApplicationController
   end
 
   def new
+    # authorize User
+    @user = User.new
   end
 
   def edit
@@ -22,4 +24,14 @@ class UsersController < ApplicationController
 
   def invite
   end
+
+  private
+    def set_user
+      @user = User.find(params[:id])
+      # authorize @user
+    end
+
+    def user_params
+      params.require(:user).permit(:firstname, :lastname, :email)
+    end
 end

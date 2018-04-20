@@ -1,2 +1,9 @@
-h1 Users#new
-p Find me in app/views/users/new.html.slim
+.container
+  .page-header
+    = link_to users_path, :class => 'btn btn-default' do
+      span.glyphicon.glyphicon-list-alt
+        = " #{t("back")}"
+    h2
+      = t ("users.invitation")
+
+  = render 'form'

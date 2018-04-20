@@ -1,0 +1,12 @@
+/ frozen_string_literal: true
+= simple_form_for(@user) do |f|
+  = f.error_notification
+
+  .form-inputs
+  
+    = f.input :firstname, label: t("firstname")
+    = f.input :lastname, label: t("lastname")
+    = f.input :email, label: t("email")
+
+  .form-actions
+    = f.button :submit, label: t("submit"), class: 'btn btn-primary'

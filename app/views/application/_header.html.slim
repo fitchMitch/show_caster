@@ -5,6 +5,7 @@
       = I18n.t("layout.home")
   = horizontal do
     = nav class: 'navbar-right' do
+      = render partial: "application/account_dropdown"
       / - if user_signed_in?
       /   - unless current_user.member.nil?
       /     - if true
