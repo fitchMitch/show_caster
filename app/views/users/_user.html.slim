@@ -1,0 +1,21 @@
+.row.user-list
+  .col-md-3
+    = image_tag(user.photo_url, size: "35x35") unless user.photo_url.nil?
+    = image_tag("transp.png")
+    / = username(user,current_user)
+  / .col-md-1
+  /   - if user.invitation_accepted_at.nil?
+  /     .label.label-warning
+  /       = t "devise.invitations.waiting"
+  /   - else
+  /     small
+  /       = t "devise.invitations.accepted"
+  .col-md-1
+    small.role
+      = " #{user.role_i18n}"
+  .col-md-2
+    = user.try(:cell_phone_nr)
+  .col-md-3
+    = user.try(:address)
+
+= console

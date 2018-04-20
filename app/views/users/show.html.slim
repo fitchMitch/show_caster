@@ -1,0 +1,75 @@
+.container
+  h1
+    = @user.full_name
+    hr
+  .row
+    .col-lg-2.col-md-2.col-sm-2.col-xs-12
+      = image_tag(current_user.photo_url, size: "150x150") unless current_user.photo_url.nil?
+    .col-lg-1.visible-lg-inline-block
+    .col-lg-9.col-md-10.col-sm-10.col-xs-12.user-show
+      .row
+        .col-sm-4.col-xs-4.right
+          = I18n.t("users.role")
+        .col-lg-8
+          .label.label-info
+            = @user.member.role_i18n
+      .row
+        .col-sm-4.col-xs-4.right
+          = I18n.t("users.address")
+        .col-lg-8
+          = @user.member.address
+      .row
+        .col-sm-4.col-xs-4.right
+          = I18n.t("users.email")
+        .col-lg-8
+          = @user.email
+      .row
+        .col-sm-4.col-xs-4.right
+          = I18n.t("users.cell_phone_nr")
+        .col-lg-8
+          h4
+            .label.label-info
+              = @user.member.cell_phone_nr
+      / - unless @user.invitation_accepted_at.nil?
+      /   .row
+      /     .col-sm-4.col-xs-4.right
+      /       = I18n.t("users.invitation_accepted_at")
+      /     .col-lg-8
+      /       = future_time_in_words @user.invitation_accepted_at
+      - unless @user.last_sign_in_at.nil?
+        .row
+          .col-sm-4.col-xs-4.right
+            = I18n.t("users.last_sign_in_at")
+          .col-lg-8
+            = future_time_in_words @user.last_sign_in_at
+      - if policy(@user).promote?
+        = simple_form_for(@user, as: :user, url: promote_path, html: { method: :post, class: 'form-horizontal' }) do |f|
+          .container-fluid
+            .row
+              .col-xs-4.right
+                br
+                strong
+                  = t ("users.position")
+              .col-xs-8
+                .row
+                  .col-sm-4.col-xs-12
+                    / = f.input :role, label: t("members.role")
+                    = f.simple_fields_for :member do |member|
+                      = member.input :role, label: t("users.status")
+                    = f.input :id, as: :hidden, input_html:{value: @user.id}
+                  .col-sm-1.xs-hidden
+                  .col-sm-4.col-xs-12
+                    = f.input :status, label: t("users.status")
+                .row
+                  .col-lg-12
+                    .buttons
+                      = f.button :submit, I18n.t("users.promote"), class: "btn-primary"
+
+  / - if @user.invitation_accepted_at.nil?
+  /   hr
+    / = simple_form_for(@user, as: :user, url: reinivite_path, html: { method: :post, class: 'form-horizontal' }) do |f|
+    /   .row
+    /     .col-lg-12.center
+    /       = f.input  :id, as: :hidden, input_html:{value: @user.id}
+    /       .buttons
+    /         = f.button :submit , I18n.t("users.reinvite"),class: "label label-primary"
