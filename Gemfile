@@ -25,6 +25,7 @@ gem "font-awesome-rails"
 gem 'gibbon'
 gem 'slim'
 gem 'enum_help'
+gem 'annotate'
 # gem 'bootstrap-rubygem'
 
 # Use ActiveModel has_secure_password
@@ -40,6 +41,7 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'pry'
   gem 'pry-byebug'
+  gem "slim-rails"
 
   # gem 'rspec', '~> 3.7.0'
   # gem 'rspec-rails'
