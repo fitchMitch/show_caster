@@ -1,3 +1,50 @@
+GIT
+  remote: https://github.com/rspec/rspec-core.git
+  revision: 400b1e0d7304b360018f844cbabafdd3e5ed8f33
+  branch: master
+  specs:
+    rspec-core (3.8.pre)
+      rspec-support (= 3.8.pre)
+
+GIT
+  remote: https://github.com/rspec/rspec-expectations.git
+  revision: a4f254726af96cd79dce00b1dd91696a601e603f
+  branch: master
+  specs:
+    rspec-expectations (3.8.pre)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (= 3.8.pre)
+
+GIT
+  remote: https://github.com/rspec/rspec-mocks.git
+  revision: 5cba05bbe37d446c4bf66343b2166d9c18e295ab
+  branch: master
+  specs:
+    rspec-mocks (3.8.pre)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (= 3.8.pre)
+
+GIT
+  remote: https://github.com/rspec/rspec-rails.git
+  revision: 770a78f56fa6fc0b4d2082b845b69a7f7e745a5e
+  branch: master
+  specs:
+    rspec-rails (3.8.pre)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (= 3.8.pre)
+      rspec-expectations (= 3.8.pre)
+      rspec-mocks (= 3.8.pre)
+      rspec-support (= 3.8.pre)
+
+GIT
+  remote: https://github.com/rspec/rspec-support.git
+  revision: 5a1c6756a9d8322fc18639b982e00196f452974d
+  branch: master
+  specs:
+    rspec-support (3.8.pre)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -38,8 +85,10 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
     arel (7.1.4)
-    autoprefixer-rails (8.2.0)
+    autoprefixer-rails (8.3.0)
       execjs
     better_errors (2.4.0)
       coderay (>= 1.0.0)
@@ -65,6 +114,8 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
     crass (1.0.4)
     debug_inspector (0.0.3)
     diff-lcs (1.3)
@@ -90,6 +141,7 @@ GEM
       multi_json (>= 1.11.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    hashdiff (0.3.7)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
     jbuilder (2.7.0)
@@ -135,6 +187,7 @@ GEM
     pry-byebug (3.6.0)
       byebug (~> 10.0)
       pry (~> 0.10)
+    public_suffix (3.0.2)
     puma (3.11.4)
     rack (2.0.4)
     rack-test (0.6.3)
@@ -151,6 +204,10 @@ GEM
       bundler (>= 1.3.0)
       railties (= 5.0.7)
       sprockets-rails (>= 2.0.0)
+    rails-controller-testing (1.0.2)
+      actionpack (~> 5.x, >= 5.0.1)
+      actionview (~> 5.x, >= 5.0.1)
+      activesupport (~> 5.x)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -168,27 +225,7 @@ GEM
       ffi (>= 0.5.0, < 2)
     request_store (1.4.1)
       rack (>= 1.4)
-    rspec (3.5.0)
-      rspec-core (~> 3.5.0)
-      rspec-expectations (~> 3.5.0)
-      rspec-mocks (~> 3.5.0)
-    rspec-core (3.5.4)
-      rspec-support (~> 3.5.0)
-    rspec-expectations (3.5.0)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.5.0)
-    rspec-mocks (3.5.0)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.5.0)
-    rspec-rails (3.5.2)
-      actionpack (>= 3.0)
-      activesupport (>= 3.0)
-      railties (>= 3.0)
-      rspec-core (~> 3.5.0)
-      rspec-expectations (~> 3.5.0)
-      rspec-mocks (~> 3.5.0)
-      rspec-support (~> 3.5.0)
-    rspec-support (3.5.0)
+    safe_yaml (1.0.4)
     sass (3.5.6)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -200,6 +237,8 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    shoulda-matchers (3.1.2)
+      activesupport (>= 4.0.0)
     simple_form (4.0.0)
       actionpack (> 4)
       activemodel (> 4)
@@ -236,6 +275,10 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
+    webmock (3.3.0)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
@@ -267,9 +310,14 @@ DEPENDENCIES
   pry-byebug
   puma (~> 3.0)
   rails (~> 5.0.6)
-  rspec (~> 3.5.0)
-  rspec-rails (~> 3.5.0)
+  rails-controller-testing
+  rspec-core!
+  rspec-expectations!
+  rspec-mocks!
+  rspec-rails!
+  rspec-support!
   sass-rails (~> 5.0)
+  shoulda-matchers
   simple_form
   simplecov
   slim
@@ -278,6 +326,7 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+  webmock
 
 BUNDLED WITH
    1.16.1

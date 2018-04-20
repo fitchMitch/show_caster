@@ -18,11 +18,8 @@ gem 'modernizr-rails'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
-# gem 'turbolinks', '~> 5'
 gem 'meta-tags', require: 'meta_tags'
 gem 'jbuilder', '~> 2.5'
-
-
 gem 'simple_form'
 gem "font-awesome-rails"
 gem 'gibbon'
@@ -41,13 +38,21 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'ffaker'
-  gem 'rspec', '~> 3.5.0'
-  gem 'rspec-rails', '~> 3.5.0'
-  gem 'factory_bot_rails'
-  gem 'simplecov', require: false
   gem 'pry'
   gem 'pry-byebug'
+
+  # gem 'rspec', '~> 3.7.0'
+  # gem 'rspec-rails'
+  %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
+    gem lib, :git => "https://github.com/rspec/#{lib}.git", :branch => 'master'
+  end
+  gem 'rails-controller-testing'
+  gem 'shoulda-matchers'
+
+  gem 'ffaker'
+  gem 'factory_bot_rails'
+
+  gem 'simplecov', require: false
 end
 
 group :development do
@@ -58,8 +63,9 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
-group :test do
 
+group :test do
+  gem 'webmock'
 end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
