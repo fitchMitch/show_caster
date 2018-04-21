@@ -25,10 +25,13 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   context "with valid attributes" do
     let (:valid_attributes) {
-      {firstname: "eric",
+      { firstname: "eric",
       lastname: "bicon",
       email: "gogo@lele.fr",
-      cell_phone_nr: "0123456789"}
+      cell_phone_nr: "0123456789",
+      status: 1,
+      uid: 1
+      }
     }
 
     it { should validate_presence_of (:firstname) }
@@ -41,9 +44,14 @@ RSpec.describe User, type: :model do
 
     it { should validate_presence_of (:email) }
     it { should validate_length_of(:email).is_at_most(255) }
+    it { should validate_uniqueness_of(:email) }
+
+
+
+    it { should validate_uniqueness_of(:uid) }
 
     it { should allow_value("eric").for(:firstname)}
-    it { should allow_value("bicon").for(:lastname)}
+    it { should allow_value("BIC ONE").for(:lastname)}
     it { should allow_value("gogo@lele.fr").for(:email)}
 
     describe "Persistance" do
@@ -51,9 +59,9 @@ RSpec.describe User, type: :model do
         user = create(:user, valid_attributes)
 
         expect(user.firstname).to eq(valid_attributes[:firstname])
-        expect(user.lastname).to eq(valid_attributes[:lastname])
+        expect(user.lastname).to eq(valid_attributes[:lastname].upcase)
         expect(user.email).to eq(valid_attributes[:email])
-        # expect(user.tenant_phone).to eq("01 23 45 67 89")
+        expect(user.cell_phone_nr).to eq("01 23 45 67 89")
       end
     end
   end
