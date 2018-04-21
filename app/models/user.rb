@@ -78,20 +78,46 @@ class User < ApplicationRecord
 
   def self.from_omniauth(access_token)
     data = access_token.info
+    user = User.retrieve(data)
+    #TODO try change User with self
+    result = if user.nil?
+      "unknown user"
+    else
+      credentials = access_token[:credentials]
+      from_token = {
+        firstname: data[:first_name],
+        lastname: data[:last_name].upcase,
+        email: data[:email].downcase,
+        provider: access_token[:provider],
+        uid: access_token[:uid],
+        photo_url: data[:image],
+        status: :googled,
+        token: credentials[:token],
+        refresh_token: credentials[:refresh_token],
+        expires_at: Time.at(credentials[:expires_at].to_i).to_datetime
+      }
+      if user.update_attributes(from_token)
+        logger.fatal "False Terminating application, raised unrecoverable error!!!"
+        user
+      else
+        logger.error "OAuth user updating went wrong"
+        nil
+      end
+    end
+  end
 
-    user = User.where(email: data['email']).first
-    # Uncomment the section below if you want users to be created if they don't exist
-    from_token = {
-        firstname: data['first_name'],
-        lastname: data['last_name'],
-        email: data['email'].downcase,
-        provider: access_token.provider,
-        uid: access_token.uid,
-        photo_url: data['image'],
-        status: :googled
-    }
-    user.nil? ? User.create(from_token) : user.update(from_token)
+  def self.retrieve(data)
+    user = User.find_by(
+      email: data[:email].downcase
+    )
+    if user.nil?
+      user = User.find_by(
+        firstname: data[:first_name],
+        lastname: data[:last_name].upcase
+      )
+    end
     user
+    #TODO try remove user
   end
 
   # def welcome_mail

@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_filter :get_current_user, :only => [:index]
+
   def index
   end
 
@@ -6,25 +8,45 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.from_omniauth(request.env['omniauth.auth'])
-    if !@user.nil? && @user.persisted?
-      self.current_user = @user
-      flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Google'
-      # sign_in_and_redirect @user, event: :authentication and return
-      redirect_to root_url
+    @user = User.from_omniauth(auth_hash)
+    if @user.is_a? String
+      redirect_to unknown_user_path,  warning: I18n.t('users.omniauth.unknown')
+    elsif @user.nil?
+      redirect_to root_url, alert: I18n.t('users.omniauth.failure', kind: 'Google')
     else
-      session['devise.google_data'] = request.env['omniauth.auth'].except(:extra) # Removing extra as it can overflow some session stores
-      @user.nil? ? redirect_to(root_url) : redirect_to(root_url, alert: @user.errors.full_messages.join("\n"))
+      @current_user = @user
+      session['current_user_id'] = @current_user.id
+      # sign_in_and_redirect @user, event: :authentication and return
+      redirect_to root_url, notice: I18n.t('users.omniauth.success', kind: 'Google')
     end
   end
 
+  def unknown
+    render 'unknown'
+  end
+
   def destroy
+    reset_session
+    redirect_to root_url, :notice => 'Signed out!'
+  end
+
+  def oauth_failure
+    # TODO: Render something appropriate here
+    render text:"failed..."
   end
 
   protected
 
   def auth_hash
+    raise "Missing parameters" if request.nil?
+    raise "Missing parameters" if request.env.nil?
+    raise "OmniAuth error. Parameters not defined." if request.env['omniauth.auth'].nil?
     request.env['omniauth.auth']
   end
+
+  private
+    def get_current_user
+      @current_user ||= current_user
+    end
 
 end

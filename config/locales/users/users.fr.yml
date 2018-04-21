@@ -25,3 +25,7 @@ fr:
     not_updated: Oups ! La correction n'est pas passée
     role: Role
     edit: Editer des coordonnées
+    omniauth:
+      failure: Impossible de s'authentifier avec %{kind}".
+      success: Beau succès d'étape avec votre compte %{kind}.
+      unknown: Vous, vous avez besoin d'un Sésame !
