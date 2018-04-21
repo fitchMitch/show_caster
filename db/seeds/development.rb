@@ -19,9 +19,11 @@ User.create!(
   email:                 'weil.etienne@hotmail.fr',
   role:                   2,
   cell_phone_nr:          '06 23 04 30 52',
-  address:                '18, rue de Cotte Paris 12e'
+  address:                '18, rue de Cotte Paris 12e',
+  uid:                    105205260860063499768
 )
 11.times do |n|
+  uid =                   (105205260860063499768 + n + 1).to_s
   firstname =              FFaker::NameFR.unique.first_name
   lastname =               FFaker::NameFR::unique.last_name
   email =                  FFaker::Internet.free_email

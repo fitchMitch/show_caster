@@ -24,8 +24,7 @@ class User < ApplicationRecord
   # includes
   include Users::Formating
   # Pre and Post processing
-  before_save :format_fields
-
+  before_validation :format_fields, on: %i[ create update]
   #The following should be close to devise declaration !
   # after_invitation_accepted  :welcome_mail
 
@@ -39,7 +38,7 @@ class User < ApplicationRecord
   }
   enum role: {
     :player => 0,
-    :admin_com => 1 ,
+    :admin_com => 1,
     :admin => 2 ,
     :other => 3
   }
@@ -67,24 +66,12 @@ class User < ApplicationRecord
     uniqueness: { case_sensitive: false }
   validates :firstname,
     presence: true,
-    length: { minimum: 2,maximum: 50 },
-    uniqueness: { case_sensitive: false }
+    length: { minimum: 2,maximum: 50 }
   validates :lastname,
     presence: true,
-    length: { minimum: 2,maximum: 50 },
-    uniqueness: { case_sensitive: false }
-  validates :lastname,
-    presence: true,
-    length: { minimum: 2,maximum: 50 },
-    uniqueness: { case_sensitive: false }
+    length: { minimum: 2,maximum: 50 }
 
-    with_options if: :fully_registered? do |user|
-      user.validates :uid, uniqueness: true
-    end
-
-    with_options if: :googled? do |user|
-      user.validates :uid, uniqueness: true
-    end
+    validates :uid, uniqueness: true, allow_nil: true
 
   # ------------------------
   # --    PUBLIC      ---
@@ -152,10 +139,11 @@ class User < ApplicationRecord
     end
   end
 
-  private
+  protected
     def format_fields
-      self.lastname.upcase
-      # TODO try without self
-      self.cell_phone_nr = format_by_two(cell_phone_nr)
+      self.phone_number_format
+      self.lastname = lastname.upcase unless self.lastname.nil?
+      self.role ||= 'player'
+      self.email = email.downcase unless self.email.nil?
     end
 end

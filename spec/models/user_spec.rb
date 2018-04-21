@@ -29,29 +29,27 @@ RSpec.describe User, type: :model do
       lastname: "bicon",
       email: "gogo@lele.fr",
       cell_phone_nr: "0123456789",
-      status: 1,
-      uid: 1
+      uid: "1a",
+      status: 'googled'
       }
     }
 
     it { should validate_presence_of (:firstname) }
     it { should validate_length_of(:firstname).is_at_least(2) }
     it { should validate_length_of(:firstname).is_at_most(50) }
-
+    #
     it { should validate_presence_of (:lastname) }
     it { should validate_length_of(:lastname).is_at_least(2) }
     it { should validate_length_of(:lastname).is_at_most(50) }
 
     it { should validate_presence_of (:email) }
     it { should validate_length_of(:email).is_at_most(255) }
-    it { should validate_uniqueness_of(:email) }
+    # it { should validate_uniqueness_of(:email)}
 
-
-
-    it { should validate_uniqueness_of(:uid) }
+    it { should validate_uniqueness_of(:uid)}
 
     it { should allow_value("eric").for(:firstname)}
-    it { should allow_value("BIC ONE").for(:lastname)}
+    it { should allow_value("BICONE").for(:lastname)}
     it { should allow_value("gogo@lele.fr").for(:email)}
 
     describe "Persistance" do
@@ -59,7 +57,7 @@ RSpec.describe User, type: :model do
         user = create(:user, valid_attributes)
 
         expect(user.firstname).to eq(valid_attributes[:firstname])
-        expect(user.lastname).to eq(valid_attributes[:lastname].upcase)
+        expect(user.lastname).to eq((valid_attributes[:lastname]).upcase)
         expect(user.email).to eq(valid_attributes[:email])
         expect(user.cell_phone_nr).to eq("01 23 45 67 89")
       end

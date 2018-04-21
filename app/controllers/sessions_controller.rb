@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :require_login
-  before_filter :get_current_user, :only => [:index]
+  before_action :get_current_user, :only => [:index]
 
   def index
   end
