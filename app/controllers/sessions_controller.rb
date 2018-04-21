@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  skip_before_action :require_login
   before_filter :get_current_user, :only => [:index]
 
   def index
@@ -10,16 +11,16 @@ class SessionsController < ApplicationController
   def create
     @user = User.from_omniauth(auth_hash)
     if @user.is_a? String
-      redirect_to unknown_user_path,  warning: I18n.t('users.omniauth.unknown')
+      redirect_to unknown_user_path,  alert: I18n.t('users.omniauth.unknown')
     elsif @user.nil?
       redirect_to root_url, alert: I18n.t('users.omniauth.failure', kind: 'Google')
     else
       @current_user = @user
       session['current_user_id'] = @current_user.id
-      # sign_in_and_redirect @user, event: :authentication and return
-      redirect_to root_url, notice: I18n.t('users.omniauth.success', kind: 'Google')
+      redirect_to destination(@user), notice: I18n.t('users.omniauth.success', kind: 'Google')
     end
   end
+
 
   def unknown
     render 'unknown'
@@ -27,15 +28,19 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    redirect_to root_url, :notice => 'Signed out!'
+    redirect_to root_url, :notice => I18n.t("users.sessions.signed_out")
   end
 
   def oauth_failure
     # TODO: Render something appropriate here
-    render text:"failed..."
+    render text: I18n.t("users.omniauth.failure", 'Google')
   end
 
   protected
+
+  def destination(user)
+    user.fully_registered? ? users_path : edit_user_path(user)
+  end
 
   def auth_hash
     raise "Missing parameters" if request.nil?

@@ -1,0 +1,13 @@
+.container
+  .page-header
+    h2
+      = t("users.complementary")
+    = simple_form_for(@user) do |f|
+      = f.error_notification
+      .form-inputs
+        = f.input :cell_phone_nr, label: t("users.cell_phone_nr"), placeholder: t("users.minimum_length_caveat"), required: true
+        = f.input :address, label: t("users.address")
+
+      .form-actions
+        = f.button :submit
+= console

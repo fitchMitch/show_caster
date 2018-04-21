@@ -26,10 +26,14 @@ gem 'gibbon'
 gem 'slim'
 gem 'enum_help'
 gem 'annotate'
+gem 'pundit'
 
 gem 'google-api-client', '~> 0.11'
-# gem 'omniauth'
 gem 'omniauth-google-oauth2'
+#---------------------------
+# gem 'httplog', group: :development going with the following:
+# HttpLog.options[:logger] = Rails.logger if Rails.env.development?
+#---------------------------
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -62,7 +66,6 @@ group :development, :test do
 end
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.0.5'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring

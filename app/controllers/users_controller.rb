@@ -1,9 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :complement]
 
   def index
-    # authorize current_user
-    # @users = policy_scope(User).includes(:member).paginate(page: params[:page])
+    authorize User
     @users = User.all
   end
 
@@ -22,12 +21,20 @@ class UsersController < ApplicationController
   end
 
   def edit
+    if @user.googled?
+      render :complement
+    elsif @user.fully_registered?
+      render :edit
+    else
+      render :edit
+    end
   end
 
   def show
   end
 
   def update
+    params[:user][:status] = "fully_registered" unless user_params[:cell_phone_nr].blank?
     if @user.update_attributes(user_params)
       redirect_to users_path, notice: I18n.t("users.updated")
     else
@@ -36,6 +43,14 @@ class UsersController < ApplicationController
   end
 
   def destroy
+  end
+
+  def complement
+    if @user.update_attributes(user_params)
+      redirect_to users_path, notice: I18n.t("users.updated")
+    else
+      render :edit, notice: I18n.t("users.not_updated")
+    end
   end
 
   def invite
@@ -48,6 +63,6 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:firstname, :lastname, :email, :address, :cell_phone_nr)
+      params.require(:user).permit(:firstname, :lastname, :email, :address, :cell_phone_nr, :status)
     end
 end

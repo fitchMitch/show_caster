@@ -1,4 +1,4 @@
-# == Schema Information
+#  Schema Information
 #
 # Table name: users
 #
@@ -29,38 +29,42 @@ end
 FactoryBot.define do
   factory :user do
     firstname               {FFaker::NameFR.unique.first_name}
-    lastname                {FFaker::NameFR.unique.last_name}
+    lastname                {FFaker::NameFR.unique.last_name.upcase}
     email
-    role =                  0
-    status =                0
+    role                    0
+    status                  0
 
     trait :player do
-      role =                0
+      role                  0
     end
     trait :admin_com do
-      role =                1
+      role                  1
     end
     trait :admin do
-      role =                2
+      role                  2
     end
     trait :other_player do
-      role =                3
+      role                  3
     end
 
     trait :set_up do
-      status =            0
+      status                0
     end
     trait :invited do
-      status =            1
+      status                1
     end
     trait :googled do
-      status =            2
+      status                2
     end
     trait :full_registered do
-      status =            3
+      status                3
+      cell_phone_nr         {format_by_two(FFaker::PhoneNumberFR::mobile_phone_number)}
+      address               {FFaker::AddressFR::unique.full_address}
     end
     trait :archived do
-      status =            4
+      status                4
+      cell_phone_nr         {format_by_two(FFaker::PhoneNumberFR::mobile_phone_number)}
+      address               {FFaker::AddressFR::unique.full_address}
     end
   end
 end
