@@ -1,4 +1,9 @@
 fr:
   sessions:
     log_in: Connexion / Identification
-    omniauth_with: Avec 
+    signed_out: Vous êtes déconnecté
+    omniauth_with: Avec
+    omniauth:
+      failure: Impossible de s'authentifier avec %{kind}".
+      success: Beau succès d'étape avec votre compte %{kind}.
+      unknown: Vous, vous avez besoin d'un Sésame !

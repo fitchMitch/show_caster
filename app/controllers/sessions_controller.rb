@@ -11,13 +11,13 @@ class SessionsController < ApplicationController
   def create
     @user = User.from_omniauth(auth_hash)
     if @user.is_a? String
-      redirect_to unknown_user_path,  alert: I18n.t('users.omniauth.unknown')
+      redirect_to unknown_user_path,  alert: I18n.t('sessions.omniauth.unknown')
     elsif @user.nil?
-      redirect_to root_url, alert: I18n.t('users.omniauth.failure', kind: 'Google')
+      redirect_to root_url, alert: I18n.t('sessions.omniauth.failure', kind: 'Google')
     else
       @current_user = @user
       session['current_user_id'] = @current_user.id
-      redirect_to destination(@user), notice: I18n.t('users.omniauth.success', kind: 'Google')
+      redirect_to destination(@user), notice: I18n.t('sessions.omniauth.success', kind: 'Google')
     end
   end
 
@@ -28,12 +28,12 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    redirect_to root_url, :notice => I18n.t("users.sessions.signed_out")
+    redirect_to root_url, :notice => I18n.t("sessions.signed_out")
   end
 
   def oauth_failure
     # TODO: Render something appropriate here
-    render text: I18n.t("users.omniauth.failure", 'Google')
+    render text: I18n.t("sessions.omniauth.failure", kind: 'Google')
   end
 
   protected
