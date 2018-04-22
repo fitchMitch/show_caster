@@ -29,12 +29,7 @@ fr:
     role: Role
     edit: Editer des coordonnées
     not_logged_in: Vous devez être identifié pour accéder à cette page
-    omniauth:
-      failure: Impossible de s'authentifier avec %{kind}".
-      success: Beau succès d'étape avec votre compte %{kind}.
-      unknown: Vous, vous avez besoin d'un Sésame !
-    sessions:
-      signed_out: Vous êtes déconnecté
+
     address: Adresse
     back: Retour
     edit_member_title: Corriger quelques trucs
