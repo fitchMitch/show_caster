@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :require_login
 
   helper_method :current_user
+  helper_method :logout
   helper_method :user_signed_in?
 
   private
@@ -20,6 +21,11 @@ class ApplicationController < ActionController::Base
 
     def user_signed_in?
       !current_user.nil?
+    end
+
+    def logout
+      reset_session
+      redirect_to root_url, :notice => I18n.t("sessions.signed_out")
     end
 
     def require_login
