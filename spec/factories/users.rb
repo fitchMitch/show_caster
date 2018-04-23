@@ -19,7 +19,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
-
+include Users::Formating
 FactoryBot.define do
   sequence :email do |n|
     FFaker::Internet.unique.free_email
@@ -56,7 +56,7 @@ FactoryBot.define do
     trait :googled do
       status                2
     end
-    trait :full_registered do
+    trait :fully_registered do
       status                3
       cell_phone_nr         {format_by_two(FFaker::PhoneNumberFR::mobile_phone_number)}
       address               {FFaker::AddressFR::unique.full_address}

@@ -22,10 +22,6 @@ class SessionsController < ApplicationController
   end
 
 
-  def unknown
-    render 'unknown'
-  end
-
   def destroy
     reset_session
     redirect_to root_url, :notice => I18n.t("sessions.signed_out")

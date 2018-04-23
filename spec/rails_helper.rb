@@ -38,6 +38,10 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 
+  config.include OmniauthMacros
+  config.include Sessions::LoginHelper, type: :controller
+  config.include Requests::LoginHelper, type: :request
+
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end

@@ -78,7 +78,7 @@ class User < ApplicationRecord
   # ------------------------
 
   def self.from_omniauth(access_token)
-    data = access_token.info
+    data = access_token[:info]
     user = User.retrieve(data)
     #TODO try change User with self
     result = if user.nil?
@@ -96,9 +96,11 @@ class User < ApplicationRecord
         refresh_token: credentials[:refresh_token],
         expires_at: Time.at(credentials[:expires_at].to_i).to_datetime
       }
-      from_token[:status] = :googled if user.status == :set_up
+      # Additional attributes
+      from_token[:status] = :googled if user.set_up?
+      from_token[:last_sign_in_at] = Time.zone.now
+
       if user.update_attributes(from_token)
-        logger.fatal "False Terminating application, raised unrecoverable error!!!"
         user
       else
         logger.error "OAuth user updating went wrong"
@@ -146,4 +148,4 @@ class User < ApplicationRecord
       self.role ||= 'player'
       self.email = email.downcase unless self.email.nil?
     end
-end
+  end
