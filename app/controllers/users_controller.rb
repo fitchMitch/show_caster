@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :complement]
+  before_action :set_user, only: %i[show_button  edit update destroy]
 
   def index
     authorize User
@@ -21,13 +21,8 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if @user.googled?
-      render :complement
-    elsif @user.fully_registered?
-      render :edit
-    else
-      render :edit
-    end
+    target = @user.set_up? ? "edit" : "complement"
+    render target.to_s
   end
 
   def show
@@ -43,14 +38,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-  end
-
-  def complement
-    if @user.update_attributes(user_params)
-      redirect_to users_path, notice: I18n.t("users.updated")
-    else
-      render :edit, notice: I18n.t("users.not_updated")
-    end
   end
 
   def invite
