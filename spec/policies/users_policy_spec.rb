@@ -8,6 +8,7 @@ RSpec.describe UserPolicy do
     it { is_expected.to     forbid_action(:edit) }
     it { is_expected.to     forbid_action(:show) }
     it { is_expected.to     forbid_action(:destroy) }
+    it { is_expected.to     forbid_action(:promote) }
   end
 
   context "As a player" do
@@ -19,6 +20,19 @@ RSpec.describe UserPolicy do
     it { is_expected.to     permit_action(:edit) }
     it { is_expected.to     permit_action(:show) }
     it { is_expected.to     forbid_action(:destroy) }
+    it { is_expected.to     forbid_action(:promote) }
+  end
+
+  context "As an admin_com" do
+    let(:admin) { player = FactoryBot.create(:user, :admin_com, :fully_registered) }
+    subject { UserPolicy.new(admin, admin)}
+    it { is_expected.to     forbid_action(:new) }
+    it { is_expected.to     permit_action(:index) }
+    it { is_expected.to     permit_action(:update) }
+    it { is_expected.to     permit_action(:edit) }
+    it { is_expected.to     permit_action(:show) }
+    it { is_expected.to     forbid_action(:destroy) }
+    it { is_expected.to     permit_action(:promote) }
   end
 
   context "As an admin" do
@@ -30,5 +44,6 @@ RSpec.describe UserPolicy do
     it { is_expected.to     permit_action(:edit) }
     it { is_expected.to     permit_action(:show) }
     it { is_expected.to     forbid_action(:destroy) }
+    it { is_expected.to     permit_action(:promote) }
   end
 end
