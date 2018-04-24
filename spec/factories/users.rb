@@ -25,6 +25,11 @@ FactoryBot.define do
     FFaker::Internet.unique.free_email
   end
 end
+FactoryBot.define do
+  sequence :uid do |n|
+    105205260860063499768 + 1 + n
+  end
+end
 
 FactoryBot.define do
   factory :user do

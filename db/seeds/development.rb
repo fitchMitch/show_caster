@@ -8,6 +8,7 @@ updated_at =     today
 def n_out_of_m?(n,m)
   (1..m).to_a.sample <= n
 end
+
 # -----------------
 # Users
 # -----------------
@@ -20,21 +21,26 @@ User.create!(
   role:                   2,
   cell_phone_nr:          '06 23 04 30 52',
   address:                '18, rue de Cotte Paris 12e',
-  uid:                    105205260860063499768
+  # uid:                    105205260860063499768
 )
-11.times do |n|
+18.times do |n|
   uid =                   (105205260860063499768 + n + 1).to_s
   firstname =              FFaker::NameFR.unique.first_name
   lastname =               FFaker::NameFR::unique.last_name
   email =                  FFaker::Internet.free_email
   role =                   (0..3).to_a.sample
-  status =                0
-  # invitation_created_at =  today - (3..30).to_a.sample * 3600 * 24
-  # invitation_accepted_at =  n_out_of_m?(3,5) ? invitation_created_at + (1..48).to_a.sample * 3600 : nil
-  # cell_phone_nr =          FFaker::PhoneNumberFR::mobile_phone_number
-  # unless invitation_accepted_at.nil?
-  # address =              FFaker::AddressFR::unique.full_address
-  # end
+  is_registered =          n_out_of_m?(8,11)
+  cell_phone_nr =          nil
+  address =                nil
+  if is_registered
+    cell_phone_nr =        FFaker::PhoneNumberFR::mobile_phone_number
+    address =              FFaker::AddressFR::unique.full_address
+    status =               3
+  else
+    status =              (0..3).to_a.sample
+    status =              4 if status == 3
+  end
+
 
   User.create!(
     email:                email,
