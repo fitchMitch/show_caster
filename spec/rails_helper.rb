@@ -17,6 +17,7 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
+
 Capybara.register_driver :selenium_chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
@@ -41,6 +42,8 @@ RSpec.configure do |config|
   config.include OmniauthMacros
   config.include Sessions::LoginHelper, type: :controller
   config.include Requests::LoginHelper, type: :request
+  config.include Features::SessionHelpers, type: :feature
+  # config.include Capybara::DSL, :file_path => "spec/requests"
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)

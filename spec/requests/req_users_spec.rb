@@ -6,7 +6,7 @@ require 'rails_helper'
          {firstname: "eric",
          lastname: "bicon",
          email: "gogo@lele.fr",
-         cell_phone_nr: "0123456789"}
+         cell_phone_nr: "0163456789"}
        }
    let (:new_valid_attributes) {
          {firstname: "Gelle",
@@ -20,7 +20,7 @@ require 'rails_helper'
          email: "gogo@lelefr",
          cell_phone_nr: "0123456789"}
        }
-  context "/ As logged as admin," do
+  context "As logged as admin," do
 
     describe "GET #index" do
       before :each do
@@ -74,26 +74,26 @@ require 'rails_helper'
         end
       end
     end
-    describe "UPDATE #update" do
+    describe "UPDATE" do
       context "with valid params" do
         before :each do
-          request_log_in_admin
-          @user = create(:user, :admin, :set_up)
-          @url = "/users/#{@user.id}"
+          @admin = create(:user, :admin, :set_up)
+          request_log_in @admin
+          @url = "/users/#{@admin.id}"
         end
-        it "builds a new User" do
-          put @url, params: {id: @user.id, user: new_valid_attributes}
+        it "is ok" do
+          put @url, params: {id: @admin.id, user: new_valid_attributes}
           expect(response).to redirect_to users_path
         end
       end
       context "with invalid params" do
         before :each do
-          request_log_in_admin
-          @user = create(:user, :admin, :set_up)
-          @url = "/users/#{@user.id}"
+          @admin = create(:user, :admin, :set_up)
+          request_log_in @admin
+          @url = "/users/#{@admin.id}"
         end
         it "fails to update user" do
-          put @url, params: {id: @user.id, user: invalid_attributes}
+          put @url, params: {id: @admin.id, user: invalid_attributes}
           expect(response).to render_template(:edit)
         end
       end
