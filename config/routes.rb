@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: 'sessions#create'
   # Users
   resources :users
+  post '/promote',        to:  'users#promote'
   # Splash
   post '/signup'      => 'splash#signup', as: :splash_signup
   get  '/splash'      => 'splash#index'

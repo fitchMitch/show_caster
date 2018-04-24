@@ -38,6 +38,21 @@ RSpec.feature  "Users list" do
       expect(page.body).not_to have_selector("i.fa.fa-pencil")
     end
 
+    feature "PROMOTE" do
+      scenario "whatever the status, it" do
+        it "proposes archived status"
+        it "cannot be invited unless invited already"
+        it "cannot be googled unless googled already"
+        it "cannot be fully_registered unless fully_registered already"
+      end
+      scenario ", when status is archived, it" do
+        it "proposes set_up status"
+      end
+      scenario " with role" do
+        it "is possible to change role"
+      end
+    end
+
   end
 
   feature "as a not fully_registered admin" do
@@ -55,5 +70,14 @@ RSpec.feature  "Users list" do
     scenario "should show at least an administrator" do
       expect(page.body).to have_text "Administrateur"
     end
+  end
+  context "As visitor" do
+    context "get INDEX" do
+      it "renders users index" do
+        get '/users/index'
+        expect(response).to redirect_to root_path
+      end
+    end
+  end
   end
 end

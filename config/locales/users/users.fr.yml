@@ -38,10 +38,14 @@ fr:
     edit_new_member_title: Editer quelques renseignements
     edit: Editer
     edit_button: Valider
-    list: Liste
     new_member_title: Quelques renseignements supplémentaires
     role : Role
     show_button: Voir
     update_success_message: La modification a été enregistrée
     create_success_message: Et voilà, c'est terminé !
     minimum_length_caveat: 10 caractères au minimum
+    deleted_name: RIP
+
+    promote: Promouvoir
+    promoted: "%{name} a changé de statut, un message l'en a informé(e)"
+    promoted_failed: "%{name} n'a pas pu changer de statut"

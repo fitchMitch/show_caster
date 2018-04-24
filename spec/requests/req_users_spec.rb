@@ -98,13 +98,4 @@ require 'rails_helper'
         end
       end
     end
-  end
-  context "As visitor" do
-    context "get INDEX" do
-      it "renders users index" do
-        get '/users/index'
-        expect(response).to redirect_to root_path
-      end
-    end
-  end
  end
