@@ -76,7 +76,9 @@ end
 group :test do
   gem 'webmock'
   gem "capybara"
+  gem "launchy"
   gem "selenium-webdriver"
+  gem 'pundit-matchers', '~> 1.4.1'
 end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

@@ -35,18 +35,18 @@ class ApplicationPolicy
     false
   end
 
-  #TODO try protected
+  protected
 
     def communicator_or_admin?
       (@user.nil? || @user.archived?) ? false : (@user.admin? || @user.admin_com?)
     end
 
     def fully_registered?
-      @user.fully_registered?
+      !@user.nil? && @user.fully_registered?
     end
 
     def admin?
-      @user.admin?
+      !@user.nil? && @user.admin?
     end
 
     def scope

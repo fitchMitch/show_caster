@@ -26,7 +26,7 @@ GIT
 
 GIT
   remote: https://github.com/rspec/rspec-rails.git
-  revision: 770a78f56fa6fc0b4d2082b845b69a7f7e745a5e
+  revision: 259dc3bdfc5d210ea0bf7d50f1fe3699c366533b
   branch: master
   specs:
     rspec-rails (3.8.pre)
@@ -87,7 +87,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
-    annotate (2.7.2)
+    annotate (2.7.3)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 13.0)
     arel (7.1.4)
@@ -185,6 +185,8 @@ GEM
       thor (>= 0.14, < 2.0)
     json (2.1.0)
     jwt (1.5.6)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -250,6 +252,9 @@ GEM
     puma (3.11.4)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
+    pundit-matchers (1.4.1)
+      pundit (~> 1.1, >= 1.1.0)
+      rspec-rails (>= 3.0.0)
     rack (2.0.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -386,6 +391,7 @@ DEPENDENCIES
   google-api-client (~> 0.11)
   jbuilder (~> 2.5)
   jquery-rails
+  launchy
   listen (~> 3.0.5)
   lograge
   meta-tags
@@ -397,6 +403,7 @@ DEPENDENCIES
   pry-byebug
   puma (~> 3.0)
   pundit
+  pundit-matchers (~> 1.4.1)
   rails (~> 5.0.6)
   rails-controller-testing
   rspec-core!

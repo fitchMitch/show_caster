@@ -10,18 +10,18 @@ class UserPolicy < ApplicationPolicy
     end
   end
 
-  def index?
-    fully_registered?
-  end
-
   def new?
     admin?
+  end
+
+  def index?
+    fully_registered?
   end
 
   def update?
     edit?
   end
-  
+
   def edit?
     me_only?
   end
@@ -34,16 +34,20 @@ class UserPolicy < ApplicationPolicy
     communicator_or_admin?
   end
 
+  def promote?
+    create?
+  end
+
   def destroy?
     false
   end
 
   private
 
-    def promote?
-      # no possible change on admin if he's the only one left
-      Member.admin_count == 1 ? (@user.admin? && @record != @user ) : @user.admin?
-    end
+    # def promote?
+    #   # no possible change on admin if he's the only one left
+    #   Member.admin_count == 1 ? (@user.admin? && @record != @user ) : @user.admin?
+    # end
 
     def me_or_admin?
       !@record.nil? && ((@record.id == @user.id) || @user.admin?)
