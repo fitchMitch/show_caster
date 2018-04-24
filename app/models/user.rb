@@ -55,7 +55,7 @@ class User < ApplicationRecord
   # Validations
   # =====================
 
-  # validates :cell_phone_nr, presence: true, length: { minimum:14, maximum: 25 }
+  validates :cell_phone_nr, allow_nil: true, length: { minimum:14, maximum: 25 }, uniqueness: true
 
 
   VALID_EMAIL_REGEX = /\A[\w+0-9\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -71,7 +71,7 @@ class User < ApplicationRecord
     presence: true,
     length: { minimum: 2,maximum: 50 }
 
-    validates :uid, uniqueness: true, allow_nil: true
+  validates :uid, uniqueness: true, allow_nil: true
 
   # ------------------------
   # --    PUBLIC      ---
@@ -132,13 +132,9 @@ class User < ApplicationRecord
   # end
 
   def full_name
-    if self.archived?
-      I18n.t("users.deleted_name")
-    elsif (self.firstname.nil? && self.lastname.nil?)
-      I18n.t("users.we_wait_for")
-    else
-      self.firstname.nil? || self.firstname == '' ? lastname.upcase : "#{firstname} #{lastname.upcase}"
-    end
+    text = self.firstname.nil? || self.firstname == '' ? lastname.upcase : "#{firstname} #{lastname.upcase}"
+    text = "#{I18n.t("users.deleted_name")} -  #{text}" if self.archived?
+    text.html_safe
   end
 
   protected
