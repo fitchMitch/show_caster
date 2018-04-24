@@ -8,24 +8,38 @@ module UsersHelper
     image_tag(gravatar_url, alt: user.full_name, class: 'gravatar')
   end
 
+  def link_to_user(user, current_user)
+    if(user.id == current_user.id) || current_user.admin?
+      "#{link_to user.full_name, user_path(user)}".html_safe
+    else
+      user.full_name
+    end
+  end
+
   def current_user?(user)
     #Is current user known here ?
     current_user.id == user.id
   end
 
-  def username (user, current_user)
-    if user.full_name == ''
-      # if user.try :invitation_accepted_at
-      #   "<small> #{user.email} br #{time_ago_in_words  user.invitation_sent_at}</small>".html_safe
-      # else
-        " #{user.email}"
-      # end
+  def status_label(user)
+    label_hash = case user.status.to_sym
+    when :invited
+      {klass: "warning",
+      text: "Invité"}
+    when :googled
+      {klass: "info",
+      text: "En cours ?"}
+    when :archived
+      {klass: "default",
+      text: "a quitté la compagnie"}
     else
-      if current_user?(user) || current_user.admin?
-        link_to " #{user.full_name}", user
-      else
-        " #{user.full_name}"
-      end
+      {klass: "danger",
+      text: "A inviter ..."}
+    end
+    if user.status.to_sym == :fully_registered
+      user.role_i18n
+    else
+      "<span class=\"label label-#{label_hash[:klass]}\">#{label_hash[:text]}</span>".html_safe
     end
   end
 

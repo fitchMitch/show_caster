@@ -1,7 +1,11 @@
 .container
-  h2
-    ="#{@user.full_name} #{image_tag("transp.png")}#{link_to(fa_icon("pencil"), edit_user_path(@user))}".html_safe
-    hr
+  h2.edit_user
+    = "#{@user.full_name}"
+    - if policy(@user).edit?
+      = link_to edit_user_path(@user) do
+        = image_tag('transp.png')
+        = fa_icon('pencil')
+  hr
   .row
     .col-lg-2.col-md-2.col-sm-2.col-xs-12
       = image_tag(@user.photo_url, size: "150x150") unless @user.photo_url.nil?
@@ -25,6 +29,26 @@
         .col-lg-8
           h4
             .label.label-info= @user.cell_phone_nr
+      - if policy(@user).promote?
+        = simple_form_for(@user, as: :user, url: promote_path, html: { method: :post, class: 'form-horizontal' }) do |f|
+          .container-fluid
+            .row
+              .col-xs-4.right
+                br
+                strong
+                  = t ("users.position")
+              .col-xs-8
+                .row
+                  .col-sm-4.col-xs-12
+                    = f.input :role, label: t("users.role")
+                    = f.input :id, as: :hidden, input_html:{value: @user.id}
+                  .col-sm-1.xs-hidden
+                  .col-sm-4.col-xs-12
+                    = f.input :status, label: t("users.status")
+                .row
+                  .col-lg-12
+                    .buttons
+                      = f.button :submit, I18n.t("users.promote"), class: "btn-primary"
       / - unless @user.invitation_accepted_at.nil?
       /   .row
       /     .col-sm-4.col-xs-4.right
