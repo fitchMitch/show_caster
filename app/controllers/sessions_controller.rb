@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
     @user = User.from_omniauth(auth_hash)
     if @user.is_a? String
       redirect_to unknown_user_path,  alert: I18n.t('sessions.omniauth.unknown')
-    elsif @user.nil?
+    elsif @user.nil? || @user.archived?
       redirect_to root_url, alert: I18n.t('sessions.omniauth.failure', kind: 'Google')
     else
       @current_user = @user
