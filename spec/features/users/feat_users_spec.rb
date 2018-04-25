@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.feature  "Users list" do
-  feature "as a fully_registered admin" do
-    given (:admin) { create(:user, :admin, :fully_registered, lastname: "ADMIN") }
-    given! (:player) { create(:user, :player, :fully_registered, lastname: "PLAYER") }
+  feature "as a registered admin" do
+    given (:admin) { create(:user, :admin, :registered, lastname: "ADMIN") }
+    given! (:player) { create(:user, :player, :registered, lastname: "PLAYER") }
 
     background :each do
       logout
@@ -37,47 +37,76 @@ RSpec.feature  "Users list" do
       click_link(text: player.full_name)
       expect(page.body).not_to have_selector("i.fa.fa-pencil")
     end
-
-    feature "PROMOTE" do
-      scenario "whatever the status, it" do
-        it "proposes archived status"
-        it "cannot be invited unless invited already"
-        it "cannot be googled unless googled already"
-        it "cannot be fully_registered unless fully_registered already"
-      end
-      scenario ", when status is archived, it" do
-        it "proposes set_up status"
-      end
-      scenario " with role" do
-        it "is possible to change role"
-      end
-    end
-
   end
-
-  feature "as a not fully_registered admin" do
-    given (:admin) { create(:user, :admin, :fully_registered) }
+  feature "PROMOTE - status" do
+    given! (:admin) { create(:user, :admin, :registered) }
     background :each do
       logout
       log_in admin
-      visit users_path
     end
-
-    scenario "should list the theater's band members" do
+    scenario "with setup status, it proposes archived status" do
+      player = create(:user, :player, :setup)
+      visit user_path(player)
+      page.find('.users_promote').find("option[value='archived']").select_option
+      click_button(I18n.t("users.promote"))
       expect(page.body).to have_selector("h2", text: I18n.t("users.list"))
+      expect(page.body).to have_text("RIP")
     end
+    scenario "with invited status, it proposes archived status" do
+      player = create(:user, :player, :invited)
+      visit user_path(player)
+      page.find('.users_promote').find("option[value='archived']").select_option
+      click_button(I18n.t("users.promote"))
+      expect(page.body).to have_selector("h2", text: I18n.t("users.list"))
+      expect(page.body).to have_text("RIP")
+    end
+    scenario "with googled status, it proposes archived status" do
+      player = create(:user, :player, :googled)
+      visit user_path(player)
+      page.find('.users_promote').find("option[value='archived']").select_option
+      click_button(I18n.t("users.promote"))
+      expect(page.body).to have_selector("h2", text: I18n.t("users.list"))
+      expect(page.body).to have_text("RIP")
+    end
+    scenario "with registered status, it proposes archived status" do
+      player = create(:user, :player, :registered)
+      visit user_path(player)
+      page.find('.users_promote').find("option[value='archived']").select_option
+      click_button(I18n.t("users.promote"))
+      expect(page.body).to have_selector("h2", text: I18n.t("users.list"))
+      expect(page.body).to have_text("RIP")
+    end
+    scenario "with archived status, it proposes setup status" do
+      player = create(:user, :player, :archived)
+      visit user_path(player)
+      page.find('.users_promote').find("option[value='setup']").select_option
+      click_button(I18n.t("users.promote"))
+      expect(page.body).to have_selector("h2", text: I18n.t("users.list"))
+      expect(page.body).not_to have_text("RIP")
+    end
+  end
 
-    scenario "should show at least an administrator" do
-      expect(page.body).to have_text "Administrateur"
+  feature "PROMOTE - role" do
+    given! (:admin) { create(:user, :admin, :registered) }
+    background :each do
+      logout
+      log_in admin
+    end
+    scenario "with setup status, it proposes archived status" do
+      player = create(:user, :player, :setup)
+      visit user_path(player)
+      page.find('.users_promote').find("option[value='admin']").select_option
+      click_button(I18n.t("users.promote"))
+      expect(page.body).to have_selector("h2", text: I18n.t("users.list"))
+      click_link(player.full_name)
+      expect(page.body).to have_text(I18n.t("enums.user.role.admin"))
     end
   end
-  context "As visitor" do
-    context "get INDEX" do
-      it "renders users index" do
-        get '/users/index'
-        expect(response).to redirect_to root_path
-      end
+
+  feature "As visitor " do
+    scenario "getting INDEX it fails mouwhahahahaa" do
+      visit users_path
+      expect(page.body).not_to have_selector("h2", text: I18n.t("users.list"))
     end
-  end
   end
 end
