@@ -32,7 +32,7 @@
       - if policy(@user).promote?
         = simple_form_for(@user, as: :user, url: promote_path, html: { method: :post, class: 'form-horizontal' }) do |f|
           .container-fluid
-            .row
+            .row.users_promote
               .col-xs-4.right
                 br
                 strong
@@ -44,7 +44,9 @@
                     = f.input :id, as: :hidden, input_html:{value: @user.id}
                   .col-sm-1.xs-hidden
                   .col-sm-4.col-xs-12
-                    = f.input :status, label: t("users.status")
+                    = f.input :status,
+                     collection: @user.restricted_statuses,
+                     label: t("users.status")
                 .row
                   .col-lg-12
                     .buttons

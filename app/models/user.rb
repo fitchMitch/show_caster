@@ -7,7 +7,7 @@
 #  lastname        :string
 #  email           :string
 #  last_sign_in_at :datetime
-#  status          :integer          default("set_up")
+#  status          :integer          default("setup")
 #  provider        :string
 #  uid             :string
 #  address         :string
@@ -30,10 +30,10 @@ class User < ApplicationRecord
 
   # Enums
   enum status: {
-    :set_up => 0,
+    :setup => 0,
     :invited => 1,
     :googled => 2,
-    :fully_registered => 3,
+    :registered => 3,
     :archived => 4
   }
   enum role: {
@@ -49,7 +49,7 @@ class User < ApplicationRecord
   #delegate :firstname,:lastname, :full_name, to: :member
   # =====================
 
-  # scope :found_by, -> (user_id) { where('user_id = ?', user_id) }
+  # scope :found_by, -> (user) { where('user_id = ?', user_id) }
   # =====================
 
   # Validations
@@ -97,7 +97,7 @@ class User < ApplicationRecord
         expires_at: Time.at(credentials[:expires_at].to_i).to_datetime
       }
       # Additional attributes
-      from_token[:status] = :googled if user.set_up?
+      from_token[:status] = :googled if user.setup? || user.invited?
       from_token[:last_sign_in_at] = Time.zone.now
 
       if user.update_attributes(from_token)
@@ -137,6 +137,10 @@ class User < ApplicationRecord
     text.html_safe
   end
 
+  def restricted_statuses
+    self.archived? ? ["setup", "archived"] : [self.status, "archived"]
+  end
+
   protected
     def format_fields
       self.phone_number_format
@@ -144,4 +148,5 @@ class User < ApplicationRecord
       self.role ||= 'player'
       self.email = email.downcase unless self.email.nil?
     end
+
   end
