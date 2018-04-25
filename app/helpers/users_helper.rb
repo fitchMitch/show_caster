@@ -36,7 +36,7 @@ module UsersHelper
       {klass: "danger",
       text: "A inviter ..."}
     end
-    if user.status.to_sym == :fully_registered
+    if user.status.to_sym == :registered
       user.role_i18n
     else
       "<span class=\"label label-#{label_hash[:klass]}\">#{label_hash[:text]}</span>".html_safe

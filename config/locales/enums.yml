@@ -7,10 +7,11 @@ fr:
         admin_com: Resp. comm
         other: Autre
       status:
+        setup: Pré-inscrit
         invited: Invité
         googled: Incription partielle
-        fully_registered: Actif
-        archived: A quitté la compagnie
+        registered: Actif
+        archived: A quitté les Sésames
     actor:
       stage_role:
         player: Joueur

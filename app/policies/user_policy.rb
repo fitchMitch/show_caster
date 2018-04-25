@@ -15,7 +15,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def index?
-    fully_registered?
+    registered?
   end
 
   def update?
@@ -27,7 +27,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    fully_registered? && me_or_admin?
+    registered? && me_or_admin?
   end
 
   def create?

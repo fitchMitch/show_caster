@@ -16,7 +16,7 @@ RSpec.describe SessionsController, type: :controller do
     describe "GET #create" do
       before :each do
         get :destroy
-        admin = create(:user,:admin,:set_up, email:"weil.etienne@hotmail.fr", firstname: 'Etienne', lastname:'WEIL')
+        admin = create(:user,:admin,:setup, email:"weil.etienne@hotmail.fr", firstname: 'Etienne', lastname:'WEIL')
         log_in(admin)
         @user = User.last
       end

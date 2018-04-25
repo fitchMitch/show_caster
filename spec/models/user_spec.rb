@@ -7,7 +7,7 @@
 #  lastname        :string
 #  email           :string
 #  last_sign_in_at :datetime
-#  status          :integer          default("set_up")
+#  status          :integer          default("setup")
 #  provider        :string
 #  uid             :string
 #  address         :string

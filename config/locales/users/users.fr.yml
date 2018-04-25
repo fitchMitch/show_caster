@@ -23,7 +23,7 @@ fr:
     role: Rôle
     status: Statut
     invitations: Invitations
-    set_up: "%{full_name} est enregistré. Il faut l'inviter à présent."
+    setup: "%{full_name} est enregistré. Il faut l'inviter à présent."
     updated: "Mise à jour : tip top !"
     not_updated: Oups ! La correction n'est pas passée
     role: Role

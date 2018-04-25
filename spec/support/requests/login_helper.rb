@@ -8,7 +8,7 @@ module Requests
       get '/auth/google_oauth2/callback'
     end
     def request_log_in_admin
-      admin = create(:user, :admin, :fully_registered)
+      admin = create(:user, :admin, :registered)
       request_log_in(admin)
     end
   end

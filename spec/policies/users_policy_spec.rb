@@ -12,7 +12,7 @@ RSpec.describe UserPolicy do
   end
 
   context "As a player" do
-    let(:player) { player = FactoryBot.create(:user, :player, :fully_registered) }
+    let(:player) { player = FactoryBot.create(:user, :player, :registered) }
     subject { UserPolicy.new(player, player)}
     it { is_expected.to     forbid_action(:new) }
     it { is_expected.to     permit_action(:index) }
@@ -24,7 +24,7 @@ RSpec.describe UserPolicy do
   end
 
   context "As an admin_com" do
-    let(:admin) { player = FactoryBot.create(:user, :admin_com, :fully_registered) }
+    let(:admin) { player = FactoryBot.create(:user, :admin_com, :registered) }
     subject { UserPolicy.new(admin, admin)}
     it { is_expected.to     forbid_action(:new) }
     it { is_expected.to     permit_action(:index) }
@@ -36,7 +36,7 @@ RSpec.describe UserPolicy do
   end
 
   context "As an admin" do
-    let(:admin) { player = FactoryBot.create(:user, :admin, :fully_registered) }
+    let(:admin) { player = FactoryBot.create(:user, :admin, :registered) }
     subject { UserPolicy.new(admin, admin)}
     it { is_expected.to     permit_action(:new) }
     it { is_expected.to     permit_action(:index) }

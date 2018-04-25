@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
   protected
 
   def destination(user)
-    user.fully_registered? ? users_path : edit_user_path(user)
+    user.registered? ? users_path : edit_user_path(user)
   end
 
   def auth_hash

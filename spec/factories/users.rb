@@ -7,7 +7,7 @@
 #  lastname        :string
 #  email           :string
 #  last_sign_in_at :datetime
-#  status          :integer          default("set_up")
+#  status          :integer          default("setup")
 #  provider        :string
 #  uid             :string
 #  address         :string
@@ -52,7 +52,7 @@ FactoryBot.define do
       role                  3
     end
 
-    trait :set_up do
+    trait :setup do
       status                0
     end
     trait :invited do
@@ -61,7 +61,7 @@ FactoryBot.define do
     trait :googled do
       status                2
     end
-    trait :fully_registered do
+    trait :registered do
       status                3
       cell_phone_nr         {format_by_two(FFaker::PhoneNumberFR::mobile_phone_number)}
       address               {FFaker::AddressFR::unique.full_address}

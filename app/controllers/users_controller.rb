@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     authorize(@user)
     if @user.save
-      redirect_to users_path, notice: I18n.t("users.set_up", full_name: @user.full_name)
+      redirect_to users_path, notice: I18n.t("users.setup", full_name: @user.full_name)
     else
       render :new
     end
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   def edit
     authorize(@user)
-    target = @user.set_up? ? "edit" : "complement"
+    target = @user.setup? ? "edit" : "complement"
     render target.to_s
   end
 
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
 
   def update
     authorize(@user)
-    params[:user][:status] = "fully_registered" unless user_params[:cell_phone_nr].blank?
+    params[:user][:status] = "registered" unless user_params[:cell_phone_nr].blank?
     if @user.update_attributes(user_params)
       redirect_to users_path, notice: I18n.t("users.updated")
     else

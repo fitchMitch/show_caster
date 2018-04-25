@@ -41,8 +41,8 @@ class ApplicationPolicy
       (@user.nil? || @user.archived?) ? false : (@user.admin? || @user.admin_com?)
     end
 
-    def fully_registered?
-      !@user.nil? && @user.fully_registered?
+    def registered?
+      !@user.nil? && @user.registered?
     end
 
     def admin?

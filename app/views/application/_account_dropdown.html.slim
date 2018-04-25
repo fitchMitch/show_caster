@@ -12,7 +12,7 @@ li.dropdown
       | <span class="caret"></span>
     ul.dropdown-menu
       / = link_to t('account_details'), new_user_path
-      / - if policy(current_user).fully_registered?
+      / - if policy(current_user).registered?
       /   = link_to t('account_details'), edit_member_path(current_user.member_id)
       / - else
         / = link_to t('account_details'), new_member_path

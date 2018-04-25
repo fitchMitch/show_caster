@@ -1,7 +1,7 @@
 require 'rails_helper'
 # require 'vcr'
 
- RSpec.describe "Users", type: :request do
+RSpec.describe "Users", type: :request do
    let (:valid_attributes) {
          {firstname: "eric",
          lastname: "bicon",
@@ -44,8 +44,8 @@ require 'rails_helper'
     end
     describe "EDIT" do
       it "builds edits User" do
-      admin = create(:user, :admin, :fully_registered)
-      request_log_in(admin)
+        admin = create(:user, :admin, :registered)
+        request_log_in(admin)
         get edit_user_path(admin)
         expect(response).to render_template :complement
       end
@@ -77,7 +77,7 @@ require 'rails_helper'
     describe "UPDATE" do
       context "with valid params" do
         before :each do
-          @admin = create(:user, :admin, :set_up)
+          @admin = create(:user, :admin, :setup)
           request_log_in @admin
           @url = "/users/#{@admin.id}"
         end
@@ -88,7 +88,7 @@ require 'rails_helper'
       end
       context "with invalid params" do
         before :each do
-          @admin = create(:user, :admin, :set_up)
+          @admin = create(:user, :admin, :setup)
           request_log_in @admin
           @url = "/users/#{@admin.id}"
         end
@@ -98,4 +98,5 @@ require 'rails_helper'
         end
       end
     end
+  end
  end
