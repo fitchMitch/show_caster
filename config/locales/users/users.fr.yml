@@ -49,6 +49,8 @@ fr:
 
     welcome_mail:
       subject: Bienvenue ô Sésame, bienvenue chez oit
+    promote_mail:
+      subject: Votre rôle à changé chez les Sésames
 
     promote: Promouvoir
     promoted: "%{name} a changé de statut, un message l'en a informé(e)"

@@ -13,7 +13,7 @@ class UserMailer < ApplicationMailer
     @user = user
     @url  = get_user_s_url(@user)
     @role = user.role
-    mail(to: @user.email, subject: I18n.t("actors.promoted_mail.subject"))
+    mail(to: @user.email, subject: I18n.t("users.promote_mail.subject"))
   end
 
   private
