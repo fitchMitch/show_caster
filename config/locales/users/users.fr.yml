@@ -45,6 +45,10 @@ fr:
     create_success_message: Et voilà, c'est terminé !
     minimum_length_caveat: 10 caractères au minimum
     deleted_name: RIP
+    submit: Créer ou modifier une personne
+
+    welcome_mail:
+      subject: Bienvenue ô Sésame, bienvenue chez oit
 
     promote: Promouvoir
     promoted: "%{name} a changé de statut, un message l'en a informé(e)"

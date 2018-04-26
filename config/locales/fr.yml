@@ -76,6 +76,11 @@ fr:
         update: "Modifier"
         edit: "Editer"
         new: "Créer un(e) %{model}"
+      user:
+        create: "Inviter un joueur/joueuse"
+        update: "Modifier"
+        edit: "Editer"
+        new: "Créer un joueur/joueuse"
       event:
         create: "Valider la création "
         update: "Modifier"
@@ -116,6 +121,8 @@ fr:
     model:
       Location: Salle
       Member: Sésame
+      User: Joueur(se)
     models:
+      User: Joueurs(ses)
       Location: Salles
       Member: Sésames
