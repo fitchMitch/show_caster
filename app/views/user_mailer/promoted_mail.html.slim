@@ -1,0 +1,11 @@
+h3= "Hello #{@user.firstname} !"
+p
+  | L'administrateur vient de changer ton statut sur le site. Tu es à présent :
+  = @role
+p
+  | Rendez-vous
+  = link_to('ici même', @url)
+  | et sur le site , où tu peux faire plus de choses
+
+p
+  | A plus, peluche

@@ -43,6 +43,7 @@ RSpec.configure do |config|
   config.include Sessions::LoginHelper, type: :controller
   config.include Requests::LoginHelper, type: :request
   config.include Features::SessionHelpers, type: :feature
+  config.include MailerMacros, type: :feature
   # config.include Capybara::DSL, :file_path => "spec/requests"
 
   config.before(:suite) do

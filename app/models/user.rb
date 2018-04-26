@@ -25,8 +25,6 @@ class User < ApplicationRecord
   include Users::Formating
   # Pre and Post processing
   before_validation :format_fields, on: %i[ create update]
-  #The following should be close to devise declaration !
-  # after_invitation_accepted  :welcome_mail
 
   # Enums
   enum status: {
@@ -54,7 +52,6 @@ class User < ApplicationRecord
 
   # Validations
   # =====================
-
   validates :cell_phone_nr, allow_nil: true, length: { minimum:14, maximum: 25 }, uniqueness: true
 
 
@@ -123,13 +120,13 @@ class User < ApplicationRecord
     #TODO try remove user
   end
 
-  # def welcome_mail
-  #   UserMailer.welcome_mail(self).deliver_now
-  # end
-  #
-  # def promoted_mail(role)
-  #   UserMailer.promoted_mail(self,role).deliver_now
-  # end
+  def welcome_mail
+    UserMailer.welcome_mail(self).deliver_now
+  end
+
+  def promoted_mail
+    UserMailer.promoted_mail(self).deliver_now
+  end
 
   def full_name
     text = self.firstname.nil? || self.firstname == '' ? lastname.upcase : "#{firstname} #{lastname.upcase}"
