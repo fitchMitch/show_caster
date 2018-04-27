@@ -5,7 +5,7 @@ class UserMailer < ApplicationMailer
     # This mails informs the user he's been invited to be a member
     @user = user
     @url  = get_user_s_url(@user)
-    mail(to: @user.email, subject: I18n.t("user.welcome_mail.subject"))
+    mail(to: @user.email, subject: I18n.t("users.welcome_mail.subject"))
   end
 
   def promoted_mail(user)

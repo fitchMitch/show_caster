@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   # Users
   resources :users
   post '/promote',        to:  'users#promote'
+  post '/invite',        to:  'users#invite'
   # Splash
   post '/signup'      => 'splash#signup', as: :splash_signup
   get  '/splash'      => 'splash#index'

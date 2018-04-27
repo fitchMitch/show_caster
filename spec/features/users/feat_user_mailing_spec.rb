@@ -1,46 +1,42 @@
 require 'rails_helper'
 
-RSpec.feature  "Users list" , :type => :feature do
-  # feature "Users setup feature" do
-  #   given!(:admin) { create(:user, :admin, :registered, lastname: "ADMIN") }
-  #
-  #   before :each do
-  #     log_in admin
-  #     visit new_user_path
-  #     within "#new_user" do
-  #       fill_in "user_firstname", with: "Edouard"
-  #       fill_in "user_lastname", with: "Duchemin"
-  #       fill_in "user_email", with: "truc@hoc.fr"
-  #     end
-  #     click_button(I18n.t("helpers.submit.user.create"))
-  #   end
-  #   it "should add a User" do
-  #     expect(User.last.email).to eq("truc@hoc.fr")
-  #     expect(User.last.status).to eq("setup")
-  #   end
-  #   it "refuses to add twice the same User" do
-  #     visit new_user_path
-  #     within "#new_user" do
-  #       fill_in "user_firstname", with: "Edouard"
-  #       fill_in "user_lastname", with: "Duchemin"
-  #       fill_in "user_email", with: "truc@hoc.fr"
-  #     end
-  #     click_button(I18n.t("helpers.submit.user.create"))
-  #     expect(page.body).to have_content(I18n.t("activerecord.errors.models.user.attributes.email.taken"))
-  #   end
-  #   it "should send to the new user a welcome mail " do
-  #     expect(last_email_address).to eq("truc@hoc.fr")
-  #   end
-  #   it "welcome mail should have the right subject " do
-  #     binding.pry
-  #     expect(last_email.subject).to eq("subject")
-  #   end
-  #   it "welcome mail should have the right body " do
-  #     expect(last_email.body.encoded).to have_content("body body")
-  #   end
-  # end
+RSpec.feature  "Users" , :type => :feature do
+  feature "invite mail feature" do
+    given!(:admin) { create(:user, :admin, :registered, lastname: "ADMIN") }
+    given!(:player) { create(:user, :player, :setup) }
 
-  feature "Users promote Mail feature" do
+    before :each do
+      log_in admin
+      visit user_path(player)
+      click_button(I18n.t("users.invite"))
+    end
+
+    it "should send to the user a promote mail " do
+      expect(last_email_address).to eq(player.email)
+    end
+    it "welcome mail should have the subject " do
+      expect(last_email.subject).to eq(I18n.t("users.welcome_mail.subject"))
+    end
+    it "welcome mail should have the right body " do
+      status_text = "accueillent avec plaisir"
+      expect(last_email.body.encoded).to have_content(status_text)
+    end
+  end
+
+  feature "invite mail feature is impossible" do
+    given!(:admin) { create(:user, :admin, :registered, lastname: "ADMIN") }
+    given!(:player) { create(:user, :player, :setup) }
+
+    before :each do
+      log_in admin
+      visit user_path(player)
+    end
+    it "should send to the user a promote mail " do
+      expect(page.body).not_to have_content(I18n.t("users.promote"))
+    end
+  end
+
+  feature "promote mail feature" do
     given!(:admin) { create(:user, :admin, :registered, lastname: "ADMIN") }
     given!(:player) { create(:user, :player, :registered) }
 
@@ -60,6 +56,19 @@ RSpec.feature  "Users list" , :type => :feature do
     it "welcome mail should have the right body " do
       status_text = "L'administrateur vient de changer ton statut sur le site"
       expect(last_email.body.encoded).to have_content(status_text)
+    end
+  end
+
+  feature "promote mail feature is impossible" do
+    given!(:admin) { create(:user, :admin, :registered, lastname: "ADMIN") }
+    given!(:player) { create(:user, :player, :setup) }
+
+    before :each do
+      log_in admin
+      visit user_path(player)
+    end
+    it "should send to the user a promote mail " do
+      expect(page.body).not_to have_content(I18n.t("users.promote"))
     end
   end
 end

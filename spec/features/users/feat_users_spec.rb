@@ -45,7 +45,7 @@ RSpec.feature  "Users list" do
       log_in admin
     end
     scenario "with setup status, it proposes archived status" do
-      player = create(:user, :player, :setup)
+      player = create(:user, :player, :invited)
       visit user_path(player)
       page.find('.users_promote').find("option[value='archived']").select_option
       click_button(I18n.t("users.promote"))
@@ -93,7 +93,7 @@ RSpec.feature  "Users list" do
       log_in admin
     end
     scenario "with setup status, it proposes archived status" do
-      player = create(:user, :player, :setup)
+      player = create(:user, :player, :invited)
       visit user_path(player)
       page.find('.users_promote').find("option[value='admin']").select_option
       click_button(I18n.t("users.promote"))

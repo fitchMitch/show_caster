@@ -35,7 +35,11 @@ class UserPolicy < ApplicationPolicy
   end
 
   def promote?
-    create?
+    create? && @record.status != "setup"
+  end
+
+  def invite?
+    create? && @record.status == "setup"
   end
 
   def destroy?

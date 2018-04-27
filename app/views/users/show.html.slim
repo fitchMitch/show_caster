@@ -51,3 +51,14 @@
                   .col-lg-12
                     .buttons
                       = f.button :submit, I18n.t("users.promote"), class: "btn-primary"
+      - if policy(@user).invite?
+        = simple_form_for(@user, as: :user, url: invite_path, html: { method: :post, class: 'form-horizontal' }) do |f|
+          .container-fluid
+            .row
+              .col-xs-4.right
+              .col-xs-8
+                .row.users_invite
+                  .col-lg-12
+                    = f.input :id, as: :hidden, input_html:{value: @user.id}
+                    .buttons
+                      = f.button :submit, I18n.t("users.invite"), class: "btn-danger"

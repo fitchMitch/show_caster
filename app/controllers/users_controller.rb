@@ -61,12 +61,26 @@ class UsersController < ApplicationController
     end
   end
 
+  def invite
+    @user = User.find(params[:user][:id])
+    return if @user.nil?
+    @user.status = "invited"
+    if @user.save
+      @user.welcome_mail
+      redirect_to users_path, notice: I18n.t('users.invited', name: @user.full_name)
+    else
+      flash[:alert] = I18n.t('users.invited_failed', name: @user.full_name)
+      render 'users/show'
+    end
+  end
+
   private
     def inform_promoted_person(user)
       role = user.role
       excl_1 = Rails.env.downcase == 'development'
       excl_2 = current_user == user
       excl_3 = role == 'player'
+      # binding.pry
       user.promoted_mail unless  excl_1 || excl_2 || excl_3
       # user.promoted_mail unless  excl_2 || excl_3
     end
