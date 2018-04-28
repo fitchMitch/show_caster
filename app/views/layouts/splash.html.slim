@@ -30,13 +30,12 @@ html.no-js
             = link_to t("splash.next"), "#about"
             = link_to t("splash.us"), "#features"
             = link_to t("splash.contact"), "#contact"
-            = link_to image_tag("transp.png"), users_path
-            / - if user_signed_in?
-            /   = link_to t("layout.users", theater_company: I18n.t("company_name_short")), users_path
-            /   = link_to fa_icon("sign-out", text: "X"), destroy_user_session_path, :method=>:delete
-            / - else
-            /   = link_to omniauth_authorize_path(:user,'google_oauth2' ) do
-            /     = image_tag('transp.png')
+            - if user_signed_in?
+              = link_to t("users.company"), users_path
+              = link_to fa_icon("sign-out lg", text: t("deconnect")), sign_out_path, :method=>:delete
+            - else
+              = link_to '/sesame_login' do
+                = image_tag('transp.png')
 
     = yield
 

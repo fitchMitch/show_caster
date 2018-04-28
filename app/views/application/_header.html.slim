@@ -5,13 +5,13 @@
       = I18n.t("layout.home")
   = horizontal do
     = nav class: 'navbar-right' do
-      = render partial: "application/account_dropdown"
-      / - if user_signed_in?
-      /   - unless current_user.member.nil?
+    - if user_signed_in?
+      - if policy(Theater).index?
+        = link_to t("theaters.premises_management"), theaters_path
+      /    = render partial: "application/account_dropdown"
+      /    - unless current_user.nil?
       /     - if true
       /       = link_to t("dashboards.statistics"), dashboard_path
-      /     - if policy(Location).index?
-      /       = link_to t("locations.premises_management"), locations_path
       /     - if policy(Event).index?
       /       = link_to t("events.events_management"), events_path
       /     - if policy(current_user).index?
@@ -21,4 +21,5 @@
       /         span.badge
       /           = User.active.count
       /   = render partial: "application/account_dropdown"
-      /   = link_to fa_icon("sign-out"), destroy_user_session_path, :method=>:delete
+      = link_to fa_icon("sign-out lg"), sign_out_path, method: :delete
+    - else
