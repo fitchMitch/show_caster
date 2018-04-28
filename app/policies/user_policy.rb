@@ -27,7 +27,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    registered? && me_or_admin?
+    registered? && me_or_admin? 
   end
 
   def create?
@@ -35,7 +35,15 @@ class UserPolicy < ApplicationPolicy
   end
 
   def promote?
-    create? && @record.status != "setup"
+    c0 = !(@user.nil? || @record.nil?)
+    # binding.pry if @user.admin_com?
+    if c0
+      c1 = @record.status != "setup"
+      c2 = communicator_or_admin?
+      c3 = @record == @user ? (User.admin.count != 1) : true
+      c1 && c2 && c3
+    end
+    # TODO test around this
   end
 
   def invite?
@@ -47,14 +55,8 @@ class UserPolicy < ApplicationPolicy
   end
 
   private
-
-    # def promote?
-    #   # no possible change on admin if he's the only one left
-    #   Member.admin_count == 1 ? (@user.admin? && @record != @user ) : @user.admin?
-    # end
-
     def me_or_admin?
-      !@record.nil? && ((@record.id == @user.id) || @user.admin?)
+      !@user.nil? && !@record.nil? && ((@record.id == @user.id) || @user.admin?)
     end
 
     def googled?
@@ -62,6 +64,6 @@ class UserPolicy < ApplicationPolicy
     end
 
     def me_only?
-      !@record.nil? && (@record.id == @user.id)
+      !@user.nil? && !@record.nil? && (@record.id == @user.id)
     end
 end
