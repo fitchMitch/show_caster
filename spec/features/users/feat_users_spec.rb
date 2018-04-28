@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.feature  "Users list" do
   feature "as a registered admin" do
+    given! (:admin2) { create(:user, :admin, :registered, email: "margoulin@free.fr") }
     given (:admin) { create(:user, :admin, :registered, lastname: "ADMIN") }
     given! (:player) { create(:user, :player, :registered, lastname: "PLAYER") }
 
     background :each do
-      logout
       log_in admin
       visit users_path
     end
@@ -41,7 +41,6 @@ RSpec.feature  "Users list" do
   feature "PROMOTE - status" do
     given! (:admin) { create(:user, :admin, :registered) }
     background :each do
-      logout
       log_in admin
     end
     scenario "with setup status, it proposes archived status" do
@@ -89,7 +88,6 @@ RSpec.feature  "Users list" do
   feature "PROMOTE - role" do
     given! (:admin) { create(:user, :admin, :registered) }
     background :each do
-      logout
       log_in admin
     end
     scenario "with setup status, it proposes archived status" do

@@ -42,14 +42,18 @@ RSpec.configure do |config|
   config.include OmniauthMacros
   config.include Sessions::LoginHelper, type: :controller
   config.include Requests::LoginHelper, type: :request
+  config.include Selectors, type: :feature
   config.include Features::SessionHelpers, type: :feature
   config.include MailerMacros, type: :feature
+  config.include SessionsHelper, type: :feature
   # config.include Capybara::DSL, :file_path => "spec/requests"
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
   config.before(:each) do
+    # FFaker::UniqueGenerator.clear
+    FFaker::NameFR.unique.clear
     DatabaseCleaner.strategy = :transaction
   end
   config.before(:each, js: true) do
