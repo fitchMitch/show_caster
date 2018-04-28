@@ -1,0 +1,14 @@
+class CreateEvents < ActiveRecord::Migration[5.0]
+  def change
+    create_table :events do |t|
+      t.datetime :event_date, 'datetime with time zone'
+      t.integer :duration
+      t.text :note ,  null: true
+      t.references :user, foreign_key: true
+      t.string :fk,  null: true
+      t.string :provider,  null: true
+
+      t.timestamps
+    end
+  end
+end
