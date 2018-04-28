@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def index
     authorize User
-    @users = User.all
+    @users = policy_scope(User)
   end
 
   def create
@@ -67,7 +67,7 @@ class UsersController < ApplicationController
     @user.status = "invited"
     if @user.save
       @user.welcome_mail
-      redirect_to users_path, notice: I18n.t('users.invited', name: @user.full_name)
+      redirect_to user_path(@user), notice: I18n.t('users.invited', name: @user.full_name)
     else
       flash[:alert] = I18n.t('users.invited_failed', name: @user.full_name)
       render 'users/show'

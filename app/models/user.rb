@@ -49,6 +49,7 @@ class User < ApplicationRecord
   # =====================
 
   # scope :found_by, -> (user) { where('user_id = ?', user_id) }
+  scope :active, -> { where(status: [:invited, :googled, :registered])}
   # =====================
 
   # Validations
