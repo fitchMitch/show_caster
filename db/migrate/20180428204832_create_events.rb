@@ -5,6 +5,7 @@ class CreateEvents < ActiveRecord::Migration[5.0]
       t.integer :duration
       t.text :note ,  null: true
       t.references :user, foreign_key: true
+      t.references :theater, foreign_key: true
       t.string :fk,  null: true
       t.string :provider,  null: true
 
