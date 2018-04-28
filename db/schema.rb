@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180428204832) do
+ActiveRecord::Schema.define(version: 20180428210813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "actors", force: :cascade do |t|
+    t.integer  "stage_role"
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_actors_on_event_id", using: :btree
+    t.index ["user_id"], name: "index_actors_on_user_id", using: :btree
+  end
 
   create_table "events", force: :cascade do |t|
     t.datetime "event_date"
@@ -21,10 +31,12 @@ ActiveRecord::Schema.define(version: 20180428204832) do
     t.integer  "duration"
     t.text     "note"
     t.integer  "user_id"
+    t.integer  "theater_id"
     t.string   "fk"
     t.string   "provider"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.index ["theater_id"], name: "index_events_on_theater_id", using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
   end
 
@@ -52,9 +64,13 @@ ActiveRecord::Schema.define(version: 20180428204832) do
     t.datetime "expires_at"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.string   "color"
     t.index ["email"], name: "index_users_on_email", using: :btree
     t.index ["uid"], name: "index_users_on_uid", using: :btree
   end
 
+  add_foreign_key "actors", "events"
+  add_foreign_key "actors", "users"
+  add_foreign_key "events", "theaters"
   add_foreign_key "events", "users"
 end
