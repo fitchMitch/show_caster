@@ -5,6 +5,7 @@
 today      =     Time.zone.now
 created_at =     today
 updated_at =     today
+
 def n_out_of_m?(n,m)
   (1..m).to_a.sample <= n
 end
@@ -55,25 +56,21 @@ User.create!(
   )
 end
 users = User.all
-#
-# # Locations
-# Location.create!(
-#   location_name:       'Kibelé',
-#   location_address:    '12, rue de l\'échiquier, 75010 PARIS',
-#   tenant:              'Mr. Fraise',
-#   tenant_phone:        '0148245774',
-#   created_at:           created_at,
-#   updated_at:           updated_at
-# )
-# Location.create!(
-#   location_name:       'Centre Oudiné',
-#   location_address:    '16, rue Oudiné',
-#   tenant:              'Mr. Battard',
-#   tenant_phone:        '0121252142',
-#   created_at:           created_at,
-#   updated_at:           updated_at
-# )
-# locations = Location.all
+
+# Theaters
+Theater.create!(
+  theater_name:       'Kibelé',
+  location:    '12, rue de l\'échiquier, 75010 PARIS',
+  manager:              'Mr. Fraise',
+  manager_phone:        '0148245774'
+)
+Theater.create!(
+  theater_name:       'Centre Oudiné',
+  location:    '16, rue Oudiné',
+  manager:              'Mr. Battard',
+  manager_phone:        '0121252142'
+)
+theaters = Theater.all
 #
 # # Events
 #

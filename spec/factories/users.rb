@@ -1,4 +1,4 @@
-#  Schema Information
+# == Schema Information
 #
 # Table name: users
 #
@@ -16,6 +16,7 @@
 #  role            :integer          default("player")
 #  token           :string
 #  refresh_token   :string
+#  expires_at      :datetime
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
