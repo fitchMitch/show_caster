@@ -49,8 +49,8 @@ fr:
   invitations: Invitations
 
   lastname: Nom
-  Location: salle
-  location: Salle
+  Theater: salle
+  theater: Salle
 
 
   other: Autre
@@ -71,11 +71,11 @@ fr:
 
   helpers:
     submit:
-      location:
+      theater:
         create: "Valider la création "
         update: "Modifier"
         edit: "Editer"
-        new: "Créer un(e) %{model}"
+        new: "Ajouter une salle"
       user:
         create: "Inviter un joueur/joueuse"
         update: "Modifier"
@@ -119,10 +119,10 @@ fr:
             password_confirmation:
               blank: Il faut remplir ce champ aussi si vous remplissez le précédent
     model:
-      Location: Salle
+      Theater: Salle
       Member: Sésame
       User: Joueur(se)
     models:
       User: Joueurs(ses)
-      Location: Salles
+      Theater: Salles
       Member: Sésames

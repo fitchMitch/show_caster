@@ -1,0 +1,17 @@
+fr:
+  theaters:
+    premises_management: Les salles
+    updated: "Mise à jour : ok ."
+    destroyed:  La salle a bien été supprimée.
+    theater_name: Nom de la salle
+    location: Adresse
+    manager: Responsable
+    manager_phone: Tel. du responsable
+    edit_theater: Modifier la salle
+    list: Liste des salles
+    new: Nouvelle salle de spectacle
+    show_title: La salle
+    add: Ajouter une salle
+    save_success: la salle a bien été ajoutée
+    save_fails: La sauvegarde a échoué...
+    update_success: La modification a bien été faite

@@ -1,0 +1,25 @@
+.container
+  .page-header
+    - if policy(Theater).new?
+      .page-header
+        = link_to new_theater_path, :class => 'btn btn-primary' do
+          span.glyphicon.glyphicon-plus
+          = " #{t("theaters.new")}"
+    h2= t("theaters.list")
+
+  .table-responsive
+    table.table.table-striped.table-bordered.table-hover
+      thead
+        tr
+          th
+            = t("theaters.theater_name")
+          th
+            = t("theaters.location")
+          th
+            = t("theaters.manager")
+          th
+            = t("theaters.manager_phone")
+          th
+
+      tbody
+        = render @theaters

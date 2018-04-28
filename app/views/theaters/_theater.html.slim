@@ -1,0 +1,9 @@
+tr
+  td.theater_name= theater.theater_name
+  td.location= theater.location
+  td.manager= theater.manager
+  td.manager_phone= theater.manager_phone
+
+  td
+    - if policy(theater).edit?
+      = link_to fa_icon("edit",text: t("edit")), edit_theater_path(theater)

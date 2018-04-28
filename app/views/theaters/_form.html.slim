@@ -1,0 +1,12 @@
+/ frozen_string_literal: true
+= simple_form_for(@theater) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :theater_name, label: t("theaters.theater_name")
+    = f.input :location, label: t("theaters.location")
+    = f.input :manager, label: t("theaters.manager")
+    = f.input :manager_phone, label: t("theaters.manager_phone")
+
+  .form-actions
+    = f.button :submit, label: t("submit"), class: 'btn btn-primary'

@@ -1,0 +1,11 @@
+.container
+  .page-header
+    span.room-right-5
+      = link_to theaters_path, :class => 'btn btn-default room-right-25' do
+          span.glyphicon.glyphicon-list-alt
+            = " #{t("back")} "
+
+    h2
+      = t("theaters.edit_theater")
+
+  = render 'form'
