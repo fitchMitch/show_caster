@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
 
     def logout
       reset_session
+      @current_user = nil
       redirect_to root_url, :notice => I18n.t("sessions.signed_out")
     end
 

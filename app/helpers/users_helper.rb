@@ -44,7 +44,7 @@ module UsersHelper
   end
 
   def badge_user(user,role=nil)
-    colors = user.member.color.partition(";")
+    colors = user.color.partition(";")
     "border: 4px #{colors[2]} solid; color:#{colors[0]}".html_safe
   end
 

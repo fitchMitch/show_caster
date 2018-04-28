@@ -8,8 +8,9 @@ module Features
       # visit "/users/auth/#{strategy.to_s}/callback?code=strange_sent_code"
     end
 
-    def logout
-      visit 'sign_out'
+    def capy_logout
+      visit "/users"
+      find(:css, 'i.fa.fa-sign-out.fa-lg').click
     end
   end
 end
