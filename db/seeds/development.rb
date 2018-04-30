@@ -20,7 +20,7 @@ User.create!(
   lastname:              'WEIL',
   email:                 'weil.etienne@hotmail.fr',
   role:                   2,
-  cell_phone_nr:          '06 23 04 30 52',
+  cell_phone_nr:          FFaker::PhoneNumberFR::mobile_phone_number,
   address:                '18, rue de Cotte Paris 12e',
   # uid:                    105205260860063499768
 )
@@ -68,37 +68,43 @@ Theater.create!(
   theater_name:       'Centre Oudiné',
   location:    '16, rue Oudiné',
   manager:              'Mr. Battard',
-  manager_phone:        '0121252142'
+  manager_phone:        '0521452142'
+)
+Theater.create!(
+  theater_name:       "Le #{FFaker::Animal.common_name} agité",
+  location:              FFaker::AddressFR::unique.full_address,
+  manager:              "Mr. #{FFaker::NameFR::unique.last_name}",
+  manager_phone:        FFaker::PhoneNumberFR::mobile_phone_number
 )
 theaters = Theater.all
-#
-# # Events
-#
-# 25.times do |n|
-#   name  = "Le #{FFaker::Name.name}"
-#   event_date = today + (-200..200).to_a.sample * 3600 * 24
-#   duration = Event::DURATIONS.sample[1]
-#   note = FFaker::Lorem::paragraph(1)
-#   Event.create!(
-#     location:             locations.sample,
-#     user:                 users.sample,
-#     note:                 note,
-#     duration:             duration,
-#     event_date:           event_date,
-#     created_at:           created_at,
-#     updated_at:           updated_at
-#   )
-# end
-# events = Event.all
-#
-# # Actors
-#
-# events.each do |event|
-#   6.times do |n|
-#     Actor.create(
-#       event_id:       event.id,
-#       user_id:        users.sample.id    ,
-#       stage_role:     Actor::stage_roles.keys.sample.to_sym
-#     )
-#   end
-# end
+
+# Events
+
+25.times do |n|
+  name  = "Le #{FFaker::Name.name} étoilé "
+  event_date = today + (-200..200).to_a.sample * 3600 * 24
+  duration = Event::DURATIONS.sample[1]
+  note = FFaker::Lorem::paragraph(1)
+  Event.create!(
+    theater:             theaters.sample,
+    user:                 users.sample,
+    note:                 note,
+    duration:             duration,
+    event_date:           event_date,
+    created_at:           created_at,
+    updated_at:           updated_at
+  )
+end
+events = Event.all
+
+# Actors
+
+events.each do |event|
+  6.times do |n|
+    Actor.create(
+      event_id:       event.id,
+      user_id:        User.active.sample.id,
+      stage_role:     Actor::stage_roles.keys.sample.to_sym
+    )
+  end
+end
