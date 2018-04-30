@@ -122,7 +122,9 @@ fr:
       Theater: Salle
       Member: Sésame
       User: Joueur(se)
+      Actor: Joueur(se)
     models:
+      Actor: Joueurs(ses)
       User: Joueurs(ses)
       Theater: Salles
       Member: Sésames

@@ -1,0 +1,11 @@
+fr:
+  dashboards:
+    statistics: Statistiques de jeu
+    nr: Nombre
+    who: Qui
+    over_three: Sur 3 mois
+    over_six : Sur 6 mois
+    over_a_year: Sur 1 an
+    three_month: Sur 3 mois
+    six_month : Sur 6 mois
+    a_year: Sur 1 an

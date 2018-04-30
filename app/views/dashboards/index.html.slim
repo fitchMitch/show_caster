@@ -1,0 +1,23 @@
+.container
+  .page-header
+    h2= t("dashboards.statistics")
+
+  .row
+    .col-sm-1.col-xs-2.center
+      strong
+        = t('dashboards.who')
+    - @periods.each do |key, val|
+      .col-sm-1.col-xs-2.center
+        strong
+          = translate(key)
+    - @a_year.each do |key, val|
+      .col-sm-1.col-xs-2.center
+        strong
+          = "DJ #{translate(key)}"
+    - @a_year.each do |key, val|
+      .col-sm-1.col-xs-2.center
+        strong
+          = "MC #{translate(key)}"
+  hr
+  - @res.each do |rec|
+    = render "frequency", rec: rec

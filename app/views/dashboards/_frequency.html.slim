@@ -1,0 +1,10 @@
+.row
+  .col-sm-1.col-xs-2.center
+    / = badge_user_from_id(rec[:id].id)
+    = badge_user_from_id(rec[:id])
+  - rec[:data].each do |rec_i|
+    .col-sm-1.col-xs-2.center
+      = show_perf(rec_i)
+.row
+  .col-xs-12
+    span.space-up-5
