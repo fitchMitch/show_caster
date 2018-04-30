@@ -23,13 +23,14 @@
           .col-md-12
             = f.input :note,
               label: t("events.note")
+        .row
+          .col-lg-12
             = f.input :event_date,
-              as: :datetime,
               minute_step: 15,
               start_hour: 9,
               end_hour: 23,
-              start_year: 2018,
-              end_year: 2020,
+              start_year: Time.zone.now.year.to_i,
+              end_year: Time.zone.now.year.to_i + 2,
               label: t("events.date")
       .col-md-1
       .col-md-5
