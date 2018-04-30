@@ -10,10 +10,21 @@
 #
 FactoryBot.define do
   factory :theater do
-    theater_name        "Kibele"
-    location            "12, rue de l'échiquier, PARIS 10"
+    theater_name        "Au #{FFaker::Animal::unique.common_name} enfumé"
+    location            {FFaker::AddressFR::full_address}
     manager             "Tolier"
     manager_phone       "0148245774"
+
+    factory :theater_with_event do
+
+      transient do
+        events_count 1
+      end
+
+      after(:create) do |theater, evaluator|
+        create_list(:event, evaluator.events_count, theater: theater)
+      end
+    end
   end
 
   factory :other_theater, class: Theater do

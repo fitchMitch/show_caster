@@ -6,14 +6,14 @@
 #  event_date              :datetime
 #  datetime with time zone :datetime
 #  duration                :integer
+#  progress                :integer
 #  note                    :text
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
 #  user_id                 :integer
-#  location_id             :integer
-#  progress                :integer          default("draft")
+#  theater_id              :integer
 #  fk                      :string
 #  provider                :string
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
 #
 
 require 'rails_helper'

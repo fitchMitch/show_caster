@@ -19,7 +19,9 @@
 #  expires_at      :datetime
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  color           :string
 #
+
 include Users::Formating
 FactoryBot.define do
   sequence :email do |n|
@@ -37,8 +39,8 @@ FactoryBot.define do
     firstname               {FFaker::NameFR.unique.first_name}
     lastname                {FFaker::NameFR.unique.last_name.upcase}
     email
-    role                    0
-    status                  0
+    role                    2
+    status                  3
 
     trait :player do
       role                  0
