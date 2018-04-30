@@ -20,11 +20,7 @@
             br
             = link_to(fa_icon('add', text: t("theaters.add")), new_theater_path, class: 'btn btn-default')
         .row
-          .col-md-12
-            = f.input :note,
-              label: t("events.note")
-        .row
-          .col-lg-12
+          .col-md-12.form-inline
             = f.input :event_date,
               minute_step: 15,
               start_hour: 9,
@@ -32,6 +28,9 @@
               start_year: Time.zone.now.year.to_i,
               end_year: Time.zone.now.year.to_i + 2,
               label: t("events.date")
+        .row
+          .col-md-12
+            = f.input :note, label: t("events.note")
       .col-md-1
       .col-md-5
         h4#actors= t("events.players_part")
