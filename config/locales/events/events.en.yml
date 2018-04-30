@@ -1,0 +1,4 @@
+en:
+  events:
+    updated: Event was successfully updated.
+    destroyed: Event was successfully destroyed.

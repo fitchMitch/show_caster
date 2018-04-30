@@ -78,7 +78,7 @@ fr:
         new: "Ajouter une salle"
       user:
         create: "Inviter un joueur/joueuse"
-        update: "Modifier"
+        update: "Valider"
         edit: "Editer"
         new: "Créer un joueur/joueuse"
       event:

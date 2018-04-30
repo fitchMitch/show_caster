@@ -1,0 +1,8 @@
+fr:
+  actors:
+    updated: "Mise à jour : ok ."
+    destroyed:  La salle(???) a bien été supprimée.
+    distribution: Distribution
+    artist: Joueur
+    promoted_mail:
+      subject: Votre rôle a changé sur le site
