@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature  "Users list" do
+RSpec.feature  "Theater" do
   feature "as a registered admin" do
     given (:admin) { create(:user, :admin, :registered, lastname: "ADMIN") }
     feature "visiting INDEX" do
@@ -21,7 +21,7 @@ RSpec.feature  "Users list" do
       end
     end
 
-    feature "visiting NEW" do
+    feature "visiting NEW and CREATE" do
       background :each do
         log_in admin
         visit new_theater_path
