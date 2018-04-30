@@ -64,7 +64,10 @@ group :development, :test do
   gem 'factory_bot_rails'
 
   gem 'simplecov', require: false
+
 end
+
+
 
 group :development do
   gem 'web-console', '>= 3.3.0'
@@ -75,6 +78,7 @@ group :development do
 end
 
 group :test do
+  gem 'vcr'
   gem 'webmock'
   gem "capybara"
   gem "launchy"

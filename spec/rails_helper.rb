@@ -31,6 +31,11 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
+VCR.configure do |c|
+  c.cassette_library_dir  = Rails.root.join("spec", "vcr")
+  c.hook_into :webmock
+end
+
 
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
