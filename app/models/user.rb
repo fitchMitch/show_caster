@@ -159,11 +159,11 @@ class User < ApplicationRecord
     end
 
     def format_fields
-      self.phone_number_format
       self.lastname = lastname.upcase unless self.lastname.nil?
+      self.email = email.downcase unless self.email.nil?
       self.role ||= 'player'
       self.color ||= User.hsl_colors
-      self.email = email.downcase unless self.email.nil?
+      self.phone_number_format
     end
 
   end
