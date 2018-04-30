@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: actors
+#
+#  id         :integer          not null, primary key
+#  stage_role :integer
+#  user_id    :integer
+#  event_id   :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Actor < ApplicationRecord
   # includes
 

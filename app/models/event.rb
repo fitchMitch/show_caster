@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: events
+#
+#  id                      :integer          not null, primary key
+#  event_date              :datetime
+#  datetime with time zone :datetime
+#  duration                :integer
+#  progress                :integer
+#  note                    :text
+#  user_id                 :integer
+#  theater_id              :integer
+#  fk                      :string
+#  provider                :string
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#
+
 class Event < ApplicationRecord
   # includes
 
@@ -16,9 +34,7 @@ class Event < ApplicationRecord
   ]
   enum progress: {
       :draft => 0,
-      :finalized => 1,
-      :sent_to_media_1 => 2,
-      :ok_with_media_1 => 3
+      :finalized => 1
     }
   # Relationships
   belongs_to :user

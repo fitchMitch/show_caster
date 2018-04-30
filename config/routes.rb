@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy', as: :sign_out
 
   get '/auth/:provider/callback', to: 'sessions#create'
-  # Users, theaters
-  resources :users, :theaters
+  # Users, theaters, Events
+  resources :users, :theaters, :events
   post '/promote',        to:  'users#promote'
   post '/invite',        to:  'users#invite'
   # Splash

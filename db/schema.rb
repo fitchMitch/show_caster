@@ -27,15 +27,15 @@ ActiveRecord::Schema.define(version: 20180428210813) do
 
   create_table "events", force: :cascade do |t|
     t.datetime "event_date"
-    t.datetime "datetime with time zone"
     t.integer  "duration"
+    t.integer  "progress",   default: 0
     t.text     "note"
     t.integer  "user_id"
     t.integer  "theater_id"
     t.string   "fk"
     t.string   "provider"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.index ["theater_id"], name: "index_events_on_theater_id", using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
   end
