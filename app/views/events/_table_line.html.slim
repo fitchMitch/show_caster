@@ -1,0 +1,16 @@
+.row
+  .col-md-2.room-left-15
+    strong= l event.event_date, format:"%a %d %b à %Hh%M"
+  .col-md-1.room-left-15= event.theater.theater_name
+  .col-md-1.room-left-15= get_duration event.duration
+  .col-md-3.room-left-15.hidden-xs= event.note
+  .col-md-1.room-left-15.hidden-xs= get_progress(event)
+  .col-md-1.room-left-15
+  .col-md-1.room-left-15
+  .col-md-2.room-left-15
+    = link_to fa_icon("eye lg",text: t("show") ), event if policy(Event).show?
+    = image_tag('transp.png') if policy(Event).show?
+    = link_to fa_icon("edit lg" ), edit_event_path(event) if policy(Event).edit?
+    = image_tag('transp.png') if policy(Event).destroy?
+    = link_to(fa_icon("trash lg"), event, class:'destroy', id: 'destroy', data: {confirm: t('sure_question')}, method: :delete) if policy(Event).destroy?
+hr

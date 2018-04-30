@@ -1,0 +1,19 @@
+table.table.table-striped.table-bordered.table-hover
+  thead
+    tr
+      th= t('events.date')
+      th= t('theaters.theater_name')
+      th= t('events.dur')
+      th= t('events.note')
+      th
+        | CODE MORT
+      th
+      th
+  #nexting.tab-pane.fade.in.active role="tabpanel"
+    tbody
+      - @all_events['nexting'].each do |event|
+        = render 'table_line'
+  #pasting.tab-pane.fade role="tabpanel"
+    tbody
+      - @all_events['pasting'].each do |event|
+        = render 'table_line'

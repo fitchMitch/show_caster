@@ -1,0 +1,6 @@
+#nexting.tab-pane.fade.in.active role="tabpanel"
+  - @all_events[:nexting].each do |event|
+    = render 'table_line', event: event
+#pasting.tab-pane.fade role="tabpanel"
+  - @all_events[:pasting].each do |event|
+    = render 'table_line', event: event

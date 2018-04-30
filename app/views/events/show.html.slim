@@ -1,0 +1,35 @@
+.container
+  .page-header
+    span.room-right-15
+      = link_to events_path, :class => 'btn btn-default' do
+        span.glyphicon.glyphicon-list-alt
+          = " #{ t("back") }"
+    - if !@event.nil? && policy(@event).edit?
+      = link_to edit_event_path(@event), :class => 'btn btn-primary' do
+        span.glyphicon.glyphicon-pencil
+          = " #{ t('events.edit_title') }"
+    h1= "Le #{l @event.event_date, format:"%A %d %B à %Hh%M"}"
+    h1= "#{t 'theater_company'} sont au \"#{@event.theater.theater_name}\""
+
+  dl.dl-horizontal
+    dt= t('events.dur')
+    dd= distance_of_time_in_words @event.event_date, @event.event_date + @event.duration * 60
+    dt= t('events.address')
+    dd= @event.theater.location
+    dt= t('events.progress')
+    dd= get_progress(@event)
+
+    dt= t('events.note')
+    dd= @event.note
+    dt= t('events.created_by')
+    dd= @event.user.full_name
+    dt
+      p.space-up-20= t("events.actors")
+    dd
+      - for actor in @event.actors
+        .badge_user  style= "#{badge_user actor.user}"
+          span.room-right-5
+              = "#{actor.user.full_name} "
+              - if actor.stage_role != "player"
+                span.badge
+                  = "#{actor.stage_role_i18n}"

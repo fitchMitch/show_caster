@@ -6,6 +6,8 @@
   = horizontal do
     = nav class: 'navbar-right' do
       - if user_signed_in?
+        - if policy(Event).index?
+          = link_to t("events.events_management"), events_path
         - if policy(Theater).index?
           = link_to t("theaters.premises_management"), theaters_path
         - if policy(current_user).index?
@@ -19,8 +21,7 @@
         /    - unless current_user.nil?
         /     - if true
         /       = link_to t("dashboards.statistics"), dashboard_path
-        /     - if policy(Event).index?
-        /       = link_to t("events.events_management"), events_path
+
 
         /   = render partial: "application/account_dropdown"
       = link_to fa_icon("sign-out lg"), sign_out_path, method: :delete
