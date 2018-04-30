@@ -10,7 +10,6 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     authorize(@user)
     if @user.save
-      # @user.welcome_mail
       redirect_to users_path, notice: I18n.t("users.setup", full_name: @user.full_name)
     else
       render :new
@@ -80,14 +79,12 @@ class UsersController < ApplicationController
       excl_1 = Rails.env.downcase == 'development'
       excl_2 = current_user == user
       excl_3 = role == 'player'
-      # binding.pry
       user.promoted_mail unless  excl_1 || excl_2 || excl_3
       # user.promoted_mail unless  excl_2 || excl_3
     end
 
     def set_user
       @user = User.find(params[:id])
-      # authorize @user
     end
 
     def user_params
