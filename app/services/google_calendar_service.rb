@@ -36,8 +36,7 @@ class GoogleCalendarService
   # Where primary is 'my' calendar
   def add_event_to_primarys(opt)
     event = make_a_google_event(opt)
-    @calendar.insert_event('primary', event, send_notifications: false)
-    # @calendar.execute(api_method: @service.calendar_list.list)
+    @calendar.insert_event('primary', event, send_notifications: true)
   end
 
   def update_event_to_primarys(opt)
