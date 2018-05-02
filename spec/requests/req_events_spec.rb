@@ -22,8 +22,9 @@ RSpec.describe "Events", type: :request do
     } }
 
   context "/ As logged as admin," do
+    let!(:admin) {create(:real_user)}
     before :each do
-      admin = create(:user,:admin, :registered)
+      # admin ||= User.find_by(uid: "105205260860062499768")
       request_log_in(admin)
     end
 
@@ -60,7 +61,7 @@ RSpec.describe "Events", type: :request do
         before :each do
           post '/events', params: {event: valid_attributes}
         end
-        it "creates every attribute" do
+        it "creates every attribute", :vcr do
           expect(Event.last.note).to eq(valid_attributes[:note])
           expect(Event.last.user.id) == valid_attributes[:user_id]
           expect(Event.last.theater.id) == valid_attributes[:theater_id]
@@ -138,7 +139,7 @@ RSpec.describe "Events", type: :request do
         }.to change(Event, :count).by(-1)
       end
 
-      it "redirects to the events page" do
+      it "redirects to the events page", :vcr do
         delete url , params:{ id: event.id, event: event.attributes }
         expect(response).to redirect_to(events_path)
       end

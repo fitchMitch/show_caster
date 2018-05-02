@@ -15,4 +15,8 @@ RSpec.configure do |c|
     options = example.metadata.slice(:record, :match_requests_on).except(:example_group)
     VCR.use_cassette(name, options) { example.call }
   end
+  c.before(:each) do
+     WebMock.reset!
+     WebMock.disable_net_connect!
+  end
 end
