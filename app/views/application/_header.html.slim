@@ -19,10 +19,5 @@
               = image_tag("transp")
               span.badge
                 = User.active.count
-        /    = render partial: "application/account_dropdown"
-        /    - unless current_user.nil?
-        /     - if true
-
-
-        /   = render partial: "application/account_dropdown"
+        = render partial: "application/account_dropdown"
       = link_to fa_icon("sign-out lg"), sign_out_path, method: :delete

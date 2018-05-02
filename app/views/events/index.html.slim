@@ -1,10 +1,21 @@
 .container
   /! Nav tabs
   .page-header
+
     - if policy(@all_events[:nexting]).new?
-      = link_to new_event_path, :class => 'btn btn-primary' do
-        span.glyphicon.glyphicon-plus
-          = " #{t('events.new')}"
+      .row.action-line
+        .col-md-3
+          = link_to new_event_path, :class => 'btn btn-primary' do
+            span.glyphicon.glyphicon-plus
+              = " #{t('events.new')}"
+        .col-md-9
+          p.bg-info.room-around-5
+            = image_tag("transp.png")
+            = fa_icon "hand-right"
+            = image_tag("transp.png")
+            | Ne pas créer de rendez-vous spectacle dans
+            | l'agenda Google : l'application s'en charge !
+
     h2= t('events.list')
     ul.nav.nav-tabs role="tablist"
       li.active role="presentation"
