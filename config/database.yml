@@ -74,4 +74,4 @@ production:
   <<: *default
   database: show_caster
   username: sesame
-  password: <%= ENV['SHOW_CASTER_DATABASE_PASSWORD'] %>
+  password: <%= ENV.fetch("SHOW_CASTER_DATABASE_PASSWORD") %>
