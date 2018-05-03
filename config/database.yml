@@ -73,5 +73,5 @@ test:
 production:
   <<: *default
   database: show_caster
-  username: show_caster
+  username: sesame
   password: <%= ENV['SHOW_CASTER_DATABASE_PASSWORD'] %>
