@@ -12,13 +12,14 @@ section.colored.primary#about
     .row
       .inner-column.showing-off
         h1 Nos prochains spectacles !
-        - Event.future_events.limit(5).each do |event|
-          .row.showing-off
-            span.space-up-5
-              strong
-                = "#{l event.event_date, format:"%a %d %B"} "
-                | à
-                =" #{l event.event_date, format:"%Hh%M"} au #{event.theater.theater_name}"
+        - unless Event.all.empty?
+          - Event.future_events.limit(5).each do |event|
+            .row.showing-off
+              span.space-up-5
+                strong
+                  = "#{l event.event_date, format:"%a %d %B"} "
+                  | à
+                  =" #{l event.event_date, format:"%Hh%M"} au #{event.theater.theater_name}"
         p
         = link_to I18n.t("layout.welcome"), "#contact", class: "btn btn-primary-inverted btn-lg"
 
