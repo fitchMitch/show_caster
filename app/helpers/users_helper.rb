@@ -25,16 +25,16 @@ module UsersHelper
     label_hash = case user.status.to_sym
     when :invited
       {klass: "warning",
-      text: "Invité"}
+      text: I18n.t("users.state.invited")}
     when :googled
       {klass: "info",
-      text: "En cours ?"}
+      text: I18n.t("users.state.processing")}
     when :archived
       {klass: "default",
-      text: "a quitté la compagnie"}
+      text: I18n.t("users.state.rip")}
     else
       {klass: "danger",
-      text: "A inviter ..."}
+      text: I18n.t("users.state.to_invite")}
     end
     if user.status.to_sym == :registered
       user.role_i18n

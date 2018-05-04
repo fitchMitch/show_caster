@@ -2,8 +2,11 @@
   .col-md-3
     = image_tag(user.photo_url, size: "35x35") unless user.photo_url.nil?
     = image_tag("transp.png")
-    strong
+    - if user.archived?
       = link_to_user(user, current_user)
+    - else
+      strong
+        = link_to_user(user, current_user)
   .col-md-2
     = status_label(user)
   .col-md-2
