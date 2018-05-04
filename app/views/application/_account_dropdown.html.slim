@@ -7,4 +7,4 @@
       - if policy(current_user).edit?
         = link_to t('account_details'), edit_user_path(current_user)
       - if policy(User).new?
-        = link_to t("user.invitations"), '/sesames_login'
+        = link_to t("user.invitations"), new_user_path
