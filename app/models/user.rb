@@ -142,28 +142,14 @@ class User < ApplicationRecord
     self.archived? ? ["setup", "archived"] : [self.status, "archived"]
   end
 
-
   protected
-    def self.hsl_colors
-      # background
-      s_bckg = pick(66, 100)
-      l_bckg = pick(32, 50)
-      # txt
-      s_txt  = pick(36,76)
-      l_txt  = pick(76, 95)
-      # hue
-      h_user = h_random pick(0, 1000)
 
-      letters = to_hsl(h_user,s_txt,l_txt)
-      background = to_hsl(h_user,s_bckg,l_bckg)
-      letters + ";" + background
-    end
 
     def format_fields
       self.lastname = lastname.upcase unless self.lastname.nil?
       self.email = email.downcase unless self.email.nil?
       self.role ||= 'player'
-      self.color ||= User.hsl_colors
+      self.color ||= get_color
       self.phone_number_format
     end
 
