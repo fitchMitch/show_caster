@@ -104,6 +104,7 @@ class User < ApplicationRecord
         user
       else
         logger.error "OAuth user updating went wrong"
+        logger.error from_token
         nil
       end
     end
