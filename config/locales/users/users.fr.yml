@@ -49,6 +49,13 @@ fr:
     invite: L'inviter
     invited : "%{name} vient d'être invité(e), un message lui a été adressé"
     invited_fail : "%{name} n'a pas pu être invité, difficile de savoir pourquoi"
+    state:
+      invited: Invité
+      processing: En cours ?
+      rip: a quitté la compagnie
+      to_invite: A inviter...
+
+
 
     welcome_mail:
       subject: Bienvenue ô Sésame, bienvenue chez oit

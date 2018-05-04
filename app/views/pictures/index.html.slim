@@ -1,0 +1,23 @@
+.container
+  /! Nav tabs
+  .page-header
+    - if policy(Picture).new?
+      .row.action-line
+        .col-md-3
+          = link_to new_picture_path, :class => 'btn btn-primary' do
+            span.glyphicon.glyphicon-plus
+              = " #{t('pictures.new')}"
+
+    h2= t('pictures.list')
+    .row
+      .col-md-6
+        p= @pictures_from_drive.count
+        ul
+          - @pictures_from_drive.each do |file|
+            li= file.name
+      .col-md-6
+        button#auth disabled="" type="button"  Authenticate
+
+
+        #result
+        script type="text/javascript" src="https://apis.google.com/js/api.js?onload=onApiLoad"

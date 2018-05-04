@@ -75,4 +75,13 @@ FactoryBot.define do
       address               {FFaker::AddressFR::unique.full_address}
     end
   end
+
+  factory :real_user, parent: :user do
+    uid                     "105205260860062499768"
+    expires_at              1525180002
+    token                   "ya29.GlutBdd9n4jCCUGo_TDJ6S0V-Wa3Z0XvX4EWoVizE4hrjN4hi4rorIoLdBUx0Bjx0-lWho5FQqQbRwnZgQMQ_waBDWxeulzStIJmWSuesYe0M8LoUSr4S-g0ZziJ"
+    refresh_token           "1/TWEEy8BKRWISueVQf1m6LItwKtnjI-ZIset4YkfpZ5CcLBMiAHHM_YG_i5qCOqlp"
+    status                  3
+    role                    2
+  end
 end

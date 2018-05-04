@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Fk:
+  = @picture.fk
+p
+  strong References:
+  = @picture.references
+
+=> link_to 'Edit', edit_picture_path(@picture)
+'|
+=< link_to 'Back', pictures_path

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180428210813) do
+ActiveRecord::Schema.define(version: 20180502130114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,16 +40,24 @@ ActiveRecord::Schema.define(version: 20180428210813) do
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
   end
 
+  create_table "pictures", force: :cascade do |t|
+    t.string   "fk"
+    t.integer  "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_pictures_on_event_id", using: :btree
+  end
+
   create_table "theaters", force: :cascade do |t|
-    t.string "theater_name"
+    t.string "theater_name",  null: false
     t.string "location"
     t.string "manager"
     t.string "manager_phone"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "firstname"
-    t.string   "lastname"
+    t.string   "firstname",                   null: false
+    t.string   "lastname",                    null: false
     t.string   "email"
     t.datetime "last_sign_in_at"
     t.integer  "status",          default: 0
@@ -73,4 +81,5 @@ ActiveRecord::Schema.define(version: 20180428210813) do
   add_foreign_key "actors", "users"
   add_foreign_key "events", "theaters"
   add_foreign_key "events", "users"
+  add_foreign_key "pictures", "events"
 end
