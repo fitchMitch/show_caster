@@ -1,8 +1,11 @@
-h1 Editing picture
+.container
+  .page-header
+    span.room-right-5
+      = link_to pictures_path, :class => 'btn btn-default room-right-25' do
+          span.glyphicon.glyphicon-list-alt
+            = " #{t("back")} "
 
-== render 'form'
+    h2
+      = t("pictures.edit_picture")
 
-=> link_to 'Show', @picture
-'|
-=< link_to 'Back', pictures_path
-
+  = render 'form', url: picture_path

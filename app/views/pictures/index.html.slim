@@ -11,4 +11,11 @@
 
     h2= t("pictures.list")
     .row
-      .col-md-6
+      .col-md-12
+        - @events.each do |evt|
+          hr
+          h5= short_label evt
+          - evt.pictures.each do |pict|
+            = link_to edit_picture_path(pict) do
+              = image_tag(pict.photo.url(:thumb))
+            = image_tag("transp.png")

@@ -2,11 +2,17 @@
 #
 # Table name: pictures
 #
-#  id         :integer          not null, primary key
-#  fk         :string
-#  event_id   :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                 :integer          not null, primary key
+#  fk                 :string
+#  event_id           :integer
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  photo_file_name    :string
+#  photo_content_type :string
+#  photo_file_size    :integer
+#  photo_updated_at   :datetime
+#  note               :string
+#  descro             :string
 #
 
 class Picture < ApplicationRecord
@@ -18,6 +24,7 @@ class Picture < ApplicationRecord
   # Relationships
   # =====================
   belongs_to :event, optional: true
+  has_attached_file :photo, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
 
   #delegate :firstname,:lastname, :full_name, to: :member
   # =====================
@@ -27,6 +34,10 @@ class Picture < ApplicationRecord
 
   # Validations
   # =====================
+  validates_attachment_content_type :photo, content_type: /\Aimage\/.*\z/
+  validates_attachment :photo,
+    presence: true,
+    size: { in: 0..4.megabytes }
 
 
   # ------------------------

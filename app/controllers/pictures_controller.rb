@@ -5,8 +5,7 @@ class PicturesController < ApplicationController
   # GET /pictures.json
   def index
     @pictures = Picture.all
-    @service = GoogleDriveService.new(current_user)
-    @pictures_from_drive = @service.file_list
+    @events = Event.passed_events
   end
 
   # GET /pictures/1
@@ -71,6 +70,6 @@ class PicturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def picture_params
-      params.require(:picture).permit(:fk, :event_id)
+      params.require(:picture).permit(:fk, :event_id, :photo, :note, :descro)
     end
 end
