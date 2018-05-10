@@ -3,7 +3,7 @@
 # Table name: theaters
 #
 #  id            :integer          not null, primary key
-#  theater_name  :string
+#  theater_name  :string           not null
 #  location      :string
 #  manager       :string
 #  manager_phone :string

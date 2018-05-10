@@ -2,18 +2,17 @@
 #
 # Table name: events
 #
-#  id                      :integer          not null, primary key
-#  event_date              :datetime
-#  datetime with time zone :datetime
-#  duration                :integer
-#  progress                :integer
-#  note                    :text
-#  user_id                 :integer
-#  theater_id              :integer
-#  fk                      :string
-#  provider                :string
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
+#  id         :integer          not null, primary key
+#  event_date :datetime
+#  duration   :integer
+#  progress   :integer          default("draft")
+#  note       :text
+#  user_id    :integer
+#  theater_id :integer
+#  fk         :string
+#  provider   :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 class Event < ApplicationRecord

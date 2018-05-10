@@ -6,6 +6,8 @@
     .row
       .col-md-6
         .row
+          .col-md-12= f.input :title, label: t("events.title")
+        .row
           .col-md-8
             = f.association :theater,
               collection: Theater.order(:theater_name),

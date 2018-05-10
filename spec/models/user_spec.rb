@@ -3,8 +3,8 @@
 # Table name: users
 #
 #  id              :integer          not null, primary key
-#  firstname       :string
-#  lastname        :string
+#  firstname       :string           not null
+#  lastname        :string           not null
 #  email           :string
 #  last_sign_in_at :datetime
 #  status          :integer          default("setup")

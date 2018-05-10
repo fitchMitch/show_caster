@@ -87,6 +87,7 @@ theaters = Theater.all
   note = FFaker::Lorem::paragraph(1)
   Event.create!(
     theater:             theaters.sample,
+    title:                "Les Mentals moisis par les Sésames",
     user:                 users.sample,
     note:                 note,
     duration:             duration,

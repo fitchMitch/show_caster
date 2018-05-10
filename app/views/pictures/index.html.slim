@@ -12,27 +12,3 @@
     h2= t("pictures.list")
     .row
       .col-md-6
-        p= @pictures_from_drive.count
-        ul
-          - @pictures_from_drive.each do |file|
-            li= "#{file.name} (#{file.id})"
-      .col-md-6
-      button#pick  type="button"  Choisir un fichier
-
-      = javascript_include_tag 'pictures.js'
-      javascript:
-        | function initPicker() {
-          | var picker = new FilePicker({
-            | apiKey: 'AIzaSyAaIJVB82ttlDdgiYCAGlRkqW-arvmFyEY',
-            | clientId: "1032052701730-v9b1fikfu13jriqj7u4tn8sv0cagjrbg.apps.googleusercontent.com",
-            | buttonEl: document.getElementById('pick'),
-            | onSelect: function(file) {
-              | console.log(file);
-              | alert('Selected ' + file.title);
-            | }
-          | });
-        | }
-
-      #result
-      script type="text/javascript" src="https://apis.google.com/js/client.js?onload=initPicker"
-      script src="https://www.google.com/jsapi?key=AIzaSyAaIJVB82ttlDdgiYCAGlRkqW-arvmFyEY"

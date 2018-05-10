@@ -130,6 +130,7 @@ class EventsController < ApplicationController
         .require(:event)
         .permit(
           :event_date,
+          :title,
           :duration,
           :note,
           :user_id,

@@ -3,11 +3,12 @@
 # Table name: theaters
 #
 #  id            :integer          not null, primary key
-#  theater_name  :string
+#  theater_name  :string           not null
 #  location      :string
 #  manager       :string
 #  manager_phone :string
 #
+
 FactoryBot.define do
   factory :theater do
     theater_name        "Au #{FFaker::Animal::unique.common_name} enfumé"

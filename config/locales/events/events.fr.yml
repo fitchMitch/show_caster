@@ -30,5 +30,6 @@ fr:
     progress: Avancement
     plus_actors: d'acteurs
     show_in: Spectacle au %{name}
+    title: Titre
     updated: "Le spectacle a bien été mis à jour. NB : il n'existait pas sur Google Calendar."
     updated_with_Google: Le spectacle a bien été mis à jour (et sur Google Agenda aussi).
