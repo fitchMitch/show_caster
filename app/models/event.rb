@@ -13,6 +13,7 @@
 #  provider   :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  title      :string
 #
 
 class Event < ApplicationRecord
@@ -57,6 +58,9 @@ class Event < ApplicationRecord
   # ------------------------
   # --    PUBLIC      ---
   # ------------------------
+def short_label
+  "#{self.theater.theater_name[0,25]} - #{self.event_date.strftime('%d-%b %Y')} | #{self.title[0,35]}"
+end
 
   # ------------------------
   # --    Protected      ---

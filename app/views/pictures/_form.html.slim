@@ -1,15 +1,15 @@
-= form_for @picture do |f|
-  - if @picture.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@picture.errors.count, "error")} prohibited this picture from being saved:"
-      ul
-        - @picture.errors.full_messages.each do |message|
-          li = message
+= simple_form_for @picture, url: url do |f|
+  = f.error_notification
 
   .field
-    = f.label :fk
-    = f.text_field :fk
-  .field
-    = f.label :references
-    = f.text_field :references
-  .actions = f.submit
+    = f.input :descro, label: t("pictures.descro")
+    = f.association :event,
+      collection: Event.passed_events,
+      label_method: :short_label,
+      value_method: :id,
+      include_blank: false,
+      label: t("pictures.event_choice")
+
+    = f.input :photo, as: :file
+    = f.input :note, label: t("pictures.note")
+  .actions= f.submit

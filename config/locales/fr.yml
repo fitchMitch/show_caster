@@ -86,6 +86,11 @@ fr:
         update: "Modifier"
         edit: "Editer"
         new: "Créer un Spectacle"
+      picture:
+        create: "Valider "
+        update: "Modifier"
+        edit: "Editer"
+        new: "Ajouter une photo"
 
   activerecord:
     errors:
@@ -123,8 +128,10 @@ fr:
       Member: Sésame
       User: Joueur(se)
       Actor: Joueur(se)
+      Picture: Photo
     models:
       Actor: Joueurs(ses)
       User: Joueurs(ses)
       Theater: Salles
       Member: Sésames
+      Pictures: Photos

@@ -1,5 +1,8 @@
-h1 New picture
+.container
+  .page-header
+    = link_to pictures_path, :class => 'btn btn-default' do
+      span.glyphicon.glyphicon-list-alt
+        = " #{t("back")}"
+    h2= t("pictures.new")
 
-== render 'form'
-
-= link_to 'Back', pictures_path
+  = render 'form', url: pictures_path

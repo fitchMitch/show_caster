@@ -15,4 +15,8 @@ module EventsHelper
 
     "<span class='label #{label_color}'> #{event.progress_i18n} </span>".html_safe
   end
+
+  def short_label(event)
+    "<span class='label label-success'> #{event.theater.theater_name[0,25]}</span> <strong>#{event.event_date.strftime('%d-%b %Y')}</strong> | #{event.title[0,35]}".html_safe
+  end
 end
