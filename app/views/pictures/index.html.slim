@@ -16,6 +16,6 @@
           hr
           h5= short_label evt
           - evt.pictures.each do |pict|
-            = link_to edit_picture_path(pict) do
+            = link_to picture_path(pict) do
               = image_tag(pict.photo.url(:thumb))
             = image_tag("transp.png")

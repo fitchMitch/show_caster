@@ -13,6 +13,7 @@
 /coverage/*
 /spec/vcr/*
 /public/test/*
+/public/system/*
 
 # Ignore all logfiles and tempfiles.
 /log/*

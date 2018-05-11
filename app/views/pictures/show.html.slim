@@ -8,7 +8,7 @@
       span.glyphicon.glyphicon-pencil
         = " #{ t("edit") }"
     h2= @picture.descro
-    h4= "Photo #{strip_tags short_label(@picture.event)}"
+    h4= "Spectacle #{strip_tags short_label(@picture.event)}"
 
 
   dl.dl-horizontal
@@ -16,9 +16,8 @@
     dd= @picture.note
     dt= "#{ t("pictures.photo") }s : "
     dd
-      = image_tag @picture.photo.url(:thumb)
-      br
-      = image_tag @picture.photo.url(:medium)
+        = link_to @picture.photo.url do
+          = image_tag @picture.photo.url(:medium)
     dt= "#{ t("pictures.descro") } : "
     dd
       small

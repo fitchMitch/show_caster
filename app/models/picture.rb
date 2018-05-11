@@ -24,7 +24,14 @@ class Picture < ApplicationRecord
   # Relationships
   # =====================
   belongs_to :event, optional: true
-  has_attached_file :photo, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  has_attached_file :photo,
+    url: "/system/:hash.:extension",
+    hash_secret: "acara124",
+    styles: {
+      medium: "300x300>",
+      thumb: "100x100>"
+    },
+    default_url: "/images/:style/missing.png"
 
   #delegate :firstname,:lastname, :full_name, to: :member
   # =====================
