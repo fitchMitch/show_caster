@@ -8,3 +8,6 @@ fr:
     photo: Photo
     descro: Description
     edit_picture: Modifier cette photo
+    save_success: Cooool
+    update_success: Mise à jour ok
+    destroy_success: Suppression effectuée

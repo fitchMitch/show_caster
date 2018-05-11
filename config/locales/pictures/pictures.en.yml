@@ -3,3 +3,10 @@ fr:
     pictures: Photos
     list: Liste des photos
     new: Ajouter une photo
+    event_choice: Spectacle_associé
+    note: Note
+    photo: Photo
+    descro: Description
+    edit_picture: Modifier cette photo
+    save_success: Picture was successfully created.
+    update_success: 'Picture was successfully updated.'

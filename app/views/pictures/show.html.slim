@@ -12,13 +12,20 @@
 
 
   dl.dl-horizontal
-    dt= "#{ t("pictures.note") } : "
-    dd= @picture.note
+    - unless @picture.descro.empty?
+      dt= "#{ t("pictures.descro") } : "
+      dd= @picture.descro
     dt= "#{ t("pictures.photo") }s : "
     dd
-        = link_to @picture.photo.url do
-          = image_tag @picture.photo.url(:medium)
-    dt= "#{ t("pictures.descro") } : "
-    dd
-      small
-        i= @picture.descro
+      = link_to @picture.photo.url do
+        = image_tag @picture.photo.url(:medium)
+      = image_tag("transp.png")
+      = link_to picture_path(@picture), method: :delete, data: {confirm: I18n.t("sure_question") } do
+        span.down-right
+          = fa_icon("trash 2x")
+        end
+    - unless @picture.note.empty?
+      dt= "#{ t("pictures.note") } : "
+      dd
+        small
+          i= @picture.note
