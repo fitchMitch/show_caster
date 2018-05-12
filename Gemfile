@@ -30,6 +30,10 @@ gem 'pundit'
 gem 'cocoon'
 gem "paperclip", "~> 6.0.0"
 gem 'paperclip-i18n'
+gem 'mini_magick'
+gem 'rails-assets-jcrop', source: 'https://rails-assets.org'
+gem 'papercrop'
+
 
 gem 'google-api-client', '~> 0.11'
 gem 'omniauth-google-oauth2'

@@ -1,0 +1,20 @@
+.row
+  .col-xs-8
+    .panel.panel-primary
+      .panel-heading
+        h3.panel-title Crop Avatar
+      .panel-body
+        = image_tag @picture.photo.url, id: "cropbox"
+        br/
+        = simple_form_for(@picture) do |f|
+          - %w[x y w h].each do |attribute|
+            = f.input "crop_#{attribute}", as: :hidden
+          .form-actions
+            = f.button :submit
+  .col-xs-4
+    .panel.panel-primary
+      .panel-heading
+        h3.panel-title Preview
+      .panel-body
+        div style=("width:100px; height:100px; overflow:hidden")
+          = image_tag @picture.photo.url, id: "preview"

@@ -6,7 +6,7 @@
           = " #{ t("back") }"
     = link_to edit_picture_path(@picture), :class => 'btn btn-primary' do
       span.glyphicon.glyphicon-pencil
-        = " #{ t("edit") }"
+        = " #{ t("pictures.edit_and_crop") }"
     h2= @picture.descro
     h4= "Spectacle #{strip_tags short_label(@picture.event)}"
 
