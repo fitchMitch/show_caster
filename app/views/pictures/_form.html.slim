@@ -11,5 +11,8 @@
       label: t("pictures.event_choice")
 
     = f.input :photo, as: :file
+    - if @picture.photo.present?
+      = f.cropbox :photo,
+      width: 650, aspect_ratio: 1.0/1.0
     = f.input :note, label: t("pictures.note")
   .actions= f.submit

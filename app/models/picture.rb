@@ -16,6 +16,8 @@
 #
 
 class Picture < ApplicationRecord
+  # Extra accessors
+  # attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :cropping
   # includes
   # Pre and Post processing
 
@@ -29,9 +31,12 @@ class Picture < ApplicationRecord
     hash_secret: "acara124",
     styles: {
       medium: "300x300>",
+      square: "450x450",
       thumb: "100x100>"
-    },
-    default_url: "/images/:style/missing.png"
+    } ,
+    processors: [:papercrop]
+
+    # ,default_url: "/images/:style/missing.png"
 
   #delegate :firstname,:lastname, :full_name, to: :member
   # =====================
@@ -42,6 +47,7 @@ class Picture < ApplicationRecord
   # Validations
   # =====================
   validates_attachment_content_type :photo, content_type: /\Aimage\/.*\z/
+  crop_attached_file :photo, :aspect => false
   validates_attachment :photo,
     presence: true,
     size: { in: 0..4.megabytes }
