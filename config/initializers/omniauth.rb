@@ -3,7 +3,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     access_type: "offline",
     prompt: "consent",
     select_account: true,
-    scope: 'userinfo.email, calendar, drive'
+    scope: 'userinfo.email, calendar'
   }
   extra[:redirect_uri] = "http://etienneweil.fr:3200/auth/google_oauth2/callback" if Rails.env.production?
 
