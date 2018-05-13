@@ -8,6 +8,7 @@
       label_method: :short_label,
       value_method: :id,
       include_blank: false,
+      selected: @event_id,
       label: t("pictures.event_choice")
 
     = f.input :photo, as: :file
