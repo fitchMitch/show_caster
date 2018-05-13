@@ -19,4 +19,10 @@ module EventsHelper
   def short_label(event)
     "<span class='label label-success'> #{event.theater.theater_name[0,25]}</span> <strong>#{event.event_date.strftime('%d-%b %Y')}</strong> | #{event.title[0,35]}".html_safe
   end
+
+  def photo_indicator(event)
+    unless event.photo_count.zero?
+      "<span class='light-frame'><small>#{event.photo_count}</small>  #{fa_icon('image')}</span>".html_safe
+    end
+  end
 end

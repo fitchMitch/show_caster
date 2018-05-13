@@ -61,6 +61,9 @@ class Event < ApplicationRecord
 def short_label
   "#{self.theater.theater_name[0,25]} - #{self.event_date.strftime('%d-%b %Y')} | #{self.title[0,35]}"
 end
+def photo_count
+  self.pictures.count
+end
 
   # ------------------------
   # --    Protected      ---

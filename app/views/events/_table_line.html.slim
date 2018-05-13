@@ -12,10 +12,11 @@
   .col-md-2.room-left-15
     - if policy(event).show?
       = link_to fa_icon("eye lg",text: t("show") ), event
+      = photo_indicator(event)
     - if policy(event).edit?
       = image_tag('transp.png')
       = link_to fa_icon("edit lg" ), edit_event_path(event)
-    -  if policy(event).destroy?
+    - if policy(event).destroy?
       = image_tag('transp.png')
       = link_to(fa_icon("trash lg"), event, class:'destroy', id: 'destroy', data: {confirm: t('sure_question')}, method: :delete)
 hr

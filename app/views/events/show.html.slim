@@ -27,9 +27,20 @@
       p.space-up-20= t("events.actors")
     dd
       - for actor in @event.actors
-        .badge_user  style= "#{badge_user actor.user}"
-          span.room-right-5
-              = "#{actor.user.full_name} "
-              - if actor.stage_role != "player"
-                span.badge
-                  = "#{actor.stage_role_i18n}"
+        .badge_user.room-right-10  style= "#{badge_user actor.user}"
+          = "#{actor.user.full_name} "
+          - if actor.stage_role != "player"
+            span.badge
+              = "#{actor.stage_role_i18n}"
+    hr
+      - if @event.event_date < Time.zone.now
+        dd= link_to "Ajouter des photos", new_picture_path({event_id: @event.id}), class: 'btn btn-default'
+    hr
+      - unless @pictures.empty?
+        dt
+          | Photos
+        dd
+          - @pictures.each do |picto|
+            span.room-around-55
+              = link_to picto.photo.url
+                = image_tag picto.photo.url(:medium)
