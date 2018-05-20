@@ -14,7 +14,6 @@ class EventsController < ApplicationController
   end
 
   def show
-    @pictures = @event.pictures
   end
 
   def new
@@ -88,7 +87,7 @@ class EventsController < ApplicationController
   private
     def add_to_google_calendar(google_service, event)
       opt = google_event_params(event)
-      google_service.add_event_to_primarys(opt)
+      google_service.add_event_to_g_company_cal(opt)
     end
 
     def update_google_calendar(google_service, event)

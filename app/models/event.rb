@@ -40,7 +40,7 @@ class Event < ApplicationRecord
   belongs_to :user
   belongs_to :theater
   has_many :actors, dependent: :destroy, inverse_of: :event
-  has_many :pictures, dependent: :destroy
+  has_many :pictures, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :actors, allow_destroy: true
 
   # Validations

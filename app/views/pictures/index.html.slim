@@ -14,8 +14,6 @@
       .col-md-12
         - @events.each do |evt|
           hr
-          h5= short_label evt
-          - evt.pictures.each do |pict|
-            = link_to picture_path(pict) do
-              = image_tag(pict.photo.url(:thumb))
-            = image_tag("transp.png")
+          h5= link_to event_path(evt) do
+            = short_label_helper evt
+          = render partial: 'pictures/pictures', locals: {imageable: evt, size: :thumb}

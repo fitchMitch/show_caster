@@ -1,0 +1,10 @@
+- imageable.pictures.each do |picto|
+  span.room-around-55
+    p= link_to picto.photo.url
+      = image_tag picto.photo.url(size)
+    p
+      i
+        = link_to edit_picture_path(picto) do
+          = fa_icon('crop' )
+          | |
+          = fa_icon('pencil')

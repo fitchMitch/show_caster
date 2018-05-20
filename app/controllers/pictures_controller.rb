@@ -27,6 +27,7 @@ class PicturesController < ApplicationController
   # POST /pictures.json
   def create
     @picture = Picture.new(picture_params)
+    @picture['imageable_type'] = 'Event'
 
     respond_to do |format|
       if @picture.save
@@ -73,7 +74,6 @@ class PicturesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def picture_params
       params.require(:picture).permit(:fk,
-        :event_id,
         :descro,
         :note,
         :photo,
@@ -82,7 +82,9 @@ class PicturesController < ApplicationController
         :photo_crop_x,
         :photo_crop_y,
         :photo_crop_w,
-        :photo_crop_h
+        :photo_crop_h,
+        :imageable_id,
+        :imageable_type
       )
     end
 end

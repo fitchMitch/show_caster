@@ -3,7 +3,7 @@
 
   .field
     = f.input :descro, label: t("pictures.descro")
-    = f.association :event,
+    = f.association :imageable,
       collection: Event.passed_events,
       label_method: :short_label,
       value_method: :id,
@@ -14,6 +14,13 @@
     = f.input :photo, as: :file
     - if @picture.photo.present?
       = f.cropbox :photo,
-      width: 650, aspect_ratio: 1.0/1.0
+        width: 650,
+        set_select: [50, 50, 100, 100],
+        aspect_ratio: 1.0/1.0
+      .row
+        .col-sm-4
+        /  = f.crop_preview :photo
+        .col-sm-3#widthbox
+
     = f.input :note, label: t("pictures.note")
   .actions= f.submit

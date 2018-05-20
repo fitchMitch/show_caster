@@ -4,7 +4,6 @@
 #
 #  id                 :integer          not null, primary key
 #  fk                 :string
-#  event_id           :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  photo_file_name    :string
@@ -13,6 +12,8 @@
 #  photo_updated_at   :datetime
 #  note               :string
 #  descro             :string
+#  imageable_id       :integer
+#  imageable_type     :string
 #
 
 class Picture < ApplicationRecord
@@ -25,7 +26,8 @@ class Picture < ApplicationRecord
 
   # Relationships
   # =====================
-  belongs_to :event, optional: true
+
+  belongs_to :imageable, polymorphic: true, optional: true
   has_attached_file :photo,
     url: "/system/:hash.:extension",
     hash_secret: "acara124",

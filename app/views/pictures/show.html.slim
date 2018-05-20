@@ -8,7 +8,7 @@
       span.glyphicon.glyphicon-pencil
         = " #{ t("pictures.edit_and_crop") }"
     h2= @picture.descro
-    h4= "Spectacle #{strip_tags short_label(@picture.event)}"
+    h4= "Spectacle #{strip_tags short_label_helper(@picture.imageable_id)}"
 
 
   dl.dl-horizontal
