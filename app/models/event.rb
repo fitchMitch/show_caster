@@ -61,8 +61,18 @@ class Event < ApplicationRecord
 def short_label
   "#{self.theater.theater_name[0,25]} - #{self.event_date.strftime('%d-%b %Y')} | #{self.title[0,35]}"
 end
+
 def photo_count
   self.pictures.count
+end
+
+def self.last_four_images
+  e = Event.passed_events
+  e1, e2 = e.first , e.second
+  res = Picture.where("imageable_id = ? and imageable_type=?", e1.id, 'Event' ).limit(4).order("RANDOM()")
+  res2 = Picture.where("imageable_id = ? and imageable_type=?", e2.id, 'Event' ).limit(4).order("RANDOM()")
+  res += res2 if res.count < 4
+  res
 end
 
   # ------------------------
