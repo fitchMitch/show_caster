@@ -60,15 +60,15 @@ class PicturesController < ApplicationController
   # DELETE /pictures/1
   # DELETE /pictures/1.json
   def destroy
+    @picture = @imageable.pictures.find(params[:id])
     @picture.destroy
     respond_to do |format|
-      format.html { redirect_to pictures_url, notice: I18n.t("pictures.destroy_success") }
+      format.html { redirect_to @imageable, notice: I18n.t("pictures.destroy_success") }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_picture
       @picture = Picture.find(params[:id])
     end
