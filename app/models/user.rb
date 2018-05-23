@@ -45,7 +45,7 @@ class User < ApplicationRecord
 
   # Relationships
   # =====================
-
+  has_one :picture, as: :imageable
   #delegate :firstname,:lastname, :full_name, to: :member
   # =====================
 
@@ -55,7 +55,13 @@ class User < ApplicationRecord
 
   # Validations
   # =====================
-  validates :cell_phone_nr, allow_nil: true, length: { minimum:14, maximum: 25 }, uniqueness: true
+  validates :cell_phone_nr,
+    allow_nil: true,
+    length:
+      { minimum:14,
+        maximum: 25
+      },
+    uniqueness: true
 
 
   VALID_EMAIL_REGEX = /\A[\w+0-9\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -80,7 +86,6 @@ class User < ApplicationRecord
   def self.from_omniauth(access_token)
     data = access_token[:info]
     user = User.retrieve(data)
-    #TODO try change User with self
     result = if user.nil?
       "unknown user"
     else
@@ -121,7 +126,6 @@ class User < ApplicationRecord
       )
     end
     user
-    #TODO try remove user
   end
 
   def welcome_mail

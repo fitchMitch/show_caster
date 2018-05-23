@@ -33,11 +33,17 @@
             span.badge
               = "#{actor.stage_role_i18n}"
     hr
-      - if @event.event_date < Time.zone.now
-        dd= link_to "Ajouter des photos", new_picture_path({event_id: @event.id}), class: 'btn btn-default'
-    hr
       - unless @event.pictures.empty?
         dt
           | Photos
         dd
-          = render partial: 'pictures/pictures', locals: {imageable: @event, size: :medium}
+          = render partial: 'pictures/pictures', locals: {imageable: @event, size: :thumb}
+    hr
+      - if @event.event_date < Time.zone.now
+        dt
+          span.add-photos
+            = fa_icon("plus 2x")
+            = image_tag("transp.png")
+            = fa_icon("image 2x")
+        dd
+          = render partial: 'pictures/form', locals: {imageable: @event, picture: Picture.new}

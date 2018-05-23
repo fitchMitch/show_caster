@@ -12,3 +12,5 @@ fr:
     update_success: Mise à jour ok
     destroy_success: Suppression effectuée
     edit_and_crop: Editer et rogner
+    descro_hint: Titre des images
+    note_hint: Accompagne les images en sous-titre

@@ -1,11 +1,11 @@
 .container
   .page-header
     span.room-right-5
-      = link_to pictures_path, :class => 'btn btn-default room-right-25' do
+      = link_to back_path(@imageable), :class => 'btn btn-default room-right-25' do
           span.glyphicon.glyphicon-list-alt
             = " #{t("back")} "
 
     h2
       = t("pictures.edit_picture")
 
-  = render 'form', url: picture_path
+  = render partial: 'form', locals: {imageable: @imageable, picture: @picture}

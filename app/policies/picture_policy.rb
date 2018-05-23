@@ -7,31 +7,31 @@ class PicturePolicy < ApplicationPolicy
   end
 
   def new?
-    communicator_or_admin?
+    true
   end
 
   def edit?
-    communicator_or_admin?
+    true
   end
 
   def index?
-    !@user.nil?
+    true
   end
 
   def show?
-    !@user.nil?
+    true
   end
 
   def update?
-    edit?
+    true
   end
 
   def create?
-    communicator_or_admin?
+    true
   end
 
   def destroy?
-    false
+    true
   end
 
 end

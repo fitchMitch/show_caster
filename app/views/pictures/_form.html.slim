@@ -1,26 +1,35 @@
-= simple_form_for @picture, url: url do |f|
+= simple_form_for [imageable, picture] do |f|
   = f.error_notification
 
   .field
-    = f.input :descro, label: t("pictures.descro")
-    = f.association :imageable,
-      collection: Event.passed_events,
-      label_method: :short_label,
-      value_method: :id,
-      include_blank: false,
-      selected: @event_id,
-      label: t("pictures.event_choice")
-
+    .row
+      .col-md-6
+        = f.input :descro, label: t("pictures.descro"), hint: I18n.t("pictures.descro_hint")
+      .col-md-6
+        = f.input :note, label: t("pictures.note"),hint: I18n.t("pictures.note_hint")
     = f.input :photo, as: :file
-    - if @picture.photo.present?
-      = f.cropbox :photo,
-        width: 650,
-        set_select: [50, 50, 100, 100],
-        aspect_ratio: 1.0/1.0
+    - if !@picture.nil? && @picture.photo.present?
       .row
-        .col-sm-4
-        /  = f.crop_preview :photo
-        .col-sm-3#widthbox
-
-    = f.input :note, label: t("pictures.note")
+        .col-md-7
+          = f.cropbox :photo,
+            width: 650,
+            set_select: [50, 50, 150, 100],
+            aspect_ratio: 1.0/1.0
+          .row
+            .col-sm-3
+            /  = f.crop_preview :photo
+            .col-sm-1
+              #square.hide-me
+                span.label.label-success
+                  | 1:1
+              #movie.hide-me
+                span.label.label-warning
+                  | 16:9
+            .col-sm-5
+              #widthbox
+        .col-md-1
+          = link_to polymorphic_path [imageable, @picture],
+              method: :delete,
+              data: { confirm: I18n.t("sure_question") }
+            = fa_icon("trash 2x")
   .actions= f.submit

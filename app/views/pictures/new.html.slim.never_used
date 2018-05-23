@@ -5,4 +5,4 @@
         = " #{t("back")}"
     h2= t("pictures.new")
 
-  = render 'form', url: pictures_path
+  = render 'form', {imageable: @imageable, picture: Picture.new}

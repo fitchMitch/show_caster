@@ -16,23 +16,25 @@ class PicturesController < ApplicationController
   # GET /pictures/new
   def new
     @picture = Picture.new
-    @event_id = params.fetch(:event_id, nil)
+    # @event_id = params.fetch(:event_id, nil)
+    # @imageable_type = params.fetch(:imageable_type, nil)
   end
 
   # GET /pictures/1/edit
   def edit
+    # @imageable_type = params.fetch(:imageable_type, nil)
+    @picture = Picture.find_by(id: params[:id])
   end
 
   # POST /pictures
   # POST /pictures.json
   def create
-    @picture = Picture.new(picture_params)
-    @picture['imageable_type'] = 'Event'
+    @picture = @imageable.pictures.new(picture_params)
 
     respond_to do |format|
       if @picture.save
-        format.html { redirect_to @picture, notice: I18n.t("pictures.save_success")  }
-        format.json { render :show, status: :created, location: @picture }
+        format.html { redirect_to @imageable, notice: I18n.t("pictures.save_success")  }
+        format.json { render :show, status: :created, location: @imageable }
       else
         format.html { render :new }
         format.json { render json: @picture.errors, status: :unprocessable_entity }
@@ -46,10 +48,10 @@ class PicturesController < ApplicationController
     respond_to do |format|
       if @picture.update(picture_params)
         @picture.update_column(:photo_updated_at, @picture.photo_updated_at)
-        format.html { redirect_to @picture, notice: I18n.t("pictures.update_success") }
+        format.html { redirect_to @imageable, notice: I18n.t("pictures.update_success") }
         format.json { render :show, status: :ok, location: @picture }
       else
-        format.html { render :edit }
+        format.html { render edit_polymorphic_path([@imageable,@picture]) }
         format.json { render json: @picture.errors, status: :unprocessable_entity }
       end
     end

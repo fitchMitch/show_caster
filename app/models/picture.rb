@@ -18,7 +18,6 @@
 
 class Picture < ApplicationRecord
   # Extra accessors
-  # attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :cropping
   # includes
   # Pre and Post processing
 
@@ -27,17 +26,21 @@ class Picture < ApplicationRecord
   # Relationships
   # =====================
 
-  belongs_to :imageable, polymorphic: true, optional: true
+  belongs_to :imageable,
+    polymorphic: true,
+    optional: true
+
   has_attached_file :photo,
     url: "/system/:hash.:extension",
+    default_url: "public/missing/:style/missing_avatar.jpg",
     hash_secret: "acara124",
     styles: {
-      medium: "300x300>",
-      square: "450x450",
+      square: "450x450#",
+      medium: "600x600>",
       thumb: "100x100>"
     } ,
     processors: [:papercrop]
-
+    # default_url: "images/default_photo/:style/default.jpg",
     # ,default_url: "/images/:style/missing.png"
 
   #delegate :firstname,:lastname, :full_name, to: :member
@@ -53,7 +56,6 @@ class Picture < ApplicationRecord
   validates_attachment :photo,
     presence: true,
     size: { in: 0..4.megabytes }
-
 
   # ------------------------
   # --    PUBLIC      ---

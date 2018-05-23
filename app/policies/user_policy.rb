@@ -27,7 +27,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    registered? && me_or_admin? 
+    registered? && me_or_admin?
   end
 
   def create?
@@ -36,7 +36,6 @@ class UserPolicy < ApplicationPolicy
 
   def promote?
     c0 = !(@user.nil? || @record.nil?)
-    # binding.pry if @user.admin_com?
     if c0
       c1 = @record.status != "setup"
       c2 = communicator_or_admin?

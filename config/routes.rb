@@ -7,7 +7,13 @@ Rails.application.routes.draw do
 
   get '/auth/:provider/callback', to: 'sessions#create'
   # Users, theaters, Events
-  resources :users, :theaters, :events, :pictures
+  resources :events do
+    resources :pictures, module: :events
+  end
+  resources :users do
+    resources :pictures, module: :users
+  end
+  resources :theaters
   post '/promote',        to:  'users#promote'
   post '/invite',        to:  'users#invite'
   # Splash
