@@ -46,7 +46,7 @@ class Picture < ApplicationRecord
   #delegate :firstname,:lastname, :full_name, to: :member
   # =====================
 
-  # scope :found_by, -> (user) { where('user_id = ?', user_id) }
+   scope :four_pictures, -> (e) {where("imageable_id = ? and imageable_type=?", e.id, 'Event' ).limit(4).order("RANDOM()")}
   # =====================
 
   # Validations

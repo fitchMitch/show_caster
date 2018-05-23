@@ -55,6 +55,7 @@ class Event < ApplicationRecord
   # Scopes
  scope :future_events, -> {where('event_date >= ?', Time.zone.now).order(event_date: :asc)}
  scope :passed_events, -> {where('event_date < ?', Time.zone.now).order(event_date: :desc)}
+
   # ------------------------
   # --    PUBLIC      ---
   # ------------------------
@@ -67,12 +68,10 @@ def photo_count
 end
 
 def self.last_four_images
-  e = Event.passed_events
+  e = Event.passed_events.limit(2)
   e1, e2 = e.first , e.second
-  res = Picture.where("imageable_id = ? and imageable_type=?", e1.id, 'Event' ).limit(4).order("RANDOM()")
-  res2 = Picture.where("imageable_id = ? and imageable_type=?", e2.id, 'Event' ).limit(4).order("RANDOM()")
-  res += res2 if res.count < 4
-  res
+  res = Picture.four_pictures(e1)
+  res += Picture.four_pictures(e2) if res.count < 4
 end
 
   # ------------------------
