@@ -48,14 +48,10 @@ section.features#features
     .row
       p.space-up-50
 section.images
-  .quarter-block
-    = image_tag  "008.JPG"
-  .quarter-block
-    = image_tag  "001.JPG"
-  .quarter-block
-    = image_tag  "002.JPG"
-  .quarter-block
-    = image_tag  "004.JPG"
+  - Event.last_four_images.each do |pic|
+    .quarter-block
+      = image_tag  pic.photo.url(:square)
+
 p.space-up-250
 p#contact.space-up-25
 section.contact

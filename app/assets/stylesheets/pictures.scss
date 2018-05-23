@@ -4,5 +4,29 @@
 .squareBorder{
   border: 2px solid green;
   margin: 2px;
+}
+.movieBorder{
+  border: 2px solid orange;
 
+}
+.image-container{
+  float: left;
+  margin-left: 10px;
+  height: 150px;
+}
+.image-part{
+  margin-left: 10px;
+  padding: 5px;
+  margin: 5px;
+  border: 1px grey solid;
+  border-radius: 5px;
+}
+#widthbox{
+    text-indent: 3px;
+}
+.linkpart{
+  margin-left: 10px;
+}
+.hide-me{
+  display: none;
 }
