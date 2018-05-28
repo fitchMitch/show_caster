@@ -25,21 +25,31 @@ module UsersHelper
     label_hash = case user.status.to_sym
     when :invited
       {klass: "warning",
-      text: I18n.t("users.state.invited")}
+      text: I18n.t("users.state.invited"),
+      link:nil }
     when :googled
       {klass: "info",
-      text: I18n.t("users.state.processing")}
+      text: I18n.t("users.state.processing"),
+      link:nil}
     when :archived
       {klass: "default",
-      text: I18n.t("users.state.rip")}
+      text: I18n.t("users.state.rip"),
+      link: nil}
     else
       {klass: "danger",
-      text: I18n.t("users.state.to_invite")}
+      text: I18n.t("users.state.to_invite"),
+      link:"to_user"}
     end
     if user.status.to_sym == :registered
       user.role_i18n
     else
-      "<span class=\"label label-#{label_hash[:klass]}\">#{label_hash[:text]}</span>".html_safe
+      if label_hash[:link].nil?
+        "<span class=\"label label-#{label_hash[:klass]}\">#{label_hash[:text]}</span>".html_safe
+      else
+        link_to user_path(user), {class: 'undecorated-link'} do
+          "<span class=\"label label-#{label_hash[:klass]}\">#{label_hash[:text]}</span>".html_safe
+        end
+      end
     end
   end
 
