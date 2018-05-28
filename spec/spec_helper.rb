@@ -4,7 +4,12 @@ require 'simplecov'
 SimpleCov.start 'rails'
 require "pundit/rspec"
 require 'pundit/matchers'
+require "paperclip/matchers"
 RSpec.configure do |config|
+  # Paperclip configuration
+  config.after(:suite) do
+    FileUtils.rm_rf(Dir["#{Rails.root}/spec/test_files/"])
+  end
 
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`

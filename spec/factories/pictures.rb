@@ -18,8 +18,13 @@
 
 FactoryBot.define do
   factory :picture do
-    fk "MyString"
-    event
+    fk "aForeying_Key"
     photo  { File.new("#{Rails.root}/spec/support/fixtures/pbhinanagkgpkadi.jpg") }
+    factory :event_picture do
+      imageable event
+    end
+    factory :user_picture do
+      imageable user
+    end
   end
 end
