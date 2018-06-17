@@ -1,0 +1,11 @@
+  .link-part
+    .modification-part
+      = link_to  [:edit, imageable, picto] , {class: 'undecorated-link'} do
+        = fa_icon('crop')
+        | |
+        = fa_icon('pencil')
+        | |
+        = fa_icon('trash')
+    .link-to-image-part
+      = link_to picto.photo.url(:medium) do
+        = fa_icon("image lg")

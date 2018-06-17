@@ -1,0 +1,7 @@
+dt
+  span.add-photos
+    = fa_icon("plus 2x")
+    = image_tag("transp.png")
+    = fa_icon("image 2x")
+dd
+  = render partial: 'pictures/form', locals: {imageable: @user, picture: Picture.new}

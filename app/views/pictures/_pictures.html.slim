@@ -1,16 +1,6 @@
-.row.space-up-5.side-o-side
   - imageable.pictures.each do |picto|
-    .image-container
-      .image-part
-        = link_to picto.photo.url
-          = image_tag picto.photo.url(size)
-      .link-part
-        .row
-          .col-xs-7
-            = link_to  [:edit, imageable, picto] do
-              = fa_icon('crop')
-              | |
-              = fa_icon('pencil')
-          .col-xs-3.right
-            = link_to picto.photo.url(:medium) do
-              = fa_icon("image lg")
+      .image-container
+        .image-part
+          = link_to picto.photo.url
+            = image_tag picto.photo.url(size)
+        = render partial: 'pictures/link_part', locals: {imageable: imageable, picto: picto}

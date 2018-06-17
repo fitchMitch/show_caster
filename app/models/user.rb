@@ -45,7 +45,7 @@ class User < ApplicationRecord
 
   # Relationships
   # =====================
-  has_one :picture, as: :imageable
+  has_many :pictures, as: :imageable, dependent: :destroy
   #delegate :firstname,:lastname, :full_name, to: :member
   # =====================
 
@@ -77,7 +77,7 @@ class User < ApplicationRecord
     presence: true,
     length: { minimum: 2,maximum: 50 }
 
-  validates :uid, uniqueness: true, allow_nil: true
+  validates :uid, uniqueness: { case_sensitive: true }, allow_nil: true
 
   # ------------------------
   # --    PUBLIC      ---
@@ -148,10 +148,9 @@ class User < ApplicationRecord
 
   protected
 
-
     def format_fields
-      self.lastname = lastname.upcase unless self.lastname.nil?
-      self.email = email.downcase unless self.email.nil?
+      self.lastname = lastname.upcase unless lastname.nil?
+      self.email = email.downcase unless email.nil?
       self.role ||= 'player'
       self.color ||= get_color
       self.phone_number_format

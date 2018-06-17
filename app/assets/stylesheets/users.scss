@@ -13,6 +13,9 @@
 .right{
   text-align: right;
 }
+.left{
+  text-align: left;
+}
 .badge_user{
   display: block;
   // min-width: 100px;
@@ -29,4 +32,16 @@
   float:left;
   background-color:$sesame-blue;
   font-weight: 400;
+}
+.title-user-show{
+  line-height: 250px;
+  vertical-align: top;
+}
+.form-std-height{
+  line-height: 30px;
+  vertical-align: middle;
+}
+.phone-big{
+  font-size: 1.4em;
+  font-weight: 600;
 }

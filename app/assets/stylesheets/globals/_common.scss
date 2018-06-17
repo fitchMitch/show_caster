@@ -36,6 +36,7 @@
 .space-up-40{ display: inline-block; margin-top: 40px; }
 .space-up-45{ display: inline-block; margin-top: 45px; }
 .space-up-50{ display: inline-block; margin-top: 50px; }
+.space-up-75{ display: inline-block; margin-top: 75px; }
 .space-up-250{ display: inline-block; margin-top: 250px; }
 
 .room-around-55{ margin:5px; padding:5px; }
@@ -45,6 +46,5 @@
 .room-around-10{ padding:10px; }
 .room-around-15{ padding:15px; }
 
-a:link.undecorated-link{
-  text-decoration: none;
-}
+a:link.undecorated-link{ text-decoration: none; }
+hr.thin-hr{margin-top: 3px; margin-bottom: 3px;}

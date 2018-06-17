@@ -7,25 +7,29 @@
 }
 .movieBorder{
   border: 2px solid orange;
-
+}
+.image-line-container{
 }
 .image-container{
+  min-height: 160px;
   float: left;
-  margin-left: 10px;
-  height: 150px;
-}
-.image-part{
-  margin-left: 10px;
-  padding: 5px;
-  margin: 5px;
-  border: 1px grey solid;
+  text-align: center;
+  margin-right: 10px;
+  margin-bottom: 15px;
+  padding: 10px;
   border-radius: 5px;
 }
-#widthbox{
-    text-indent: 3px;
+.image-part{
+  border: 3px dotted orange;
+  padding:5px;
 }
-.linkpart{
-  margin-left: 10px;
+#widthbox{
+  text-indent: 3px;
+}
+.link-part{
+  min-width: 100px;
+  display: flex;
+  justify-content: space-between;
 }
 .hide-me{
   display: none;

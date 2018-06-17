@@ -12,23 +12,23 @@ fr:
     # position: Promouvoir
     # reinvite: Le ré-inviter par mail
     # we_wait_for: Très cher et attendu
-
+    address: Adresse
     cell_phone_nr: Mobile
-    list: Liste des membres
-    delete: Supprimer
     company : La troupe
     complementary: Eléments complémentaires
-    address: Adresse
+    delete: Supprimer
+    edit: Editer des coordonnées
     email: Email
-    role: Rôle
-    status: Statut
     invitations: Invitations
+    list: Liste des membres
+    not_updated: Oups ! La correction n'est pas passée
+    not_logged_in: Vous devez être identifié pour accéder à cette page
+    role: Rôle
+    role: Role
+    roles_status: Rôles et statuts
+    status: Statut
     setup: "%{full_name} est enregistré. Il faut l'inviter à présent."
     updated: "Mise à jour : tip top !"
-    not_updated: Oups ! La correction n'est pas passée
-    role: Role
-    edit: Editer des coordonnées
-    not_logged_in: Vous devez être identifié pour accéder à cette page
 
     address: Adresse
     back: Retour
@@ -65,3 +65,5 @@ fr:
     promote: Promouvoir
     promoted: "%{name} a changé de statut, un message l'en a informé(e)"
     promoted_failed: "%{name} n'a pas pu changer de statut"
+    photograph: Photographie
+    photograph_comment: Cette photo sera reprise telle quelle pour la présentation dans le site web au format carré

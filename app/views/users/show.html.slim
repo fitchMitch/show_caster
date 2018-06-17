@@ -7,58 +7,50 @@
         = fa_icon('pencil')
   hr
   .row
-    .col-lg-2.col-md-2.col-sm-2.col-xs-12
-      = image_tag(@user.photo_url, size: "150x150") unless @user.photo_url.nil?
-    .col-lg-1.visible-lg-inline-block
-    .col-lg-9.col-md-10.col-sm-10.col-xs-12.user-show
+    .col-sm-4
+      span
+        - unless @user.pictures.empty?
+          .image-container
+            .image-part
+              = image_tag(@user.pictures.first.photo(:square), width:350)
+            = render partial: 'pictures/link_part', locals: {imageable: @user, picto: @user.pictures.first}
+            i
+              small= t("users.photograph_comment")
+    .col-sm-8
       .row
-        .col-sm-4.col-xs-4.right= t("users.role")
-        .col-lg-8
+        .col-sm-4.right.hidden-sm.hidden-xs Google Photo
+        .col-sm-8
+          - unless @user.photo_url.nil?
+            = image_tag(@user.photo_url, size: "150x150")
+      .row.form-std-height
+        .col-sm-4.right.hidden-sm.hidden-xs= t("users.role")
+        .col-sm-8
           .label.label-info= @user.role_i18n
-      .row
-        .col-sm-4.col-xs-4.right
-          = I18n.t("users.address")
-        .col-lg-8= @user.address unless @user.address.nil?
-      .row
-        .col-sm-4.col-xs-4.right
-          = I18n.t("users.email")
-        .col-lg-8= @user.email
-      .row
-        .col-sm-4.col-xs-4.right
-          = I18n.t("users.cell_phone_nr")
-        .col-lg-8
-          h4
+      .row.form-std-height
+        .col-sm-4.right.hidden-sm.hidden-xs= t("users.address")
+        .col-sm-8= @user.address unless @user.address.nil?
+      .row.form-std-height
+        .col-sm-4.right.hidden-sm.hidden-xs= t("users.email")
+        .col-sm-8= @user.email
+      .row.form-std-height
+        .col-sm-4.right.hidden-sm.hidden-xs= t("users.cell_phone_nr")
+        .col-sm-8
+          .phone-big
             .label.label-info= @user.cell_phone_nr
-      - if policy(@user).promote?
-        = simple_form_for(@user, as: :user, url: promote_path, html: { method: :post, class: 'form-horizontal' }) do |f|
-          .container-fluid
-            .row.users_promote
-              .col-xs-4.right
-                br
-                strong
-                  = t ("users.position")
-              .col-xs-8
-                .row
-                  .col-sm-4.col-xs-12
-                    = f.input :role, label: t("users.role")
-                    = f.input :id, as: :hidden, input_html:{value: @user.id}
-                  .col-sm-1.xs-hidden
-                  .col-sm-4.col-xs-12
-                    = f.input :status,
-                     collection: @user.restricted_statuses,
-                     label: t("users.status")
-                .row
-                  .col-lg-12
-                    .buttons
-                      = f.button :submit, I18n.t("users.promote"), class: "btn-primary"
-      - if policy(@user).invite?
-        = simple_form_for(@user, as: :user, url: invite_path, html: { method: :post, class: 'form-horizontal' }) do |f|
-          .container-fluid
-            .row
-              .col-xs-4.right
-              .col-xs-8
-                .row.users_invite
-                  .col-lg-12
-                    = f.input :id, as: :hidden, input_html:{value: @user.id}
-                    .buttons
-                      = f.button :submit, I18n.t("users.invite"), class: "btn-danger"
+      .row.form-std-height
+        .col-sm-4.right
+        .col-sm-8
+          .row
+            ul class="nav nav-tabs" role="tablist"
+              li role="presentation" class="active"
+                a href="#person_role" aria-controls="person_role" role="tab" data-toggle="tab"
+                  = t("users.roles_status")
+              li role="presentation"
+                a href="#person_photograph" aria-controls="person_photograph" role="tab" data-toggle="tab"
+                  = t("users.photograph")
+          .row
+          .tab-content
+            #person_role.tab-pane.fade.in.active role="tabpanel"
+              = render partial: 'show_role', locals: {user: @user}
+            #person_photograph.tab-pane.fade role="tabpanel"
+              = render partial: 'show_photograph', locals: {user: @user}
