@@ -69,9 +69,13 @@ end
 
 def self.last_four_images
   e = Event.passed_events.limit(2)
-  e1, e2 = e.first , e.second
-  res = Picture.four_pictures(e1)
-  res += Picture.four_pictures(e2) if res.count < 4
+  e1, e2, res  = e.first , e.second, []
+  unless e.empty?
+    res = Picture.four_pictures(e1)
+    res += Picture.four_pictures(e2) unless res.count == 4 || e2.nil?
+    res = res[0..3] if res.count > 4
+  end
+  res
 end
 
   # ------------------------
