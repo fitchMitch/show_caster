@@ -20,11 +20,13 @@ FactoryBot.define do
   factory :picture do
     fk "aForeying_Key"
     photo  { File.new("#{Rails.root}/spec/support/fixtures/pbhinanagkgpkadi.jpg") }
-    factory :event_picture do
-      imageable event
+    note "there is a note"
+    descro "there is a descro"
+    factory :picture_event do
+      imageable { |a| a.association(:event) }
     end
-    factory :user_picture do
-      imageable user
+    factory :picture_user do
+      imageable { |a| a.association(:user) }
     end
   end
 end
