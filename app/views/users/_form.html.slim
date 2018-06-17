@@ -3,9 +3,11 @@
   = f.error_notification
 
   .form-inputs
-
-    = f.input :firstname, label: t("firstname")
-    = f.input :lastname, label: t("lastname")
+    .row
+      .col-sm-6
+        = f.input :firstname, label: t("firstname")
+      .col-sm-6
+        = f.input :lastname, label: t("lastname")
     = f.input :email, label: t("email")
 
   .form-actions

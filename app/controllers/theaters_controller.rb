@@ -14,7 +14,6 @@ class TheatersController < ApplicationController
   def new
     authorize Theater
     @theater = Theater.new
-
   end
 
   def edit

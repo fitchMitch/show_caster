@@ -34,7 +34,7 @@ class GoogleCalendarService
   end
 
   # Where primary is 'my' calendar
-  def add_event_to_primarys(opt)
+  def add_event_to_g_company_cal(opt)
     event = make_a_google_event(opt)
     @calendar.insert_event('primary', event, send_notifications: true)
   end

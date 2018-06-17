@@ -22,7 +22,6 @@ class GoogleDriveService
       }
     )
     @service = Google::Apis::DriveV3::DriveService.new
-    # TODO V3
     @service.authorization = client_secrets.to_authorization
     @service.authorization.refresh!
     @service

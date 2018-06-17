@@ -28,7 +28,6 @@ class SessionsController < ApplicationController
   end
 
   def oauth_failure
-    # TODO: Render something appropriate here
     render text: I18n.t("sessions.omniauth.failure", kind: 'Google')
   end
 
