@@ -6,6 +6,6 @@ class DashboardPolicy < ApplicationPolicy
   end
 
   def index?
-    communicator_or_admin?
+    true
   end
 end
