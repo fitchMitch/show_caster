@@ -29,6 +29,16 @@ FactoryBot.define do
   end
 end
 FactoryBot.define do
+  sequence :cell_phone_nr do |n|
+    format_by_two(FFaker::PhoneNumberFR::mobile_phone_number)
+  end
+end
+FactoryBot.define do
+  sequence :address do |n|
+    FFaker::AddressFR::unique.full_address
+  end
+end
+FactoryBot.define do
   sequence :uid do |n|
     105205260860063499768 + 1 + n
   end
@@ -66,22 +76,22 @@ FactoryBot.define do
     end
     trait :registered do
       status                3
-      cell_phone_nr         {format_by_two(FFaker::PhoneNumberFR::mobile_phone_number)}
-      address               {FFaker::AddressFR::unique.full_address}
+      cell_phone_nr
+      address
     end
     trait :archived do
       status                4
-      cell_phone_nr         {format_by_two(FFaker::PhoneNumberFR::mobile_phone_number)}
-      address               {FFaker::AddressFR::unique.full_address}
+      cell_phone_nr
+      address
     end
-  end
 
-  factory :real_user, parent: :user do
-    uid                     "105205260860062499768"
-    expires_at              1525180002
-    token                   "ya29.GlutBdd9n4jCCUGo_TDJ6S0V-Wa3Z0XvX4EWoVizE4hrjN4hi4rorIoLdBUx0Bjx0-lWho5FQqQbRwnZgQMQ_waBDWxeulzStIJmWSuesYe0M8LoUSr4S-g0ZziJ"
-    refresh_token           "1/TWEEy8BKRWISueVQf1m6LItwKtnjI-ZIset4YkfpZ5CcLBMiAHHM_YG_i5qCOqlp"
-    status                  3
-    role                    2
+    factory :user_with_picture do
+      transient do
+        picture_count 1
+      end
+      after(:create) do |user|
+        create(:picture,  imageable: user)
+      end
+    end
   end
 end
