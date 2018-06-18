@@ -1,7 +1,7 @@
 require 'rails_helper'
 RSpec.describe PicturePolicy do
   subject { PicturePolicy.new(user, picture)}
-  let!(:picture) { picture = FactoryBot.create(:event_picture) }
+  let!(:picture) { picture = FactoryBot.create(:picture_event) }
 
   context "As a visitor" do
     let!(:user) { nil }

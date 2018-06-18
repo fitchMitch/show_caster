@@ -7,31 +7,33 @@ class PicturePolicy < ApplicationPolicy
   end
 
   def new?
-    true
+    registered?
   end
 
   def edit?
-    true
+    registered?
   end
 
   def index?
-    true
+    registered?
   end
 
   def show?
-    true
+    registered?
   end
 
   def update?
-    true
+    registered?
   end
 
   def create?
-    true
+    registered?
   end
 
   def destroy?
-    true
+    registered?
   end
+
+
 
 end

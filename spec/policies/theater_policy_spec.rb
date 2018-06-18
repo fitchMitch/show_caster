@@ -5,6 +5,7 @@ RSpec.describe TheaterPolicy do
 
   context "As a visitor" do
     let!(:user) { nil }
+    it { is_expected.to     forbid_action(:new) }
     it { is_expected.to     forbid_action(:index) }
     it { is_expected.to     forbid_action(:show) }
     it { is_expected.to     forbid_action(:edit) }
@@ -16,6 +17,7 @@ RSpec.describe TheaterPolicy do
     let!(:user) { FactoryBot.create(:user, :player,:registered) }
 
     subject { TheaterPolicy.new(user, theater)}
+    it { is_expected.to      forbid_action(:new) }
     it { is_expected.to      permit_action(:index) }
     it { is_expected.to      permit_action(:show) }
     it { is_expected.to      forbid_action(:edit) }
@@ -27,6 +29,7 @@ RSpec.describe TheaterPolicy do
     let!(:user) { FactoryBot.create(:user, :admin,:registered) }
 
     subject { TheaterPolicy.new(user, theater)}
+    it { is_expected.to     permit_action(:new) }
     it { is_expected.to     permit_action(:index) }
     it { is_expected.to     permit_action(:show) }
     it { is_expected.to     permit_action(:edit) }
@@ -38,6 +41,7 @@ RSpec.describe TheaterPolicy do
     let!(:user) {FactoryBot.create(:user,:admin_com,:registered) }
 
     subject { TheaterPolicy.new(user, theater)}
+    it { is_expected.to     permit_action(:new) }
     it { is_expected.to     permit_action(:index) }
     it { is_expected.to     permit_action(:show) }
     it { is_expected.to     permit_action(:edit) }

@@ -1,7 +1,7 @@
 require 'rails_helper'
 RSpec.describe EventPolicy do
   subject { EventPolicy.new(user, event)}
-  let!(:event) { event = FactoryBot.create(:event_with_pictures) }
+  let!(:event) { event = FactoryBot.create(:event_with_picture) }
 
   context "As a visitor" do
     let!(:user) { nil }
