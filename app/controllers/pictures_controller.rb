@@ -16,8 +16,6 @@ class PicturesController < ApplicationController
   # GET /pictures/new
   def new
     @picture = Picture.new
-    # @event_id = params.fetch(:event_id, nil)
-    # @imageable_type = params.fetch(:imageable_type, nil)
   end
 
   # GET /pictures/1/edit
@@ -26,21 +24,7 @@ class PicturesController < ApplicationController
     @picture = Picture.find_by(id: params[:id])
   end
 
-  # POST /pictures
-  # POST /pictures.json
-  def create
-    @picture = @imageable.pictures.new(picture_params)
-
-    respond_to do |format|
-      if @picture.save
-        format.html { redirect_to @imageable, notice: I18n.t("pictures.save_success")  }
-        format.json { render :show, status: :created, location: @imageable }
-      else
-        format.html { render :new }
-        format.json { render json: @picture.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  
 
   # PATCH/PUT /pictures/1
   # PATCH/PUT /pictures/1.json

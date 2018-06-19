@@ -33,8 +33,8 @@ class EventsController < ApplicationController
     result = add_to_google_calendar(@service, @event)
     redirect_to event_path(@event.reload), alert: I18n.t("events.fail_to_create")  and return if result.nil?
 
-    @event.user_id = current_user.id
     @event.fk = result.id
+    @event.user_id = current_user.id
     @event.provider = "google_calendar_v3"
 
     if @event.save
