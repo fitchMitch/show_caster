@@ -11,7 +11,7 @@ class Events::PicturesController < PicturesController
         format.html { redirect_to @imageable, notice: I18n.t("pictures.save_success")  }
         format.json { render :show, status: :created, location: @imageable }
       else
-        format.html { render :new }
+        format.html { redirect_to @imageable, notice: I18n.t("pictures.save_failure")  }
         format.json { render json: @picture.errors, status: :unprocessable_entity }
       end
     end
