@@ -26,7 +26,7 @@ class User < ApplicationRecord
   # includes
   include Users::Formating
   # Pre and Post processing
-  before_validation :format_fields, on: %i[ create update]
+  before_validation :format_fields, on: %i[create update]
 
   # Enums
   enum status: {

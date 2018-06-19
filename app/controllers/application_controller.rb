@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     end
 
     def user_signed_in?
-      !current_user.nil?
+      current_user.present?
     end
 
     def logout

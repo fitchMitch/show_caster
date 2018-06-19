@@ -49,8 +49,8 @@ FactoryBot.define do
     firstname               {FFaker::NameFR.unique.first_name}
     lastname                {FFaker::NameFR.unique.last_name.upcase}
     email
-    role                    2
-    status                  3
+    role                    2 # Default is admin
+    status                  3 # Default is registered
 
     trait :player do
       role                  0

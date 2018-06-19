@@ -22,7 +22,8 @@
     dt= t('events.note')
     dd= @event.note
     dt= t('events.created_by')
-    dd= @event.user.full_name
+    - if @event.user.present?
+      dd= @event.user.full_name 
     dt
       p.space-up-20= t("events.actors")
     dd
