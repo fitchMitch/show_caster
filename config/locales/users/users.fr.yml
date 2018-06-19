@@ -66,4 +66,4 @@ fr:
     promoted: "%{name} a changé de statut, un message l'en a informé(e)"
     promoted_failed: "%{name} n'a pas pu changer de statut"
     photograph: Photographie
-    photograph_comment: Cette photo sera reprise telle au format carré dans le site web.
+    photograph_comment: Cette photo sera reprise sur le site web, dans son format carré.

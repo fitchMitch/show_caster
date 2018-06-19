@@ -14,16 +14,18 @@
   dl.dl-horizontal
     dt= t('events.dur')
     dd= distance_of_time_in_words @event.event_date, @event.event_date + @event.duration * 60
-    dt= t('events.address')
-    dd= @event.theater.location
-    dt= t('events.progress')
-    dd= get_progress(@event)
 
-    dt= t('events.note')
-    dd= @event.note
+    dt.space-up-10= t('events.address')
+    dd.space-up-10= @event.theater.location
+
+    /!dt.space-up-10= t('events.progress')
+    /!dd.space-up-10= get_progress(@event)
+
+    dt.space-up-10= t('events.note')
+    dd.space-up-10= @event.note
     dt= t('events.created_by')
     - if @event.user.present?
-      dd= @event.user.full_name 
+      dd= @event.user.full_name
     dt
       p.space-up-20= t("events.actors")
     dd
@@ -34,12 +36,6 @@
             span.badge
               = "#{actor.stage_role_i18n}"
     hr
-      - unless @event.pictures.empty?
-        dt
-          | Photos
-        dd
-          = render partial: 'pictures/pictures', locals: {imageable: @event, size: :thumb}
-    hr
       - if @event.event_date < Time.zone.now
         dt
           span.add-photos
@@ -47,4 +43,9 @@
             = image_tag("transp.png")
             = fa_icon("image 2x")
         dd
-          = render partial: 'pictures/form', locals: {imageable: @event, picture: Picture.new}
+          = render partial: 'pictures/form', locals: {imageable: @event, picture: Picture.new, edit: false}
+    hr
+      - unless @event.pictures.empty?
+        dt= fa_icon("image 2x")
+        dd
+          = render partial: 'pictures/pictures', locals: {imageable: @event, size: :thumb}

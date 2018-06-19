@@ -2,7 +2,7 @@
   = f.error_notification
 
   .field
-    = f.input :photo, as: :file
+    = f.input :photo, as: :file, label: false
     .row
       .col-md-6
         = f.input :descro, label: t("pictures.descro"), hint: I18n.t("pictures.descro_hint")
@@ -28,8 +28,15 @@
             .col-sm-5
               #widthbox
         .col-md-1
-          = link_to polymorphic_path([imageable, picture]),
-              method: :delete,
-              data: { confirm: I18n.t("sure_question") }
-            = fa_icon("trash 2x")
-  .actions= f.submit
+  .actions
+    .row
+      .col-md-7
+        .row.space-up-5
+          .col-md-6
+            = f.button :button, type: :submit, class: 'btn-primary'
+          - if edit
+            .col-md-6.right
+              = link_to polymorphic_path([imageable, picture]),
+                method: :delete,
+                data: { confirm: I18n.t("sure_question") } do
+                  = fa_icon("trash 2x")
