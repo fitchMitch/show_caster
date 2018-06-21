@@ -42,17 +42,17 @@
         .col-sm-8
           .row
             ul class="nav nav-tabs" role="tablist"
-              - if policy(@user).edit?
-                li role="presentation" class="active"
+              - if policy(@user).promote?
+                li role="presentation"
                   a href="#person_role" aria-controls="person_role" role="tab" data-toggle="tab"
                     = t("users.roles_status")
-              li role="presentation"
+              li role="presentation"  class="active"
                 a href="#person_photograph" aria-controls="person_photograph" role="tab" data-toggle="tab"
                   = t("users.photograph")
           .row
             .tab-content
-              - if policy(@user).edit?
-                #person_role.tab-pane.fade.in.active role="tabpanel"
+              - if policy(@user).promote?
+                #person_role.tab-pane.fade role="tabpanel"
                   = render partial: 'show_role', locals: {user: @user}
-              #person_photograph.tab-pane.fade role="tabpanel"
+              #person_photograph.tab-pane.fade.in.active role="tabpanel"
                 = render partial: 'show_photograph', locals: {user: @user}

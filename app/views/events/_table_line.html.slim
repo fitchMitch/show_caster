@@ -11,8 +11,8 @@
   .col-md-1.room-left-15
   .col-md-2.room-left-15
     - if policy(event).show?
-      = link_to fa_icon("eye lg",text: t("show") ), event
-      = photo_indicator(event)
+      = link_to event
+        =link_to_event(event)
     - if policy(event).edit?
       = image_tag('transp.png')
       = link_to fa_icon("edit lg" ), edit_event_path(event)

@@ -23,7 +23,19 @@ module EventsHelper
 
   def photo_indicator(event)
     unless event.photo_count.zero?
-      "<span class='light-frame'><small>#{event.photo_count}</small>  #{fa_icon('image')}</span>".html_safe
+      "<span class='light-frame'><small><strong>#{event.photo_count}</strong></small>  #{fa_icon('image')}</span>".html_safe
+    end
+  end
+
+  def link_to_event(event)
+    if event.event_date < Time.zone.now
+      if event.photo_count.zero?
+        "#{fa_icon('image lg')}#{image_tag("transp.png")}#{fa_icon('eye lg')}".html_safe
+      else
+        "#{photo_indicator(event)}#{fa_icon('eye lg')}".html_safe
+      end
+    else
+      "#{fa_icon('eye lg')}".html_safe
     end
   end
 end

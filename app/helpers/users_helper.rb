@@ -9,8 +9,13 @@ module UsersHelper
   end
 
   def link_to_user(user, current_user)
-    if(user.id == current_user.id) || current_user.admin?
-      "#{link_to user.full_name, user_path(user)}".html_safe
+    if ( current_user?(user) || current_user.admin?)
+    # if ( current_user?(user) || current_user.admin?) && policy(user).edit?
+      if user.archived?
+        "#{link_to user.full_name, user_path(user)}".html_safe
+      else
+        "<strong>#{link_to user.full_name, user_path(user)}</strong>".html_safe
+      end
     else
       user.full_name
     end

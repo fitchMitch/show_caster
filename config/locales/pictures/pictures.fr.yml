@@ -9,6 +9,7 @@ fr:
     descro: Description
     edit_picture: Modifier cette photo
     save_success: Cooool
+    save_failure: Damn ! Impossible de capter l'image, wesh !
     update_success: Mise à jour ok
     destroy_success: Suppression effectuée
     edit_and_crop: Editer et rogner
