@@ -13,8 +13,6 @@ end
 # -----------------
 # Users
 # -----------------
-# invitation_created_at = today - ((34..64).to_a.sample * 3600 * 24)
-# invitation_accepted_at = invitation_created_at + ((1..48).to_a.sample * 3600)
 User.create!(
   firstname:             'Etienne',
   lastname:              'WEIL',
@@ -36,6 +34,7 @@ User.create!(
   if is_registered
     cell_phone_nr =        FFaker::PhoneNumberFR::mobile_phone_number
     address =              FFaker::AddressFR::unique.full_address
+    # :setup => 0, :invited => 1, :googled => 2, :registered => 3, :archived => 4
     status =               3
   else
     status =              (0..3).to_a.sample
@@ -48,10 +47,8 @@ User.create!(
     firstname:            firstname,
     lastname:             lastname,
     status:               status,
-    # cell_phone_nr:        cell_phone_nr,
-    # address:              address,
-    # invitation_created_at: invitation_created_at,
-    # invitation_accepted_at: invitation_accepted_at,
+    cell_phone_nr:        cell_phone_nr,
+    address:              address,
     role:                 role
   )
 end
