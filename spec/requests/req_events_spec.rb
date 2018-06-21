@@ -22,9 +22,8 @@ RSpec.describe "Events", type: :request do
     } }
 
   context "/ As logged as admin," do
-    let!(:admin) {create(:real_user)}
+    let!(:admin) {create(:user)}
     before :each do
-      # admin ||= User.find_by(uid: "105205260860062499768")
       request_log_in(admin)
     end
 
@@ -43,7 +42,8 @@ RSpec.describe "Events", type: :request do
           expect(event).to be_valid
         end
 
-        it "creates a new Event", :vcr do
+        # it "creates a new Event", :vcr do
+        it "creates a new Event" do
           expect {
             post '/events', params: {event: valid_attributes}
           }.to change(Event, :count).by(1)
@@ -61,7 +61,8 @@ RSpec.describe "Events", type: :request do
         before :each do
           post '/events', params: {event: valid_attributes}
         end
-        it "creates every attribute", :vcr do
+        # it "creates every attribute", :vcr do
+        it "creates every attribute"do
           expect(Event.last.note).to eq(valid_attributes[:note])
           expect(Event.last.user.id) == valid_attributes[:user_id]
           expect(Event.last.theater.id) == valid_attributes[:theater_id]
@@ -133,13 +134,15 @@ RSpec.describe "Events", type: :request do
       let!(:event) { create(:event) }
       let(:url) { "/events/#{event.to_param}" }
 
-      it "deletes Event", :vcr do
+      # it "deletes Event", :vcr do
+      it "deletes Event" do
         expect {
           delete url, params:{ id: event.id, event: event.attributes }
         }.to change(Event, :count).by(-1)
       end
 
-      it "redirects to the events page", :vcr do
+      # it "redirects to the events page", :vcr do
+      it "redirects to the events page" do
         delete url , params:{ id: event.id, event: event.attributes }
         expect(response).to redirect_to(events_path)
       end

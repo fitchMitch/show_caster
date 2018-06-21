@@ -17,6 +17,7 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
+WebMock.disable_net_connect!(allow_localhost: true)
 
 Capybara.register_driver :selenium_chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)
@@ -31,15 +32,15 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-VCR.configure do |c|
-  c.cassette_library_dir  = Rails.root.join("spec", "vcr")
-  c.hook_into :webmock
-end
+# VCR.configure do |c|
+#   c.cassette_library_dir  = Rails.root.join("spec", "vcr")
+#   c.hook_into :webmock
+# end
 
 
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
-  
+
   config.include Paperclip::Shoulda::Matchers
 
   config.include FactoryBot::Syntax::Methods
@@ -49,13 +50,15 @@ RSpec.configure do |config|
 
   config.include OmniauthMacros
   config.include Sessions::LoginHelper, type: :controller
+  
   config.include Requests::LoginHelper, type: :request
+
   config.include Selectors, type: :feature
   config.include Features::SessionHelpers, type: :feature
   config.include MailerMacros, type: :feature
   config.include SessionsHelper, type: :feature
   # config.include Capybara::DSL, :file_path => "spec/requests"
-
+  # BEFORE
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
@@ -70,7 +73,12 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.start
   end
+  #AFTER
   config.after(:each) do
     DatabaseCleaner.clean
+  end
+  # Paperclip configuration
+  config.after(:suite) do
+    FileUtils.rm_rf(Dir["#{Rails.root}/spec/test_files/"])
   end
 end

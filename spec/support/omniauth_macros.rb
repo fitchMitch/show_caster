@@ -16,9 +16,9 @@ module OmniauthMacros
         "urls"=> { "Google"=>"https://plus.google.com/105205260860062499768" }
       },
       "credentials"=> {
-        "token"=> "ya29.GlueBeaBWWCExZDU3BzeUopl9dfuoT2NpEqsnC5ePZgi-_yWWiIvreVZo-dPe_EXYi3rPaFzvFxJ3tZSSSDiWzI3l4AwLQ4jOcxd1qg6ivyYL4GHRRAXiXVPhQhl",
-        "refresh_token"=>"1/4mAkSPsy0-auHIJgxACaQSYIFxu6J8frVOw_HYcQ_cY",
-        "expires_at"=>1532959394,
+        "token"=> "ya29.GlvfBdlv1aKyb5hTqTgPsI1AZDDamW3RlRZ2eggisR7pYnQKd45aqRiRIqkjCSmwIDdQ6qDr0qks7LS2Kbj2cX2lH-nA3_6YIlNB4mJQ5gxDvMof9bOfcXa9JO9H",
+        "refresh_token"=>"1/TSHAZDTWa2ez01-e63fOiBbv6ZUd52qdFzQO5jTN2HE",
+        "expires_at"=>1632959394,
         "expires"=>true
       }
     }

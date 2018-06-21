@@ -26,7 +26,9 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   context "with valid attributes" do
-    let (:valid_attributes) {
+    # create(:user,:admin,:registered )
+    let!(:existing_user) { create(:user, :admin, :registered)}
+    let!(:valid_attributes) {
       { firstname: "eric",
       lastname: "bicon",
       email: "gogo@lele.fr",
@@ -48,7 +50,7 @@ RSpec.describe User, type: :model do
     it { should validate_length_of(:email).is_at_most(255) }
     # it { should validate_uniqueness_of(:email)}
 
-    it { should validate_uniqueness_of(:uid)}
+    # it { should validate_uniqueness_of(:uid)}
 
     it { should allow_value("eric").for(:firstname)}
     it { should allow_value("BICONE").for(:lastname)}
