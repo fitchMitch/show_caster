@@ -39,7 +39,7 @@ class UserPolicy < ApplicationPolicy
     if c0
       c1 = @record.status != "setup"
       c2 = communicator_or_admin?
-      c3 = @record == @user ? (User.admin.count != 1) : true
+      c3 = @record != @user || (User.admin.count > 1)
       c1 && c2 && c3
     end
     # TODO test around this

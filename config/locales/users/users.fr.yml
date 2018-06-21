@@ -50,10 +50,10 @@ fr:
     invited : "%{name} vient d'être invité(e), un message lui a été adressé"
     invited_fail : "%{name} n'a pas pu être invité, difficile de savoir pourquoi"
     state:
-      invited: Invité
+      invited: Invité.e
       processing: En cours ?
       rip: a quitté la compagnie
-      to_invite: A inviter...
+      to_invite: 'Inviter %{firstname}'
 
 
 

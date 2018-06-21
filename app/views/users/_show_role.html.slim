@@ -1,5 +1,5 @@
-- if policy(@user).promote?
-  = simple_form_for(@user, as: :user, url: promote_path, html: { method: :post, class: 'form-horizontal' }) do |f|
+- if policy(user).promote?
+  = simple_form_for(user, as: :user, url: promote_path, html: { method: :post, class: 'form-horizontal' }) do |f|
     .container-fluid
       .row.users_promote
         .col-xs-12
@@ -8,21 +8,11 @@
               = f.input :role, label: t("users.role")
             .col-sm-1.xs-hidden
             .col-sm-4.col-xs-12
-              = f.input :id, as: :hidden, input_html:{value: @user.id}
+              = f.input :id, as: :hidden, input_html:{value: user.id}
               = f.input :status,
-               collection: @user.restricted_statuses,
+               collection: user.restricted_statuses,
                label: t("users.status")
           .row
             .col-lg-12
               .buttons
                 = f.button :submit, I18n.t("users.promote"), class: "btn-primary"
-- if policy(@user).invite?
-  = simple_form_for(@user, as: :user, url: invite_path, html: { method: :post, class: 'form-horizontal' }) do |f|
-    .container-fluid
-      .row
-        .col-xs-12
-          .row.users_invite
-            .col-lg-12
-              = f.input :id, as: :hidden, input_html:{value: @user.id}
-              .buttons
-                = f.button :submit, I18n.t("users.invite"), class: "btn-danger"

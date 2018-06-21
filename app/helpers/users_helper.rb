@@ -42,7 +42,7 @@ module UsersHelper
       link: nil}
     else
       {klass: "danger",
-      text: I18n.t("users.state.to_invite"),
+      text: I18n.t("users.state.to_invite", firstname: user.firstname),
       link:"to_user"}
     end
     if user.status.to_sym == :registered
@@ -51,9 +51,10 @@ module UsersHelper
       if label_hash[:link].nil?
         "<span class=\"label label-#{label_hash[:klass]}\">#{label_hash[:text]}</span>".html_safe
       else
-        link_to user_path(user), {class: 'undecorated-link'} do
-          "<span class=\"label label-#{label_hash[:klass]}\">#{label_hash[:text]}</span>".html_safe
-        end
+        # link_to user_path(user), {class: 'undecorated-link'} do
+        #   "<span class=\"label label-#{label_hash[:klass]}\">#{label_hash[:text]}</span>".html_safe
+        # end
+        render partial: 'show_invite_button', locals: {user: user}
       end
     end
   end
