@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "theaters/index", type: :view do
   before(:each) do
+   # allow(view).to receive(:policy).and_return(double(TheaterPolicy, new?: true))
     assign(:theaters, [
       Theater.create!(
         :theater_name => "Theater Name",

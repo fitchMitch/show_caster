@@ -7,8 +7,11 @@ RSpec.feature  "Users" , :type => :feature do
 
     before :each do
       log_in admin
-      visit user_path(player)
-      click_button(I18n.t("users.invite"))
+      visit users_path
+      selector = ".row.user-list.#{player.firstname}.#{player.lastname}"
+      within (selector) do
+        find_button.click
+      end
     end
 
     it "should send to the user a promote mail " do
@@ -29,7 +32,11 @@ RSpec.feature  "Users" , :type => :feature do
 
     before :each do
       log_in admin
-      visit user_path(player)
+      visit users_path
+      selector = ".row.user-list.#{player.firstname}.#{player.lastname}"
+      within (selector) do
+        find_button.click
+      end
     end
     it "should send to the user a promote mail " do
       expect(page.body).not_to have_content(I18n.t("users.promote"))

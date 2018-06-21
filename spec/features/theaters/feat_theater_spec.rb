@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature  "Theater" do
   feature "as a registered admin" do
-    given (:admin) { create(:user, :admin, :registered, lastname: "ADMIN") }
+    given! (:admin) { create(:user, :admin, :registered, lastname: "ADMIN") }
     feature "visiting INDEX" do
       background :each do
         log_in admin
