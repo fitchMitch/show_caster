@@ -29,6 +29,7 @@ fr:
     players_part: Côté joueurs
     progress: Avancement
     plus_actors: d'acteurs
+    see: Voir la fiche spectacle
     show_in: Spectacle au %{name}
     title: Titre
     updated: "Le spectacle a bien été mis à jour. NB : il n'existait pas sur Google Calendar."

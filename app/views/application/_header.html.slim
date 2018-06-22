@@ -8,8 +8,8 @@
       - if user_signed_in?
         - if policy(Dashboard).index?
           = link_to t("dashboards.statistics"), dashboard_path
-        - if policy(Event).index?
-          = link_to t("events.events_management"), events_path
+        - if policy(Performance).index?
+          = link_to t("events.events_management"), performances_path
         - if policy(Theater).index?
           = link_to t("theaters.premises_management"), theaters_path
         - if policy(current_user).index?

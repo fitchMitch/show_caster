@@ -38,4 +38,12 @@ module EventsHelper
       "#{fa_icon('eye lg')}".html_safe
     end
   end
+
+  def edit_event_path(event)
+    klass = event.class.name
+    action = "edit_#{klass.downcase}_path".to_sym
+    send action, event
+  end
+
+
 end

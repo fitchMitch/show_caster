@@ -1,11 +1,10 @@
 .container
   /! Nav tabs
   .page-header
-
-    - if policy(@all_events[:nexting]).new?
+    - if policy(Performance).new?
       .row.action-line
         .col-md-3
-          = link_to new_event_path, :class => 'btn btn-primary' do
+          = link_to new_performance_path, :class => 'btn btn-primary' do
             span.glyphicon.glyphicon-plus
               = " #{t('events.new')}"
         .col-md-9
