@@ -7,9 +7,12 @@ Rails.application.routes.draw do
 
   get '/auth/:provider/callback', to: 'sessions#create'
   # Users, theaters, Events
-  resources :events do
+  resources :performances, controller: :performances, type: 'Performance'
+  resources :courses, controller: :events, type: 'Course'
+  resources :performances do
     resources :pictures, module: :events
   end
+
   resources :users do
     resources :pictures, module: :users
   end
