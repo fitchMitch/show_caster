@@ -18,7 +18,8 @@ class Events::PicturesController < PicturesController
   end
 
   private
+    #  performances only have pictures
     def set_imageable
-      @imageable = Event.find(params[:event_id])
+      @imageable = Event.find(params[:performance_id])
     end
 end
