@@ -24,7 +24,7 @@ class Actor < ApplicationRecord
     }
 
   # Relationships
-  belongs_to :performance
+  belongs_to :performance, foreign_key: "event_id"
   belongs_to :user
 
   # Validations

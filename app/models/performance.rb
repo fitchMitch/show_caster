@@ -49,7 +49,7 @@ def photo_count
 end
 
 def self.last_four_images
-  e = Event.passed_events.limit(2)
+  e = Performance.passed_events.limit(2)
   e1, e2, res  = e.first , e.second, []
   unless e.empty?
     res += Picture.four_pictures(e1)
