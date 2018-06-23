@@ -15,7 +15,7 @@ fr:
     fail_to_create : Une erreur a dû se produire chez Google et l'événement ne peut pas être inscrit....
     fail_to_destroyed: Ouh, pas bon, ça. Suppression impossible... Prevenir l'administrateur.
     google_locked: Hm... Apparemment, les services Google Calendar sont indisponibles. Veuillez réessayer plus tard.
-    google_agenda_ok: "Ne pas créer de rendez-vous spectacle dans l'agenda Google : l'application s'en charge !"
+    google_agenda_ok: "Inutile de créer un rendez-vous spectacle dans l'agenda Google, l'application s'en charge !"
     list: Liste des spectacles
     theater: Salle
     note: Commentaire et notes
