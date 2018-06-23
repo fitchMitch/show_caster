@@ -1,6 +1,6 @@
 .row.user-list class= "#{user.firstname} #{user.lastname}"
   .col-md-3
-    = image_tag(user.photo_url, size: "35x35") unless user.photo_url.nil?
+    = image_tag(user.photo_url, size: "35x35") if user.photo_url.present?
     = image_tag("transp.png")
     = link_to_user(user, current_user)
   .col-md-2

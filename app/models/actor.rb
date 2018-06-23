@@ -24,11 +24,11 @@ class Actor < ApplicationRecord
     }
 
   # Relationships
-  belongs_to :event
+  belongs_to :performance, foreign_key: "event_id"
   belongs_to :user
 
   # Validations
-  validates_associated :user, :event
+  validates_associated :user, :performance
 
   # Scopes
 

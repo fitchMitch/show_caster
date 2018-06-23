@@ -1,11 +1,11 @@
 .container
   .page-header
     span.room-right-15
-      = link_to events_path, :class => 'btn btn-default' do
+      = link_to performances_path, :class => 'btn btn-default' do
         span.glyphicon.glyphicon-list-alt
           = " #{ t("back") }"
-    - if !@event.nil? && policy(@event).edit?
-      = link_to edit_event_path(@event), :class => 'btn btn-primary' do
+    - if @event.present? && policy(@event).edit?
+      = link_to edit_performance_path(@event), :class => 'btn btn-primary' do
         span.glyphicon.glyphicon-pencil
           = " #{ t('events.edit_title') }"
     h1= "Le #{l @event.event_date, format:"%A %d %B à %Hh%M"}"

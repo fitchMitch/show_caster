@@ -1,25 +1,11 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   # respond_to :html
   # respond_to :html, :json, :js
 
-  def index
-    authorize(Event)
-    @future_events = Event.future_events
-    @passed_events = Event.passed_events
-    # TODO pagination
 
-    @all_events = {nexting: @future_events, pasting: @passed_events}
-  end
 
   def show
-  end
-
-  def new
-    authorize(Event)
-    @event = Event.new()
-    4.times { actor = @event.actors.build }
   end
 
   def edit
@@ -38,7 +24,7 @@ class EventsController < ApplicationController
     @event.provider = "google_calendar_v3"
 
     if @event.save
-      redirect_to events_path, notice: I18n.t("events.created")
+      redirect_to events_url(@event), notice: I18n.t("events.created")
     else
       respond_to do |format|
         format.html { render :new}
@@ -54,11 +40,11 @@ class EventsController < ApplicationController
         result = update_google_calendar(@service, @event)
         if result.nil?
           raise  ActiveRecord::Rollback
-          redirect_to events_url, alert: I18n.t("events.google_locked")
+          redirect_to event_url(@event), alert: I18n.t("events.google_locked")
         elsif result.is_a? String
-          redirect_to events_url, notice: I18n.t("events.updated")
+          redirect_to events_url(@event), notice: I18n.t("events.updated")
         else
-          redirect_to events_url, notice: I18n.t("events.updated_with_Google")
+          redirect_to events_url(@event), notice: I18n.t("events.updated_with_Google")
         end
       else
         flash[:notice] = I18n.t("events.desynchronized")
@@ -71,12 +57,12 @@ class EventsController < ApplicationController
     @service = GoogleCalendarService.new(current_user)
     Event.transaction do
       if @event.destroy
-        result = delete_google_caldendar(@service, @event)
+        result = delete_google_calendar(@service, @event)
         if result.nil?
           raise  ActiveRecord::Rollback
-          redirect_to events_url, alert: I18n.t("events.google_locked")
+          redirect_to events_url(@event), alert: I18n.t("events.google_locked")
         else
-          redirect_to events_url, notice: I18n.t("events.destroyed")
+          redirect_to events_url(@event), notice: I18n.t("events.destroyed")
         end
       else
         redirect_to event_url(@event), notice: I18n.t("events.fail_to_destroyed")
@@ -95,57 +81,26 @@ class EventsController < ApplicationController
       google_service.update_event_to_primarys(opt)
     end
 
-    def delete_google_caldendar(google_service, event)
+    def delete_google_calendar(google_service, event)
       google_service.delete_event_to_primarys(event)
     end
 
-    def google_event_params(event)
-      attendees_ids = event.actors.pluck(:user_id)
-      attendees_email = []
-      attendees_ids.each do |id|
-        email = User.find_by(id: id).email
-        attendees_email << {email: email}
+    def set_type
+      case params[:type]
+      when 'Performance'
+        'performance'
+      when 'Course'
+        'course'
       end
-
-      opt = {
-        location: event.theater.location,
-        theater_name: event.theater.theater_name,
-        event_date: event.event_date.iso8601,
-        event_end: (event.event_date + event.duration * 60).iso8601,
-        attendees_email: attendees_email
-      }
-      # special update
-      opt[:fk] = event.fk unless event.fk.nil?
-      # TODO opt[:fk] ||= event.fk
-      opt
     end
 
-    def set_event
-      @event = Event.unscoped.includes(:actors).find(params[:id])
-      authorize @event
+    def events_url(obj)
+      obj_type = obj.class.name.pluralize.downcase
+      send "#{obj_type}_url".to_sym
     end
 
-    def event_params
-      params
-        .require(:event)
-        .permit(
-          :event_date,
-          :title,
-          :duration,
-          :note,
-          :user_id,
-          :theater_id ,
-          :progress,
-          :uid,
-          :fk,
-          :provider,
-          actors_attributes: [
-            :id,
-            :user_id,
-            :event_id,
-            :stage_role,
-            :_destroy
-          ]
-        )
+    def event_url(obj)
+      obj_type = obj.class.name.downcase
+      send "#{obj_type}_url".to_sym, obj
     end
 end

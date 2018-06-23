@@ -27,7 +27,7 @@ class Theater < ApplicationRecord
   # ------------------------
 
   def formatting
-    self.manager_phone = format_by_two(self.manager_phone) unless self.manager_phone.nil?
+    self.manager_phone = format_by_two(self.manager_phone) if self.manager_phone.present?
     self.theater_name.upcase
   end
 end

@@ -4,9 +4,9 @@ require 'vcr'
 RSpec.feature  "Events | " do
   feature "as a registered admin" do
     given (:admin) { create(:user, :admin, :registered, lastname: "ADMIN") }
-    given (:event) { create(:event) }
+    given (:event) { create(:performance) }
     given (:other_event) { create(:other_event) }
-    given! (:event_w) { create(:event_with_actors) }
+    given! (:event_w) { create(:performance_with_actors) }
     given! (:theater_w) { create(:theater_with_event)}
 
 

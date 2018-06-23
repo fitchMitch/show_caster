@@ -44,7 +44,7 @@ class GoogleCalendarService
       "inexisting Google Calendar event"
     else
       event = make_a_google_event(opt)
-      @calendar.update_event('primary',opt[:fk], event) unless opt[:fk].nil?
+      @calendar.update_event('primary',opt[:fk], event) if opt[:fk].present?
     end
   end
 

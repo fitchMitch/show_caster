@@ -82,7 +82,7 @@ theaters = Theater.all
   event_date = today + (-200..200).to_a.sample * 3600 * 24
   duration = Event::DURATIONS.sample[1]
   note = FFaker::Lorem::paragraph(1)
-  Event.create!(
+  Performance.create!(
     theater:             theaters.sample,
     title:                "Les Mentals moisis par les Sésames",
     user:                 users.sample,
@@ -93,11 +93,11 @@ theaters = Theater.all
     updated_at:           updated_at
   )
 end
-events = Event.all
+performances = Performance.all
 
 # Actors
 
-events.each do |event|
+performances.each do |event|
   6.times do |n|
     Actor.create(
       event_id:       event.id,

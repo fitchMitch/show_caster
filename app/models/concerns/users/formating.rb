@@ -28,7 +28,7 @@ module Users
     protected
 
       def phone_number_format
-        self.cell_phone_nr = format_by_two(cell_phone_nr) unless (cell_phone_nr.nil?)
+        self.cell_phone_nr = format_by_two(cell_phone_nr) if (cell_phone_nr.present?)
       end
 
     # ------------------------

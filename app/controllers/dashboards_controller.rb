@@ -39,7 +39,7 @@ class DashboardsController < ApplicationController
     end
 
     def get_average(n_perf_period)
-      total = n_perf_period.inject(0) { |sum, n| sum + n.count_me unless n.count_me.nil?}
+      total = n_perf_period.inject(0) { |sum, n| sum + n.count_me if n.count_me.present?}
       total / User.active.count
     end
 

@@ -11,15 +11,15 @@ class EventPolicy < ApplicationPolicy
   end
 
   def edit?
-    !@user.nil?
+    registered?
   end
 
   def index?
-    !@user.nil?
+    registered?
   end
 
   def show?
-    !@user.nil?
+    registered?
   end
 
   def update?
@@ -36,7 +36,7 @@ class EventPolicy < ApplicationPolicy
     c0 && c1
   end
 
-  private
+  protected
     def future_event?(record)
       !record.nil? && record.event_date > Time.zone.now
     end

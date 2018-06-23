@@ -37,14 +37,16 @@ class Event < ApplicationRecord
       :finalized => 1
     }
   # Relationships
-  belongs_to :user
-  belongs_to :theater
-  has_many :actors, dependent: :destroy, inverse_of: :event
-  has_many :pictures, as: :imageable, dependent: :destroy
-  accepts_nested_attributes_for :actors, allow_destroy: true
+  has_many :performances, class_name: 'Performance'
+  has_many :courses, class_name: 'Course'
+  # belongs_to :user
+  # belongs_to :theater
+  # has_many :actors, dependent: :destroy, inverse_of: :event
+  # has_many :pictures, as: :imageable, dependent: :destroy
+  # accepts_nested_attributes_for :actors, allow_destroy: true
 
   # Validations
-  validates_associated :user, :theater
+  # validates_associated :user, :theater
   validates :event_date, presence: true
   validates :duration,
     presence: true,
@@ -55,28 +57,14 @@ class Event < ApplicationRecord
   # Scopes
  scope :future_events, -> {where('event_date >= ?', Time.zone.now).order(event_date: :asc)}
  scope :passed_events, -> {where('event_date < ?', Time.zone.now).order(event_date: :desc)}
+ scope :courses, -> {where('type = ?' , 'Course')}
+ scope :performances, -> {where('type = ?' , 'Performance')}
 
   # ------------------------
   # --    PUBLIC      ---
   # ------------------------
-def short_label
-  "#{self.theater.theater_name[0,25]} - #{self.event_date.strftime('%d-%b %Y')} | #{self.title[0,35]}"
-end
 
-def photo_count
-  self.pictures.count
-end
 
-def self.last_four_images
-  e = Event.passed_events.limit(2)
-  e1, e2, res  = e.first , e.second, []
-  unless e.empty?
-    res = Picture.four_pictures(e1)
-    res += Picture.four_pictures(e2) unless res.count == 4 || e2.nil?
-    res = res[0..3] if res.count > 4
-  end
-  res
-end
 
   # ------------------------
   # --    Protected      ---
