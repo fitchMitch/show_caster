@@ -13,7 +13,7 @@ class Dashboard
   def self.played_since(starting, ending = nil, role_nr = 0)
     # returns [count_me, perso (=user_id)]
     ending ||= Time.zone.now
-    Event
+    Performance
       .select('count(events.theater_id) as count_me', 'actors.user_id as perso' )
       .where('events.event_date > ? and events.event_date < ? ', starting , ending)
       .where('actors.stage_role = ?', role_nr)
@@ -29,8 +29,7 @@ class Dashboard
     attri[:periods].each do |key,val|
       raise 'dates are not timezoned' unless val.is_a? Time
     end
-    {
-      role: role,
+    { role: role,
       periods: attri[:periods]
     }
   end
