@@ -53,7 +53,7 @@ def self.last_four_images
   e1, e2, res  = e.first , e.second, []
   unless e.empty?
     res += Picture.four_pictures(e1)
-    res += Picture.four_pictures(e2) unless res.count == 4 || e2.nil?
+    res += Picture.four_pictures(e2) if res.count < 4 && e2.present?
     res = res[0..3] if res.count > 4
   end
   res

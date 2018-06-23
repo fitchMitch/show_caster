@@ -33,7 +33,7 @@ class PerformancesController < EventsController
         attendees_email: attendees_email
       }
       # special update
-      opt[:fk] = event.fk unless event.fk.nil?
+      opt[:fk] = event.fk if event.fk.present?
       # TODO opt[:fk] ||= event.fk
       opt
     end
