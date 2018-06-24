@@ -25,6 +25,7 @@
 class User < ApplicationRecord
   # includes
   include Users::Formating
+  include Users::Validating
   # Pre and Post processing
   before_validation :format_fields, on: %i[create update]
 
@@ -46,6 +47,7 @@ class User < ApplicationRecord
   # Relationships
   # =====================
   has_many :pictures, as: :imageable, dependent: :destroy
+  has_one :teacher, as: :teachable
   #delegate :firstname,:lastname, :full_name, to: :member
   # =====================
 
@@ -55,27 +57,12 @@ class User < ApplicationRecord
 
   # Validations
   # =====================
-  validates :cell_phone_nr,
-    allow_nil: true,
-    length:
-      { minimum:14,
-        maximum: 25
-      },
-    uniqueness: true
-
-
-  VALID_EMAIL_REGEX = /\A[\w+0-9\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  
   validates :email,
     presence: true,
     length: { maximum: 255 },
     format: { with: VALID_EMAIL_REGEX },
     uniqueness: { case_sensitive: false }
-  validates :firstname,
-    presence: true,
-    length: { minimum: 2,maximum: 50 }
-  validates :lastname,
-    presence: true,
-    length: { minimum: 2,maximum: 50 }
 
   validates :uid, uniqueness: { case_sensitive: true }, allow_nil: true
 
@@ -136,12 +123,6 @@ class User < ApplicationRecord
     UserMailer.promoted_mail(self).deliver_now
   end
 
-  def full_name
-    text = self.firstname.nil? || self.firstname == '' ? lastname.upcase : "#{firstname} #{lastname.upcase}"
-    text = "#{I18n.t("users.deleted_name")} -  #{text}" if self.archived?
-    text.html_safe
-  end
-
   def restricted_statuses
     self.archived? ? ["setup", "archived"] : [self.status, "archived"]
   end
@@ -156,4 +137,4 @@ class User < ApplicationRecord
       self.phone_number_format
     end
 
-  end
+end

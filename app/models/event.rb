@@ -14,6 +14,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  title      :string
+#  type       :string           default("Performance")
 #
 
 class Event < ApplicationRecord
@@ -39,11 +40,7 @@ class Event < ApplicationRecord
   # Relationships
   has_many :performances, class_name: 'Performance'
   has_many :courses, class_name: 'Course'
-  # belongs_to :user
-  # belongs_to :theater
-  # has_many :actors, dependent: :destroy, inverse_of: :event
-  # has_many :pictures, as: :imageable, dependent: :destroy
-  # accepts_nested_attributes_for :actors, allow_destroy: true
+
 
   # Validations
   # validates_associated :user, :theater
