@@ -14,6 +14,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  title      :string
+#  type       :string           default("Performance")
 #
 
 FactoryBot.define do
