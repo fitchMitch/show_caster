@@ -30,12 +30,22 @@ FactoryBot.define do
 end
 FactoryBot.define do
   sequence :cell_phone_nr do |n|
-    format_by_two(FFaker::PhoneNumberFR::mobile_phone_number)
+    format_by_two(FFaker::PhoneNumberFR::unique.mobile_phone_number)
   end
 end
 FactoryBot.define do
   sequence :address do |n|
     FFaker::AddressFR::unique.full_address
+  end
+end
+FactoryBot.define do
+  sequence :firstname do |n|
+    FFaker::NameFR.unique.first_name
+  end
+end
+FactoryBot.define do
+  sequence :lastname do |n|
+    FFaker::NameFR.unique.last_name.upcase
   end
 end
 FactoryBot.define do
@@ -46,8 +56,8 @@ end
 
 FactoryBot.define do
   factory :user do
-    firstname               {FFaker::NameFR.unique.first_name}
-    lastname                {FFaker::NameFR.unique.last_name.upcase}
+    firstname
+    lastname
     email
     role                    2 # Default is admin
     status                  3 # Default is registered
