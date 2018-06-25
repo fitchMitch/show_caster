@@ -1,0 +1,10 @@
+tr
+  td.firstname= coach.firstname
+  td.lastname= coach.lastname
+  td.cell_phone_nr= coach.cell_phone_nr
+  td.email= coach.email
+  td.note= coach.note
+
+  td
+    - if policy(coach).edit?
+      = link_to fa_icon("edit",text: t("edit")), edit_coach_path(coach)

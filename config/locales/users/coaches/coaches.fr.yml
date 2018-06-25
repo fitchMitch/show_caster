@@ -1,0 +1,11 @@
+fr:
+  coaches:
+    header: Coachs externes
+    save_success: Coach sauvegardé
+    save_fails: Boom ! La sauvegarde a échoué
+    updated: Coach mis à jour
+    update_success: Coach mis à jour
+    destroyed: Supprimé
+    new: Nouveau coach externe
+    note: Commentaire
+    list: Liste des coaches externes

@@ -22,6 +22,9 @@ Rails.application.routes.draw do
 
   # Theaters
   resources :theaters
+
+  # Coaches
+  resources :coaches
   post '/promote',        to:  'users#promote'
   post '/invite',        to:  'users#invite'
 

@@ -1,0 +1,27 @@
+.container
+  .page-header
+    - if policy(Coach).new?
+      .page-header
+        = link_to new_coach_path, :class => 'btn btn-primary' do
+          span.glyphicon.glyphicon-plus
+          = " #{t("coaches.new")}"
+    h2= t("coaches.list")
+
+  .table-responsive
+    table.table.table-striped.table-bordered.table-hover
+      thead
+        tr
+          th
+            = t("firstname")
+          th
+            = t("lastname")
+          th
+            = t("users.cell_phone_nr")
+          th
+            = t("email")
+          th
+            = t("coaches.note")
+          th
+
+      tbody
+        = render @coaches
