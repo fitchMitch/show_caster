@@ -11,7 +11,8 @@ module Users
           { minimum:14,
             maximum: 25
           },
-        uniqueness: true
+        uniqueness: true,
+        presence: true
 
       VALID_EMAIL_REGEX = /\A[\w+0-9\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 

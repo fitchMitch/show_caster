@@ -2,13 +2,16 @@
 = simple_form_for(@coach) do |f|
   = f.error_notification
 
-  .form-inputs
+  #coach_new.form-inputs
     .row
-      .col-sm-6 = f.input :firstname, label: t("firstname")
-      .col-sm-6 = f.input :lastname, label: t("lastname")
-    .row
-      .col-sm-6 = f.input :email, label: t("email")
-      .col-sm-6 = f.input :cell_phone_nr, label: t("users.cell_phone_nr")
+      .col-sm-6.col-lg-3
+        = f.input :firstname, label: t("firstname")
+      .col-sm-6.col-lg-3
+        = f.input :lastname, label: t("lastname")
+      .col-sm-6.col-lg-3
+        = f.input :email, label: t("email")
+      .col-sm-6.col-lg-3
+        = f.input :cell_phone_nr, label: t("users.cell_phone_nr")
 
     = f.input :note, label: t("coaches.note")
 
