@@ -71,8 +71,10 @@ ActiveRecord::Schema.define(version: 20180624070658) do
   create_table "teachers", force: :cascade do |t|
     t.string   "teachable_type"
     t.integer  "teachable_id"
+    t.integer  "event_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.index ["event_id"], name: "index_teachers_on_event_id", using: :btree
     t.index ["teachable_type", "teachable_id"], name: "index_teachers_on_teachable_type_and_teachable_id", using: :btree
   end
 
@@ -109,4 +111,5 @@ ActiveRecord::Schema.define(version: 20180624070658) do
   add_foreign_key "actors", "users"
   add_foreign_key "events", "theaters"
   add_foreign_key "events", "users"
+  add_foreign_key "teachers", "events"
 end

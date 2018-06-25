@@ -15,4 +15,5 @@ class Teacher < ApplicationRecord
   # Relationships
   # =====================
   belongs_to :teachable, polymorphic: true
+  has_many :courses
 end
