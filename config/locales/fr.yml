@@ -37,7 +37,7 @@ fr:
   back: Retour
 
   company_name_short: Sésames
-  confirm : Whesh ! C'est sûr ?
+  confirm : Wesh ! C'est sûr ?
 
   deconnect: Déconnexion
   destroy : Supprimer
@@ -92,6 +92,11 @@ fr:
         update: "Modifier et rogner"
         edit: "Editer"
         new: "Ajouter une photo"
+      coach:
+        create: "Valider "
+        update: "Modifier"
+        edit: "Editer"
+        new: "Ajouter un.e coach"
 
   activerecord:
     errors:
@@ -130,9 +135,12 @@ fr:
       User: Joueur(se)
       Actor: Joueur(se)
       Picture: Photo
+      Coach: Coach
     models:
       Actor: Joueurs(ses)
       User: Joueurs(ses)
       Theater: Salles
       Member: Sésames
       Pictures: Photos
+      Coaches: Coaches
+      Coach: Coach
