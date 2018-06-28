@@ -31,6 +31,7 @@ class Event < ApplicationRecord
     ["1 h 15",75],
     ["1 h 30",90],
     ["2 h",120],
+    ["2 h 30",150],
     ["3 h",180]
   ]
   enum progress: {
@@ -40,16 +41,10 @@ class Event < ApplicationRecord
   # Relationships
   has_many :performances, class_name: 'Performance'
   has_many :courses, class_name: 'Course'
+  belongs_to :theater
 
 
-  # Validations
-  # validates_associated :user, :theater
-  validates :event_date, presence: true
-  validates :duration,
-    presence: true,
-    numericality: {
-      greater_than_or_equal_to: 15
-    }
+
 
   # Scopes
  scope :future_events, -> {where('event_date >= ?', Time.zone.now).order(event_date: :asc)}
