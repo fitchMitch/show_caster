@@ -1,0 +1,38 @@
+.container
+  /! Nav tabs
+  .page-header
+    - if policy(Course).new?
+      .row.action-line
+        .col-md-3
+          = link_to new_course_path, :class => 'btn btn-primary' do
+            span.glyphicon.glyphicon-plus
+              = " #{t('courses.new')}"
+        .col-md-9
+          p.bg-info.room-around-5
+            = image_tag("transp.png")
+            = fa_icon "hand-right"
+            = image_tag("transp.png")
+            = I18n.t("events.google_agenda_ok")
+
+    h2= t('courses.list')
+    ul.nav.nav-tabs role="tablist"
+      li.active role="presentation"
+        a aria-controls='nexting' data-toggle='tab' href='#nexting' role='tab'
+          = t("events.nexting")
+      li role="presentation"
+        a aria-controls='pasting' data-toggle='tab' href='#pasting' role='tab'
+          = t("events.pasting")
+
+    .row.strong.space-up-10
+      .col-md-4
+        strong= t('courses.date_title')
+      .col-md-1.hidden-xs
+        strong=  t('events.dur')
+      .col-md-2
+        strong= t('courses.coach')
+      .col-md-3.hidden-xs
+        strong= t('events.note')
+      .col-md-2.hidden-xs
+    .space-up-10
+    .row.tab-content
+      = render partial:'events/future_passed_events'

@@ -1,0 +1,12 @@
+.container
+  .page-header
+    span.room-right-15
+      = link_to courses_path, :class => 'btn btn-default' do
+        span.glyphicon.glyphicon-list-alt
+          = " #{ t("back") }"
+    = link_to @event, :class => 'btn btn-default' do
+      span.glyphicon.glyphicon-eye-open
+        = " #{ t('events.see') }"
+    h2= t('events.edit_title')
+
+  = render 'form'

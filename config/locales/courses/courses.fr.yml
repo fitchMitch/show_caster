@@ -1,0 +1,13 @@
+fr:
+  courses:
+    coach: Coach
+    date_title: Date du cours | Intitulé
+    title: Intitulé
+    header: Les cours
+    list: Liste des cours
+    new: Nouveau cours
+    coach_list: Liste des joueurs
+    coach_externs_list: Liste des coaches
+    date: Date du cours
+    question:
+      autocoached: En auto-coaché ?

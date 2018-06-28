@@ -1,6 +1,7 @@
 fr:
   coaches:
-    header: Coachs externes
+    add: Ajouter un coach
+    header: Nos coachs
     save_success: Coach sauvegardé
     save_fails: Boom ! La sauvegarde a échoué
     updated: Coach mis à jour
