@@ -26,14 +26,19 @@ class Performance < Event
 
   # Relationships
   belongs_to :user
-  belongs_to :theater
+
   has_many :actors, dependent: :destroy, inverse_of: :performance, foreign_key: "event_id"
   has_many :pictures, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :actors, allow_destroy: true
 
   # Validations
   validates_associated :user, :theater
-
+  validates :event_date, presence: true
+  validates :duration,
+    presence: true,
+    numericality: {
+      greater_than_or_equal_to: 15
+    }
 
   # Scopes
 

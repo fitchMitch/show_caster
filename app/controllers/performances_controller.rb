@@ -1,8 +1,14 @@
 class PerformancesController < EventsController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
+  def new
+    authorize(Performance)
+    @event = Performance.new()
+    4.times { actor = @event.actors.build }
+  end
+
   def index
-    authorize(Event)
+    authorize(Performance)
     @future_performances = Event.future_events.performances
     @passed_performances = Event.passed_events.performances
     # TODO pagination
@@ -10,10 +16,26 @@ class PerformancesController < EventsController
     @all_events = {nexting: @future_performances, pasting: @passed_performances}
   end
 
-  def new
-    authorize(Event)
-    @event = Event.new()
-    4.times { actor = @event.actors.build }
+  def create
+    @event = Performance.new(event_params)
+    authorize @event
+
+    @service = GoogleCalendarService.new(current_user)
+    result = add_to_google_calendar(@service, @event)
+    redirect_to event_path(@event.reload), alert: I18n.t("events.fail_to_create")  and return if result.nil?
+
+    @event.fk = result.id
+    @event.user_id = current_user.id
+    @event.provider = "google_calendar_v3"
+
+    if @event.save
+      redirect_to events_url(@event), notice: I18n.t("events.created")
+    else
+      respond_to do |format|
+        format.html { render :new}
+        # format.js
+      end
+    end
   end
 
   private

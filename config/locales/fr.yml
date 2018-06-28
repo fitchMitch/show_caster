@@ -97,6 +97,11 @@ fr:
         update: "Modifier"
         edit: "Editer"
         new: "Ajouter un.e coach"
+      course:
+        create: "Créer un cours "
+        update: "Modifier le cours"
+        edit: "Editer le cours"
+        new: "Ajouter un cours"
 
   activerecord:
     errors:
