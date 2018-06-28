@@ -24,7 +24,7 @@ class PicturesController < ApplicationController
     @picture = Picture.find_by(id: params[:id])
   end
 
-  
+
 
   # PATCH/PUT /pictures/1
   # PATCH/PUT /pictures/1.json

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   # Events
   resources :performances, controller: :performances, type: 'Performance'
-  resources :courses, controller: :events, type: 'Course'
+  resources :courses, controller: :courses, type: 'Course'
   resources :performances do
     resources :pictures, module: :events
   end
@@ -20,11 +20,11 @@ Rails.application.routes.draw do
     resources :pictures, module: :users
   end
 
-  # Theaters
-  resources :theaters
-
   # Coaches
   resources :coaches
+
+  # Theaters
+  resources :theaters
   post '/promote',        to:  'users#promote'
   post '/invite',        to:  'users#invite'
 
