@@ -3,10 +3,15 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :theater_name, label: t("theaters.theater_name")
-    = f.input :location, label: t("theaters.location")
-    = f.input :manager, label: t("theaters.manager")
-    = f.input :manager_phone, label: t("theaters.manager_phone")
+    .row
+      .col-sm-6.col-lg-3
+        = f.input :theater_name, label: t("theaters.theater_name")
+      .col-sm-6.col-lg-3
+        = f.input :location, label: t("theaters.location")
+      .col-sm-6.col-lg-3
+        = f.input :manager, label: t("theaters.manager")
+      .col-sm-6.col-lg-3
+        = f.input :manager_phone, label: t("theaters.manager_phone")
 
   .form-actions
     = f.button :submit, label: t("submit"), class: 'btn btn-primary'

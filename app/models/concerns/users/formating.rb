@@ -21,10 +21,9 @@ module Users
       letters + ";" + background
     end
 
-    def full_name
-      text = self.firstname.nil? || self.firstname == '' ? lastname.upcase : "#{firstname} #{lastname.upcase}"
-      text = "#{I18n.t("users.deleted_name")} -  #{text}" if self.archived?
-      text.html_safe
+    def first_and_last_name
+      self.firstname.nil? || self.firstname == '' ? lastname.upcase : "#{firstname} #{lastname.upcase}"
+
     end
     # ------------------------
     # --    PROTECTED      ---
