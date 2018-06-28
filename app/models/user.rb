@@ -47,7 +47,7 @@ class User < ApplicationRecord
   # Relationships
   # =====================
   has_many :pictures, as: :imageable, dependent: :destroy
-  has_one :teacher, as: :teachable
+  has_many :courses, as: :courseable
   #delegate :firstname,:lastname, :full_name, to: :member
   # =====================
 
@@ -57,7 +57,7 @@ class User < ApplicationRecord
 
   # Validations
   # =====================
-  
+
   validates :email,
     presence: true,
     length: { maximum: 255 },
@@ -69,6 +69,11 @@ class User < ApplicationRecord
   # ------------------------
   # --    PUBLIC      ---
   # ------------------------
+  def full_name
+    text = self.first_and_last_name
+    text = "#{I18n.t("users.deleted_name")} -  #{text}" if self.archived?
+    text.html_safe
+  end
 
   def self.from_omniauth(access_token)
     data = access_token[:info]

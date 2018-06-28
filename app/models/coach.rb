@@ -23,7 +23,7 @@ class Coach < ApplicationRecord
 
   # Relationships
   # =====================
-  has_one :teacher, as: :teachable
+  has_many :courses, as: :courseable
   #delegate :firstname,:lastname, :full_name, to: :member
   # =====================
 
@@ -42,7 +42,9 @@ class Coach < ApplicationRecord
   # ------------------------
   # --    PUBLIC      ---
   # ------------------------
-
+  def full_name
+    self.first_and_last_name.html_safe
+  end
 
   protected
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180624070658) do
+ActiveRecord::Schema.define(version: 20180628082220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,16 +38,19 @@ ActiveRecord::Schema.define(version: 20180624070658) do
   create_table "events", force: :cascade do |t|
     t.datetime "event_date"
     t.integer  "duration"
-    t.integer  "progress",   default: 0
+    t.integer  "progress",        default: 0
     t.text     "note"
     t.integer  "user_id"
     t.integer  "theater_id"
     t.string   "fk"
     t.string   "provider"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.string   "title"
-    t.string   "type",       default: "Performance"
+    t.string   "type",            default: "Performance"
+    t.integer  "courseable_id"
+    t.string   "courseable_type"
+    t.index ["courseable_type", "courseable_id"], name: "index_events_on_courseable_type_and_courseable_id", using: :btree
     t.index ["theater_id"], name: "index_events_on_theater_id", using: :btree
     t.index ["type"], name: "index_events_on_type", using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
@@ -66,16 +69,6 @@ ActiveRecord::Schema.define(version: 20180624070658) do
     t.integer  "imageable_id"
     t.string   "imageable_type"
     t.index ["imageable_type", "imageable_id"], name: "index_pictures_on_imageable_type_and_imageable_id", using: :btree
-  end
-
-  create_table "teachers", force: :cascade do |t|
-    t.string   "teachable_type"
-    t.integer  "teachable_id"
-    t.integer  "event_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["event_id"], name: "index_teachers_on_event_id", using: :btree
-    t.index ["teachable_type", "teachable_id"], name: "index_teachers_on_teachable_type_and_teachable_id", using: :btree
   end
 
   create_table "theaters", force: :cascade do |t|
@@ -111,5 +104,4 @@ ActiveRecord::Schema.define(version: 20180624070658) do
   add_foreign_key "actors", "users"
   add_foreign_key "events", "theaters"
   add_foreign_key "events", "users"
-  add_foreign_key "teachers", "events"
 end
