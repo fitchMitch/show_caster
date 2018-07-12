@@ -38,21 +38,21 @@ fr:
 
   company_name_short: Sésames
   confirm : Wesh ! C'est sûr ?
+  creation_date: Date de création
+  created_at: Créé le
 
   deconnect: Déconnexion
   destroy : Supprimer
 
   edit: Modifier
   email: Email
+  expiration_date: Date d'expiration
 
   firstname: Prénom
 
   invitations: Invitations
 
   lastname: Nom
-  Theater: salle
-  theater: Salle
-
 
   other: Autre
 
@@ -66,9 +66,12 @@ fr:
   submit: Valider
 
   thanks: Merci !
+  Theater: salle
+  theater: Salle
   theater_company: Les Sésames
 
   update: Mise à jour
+  updated_at: Mis à jour le
 
   helpers:
     submit:
@@ -102,6 +105,26 @@ fr:
         update: "Modifier le cours"
         edit: "Editer le cours"
         new: "Ajouter un cours"
+      performance:
+        create: "Créer un spectacle "
+        update: "Modifier le spectacle"
+        edit: "Editer le spectacle"
+        new: "Ajouter un spectacle"
+      poll:
+        create: "Créer un sondage "
+        update: "Modifier le sondage"
+        edit: "Editer le sondage"
+        new: "Ajouter un sondage"
+      poll_opinion:
+        create: "Créer un sondage d'opinion"
+        update: "Modifier le sondage d'opinion"
+        edit: "Editer le sondage d'opinion"
+        new: "Ajouter un sondage d'opinion"
+      poll_date:
+        create: "Créer un sondage de date"
+        update: "Modifier le sondage de date"
+        edit: "Editer le sondage de date"
+        new: "Ajouter un sondage de date"
 
   activerecord:
     errors:
@@ -141,6 +164,7 @@ fr:
       Actor: Joueur(se)
       Picture: Photo
       Coach: Coach
+      Poll: Sondage
     models:
       Actor: Joueurs(ses)
       User: Joueurs(ses)
@@ -149,3 +173,10 @@ fr:
       Pictures: Photos
       Coaches: Coaches
       Coach: Coach
+  cocoon:
+    defaults:
+      add: "Ajouter l'enregistrement"
+      remove: "Supprimer l'enregistrement"
+    answers:
+      add: "Ajouter une réponse"
+      remove: "Supprimer une répsne"

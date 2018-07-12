@@ -1,22 +1,20 @@
-.row
-  .col-md-2.room-left-15
-    strong= l event.event_date, format:"%a %d %b à %Hh%M"
-    br
-    span.label.label-success
-      = event.theater.theater_name
-  .col-md-2.room-left-15= event.title
-  .col-md-1.room-left-15= get_duration event.duration
-  .col-md-3.room-left-15.hidden-xs= event.note
-  .col-md-1.room-left-15.hidden-xs= get_progress(event)
-  .col-md-1.room-left-15
-  .col-md-2.room-left-15
-    - if policy(event).show?
-      = link_to event
-        =link_to_event(event)
-    - if policy(event).edit?
-      = image_tag('transp.png')
-      = link_to fa_icon("edit lg" ), edit_event_path(event)
-    - if policy(event).destroy?
-      = image_tag('transp.png')
-      = link_to(fa_icon("trash lg"), event, class:'destroy', id: 'destroy', data: {confirm: t('sure_question')}, method: :delete)
+.container.space-left-15
+  .row
+    .col-md-2.room-left-15
+      strong= l event.event_date, format:"%a %d %b à %Hh%M"
+      br
+      span.label.label-success
+        = event.theater.theater_name
+    .col-md-2.room-left-15= event.title
+    .col-md-1.room-left-15= get_duration event.duration
+    .col-md-3.room-left-15.hidden-xs= event.note
+    .col-md-1.room-left-15.hidden-xs= get_progress(event)
+    .col-md-1.room-left-15
+    .col-md-2.room-left-15
+      - if policy(event).show?
+        = link_to event
+          =link_to_event(event)
+      = render partial: 'update_delete_icons', locals: {event: event}
+
+
 hr

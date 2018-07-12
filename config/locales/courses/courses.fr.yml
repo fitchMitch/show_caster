@@ -2,10 +2,12 @@ fr:
   courses:
     coach: Coach
     date_title: Date du cours | Intitulé
+    edit_page_title: Modifier le cours
     title: Intitulé
     header: Les cours
     list: Liste des cours
-    new: Nouveau cours
+    new_page_title: Nouveau cours
+    new_button: Nouveau cours
     coach_list: Liste des joueurs
     coach_externs_list: Liste des coaches
     date: Date du cours

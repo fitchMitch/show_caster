@@ -10,7 +10,7 @@ fr:
     date: Date du spectacle
     duration: Durée (en minutes)
     dur: Durée
-    edit_title: Modifier le spectacle
+    edit_page_title: Modifier le spectacle
     events_management: Spectacles
     fail_to_create : Une erreur a dû se produire chez Google et l'événement ne peut pas être inscrit....
     fail_to_destroyed: Ouh, pas bon, ça. Suppression impossible... Prevenir l'administrateur.
@@ -20,7 +20,8 @@ fr:
     theater: Salle
     note: Commentaire et notes
     nexting: Prochainement
-    new: Nouveau Spectacle
+    new_page_title: Nouveau Spectacle
+    new_button: Nouveau Spectacle
     mere_new_opus: Nouvel opus
     new_opus: Spectacle des Sésames au %{name}
     not_updated: Le spectacle n'a pas pu être enregistré

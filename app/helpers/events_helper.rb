@@ -45,5 +45,27 @@ module EventsHelper
     send action, event
   end
 
+  def str_index_event_path(event)
+    klass = event.class.name.pluralize(2)
+    "#{klass.downcase}_path"
+  end
+
+  def get_dictionnary(event)
+    case event.class.name
+    when 'Performance'
+      'events'
+    when 'Course'
+      'courses'
+    end
+  end
+
+  def event_edit_page_title(event)
+    I18n.t("#{get_dictionnary(event)}.edit_page_title")
+  end
+
+  def event_new_page_title(event)
+    I18n.t("#{get_dictionnary(event)}.new_page_title")
+  end
+
 
 end
