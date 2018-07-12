@@ -20,8 +20,6 @@ class PicturesController < ApplicationController
 
   # GET /pictures/1/edit
   def edit
-    # @imageable_type = params.fetch(:imageable_type, nil)
-    @picture = Picture.find_by(id: params[:id])
   end
 
 

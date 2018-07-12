@@ -6,6 +6,10 @@ class SessionsController < ApplicationController
   end
 
   def new
+    # @user = User.find_by(email: "etienne.weil@gmail.com")
+    # @current_user = @user
+    # session['current_user_id'] = @current_user.id
+    # redirect_to destination(@user), notice: I18n.t('sessions.omniauth.success', kind: 'Google')
   end
 
   def create

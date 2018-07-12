@@ -10,3 +10,6 @@
               = t("sessions.omniauth_with")
               = image_tag('transp.png')
               = fa_icon('google 2x')
+          /= simple_form_for(@session) do |f|
+          /  .form-actions
+          /    = f.button :submit, label: t("submit"), class: 'btn btn-primary'

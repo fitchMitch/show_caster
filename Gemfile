@@ -5,38 +5,44 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
+# Technical
+# -----------------------
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.6'
 gem 'pg', '~> 0.20'
+gem 'jbuilder', '~> 2.5'
+gem 'annotate'
+gem 'coffee-rails', '~> 4.2'
+gem 'slim'
+# Front gems
+# -----------------------
+gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'bh' #bootstrap helper for navbar for example
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.2'
 gem 'modernizr-rails'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-gem 'jquery-rails'
 gem 'meta-tags', require: 'meta_tags'
-gem 'jbuilder', '~> 2.5'
-gem 'simple_form'
 gem "font-awesome-rails"
-gem 'gibbon'
-gem 'slim'
+gem 'simple_form'
 gem 'enum_help'
-gem 'annotate'
-gem 'pundit'
 gem 'cocoon'
+gem 'papercrop'
+gem 'rails-assets-jcrop', source: 'https://rails-assets.org'
+# API ones
+# -----------------------
+gem 'gibbon'
+gem 'google-api-client', '~> 0.11'
+gem 'omniauth-google-oauth2'
+# middleware
+# -----------------------
+gem 'pundit'
 gem "paperclip", "~> 6.0.0"
 gem 'paperclip-i18n'
 gem 'mini_magick'
-gem 'rails-assets-jcrop', source: 'https://rails-assets.org'
-gem 'papercrop'
 
-
-gem 'google-api-client', '~> 0.11'
-gem 'omniauth-google-oauth2'
 #---------------------------
 # gem 'httplog', group: :development going with the following:
 # HttpLog.options[:logger] = Rails.logger if Rails.env.development?
@@ -65,12 +71,8 @@ group :development, :test do
   gem "database_cleaner"
   gem 'rails-controller-testing'
   gem 'shoulda-matchers'
-
   gem 'ffaker'
   gem 'factory_bot_rails'
-
-  gem 'simplecov', require: false
-
 end
 
 
@@ -84,6 +86,7 @@ group :development do
 end
 
 group :test do
+  gem 'simplecov', require: false
   gem 'vcr'
   gem 'webmock'
   gem "capybara"

@@ -3,7 +3,7 @@ class PerformancesController < EventsController
 
   def new
     authorize(Performance)
-    @event = Performance.new()
+    @event = Performance.new
     4.times { actor = @event.actors.build }
   end
 
@@ -33,7 +33,6 @@ class PerformancesController < EventsController
     else
       respond_to do |format|
         format.html { render :new}
-        # format.js
       end
     end
   end

@@ -2,19 +2,21 @@
 #
 # Table name: events
 #
-#  id         :integer          not null, primary key
-#  event_date :datetime
-#  duration   :integer
-#  progress   :integer          default("draft")
-#  note       :text
-#  user_id    :integer
-#  theater_id :integer
-#  fk         :string
-#  provider   :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  title      :string
-#  type       :string           default("Performance")
+#  id              :integer          not null, primary key
+#  event_date      :datetime
+#  duration        :integer
+#  progress        :integer          default("draft")
+#  note            :text
+#  user_id         :integer
+#  theater_id      :integer
+#  fk              :string
+#  provider        :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  title           :string
+#  type            :string           default("Performance")
+#  courseable_id   :integer
+#  courseable_type :string
 #
 
 class Performance < Event
@@ -26,9 +28,9 @@ class Performance < Event
 
   # Relationships
   belongs_to :user
+  has_many :pictures, as: :imageable, dependent: :destroy
 
   has_many :actors, dependent: :destroy, inverse_of: :performance, foreign_key: "event_id"
-  has_many :pictures, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :actors, allow_destroy: true
 
   # Validations
