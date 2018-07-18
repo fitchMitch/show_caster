@@ -67,5 +67,9 @@ module EventsHelper
     I18n.t("#{get_dictionnary(event)}.new_page_title")
   end
 
+  def passed_label(events)
+    I18n.t("#{get_dictionnary(events.first)}.passed_events_title")
+  end
+
 
 end

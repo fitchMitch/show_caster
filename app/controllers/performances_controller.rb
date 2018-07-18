@@ -9,11 +9,9 @@ class PerformancesController < EventsController
 
   def index
     authorize(Performance)
-    @future_performances = Event.future_events.performances
-    @passed_performances = Event.passed_events.performances
+    @future_events = Event.future_events.performances
+    @passed_events = Event.passed_events.performances
     # TODO pagination
-
-    @all_events = {nexting: @future_performances, pasting: @passed_performances}
   end
 
   def create

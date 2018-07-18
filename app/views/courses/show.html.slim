@@ -1,0 +1,28 @@
+| Dead code
+.container
+  .page-header
+    span.room-right-15
+      = link_to courses_path, :class => 'btn btn-default' do
+        span.glyphicon.glyphicon-list-alt
+          = " #{ t("back") }"
+    - if @event.present? && policy(@event).edit?
+      = link_to edit_course_path(@event), :class => 'btn btn-primary' do
+        span.glyphicon.glyphicon-pencil
+          = " #{ t('courses.edit_page_title') }"
+    h1= "Cours du #{l @event.event_date, format:"%A %d %B à %Hh%M"}"
+    h3= course_label(@event)
+
+  dl.dl-horizontal
+    dt= t('events.dur')
+    dd= distance_of_time_in_words @event.event_date, @event.event_date + @event.duration * 60
+
+    dt.space-up-10= t('events.theater')
+    dd.space-up-10= @event.theater.theater_name
+
+    dt.space-up-10= t('events.address')
+    dd.space-up-10= @event.theater.location
+
+    - if @event.note.present?
+      dt.space-up-10= t('events.note')
+      dd.space-up-10= @event.note
+  hr

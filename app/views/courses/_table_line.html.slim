@@ -11,7 +11,7 @@
     .col-md-2.room-left-15= coach_name(event)
     .col-md-3.room-left-15.hidden-xs= event.note
     .col-md-2.room-left-15
-      - if policy(event).show?
+      - if policy(event).show? && event.type == 'Performance'
         = link_to fa_icon("eye lg"), event
       = render partial: 'update_delete_icons', locals: {event: event}
   hr

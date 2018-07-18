@@ -9,4 +9,9 @@ module CoursesHelper
     res = event.courseable_type == 'Coach' ? "#{star} #{name} #{star}" : name
     res.html_safe
   end
+
+  def course_label(event)
+    start = event.courseable_type == 'Coach' ? 'Coach : ' : 'Auto coaché par '
+    "#{start}#{event.courseable.full_name}"
+  end
 end

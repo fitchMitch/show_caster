@@ -1,6 +1,6 @@
 class CoursesController < EventsController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :set_polymorphic_courseable_out_of_params, only: [:create]
+  before_action :set_polymorphic_courseable_out_of_params, only: [:create,:update]
   # respond_to :html
   # respond_to :html, :json, :js
 
@@ -11,11 +11,9 @@ class CoursesController < EventsController
 
   def index
     authorize(Course)
-    @future_courses = Event.future_events.courses
-    @passed_courses = Event.passed_events.courses
+    @future_events = Event.future_events.courses
+    @passed_events = Event.passed_events.courses
     # TODO pagination
-
-    @all_events = {nexting: @future_courses, pasting: @passed_courses}
   end
 
   def create
@@ -41,8 +39,9 @@ class CoursesController < EventsController
   end
 
   def set_polymorphic_courseable_out_of_params
-    # binding.pry
-    if params["course"]["is_autocoached"] == "1"
+    # TODO make it safer, simpler
+    course = params.fetch(:course, "should raise an error")
+    if course.fetch(:is_autocoached, "1") == "1"
       params["course"]["courseable_type"] =  'User'
       params["course"]["courseable_id"] = params["course"]["users_list"]
     else

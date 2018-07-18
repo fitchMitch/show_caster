@@ -26,7 +26,6 @@ fr:
     new_opus: Spectacle des Sésames au %{name}
     not_updated: Le spectacle n'a pas pu être enregistré
     nowhere: on ne sait pas où
-    pasting: Spectacles du temps écoulé
     players_part: Côté joueurs
     progress: Avancement
     plus_actors: d'acteurs
@@ -35,3 +34,4 @@ fr:
     title: Titre
     updated: "Le spectacle a bien été mis à jour. NB : il n'existait pas sur Google Calendar."
     updated_with_Google: Le spectacle a bien été mis à jour (et sur Google Agenda aussi).
+    passed_events_title: Spectacles du temps écoulé

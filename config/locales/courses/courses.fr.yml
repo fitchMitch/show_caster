@@ -11,5 +11,6 @@ fr:
     coach_list: Liste des joueurs
     coach_externs_list: Liste des coaches
     date: Date du cours
+    passed_events_title: Cours appartenant au passé
     question:
       autocoached: En auto-coaché ?
