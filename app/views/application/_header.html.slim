@@ -8,6 +8,8 @@
       - if user_signed_in?
         - if policy(Dashboard).index?
           = link_to t("dashboards.statistics"), dashboard_path
+        - if policy(PollOpinion).index?
+          = link_to t("polls.header"), polls_path
         - if policy(Coach).index?
           = link_to t("coaches.header"), coaches_path
         - if policy(Course).index?
@@ -24,4 +26,4 @@
               span.badge
                 = User.active.count
         = render partial: "application/account_dropdown"
-      = link_to fa_icon("sign-out lg"), sign_out_path, method: :delete
+        = link_to fa_icon("sign-out lg"), sign_out_path, method: :delete

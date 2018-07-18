@@ -1,0 +1,33 @@
+.container
+  .page-header
+    span.room-right-15
+      = link_to polls_path, :class => 'btn btn-default' do
+        span.glyphicon.glyphicon-list-alt
+          = " #{ t("back") }"
+    - if @poll.present? && policy(@poll).edit?
+      = link_to edit_poll_path(@poll), :class => 'btn btn-primary' do
+        span.glyphicon.glyphicon-pencil
+          = " #{ t('polls.edit') }"
+    h1= @poll.question
+
+  dl.dl-horizontal
+
+    dt= t('polls.expiration_date')
+    dd.space-up-10= l @poll.expiration_date, format:"%a %d %b"
+
+    dt.space-up-10= t('created_at')
+    dd.space-up-10= l @poll.created_at, format:"%a %d %b"
+
+    dt.space-up-10= t('updated_at')
+    dd.space-up-10= l @poll.updated_at, format:"%a %d %b"
+
+    dt.space-up-10
+    dd.space-up-10
+      hr
+
+    dt
+      p.space-up-10= t("answers.answers")
+    dd.space-up-10
+      - @poll.answers.each_with_index do |a,index|
+        p="#{index+1}. #{a.answer}<br/>".html_safe
+    hr

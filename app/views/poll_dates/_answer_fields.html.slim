@@ -1,0 +1,13 @@
+.row.nested-fields
+  .col-md-6.col-sm-7.col-xs-7.form-inline
+    = f.input :date_answer,
+      label: t("answers.answer"),
+      include_blank: false,
+      minute_step: 15,
+      start_hour: 8,
+      end_hour: 22,
+      start_year: Time.zone.now.year.to_i,
+      end_year: Time.zone.now.year.to_i + 2
+  .col-md-2.col-sm-1.col-xs-2
+    p.space-up-10=image_tag("transp.png")
+    = link_to_remove_association fa_icon("trash 2x"), f

@@ -1,0 +1,18 @@
+/ frozen_string_literal: true
+= simple_form_for(@poll) do |f|
+  = f.error_notification
+
+  .form-inputs
+    .row
+      .col-md-9= f.input :question, label: t("polls.question"), hint: t("polls.question_hint")
+      .col-md-3= f.input :expiration_date, label: t("polls.expiration_date"), html5: true
+    .row
+      .col-md-12
+        #answers= f.simple_fields_for :answers do |answer|
+          = render 'answer_fields', f: answer
+        .links
+          = link_to_add_association fa_icon("plus 2x", text: t('polls.plus_answers')), f, :answers
+    .row
+      .col-md-12
+        .form-actions.center
+          = f.button :submit, class: 'btn btn-primary center space-up-45'

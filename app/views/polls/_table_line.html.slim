@@ -1,0 +1,21 @@
+.row
+  .col-md-3.room-left-15= poll.question
+  .col-md-3.room-left-15
+    ol= answers_list(poll)
+  .col-md-1.room-left-15.hidden-xs
+    = poll_date poll.expiration_date
+  .col-md-1.room-left-15.hidden-xs
+    = poll_date poll.created_at
+  .col-md-1.room-left-15.hidden-xs
+    = poll_date poll.updated_at
+  .col-md-1.room-left-15
+  .col-md-2.room-left-15
+    - if policy(poll).show?
+      = link_to fa_icon("eye lg" ), poll
+    - if policy(poll).edit?
+      = image_tag('transp.png')
+      = link_to_edit(poll)
+    - if policy(poll).destroy?
+      = image_tag('transp.png')
+      = link_to(fa_icon("trash lg"), poll, class:'destroy', id: 'destroy', data: {confirm: t('sure_question')}, method: :delete)
+hr

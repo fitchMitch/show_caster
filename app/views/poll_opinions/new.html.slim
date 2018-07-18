@@ -1,0 +1,8 @@
+.container
+  .page-header
+    = link_to polls_path, :class => 'btn btn-default' do
+      span.glyphicon.glyphicon-list-alt
+        = " #{ t("back") }"
+    h2= t('polls.new_opinion')
+
+  = render 'form'
