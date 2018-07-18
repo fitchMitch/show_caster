@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  # Sessions
+
+  # Users and Sessions
+  resources :users do
+    resources :pictures, module: :users
+  end
+  post '/promote',        to:  'users#promote'
+  post '/invite',        to:  'users#invite'
 
   resources :sessions, only: %i[index new create destroy]
   get '/sesame_login' => 'sessions#new'
@@ -9,31 +15,32 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: 'sessions#create'
 
   # Events
-  resources :performances, controller: :performances, type: 'Performance'
   resources :courses, controller: :courses, type: 'Course'
+  resources :performances, controller: :performances, type: 'Performance'
   resources :performances do
     resources :pictures, module: :events
-  end
-
-  # Users
-  resources :users do
-    resources :pictures, module: :users
   end
 
   # Coaches
   resources :coaches
 
+  # Polls
+  resources :polls, only: %i[index]
+  resources :poll_opinions, controller: :poll_opinions, type: 'PollOpinion'
+  resources :poll_dates, controller: :poll_dates, type: 'PollDate'
+
+  # Answers
+  resources :answers
+
   # Theaters
   resources :theaters
-  post '/promote',        to:  'users#promote'
-  post '/invite',        to:  'users#invite'
+
+  # Dashboard
+  get  '/dashboard'   => 'dashboards#index'
 
   # Splash
   post '/signup'      => 'splash#signup', as: :splash_signup
   get  '/splash'      => 'splash#index'
-
-  # Dashboard
-  get  '/dashboard'   => 'dashboards#index'
 
   root 'splash#index'
 end
