@@ -96,9 +96,6 @@ FactoryBot.define do
     end
 
     factory :user_with_picture do
-      transient do
-        picture_count 1
-      end
       after(:create) do |user|
         create(:picture,  imageable: user)
       end

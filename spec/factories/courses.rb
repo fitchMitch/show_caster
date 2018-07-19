@@ -21,6 +21,27 @@
 
 FactoryBot.define do
   factory :course do
-    
+    event_date      Time.zone.now + 2.days
+    duration        100
+    note            'MyText'
+    title           'Un bon petit cours de derrière les fagots'
+    theater
+    # user
+    provider        'google'
+    fk              { 'a' * 40 }
+    progress        0
+    type            'Course'
+    # courseable_type = %w[Coach User].sample
+    # courseable_id = if courseable_type == 'User'
+    #   User.all.sample.id
+    # else
+    #   Coach.all.sample.id
+    # end
+    factory :course_with_coach do
+      after(:create) do |course|
+        create(:coach, courseable: course)
+      end
+    end
+
   end
 end

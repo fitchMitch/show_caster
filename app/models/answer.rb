@@ -18,5 +18,10 @@ class Answer < ApplicationRecord
     class_name: 'PollOpinion',
     optional: true,
     touch: true
+  belongs_to :poll_date,
+    foreign_key: "poll_id",
+    class_name: 'PollDate',
+    optional: true,
+    touch: true
 
 end
