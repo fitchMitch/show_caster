@@ -34,6 +34,11 @@ class Poll < ApplicationRecord
 
   # Validations
   #-----------
+  validates :question,
+    presence: true,
+    length: { minimum: 5, maximum: 120 }
+  validates :expiration_date,
+    presence: true
 
   # Scope
   #-----------
@@ -44,7 +49,7 @@ class Poll < ApplicationRecord
   # scope :found_by, -> (user) { where('user_id = ?', user_id) }
   # scope :expecting_answer, -> { where(status: [:invited, :googled, :registered])}
   scope :expired, -> { where('expiration_date < ?', Time.zone.now)}
-  scope :active, -> { where('expiration_date >= ?', Time.zone.now)} #TODO 
+  scope :active, -> { where('expiration_date >= ?', Time.zone.now)} #TODO
   scope :expecting_answer, -> { where('expiration_date >= ?', Time.zone.now)} #TODO
   # ------------------------
   # --    PUBLIC      ---
