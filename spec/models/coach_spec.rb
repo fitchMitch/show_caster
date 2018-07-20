@@ -17,7 +17,7 @@ require 'rails_helper'
 RSpec.describe Coach, type: :model do
   context 'with valid attributes' do
     # create(:user,:admin,:registered )
-    let!(:existing_coach) { create(:coach) }
+    # let!(:existing_coach) { create(:coach) }
     let!(:valid_attributes) do
       { firstname: 'eric',
         lastname: 'bicon',
