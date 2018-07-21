@@ -33,7 +33,7 @@ class PollOpinionsController < PollsController
         :expiration_date,
         answers_attributes: [
           :id,
-          :answer,
+          :answer_label,
           :poll_id,
           :_destroy
         ]

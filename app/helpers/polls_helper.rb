@@ -13,7 +13,7 @@ module PollsHelper
     li = []
     case poll.type
       when 'PollOpinion'
-        li = poll.answers.map { |a| content_tag :li, a.answer }
+        li = poll.answers.map { |a| content_tag :li, a.answer_label }
       when 'PollDate'
         li = poll.answers.map { |a| content_tag :li, poll_datetime(a.date_answer) } if poll.answers.any?
       else

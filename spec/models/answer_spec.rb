@@ -2,12 +2,12 @@
 #
 # Table name: answers
 #
-#  id          :integer          not null, primary key
-#  answer      :string
-#  date_answer :datetime
-#  poll_id     :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id           :integer          not null, primary key
+#  answer_label :string
+#  date_answer  :datetime
+#  poll_id      :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 
 require 'rails_helper'
@@ -17,22 +17,22 @@ RSpec.describe Answer, type: :model do
   context "validations" do
     let!(:valid_attributes) {
       {
-        answer: "an answer",
+        answer_label: "an answer",
         date_answer: Date.today.weeks_since(3)
       }
     }
-    let(:answer) {FactoryBot.build(:answer)}
+    let(:answer) {FactoryBot.build(:answer, date_answer: nil)}
     subject { answer }
 
-    it { should validate_presence_of (:answer) }
-    it { should validate_length_of(:answer).is_at_least(3) }
-    it { should validate_length_of(:answer).is_at_most(100) }
+    it { should validate_presence_of (:answer_label) }
+    it { should validate_length_of(:answer_label).is_at_least(3) }
+    it { should validate_length_of(:answer_label).is_at_most(100) }
   end
 
   context  "Persistance (opinion)" do
     let!(:valid_attributes) {
       {
-        answer: "an answer",
+        answer_label: "an answer",
         date_answer: Date.today.weeks_since(3)
       }
     }
@@ -42,7 +42,7 @@ RSpec.describe Answer, type: :model do
     it { should belong_to(:poll_opinion)}
 
     it "should be verified : factory validation" do
-      expect(answ.answer).to eq(valid_attributes[:answer])
+      expect(answ.answer_label).to eq(valid_attributes[:answer_label])
       expect(answ.date_answer.strftime("%Y-%m-%d")).to eq(valid_attributes[:date_answer].to_s)
     end
   end
@@ -50,7 +50,7 @@ RSpec.describe Answer, type: :model do
   context  "Persistance (date)" do
     let!(:valid_attributes) {
       {
-        answer: "not an option",
+        answer_label: "not an option",
         date_answer: Date.today.weeks_since(3)
       }
     }
@@ -60,18 +60,14 @@ RSpec.describe Answer, type: :model do
     it { should belong_to(:poll_opinion)}
 
     it "should be verified : factory validation" do
-      expect(answ.answer).to eq(valid_attributes[:answer])
+      expect(answ.answer_label).to eq(valid_attributes[:answer_label])
       expect(answ.date_answer.strftime("%Y-%m-%d")).to eq(valid_attributes[:date_answer].to_s)
     end
   end
 
   context "with invalid attributes" do
     it "tolerates empty fields but the answer" do
-      answer = build(:answer, answer: "")
-      expect(answer).not_to be_valid
-    end
-    it "tolerates empty fields but the date_answer" do
-      answer = build(:answer, date_answer: "")
+      answer = build(:answer, answer_label: "", date_answer: nil)
       expect(answer).not_to be_valid
     end
   end

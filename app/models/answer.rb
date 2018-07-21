@@ -2,12 +2,12 @@
 #
 # Table name: answers
 #
-#  id          :integer          not null, primary key
-#  answer      :string
-#  date_answer :datetime
-#  poll_id     :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id           :integer          not null, primary key
+#  answer_label :string
+#  date_answer  :datetime
+#  poll_id      :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 
 class Answer < ApplicationRecord

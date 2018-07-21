@@ -53,6 +53,6 @@ class AnswersController < ApplicationController
     end
 
     def answer_params
-      params.require(:answer).permit(:answer, :date_answer, :poll_id)
+      params.require(:answer).permit(:answer_label, :date_answer, :poll_id)
     end
 end
