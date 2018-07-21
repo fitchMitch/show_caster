@@ -77,7 +77,7 @@ theaters = Theater.all
 
 # Events
 
-25.times do |n|
+16.times do |n|
   name  = "Le #{FFaker::Name.name} étoilé "
   event_date = today + (-200..200).to_a.sample * 3600 * 24
   duration = Event::DURATIONS.sample[1]
@@ -90,19 +90,92 @@ theaters = Theater.all
     duration:             duration,
     event_date:           event_date,
     created_at:           created_at,
-    updated_at:           updated_at
+    updated_at:           updated_at,
+    type:                 'Performance',
+
+  )
+end
+performances = Performance.all
+
+14.times do |n|
+  event_date = today + (-200..200).to_a.sample * 3600 * 24
+  name  = "Cours du #{event_date}"
+  duration = Event::DURATIONS.sample[1]
+  note = FFaker::Lorem::paragraph(1)
+  Course.create!(
+    theater:             theaters.sample,
+    title:               name,
+    note:                 note,
+    duration:             duration,
+    event_date:           event_date,
+    created_at:           created_at,
+    updated_at:           updated_at,
+    type:                 'Course',
+    courseable_id:        users.sample.id,
+    courseable_type:      'User'
   )
 end
 performances = Performance.all
 
 # Actors
-
 performances.each do |event|
   6.times do |n|
     Actor.create(
       event_id:       event.id,
       user_id:        User.active.sample.id,
       stage_role:     Actor::stage_roles.keys.sample.to_sym
+    )
+  end
+end
+# Coach
+Coach.create!(
+  firstname: 'Aline',
+  lastname: 'PETIT',
+  cell_phone_nr: '0623142151',
+  email: "aline.petit@gmail.tu",
+  note: "test is good"
+)
+# PollOpinions
+2.times do |n|
+  question = "#{FFaker::Lorem::sentence(1)} ?"
+  expiration_date = Date.today + (10..30).to_a.sample.days
+  PollOpinion.create!(
+    question:           question,
+    expiration_date:    expiration_date,
+    type:               'PollOpinion'
+  )
+end
+poll_opinions = PollOpinion.all
+
+# PollDates
+2.times do |n|
+  question = "Quand fait on le #{FFaker::Lorem::sentence(1)} ?"
+  expiration_date = Date.today + (10..30).to_a.sample.days
+  PollDate.create!(
+    question:           question,
+    expiration_date:    expiration_date,
+    type:               'PollDate'
+  )
+end
+poll_dates = PollDate.all
+
+#PollAnswers
+poll_opinions.each do |poll|
+  (2..4).to_a.sample.times do |n|
+    answer_label = FFaker::Lorem::sentence(1)
+    Answer.create!(
+      answer_label: answer_label,
+      poll_id: poll.id
+    )
+  end
+end
+
+poll_dates.each do |poll|
+  (2..4).to_a.sample.times do |n|
+    date_answer = Date.today + (10..30).to_a.sample.days
+    Answer.create!(
+      date_answer: date_answer,
+      poll_id: poll.id
     )
   end
 end
