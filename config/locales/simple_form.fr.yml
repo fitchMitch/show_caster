@@ -10,7 +10,6 @@ fr:
       # html: '<abbr title="required">*</abbr>'
     error_notification:
       default_message: "Jetez un oeil ci-dessous : il y a de petites imprécisions"
-    
     # labels:
     #   defaults:
     #     password: 'Password'

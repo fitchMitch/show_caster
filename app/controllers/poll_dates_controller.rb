@@ -5,7 +5,7 @@ class PollDatesController < PollsController
     authorize PollDate
     @poll = PollDate.new
     @poll.expiration_date = Date.today.weeks_since(2)
-    2.times { answer = @poll.answers.build(answer: "not an option") }
+    2.times { answer = @poll.answers.build() }
   end
 
   def create

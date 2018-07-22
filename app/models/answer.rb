@@ -41,14 +41,23 @@ class Answer < ApplicationRecord
     # Validations
     # =====================
     validates_associated :poll_opinion, :poll_date
-    # validates :answer,
-    #   length: { minimum: 3, maximum: 100 }
-    # validates :date_answer,
-    #   presence: true
+    validates :answer_label,
+      length: { minimum: 3, maximum: 100 },
+      presence: true,
+      if: :date_answer_nil?
+    validates :date_answer,
+      presence: true,
+      if: :answer_label_nil?
 
 
     # ------------------------
     # --    PUBLIC      ---
     # ------------------------
+    def date_answer_nil?
+      date_answer.nil?
+    end
 
+    def answer_label_nil?
+      answer_label.nil?
+    end
 end

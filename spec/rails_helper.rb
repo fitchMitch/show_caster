@@ -58,6 +58,8 @@ RSpec.configure do |config|
   config.include Features::SessionHelpers, type: :feature
   config.include MailerMacros, type: :feature
   config.include SessionsHelper, type: :feature
+  config.include PollsHelper, type: :feature
+
   # config.include Capybara::DSL, :file_path => "spec/requests"
   # BEFORE
   config.before(:suite) do

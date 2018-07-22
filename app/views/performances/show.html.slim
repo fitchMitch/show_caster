@@ -7,7 +7,7 @@
     - if @event.present? && policy(@event).edit?
       = link_to edit_performance_path(@event), :class => 'btn btn-primary' do
         span.glyphicon.glyphicon-pencil
-          = " #{ t('events.edit_title') }"
+          = " #{ t('events.edit_page_title') }"
     h1= "Le #{l @event.event_date, format:"%A %d %B à %Hh%M"}"
     h1= "#{t 'theater_company'} sont au \"#{@event.theater.theater_name}\""
 

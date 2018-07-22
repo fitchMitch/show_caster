@@ -8,7 +8,7 @@ RSpec.describe "PollOpinions", type: :request do
       }
   }
   let!(:invalid_attributes) { { type:'PollOpinion', question: nil, expiration_date: nil } }
-  let!(:invalid_attributes_question_only) { { type:'PollOpinion', question: "", expiration_date: Date.today} }
+  let!(:invalid_attributes_question_only) { { type:'PollOpinion', question: nil, expiration_date: Date.today} }
   let!(:admin) { create(:user, :admin, :registered) }
 
   context "/ As logged as admin," do

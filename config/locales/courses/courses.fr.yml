@@ -9,7 +9,7 @@ fr:
     new_page_title: Nouveau cours
     new_button: Nouveau cours
     coach_list: Liste des joueurs
-    coach_externs_list: Liste des coaches
+    external_coach_list: Liste des coaches
     date: Date du cours
     passed_events_title: Cours appartenant au passé
     question:
