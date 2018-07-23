@@ -26,7 +26,10 @@
             span.caret
           ul.dropdown-menu
             - if policy(Performance).index?
-              li= link_to t("events.events_management"), performances_path
+              li= link_to performances_path do
+                = t("events.events_management")
+                = image_tag("transp.png")
+                = fa_icon("image")
             - if policy(Theater).index?
               li= link_to t("theaters.premises_management"), theaters_path
               li.divider role="separator"
