@@ -1,25 +1,41 @@
-= navbar position: :static do
+= navbar position: :top, inverted: true do
   = vertical do
     = link_to root_path do
-      = fa_icon ("yelp 2x to-orange lg")
-      = I18n.t("layout.home")
+      .inline
+        = image_tag("infinity_h40.png", height: 30)
+        = image_tag("transp.png")
+        = I18n.t("layout.home")
   = horizontal do
     = nav class: 'navbar-right' do
       - if user_signed_in?
-        - if policy(Dashboard).index?
-          = link_to t("dashboards.statistics"), dashboard_path
-        - if policy(PollOpinion).index?
-          = link_to t("polls.header"), polls_path
-        - if policy(Coach).index?
-          = link_to t("coaches.header"), coaches_path
-        - if policy(Course).index?
-          = link_to t("courses.header"), courses_path
-        - if policy(Performance).index?
-          = link_to t("events.events_management"), performances_path
-        - if policy(Theater).index?
-          = link_to t("theaters.premises_management"), theaters_path
+        li.dropdown
+          a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+            | Sondages et statistiques
+            span.caret
+          ul.dropdown-menu
+            - if policy(PollOpinion).index?
+              li
+                = link_to t("polls.header"), polls_path
+              li.divider role="separator"
+            - if policy(Dashboard).index?
+              li
+                = link_to t("dashboards.statistics"), dashboard_path
+        li.dropdown
+          a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+            | Cours et spectacles
+            span.caret
+          ul.dropdown-menu
+            - if policy(Performance).index?
+              li= link_to t("events.events_management"), performances_path
+            - if policy(Theater).index?
+              li= link_to t("theaters.premises_management"), theaters_path
+              li.divider role="separator"
+            - if policy(Course).index?
+              li= link_to t("courses.header"), courses_path
+            - if policy(Coach).index?
+              li= link_to t("coaches.header"), coaches_path
         - if policy(current_user).index?
-          = link_to users_path , class: 'btn btn-warning' do
+          = link_to users_path do
             span
               = t("layout.users", theater_company: I18n.t("company_name_short"))
               = image_tag("transp.png")
