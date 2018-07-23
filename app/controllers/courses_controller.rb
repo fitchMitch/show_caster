@@ -1,6 +1,6 @@
 class CoursesController < EventsController
+  before_action :set_polymorphic_courseable_out_of_params, only: [:create, :update]
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :set_polymorphic_courseable_out_of_params, only: [:create,:update]
   # respond_to :html
   # respond_to :html, :json, :js
 
@@ -11,8 +11,8 @@ class CoursesController < EventsController
 
   def index
     authorize(Course)
-    @future_events = Event.future_events.courses
-    @passed_events = Event.passed_events.courses
+    @future_events = Event.courses.future_events
+    @passed_events = Event.courses.passed_events
     # TODO pagination
   end
 
@@ -39,14 +39,15 @@ class CoursesController < EventsController
   end
 
   def set_polymorphic_courseable_out_of_params
-    # TODO make it safer, simpler
-    course = params.fetch(:course, "should raise an error")
-    if course.fetch(:is_autocoached, "1") == "1"
-      params["course"]["courseable_type"] =  'User'
-      params["course"]["courseable_id"] = params["course"]["users_list"]
-    else
-      params["course"]["courseable_type"] =  'Coach'
-      params["course"]["courseable_id"] = params["course"]["coaches_list"]
+    course = params.fetch(:course, nil)
+    unless course.nil?
+      if course.fetch(:is_autocoached, "1") == "1"
+        params["course"]["courseable_type"] = 'User'
+        params["course"]["courseable_id"] = course.fetch(:users_list, 0)
+      else
+        params["course"]["courseable_type"] = 'Coach'
+        params["course"]["courseable_id"] = course.fetch(:coaches_list, 0)
+      end
     end
   end
 
@@ -57,12 +58,9 @@ class CoursesController < EventsController
         theater_name: event.theater.theater_name,
         event_date: event.event_date.iso8601,
         event_end: (event.event_date + event.duration * 60).iso8601,
-        attendees_email: []
+        attendees_email: [],
+        fk: event.fk
       }
-      # special update
-      opt[:fk] = event.fk if event.fk.present?
-      # TODO opt[:fk] ||= event.fk
-      opt
     end
 
     def set_event
