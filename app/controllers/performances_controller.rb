@@ -49,12 +49,9 @@ class PerformancesController < EventsController
         theater_name: event.theater.theater_name,
         event_date: event.event_date.iso8601,
         event_end: (event.event_date + event.duration * 60).iso8601,
-        attendees_email: attendees_email
+        attendees_email: attendees_email,
+        fk: event.fk
       }
-      # special update
-      opt[:fk] = event.fk if event.fk.present?
-      # TODO opt[:fk] ||= event.fk
-      opt
     end
 
     def set_event

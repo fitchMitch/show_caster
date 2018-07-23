@@ -20,7 +20,7 @@ class Dashboard
       .joins(:actors)
       .group('perso')
       .order('count_me asc')
-      # TODO consider active people only
+      # TODO consider active people / actors only
   end
 
   def check_attributes(attri)
