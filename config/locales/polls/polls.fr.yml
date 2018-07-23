@@ -1,14 +1,16 @@
 fr:
   polls:
     answer: Ma réponse
+    answers: Réponses
     answer_possibility: Réponse possible
     destroyed:  Ce sondage a été supprimé
     edit: Modifier le sondage
     expecting_answer: En attente de ma réponse
     expiration_date: Echéance
+    expiration_hint: C'est aussi la date limite de remise des votes
     expired: Sondages échus
     header: Sondages
-    last_interaction: Dernière interaction
+    last_interaction: Dernier changement
     list: Liste des sondages
     question: Question
     question_hint: Posez votre question et les Sésames répondront

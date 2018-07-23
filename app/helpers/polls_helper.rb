@@ -19,7 +19,8 @@ module PollsHelper
       else
         Logger.debug("unexpected type : #{poll.type}")
     end
-    li.join('').html_safe
+    tag = poll.type == 'PollOpinion' ? "<ol>#{li.join('')}</ol>" : "<ul>#{li.join('')}</ul>"
+    tag.html_safe
   end
 
   def link_to_edit(poll)
