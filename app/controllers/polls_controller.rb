@@ -25,6 +25,7 @@ class PollsController < ApplicationController
   end
 
   def destroy
+    votes_destroy(@poll)
     @poll.destroy
     redirect_to polls_url, notice: I18n.t("polls.destroyed")
   end
@@ -33,6 +34,13 @@ class PollsController < ApplicationController
     type = params.fetch(:type, nil)
     val = (['PollOpinion', 'PollDate'].include? type) ? type : nil
     val.underscore
+  end
+
+  def votes_destroy(poll)
+    Rails.logger.info("----- success in votes_destroy ---------")
+    Vote
+      .where('poll_id = ?', poll.id)
+      .delete_all
   end
 
 end
