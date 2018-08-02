@@ -31,7 +31,7 @@ html.no-js
             = link_to t("splash.us"), "#features"
             = link_to t("splash.contact"), "#contact"
             - if user_signed_in?
-              = link_to t("users.company"), users_path
+              = link_to t("users.admin_company"), users_path
               = link_to fa_icon("sign-out lg", text: t("deconnect")), sign_out_path, :method=>:delete
             - else
               = link_to '/sesame_login' do
