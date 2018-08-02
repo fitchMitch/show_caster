@@ -86,6 +86,8 @@ ActiveRecord::Schema.define(version: 20180721141902) do
     t.string   "type"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "owner_id"
+    t.index ["owner_id"], name: "index_polls_on_owner_id", using: :btree
   end
 
   create_table "theaters", force: :cascade do |t|

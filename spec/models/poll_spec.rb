@@ -8,6 +8,7 @@
 #  type            :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  owner_id        :integer
 #
 
 require 'rails_helper'
