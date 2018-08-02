@@ -2,6 +2,11 @@ class CoachesController < ApplicationController
   before_action :set_coach, only: [:show, :edit, :update, :destroy]
 
   # respond_to :html, :json, :js
+  
+  def new
+    authorize Coach
+    @coach = Coach.new
+  end
 
   def index
     authorize Coach
@@ -9,11 +14,6 @@ class CoachesController < ApplicationController
   end
 
   def show
-  end
-
-  def new
-    authorize Coach
-    @coach = Coach.new
   end
 
   def edit

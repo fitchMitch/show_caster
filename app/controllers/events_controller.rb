@@ -11,7 +11,7 @@ class EventsController < ApplicationController
   def edit
   end
 
-  
+
 
   def update
     @service = GoogleCalendarService.new(current_user)
@@ -19,7 +19,7 @@ class EventsController < ApplicationController
       if @event.update(event_params)
         result = update_google_calendar(@service, @event)
         if result.nil?
-          raise  ActiveRecord::Rollback
+          raise ActiveRecord::Rollback
           redirect_to event_url(@event), alert: I18n.t("events.google_locked")
         elsif result.is_a? String
           redirect_to events_url(@event), notice: I18n.t("events.updated")
