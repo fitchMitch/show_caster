@@ -1,11 +1,15 @@
 .container
   .row
-    .col-md-4
-      = panel poll.question, heading: 'Question', context: :info
-    .col-md-4
-      = panel answers_list(poll), heading: 'Réponses', context: :info
-    .col-md-2.hidden-xs
+    .col-md-6= panel_question(poll)
+
+    / .col-md-4
+    /  = panel answers_list(poll), heading: 'Réponses', context: :info
+    .col-md-3.hidden-xs
       span.label.label-primary= poll_date poll.expiration_date
+      br
+      p.space-up-35
+        = new_vote_path(poll)
+
     .col-md-2
       - if policy(poll).show?
         = link_to fa_icon("eye lg" ), poll
@@ -16,5 +20,14 @@
         = image_tag('transp.png')
         = link_to(fa_icon("trash lg"), poll, class:'destroy', id: 'destroy', data: {confirm: t('sure_question')}, method: :delete)
   small.text-muted
-    ="dernier changement : #{poll_date poll.updated_at} | créé le : #{poll_date poll.created_at}"
+    .row
+      .col-md-7
+        .row
+          .col-md-3
+            strong= t("polls.last_interaction")
+          .col-md-4
+            strong= poll_date poll.updated_at
+        .row
+          .col-md-3= t("created_at")
+          .col-md-4= poll_date poll.created_at
 hr

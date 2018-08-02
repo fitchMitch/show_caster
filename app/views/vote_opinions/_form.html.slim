@@ -1,0 +1,25 @@
+/ frozen_string_literal: true
+= simple_form_for [@vote.poll_opinion, @vote] do |f|
+  = f.error_notification
+
+  .form-inputs
+    .row
+      .col-md-4
+        h3= @poll_opinion.question
+      .col-md-5
+        = f.association :answer,
+          as: :radio_buttons,
+          collection: @poll_opinion.answers,
+          label_method: :answer_label,
+          value_method: :id,
+          label: t("votes.vote_start_phrase")
+      .col-md-3
+        = f.input :comment,
+          as: :text,
+          label:t("votes.comment")
+          /hint: t("votes.comment_hint"),
+    .row
+      .col-md-12
+        .form-actions.center
+          = f.button :submit,
+            class: 'btn btn-primary center space-up-45'

@@ -1,0 +1,12 @@
+fr:
+  votes:
+    save_success: C'est dans l'urne !
+    save_fails: Oh zut ! C'est tombé à coté !
+    new_date: Voter pour des dates
+    new_opinion: Voter
+    vote_label: Mon vote
+    answers: Les réponses possibles
+    vote_start_phrase: Je choisis
+    comment_hint: Commenter ... uniquement si c'est indispensable
+    comment: Commentaire facultatif
+    choose: Choisir

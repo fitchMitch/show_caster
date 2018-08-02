@@ -1,0 +1,32 @@
+.alert.alert-info
+  = fa_icon('calendar 2x')
+  = image_tag("transp.png")
+  = @poll_date.question
+Table
+  tr
+    - @answers_votes.each do |answer_vote|
+      td.date-choice
+        = simple_form_for [@poll_date, @vote_date] do |f|
+          strong
+            = poll_datetime answer_vote[:answer].date_answer
+            br
+          - User.active.order('firstname').each do |user|
+            = render( partial: "others_vote_dates", locals: { content: others_votes_list(answer_vote[:answer],user), user: user })
+            br
+          strong
+            = poll_datetime answer_vote[:answer].date_answer
+            br
+          = f.input :vote_label,
+            label: "<small>#{t("votes.choose")}</small>".html_safe,
+            selected: answer_vote[:vote].try(:vote_label) || "",
+            include_blank: true
+          = f.input :poll_id,
+            input_html: {value: @poll_date.id},
+            as: :hidden
+          = f.input :answer_id,
+            input_html: { value: answer_vote[:answer].id || ""},
+            as: :hidden
+          = f.input :comment,
+            as: :text,
+            input_html: { value: answer_vote[:vote].try(:comment) || "" },
+            label: "<small>#{t("votes.comment")}</small>".html_safe

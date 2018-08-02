@@ -24,3 +24,9 @@ fr:
         finalized: Finalisé
         sent_to_media_1: Envoyé à media 1
         ok_with_media_1: Validé par media 1
+    vote:
+      vote_label:
+        noway: "Non"
+        yess: "Yes !"
+        maybe: "Peut-être"
+        missing_information: "J'attends une info"

@@ -125,6 +125,16 @@ fr:
         update: "Modifier le sondage de date"
         edit: "Editer le sondage de date"
         new: "Ajouter un sondage de date"
+      vote_date:
+        create: "Voter"
+        update: "Modifier mon vote"
+        edit: "Editer mon vote"
+        new: "Voter"
+      vote_opinion:
+        create: "Voter"
+        update: "Modifier mon vote"
+        edit: "Editer mon vote"
+        new: "Voter pour"
 
   activerecord:
     errors:
@@ -165,6 +175,7 @@ fr:
       Picture: Photo
       Coach: Coach
       Poll: Sondage
+      Vote: Vote
     models:
       Actor: Joueurs(ses)
       User: Joueurs(ses)
@@ -173,6 +184,8 @@ fr:
       Pictures: Photos
       Coaches: Coaches
       Coach: Coach
+      Coach: Coach
+      Vote: Votes
   cocoon:
     defaults:
       add: "Ajouter l'enregistrement"

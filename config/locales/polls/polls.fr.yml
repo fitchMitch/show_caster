@@ -3,6 +3,7 @@ fr:
     answer: Ma réponse
     answers: Réponses
     answer_possibility: Réponse possible
+    calendar_question: Question de dates
     destroyed:  Ce sondage a été supprimé
     edit: Modifier le sondage
     expecting_answer: En attente de ma réponse
@@ -13,15 +14,18 @@ fr:
     last_interaction: Dernier changement
     list: Liste des sondages
     question: Question
+    responses_sent: réponses reçues
+    opinion_question: Question d'opinion
     question_hint: Posez votre question et les Sésames répondront
     new_opinion: Nouveau sondage d'opinion
     new_date: Nouveau sondage de date
     save_success: Sondage enregistré !
     save_fails: Ce sondage ne s'est pas enregistré !
     see: Voir
-    still_active: J'ai déjà répondu
+    voted: J'ai déjà répondu
     update: Mise à jour du sondage
     update_success: Mise à jour ok
     updated: Ce sondage a été mis à
     plus_answers: Plus de réponses
     no_expiration_date: Non fournie
+    tab_expiration_date: En attente de ma réponse
