@@ -24,11 +24,10 @@ class Poll < ApplicationRecord
   has_many :poll_opinions, class_name: 'PollOpinion'
   has_many :poll_dates, class_name: 'PollDate'
 
+  belongs_to :owner, class_name: 'User'
+
   has_many :answers,
-    dependent: :destroy,
-    inverse_of: :poll_opinion ,
-    foreign_key: "poll_id",
-    class_name: 'Answer'
+    dependent: :destroy
   accepts_nested_attributes_for :answers,
     reject_if: :all_blank,
     allow_destroy: true
@@ -55,5 +54,8 @@ class Poll < ApplicationRecord
   # ------------------------
   # --    PUBLIC      ---
   # ------------------------
+  def votes_count
+    Vote.where('poll_id = ?',self.id).group(:user).count.keys.size
+  end
 
 end

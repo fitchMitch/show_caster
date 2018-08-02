@@ -28,9 +28,9 @@ class VoteOpinion < Vote
     optional: true,
     touch: true
 
-  belongs_to :answer
+  belongs_to :answer,
+    dependent: :destroy
 
-  belongs_to :user
   # Validations
   #-----------
 

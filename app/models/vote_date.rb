@@ -22,18 +22,14 @@ class VoteDate < Vote
   #-----------
   # Relationships
   #-----------
-  belongs_to :answer,
-    dependent: :destroy,
-    inverse_of: :vote_date ,
-    foreign_key: "vote_id",
-    class_name: 'Answer'
   belongs_to :poll_date,
     foreign_key: "poll_id",
     class_name: 'PollDate',
     optional: true,
     touch: true
-  belongs_to :answer
-  belongs_to :user
+
+  belongs_to :answer,
+    dependent: :destroy
   # Validations
   #-----------
 

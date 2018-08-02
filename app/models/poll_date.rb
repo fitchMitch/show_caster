@@ -20,6 +20,19 @@ class PollDate < Poll
   #-----------
   # Relationships
   #-----------
+
+  has_many :answers,
+    dependent: :destroy,
+    inverse_of: :poll_date ,
+    foreign_key: "poll_id",
+    class_name: 'Answer'
+
+  has_many :vote_dates ,
+    dependent: :destroy ,
+    inverse_of: :poll_date ,
+    foreign_key: "poll_id" ,
+    class_name: 'VoteDate'
+
   # Validations
   #-----------
 
@@ -27,6 +40,7 @@ class PollDate < Poll
   #-----------
   # scope :found_by, -> (user) { where('user_id = ?', user_id) }
   # scope :expecting_answer, -> { where(status: [:invited, :googled, :registered])}
+  scope :with_my_date_votes, -> (user) { joins(:vote_dates).where('user_id = ?', user.id) }
   # ------------------------
   # --    PUBLIC      ---
   # ------------------------
