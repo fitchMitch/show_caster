@@ -27,7 +27,9 @@ class VoteOpinion < Vote
     class_name: 'PollOpinion',
     optional: true,
     touch: true
+
   belongs_to :answer
+
   belongs_to :user
   # Validations
   #-----------

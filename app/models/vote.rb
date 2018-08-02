@@ -32,8 +32,6 @@ class Vote < ApplicationRecord
   # Relationships
   #-----------
 
-
-  # belongs_to :answer
   belongs_to :user
   has_many :vote_opinions, class_name: 'VoteOpinion'
   has_many :vote_dates, class_name: 'VoteDate'
