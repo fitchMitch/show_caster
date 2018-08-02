@@ -21,13 +21,17 @@
         = link_to(fa_icon("trash lg"), poll, class:'destroy', id: 'destroy', data: {confirm: t('sure_question')}, method: :delete)
   small.text-muted
     .row
-      .col-md-7
+      .col-md-4
         .row
-          .col-md-3
+          .col-md-5
             strong= t("polls.last_interaction")
-          .col-md-4
+          .col-md-5
             strong= poll_date poll.updated_at
         .row
-          .col-md-3= t("created_at")
-          .col-md-4= poll_date poll.created_at
+          .col-md-5= t("created_at")
+          .col-md-5= poll_date poll.created_at
+      .col-md-2
+        | Question posée par
+        br
+        = poll.owner.full_name unless poll.owner.nil?
 hr
