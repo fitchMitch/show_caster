@@ -8,17 +8,16 @@ class VoteOpinionsController < VotesController
   end
 
   def create
-    # binding.pry
     @vote = @current_user.vote_opinions.new(vote_params)
     authorize @vote
     @answer = Answer.find(@vote.answer_id)
     @vote.poll_id  = @answer.poll_id
+    @vote.clean_votes
     if @vote.save
       redirect_to polls_path, notice: I18n.t("votes.save_success")
     else
       flash[:alert] = I18n.t("votes.save_fails")
       redirect_to([@vote.poll, @vote])
-      # render :new
     end
   end
 
@@ -27,7 +26,4 @@ class VoteOpinionsController < VotesController
       @vote = VoteOpinion.find(params[:id])
       authorize @vote
     end
-
-
-
 end

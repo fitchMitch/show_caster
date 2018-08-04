@@ -51,4 +51,18 @@ class Vote < ApplicationRecord
   # ------------------------
   # --    PUBLIC      ---
   # ------------------------
+  def clean_votes
+    if self.class.name == "VoteOpinion"
+      VoteOpinion
+        .where('poll_id = ?', self.poll_id)
+        .where('user_id = ?', self.user_id)
+        .delete_all
+    else
+      VoteDate
+        .where('poll_id = ?', self.poll_id)
+        .where('answer_id = ?', self.answer_id)
+        .where('user_id = ?', self.user_id)
+        .delete_all
+    end
+  end
 end

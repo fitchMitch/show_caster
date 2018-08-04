@@ -19,7 +19,7 @@ class VoteDatesController < VotesController
   def create
     @vote = current_user.vote_dates.build(vote_params)
     authorize @vote
-    clean_votes(@vote)
+    @vote.clean_votes
     if @vote.save
       redirect_to new_poll_date_vote_date_path(@vote.poll_id),
         notice: I18n.t("votes.save_success")
@@ -33,14 +33,6 @@ class VoteDatesController < VotesController
     def set_vote
       @vote = VoteDate.find(params[:id])
       authorize @vote
-    end
-
-    def clean_votes(vote)
-      VoteDate
-        .where('poll_id = ?', vote.poll_id)
-        .where('answer_id = ?', vote.answer_id)
-        .where('user_id = ?', vote.user_id)
-        .delete_all
     end
 
     def set_poll
