@@ -11,8 +11,6 @@
         = new_vote_path(poll)
 
     .col-md-2
-      - if policy(poll).show?
-        = link_to fa_icon("eye lg" ), poll
       - if policy(poll).edit?
         = image_tag('transp.png')
         = link_to_edit(poll)

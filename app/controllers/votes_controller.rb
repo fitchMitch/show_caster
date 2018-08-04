@@ -1,22 +1,5 @@
 class VotesController < ApplicationController
 
-
-  # def new
-  #   authorize(Vote)
-  #   @vote = Vote.new
-  # end
-  #
-  # def create
-  #   @vote = Vote.new(vote_params)
-  #   authorize @vote
-  #   @vote.id = current_user.id
-  #   if @vote.save
-  #     redirect_to polls_path, notice: I18n.t("votes.save_success")
-  #   else
-  #     redirect_to polls_path, notice: I18n.t("votes.save_fails")
-  #   end
-  # end
-
   def update
   end
 

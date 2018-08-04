@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     resources :vote_opinions,
       controller: :vote_opinions,
       type: 'VoteOpinion',
-      shallow: true
+      shallow: true #  [:index, :new, :create] are nested
   end
   resources :poll_dates, controller: :poll_dates, type: 'PollDate' do
     # Votes

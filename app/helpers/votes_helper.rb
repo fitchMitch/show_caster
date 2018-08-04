@@ -42,4 +42,8 @@ module VotesHelper
     end
     that_label
   end
+
+  def new_or_edit_opinion_path(vote)
+    vote.try(:answer_id).nil? ? edit_vote_opinion_path(vote) : new_poll_opinion_vote_opinion_path(vote) #TODO not tested at all
+  end
 end
