@@ -9,7 +9,7 @@ fr:
     expecting_answer: En attente de ma réponse
     expiration_date: Echéance
     expiration_hint: C'est aussi la date limite de remise des votes
-    expired: Sondages échus
+    expired: Sondages échus - <strong>Résultats</strong>
     header: Sondages
     last_interaction: Dernier changement
     list: Liste des sondages

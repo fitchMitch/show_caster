@@ -7,9 +7,7 @@ Table
     - @answers_votes.each do |answer_vote|
       td.date-choice
         = simple_form_for [@poll_date, @vote_date] do |f|
-          strong
-            = poll_datetime answer_vote[:answer].date_answer
-            br
+          = render(partial: 'date_panel', locals: { display_date: answer_vote[:answer].date_answer})
           = f.input :vote_label,
             label: "<small>#{t("votes.choose")}</small>".html_safe,
             selected: answer_vote[:vote].try(:vote_label) || "",
@@ -30,7 +28,4 @@ Table
           - User.active.order('firstname').each do |user|
             = render( partial: "others_vote_dates", locals: { content: others_votes_list(answer_vote[:answer],user), user: user })
             br
-          hr
-          strong
-            = poll_datetime answer_vote[:answer].date_answer
-          hr
+          = render(partial: 'date_panel', locals: { display_date: answer_vote[:answer].date_answer})

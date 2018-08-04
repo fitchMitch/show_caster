@@ -37,6 +37,12 @@ class VoteOpinion < Vote
   # Scope
   #-----------
   # scope :found_by, -> (user) { where('user_id = ?', user_id) }
+  scope :who_voted_for, -> (poll_opinion, answer) {
+      where('poll_id = ?', poll_opinion.id)
+      .where('answer_id = ?', answer.id)
+      .pluck(:user_id)
+      .uniq
+  }
   # scope :expecting_answer, -> { where(status: [:invited, :googled, :registered])}
   # ------------------------
   # --    PUBLIC      ---
