@@ -17,6 +17,7 @@ fr:
     responses_sent: réponses reçues
     opinion_question: Question d'opinion
     question_hint: Posez votre question et les Sésames répondront
+    questioned_by: Question posée par
     new_opinion: Nouveau sondage d'opinion
     new_date: Nouveau sondage de date
     save_success: Sondage enregistré !

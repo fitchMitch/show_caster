@@ -29,7 +29,7 @@
           .col-md-5= t("created_at")
           .col-md-5= poll_date poll.created_at
       .col-md-2
-        | Question posée par
+        = t("polls.questioned_by")
         br
-        = poll.owner.full_name unless poll.owner.nil?
+        = poll.owner.first_and_l unless poll.owner.nil?
 hr
