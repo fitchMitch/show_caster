@@ -13,6 +13,8 @@ fr:
     # reinvite: Le ré-inviter par mail
     # we_wait_for: Très cher et attendu
     address: Adresse
+    bio: Portrait - Bio
+    bio_desc: La bio n'est trop longue ni trop courte. Elle est employée en première page du site pour présenter les joueurs dans la rubrique "Nous"
     cell_phone_nr: Mobile
     company : La troupe
     admin_company : Admin troupe

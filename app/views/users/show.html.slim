@@ -49,6 +49,9 @@
               li role="presentation"  class="active"
                 a href="#person_photograph" aria-controls="person_photograph" role="tab" data-toggle="tab"
                   = t("users.photograph")
+              li role="presentation"
+                a href="#person_bio" aria-controls="person_bio" role="tab" data-toggle="tab"
+                  = t("users.bio")
           .row
             .tab-content
               - if policy(@user).promote?
@@ -56,3 +59,5 @@
                   = render partial: 'show_role', locals: {user: @user}
               #person_photograph.tab-pane.fade.in.active role="tabpanel"
                 = render partial: 'show_photograph', locals: {user: @user}
+              #person_bio.tab-pane.fade role="tabpanel"
+                = render partial: 'show_bio', locals: {user: @user}

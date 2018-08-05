@@ -1,0 +1,6 @@
+- User.active.order(:firstname).each do |user|
+  - unless user.try(:pictures).empty?
+    .col-md-4.col-sm-6.col-xs-12
+      = image_tag(user.pictures.first.photo.url(:square), width: 280)
+      br
+      = user.bio unless user.try(:bio).nil?
