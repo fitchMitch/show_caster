@@ -8,11 +8,11 @@ module DashboardsHelper
     av = reci [1]
     text = my.nil? ? "0" : "#{my}"
     if my.to_i <= av.to_i
-      "<button class='label label-success'> \
-      => <span class='badge'>#{text} x</span></span>".html_safe
+      "<span class='label label-success'> \
+      #{text} fois</span>".html_safe
     else
-      "<button class='label label-danger'> \
-      <span class='badge'>#{text} x</span></span>".html_safe
+      "<span class='label label-danger'> \
+      #{text} fois</span>".html_safe
     end
   end
 end
