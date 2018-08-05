@@ -3,7 +3,7 @@ fr:
     brower_html: You are using an <strong>outdated</strong> browser.
     upgrade_it_html:  Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.
     account: Compte
-    home: Accueil
+    home: Accueil public
     mail_from_explanation: Cet email vient des Sésames et de leur outil d'inscription à la mailing list.
     welcome: Recevoir une notification
     users: La troupe des %{theater_company}

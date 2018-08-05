@@ -44,7 +44,7 @@ module PollsHelper
       when 'PollOpinion'
         panel question, heading: heading_opinion, context: :warning
       when 'PollDate'
-        panel question, heading: heading_date, context: :primary
+        panel question, heading: heading_date, context: :info
       else
         Rails.logger.debug("unexpected type : #{poll.type}")
         nil
