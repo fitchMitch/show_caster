@@ -4,13 +4,13 @@
 
     / .col-md-4
     /  = panel answers_list(poll), heading: 'Réponses', context: :info
-    .col-md-3.hidden-xs
+    .col-md-3
       span.label.label-primary= poll_date poll.expiration_date
       br
       p.space-up-35
         = new_vote_path(poll)
 
-    .col-md-2
+    .col-md-2.hidden-xs
       - if policy(poll).edit?
         = image_tag('transp.png')
         = link_to_edit(poll)
