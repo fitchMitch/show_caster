@@ -69,6 +69,7 @@ class User < ApplicationRecord
     uniqueness: { case_sensitive: false }
 
   validates :uid, uniqueness: { case_sensitive: true }, allow_nil: true
+  validates :bio, length: { maximum: 250 }
 
   # ------------------------
   # --    PUBLIC      ---

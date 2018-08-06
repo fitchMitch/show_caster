@@ -18,7 +18,7 @@
               small= t("users.photograph_comment")
     .col-sm-8
       .row
-        .col-sm-4.right.hidden-sm.hidden-xs Google Photo
+        .col-sm-4.right.hidden-sm.hidden-xs Photo Google
         .col-sm-8
           - if @user.photo_url.present?
             = image_tag(@user.photo_url, size: "150x150")
