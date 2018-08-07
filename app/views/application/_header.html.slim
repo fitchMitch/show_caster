@@ -10,7 +10,7 @@
       - if user_signed_in?
         li.dropdown
           a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
-            | Sondages et statistiques
+            = t("layout.polls_and_stats") 
             span.caret
           ul.dropdown-menu
             - if policy(PollOpinion).index?
@@ -22,7 +22,7 @@
                 = link_to t("dashboards.statistics"), dashboard_path
         li.dropdown
           a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
-            | Cours et spectacles
+            = t("layout.courses_and_shows")
             span.caret
           ul.dropdown-menu
             - if policy(Performance).index?

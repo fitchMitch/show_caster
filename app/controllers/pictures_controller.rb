@@ -1,5 +1,10 @@
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
+  
+  # GET /pictures/new
+  def new
+    @picture = Picture.new
+  end
 
   # GET /pictures
   # GET /pictures.json
@@ -11,11 +16,6 @@ class PicturesController < ApplicationController
   # GET /pictures/1
   # GET /pictures/1.json
   def show
-  end
-
-  # GET /pictures/new
-  def new
-    @picture = Picture.new
   end
 
   # GET /pictures/1/edit

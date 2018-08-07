@@ -1,5 +1,8 @@
 - if policy(user).invite?
-  = simple_form_for(user, as: :user, url: invite_path, html: { method: :post, class: 'form-horizontal' }) do |f|
+  = simple_form_for user,
+    as: :user,
+    url: invite_path,
+    html: { method: :post, class: 'form-horizontal' } do |f|
     .row.users_invite
       .col-lg-12
         = f.input :id, as: :hidden, input_html:{value: user.id}

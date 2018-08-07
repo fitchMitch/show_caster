@@ -8,6 +8,7 @@
 #  type            :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  owner_id        :integer
 #
 
 class PollOpinion < Poll
@@ -19,14 +20,27 @@ class PollOpinion < Poll
   #-----------
   # Relationships
   #-----------
+  has_many :answers,
+    dependent: :destroy,
+    inverse_of: :poll_opinion ,
+    foreign_key: "poll_id",
+    class_name: 'Answer'
+
+  has_many :vote_opinions,
+    dependent: :destroy,
+    inverse_of: :poll_opinion ,
+    foreign_key: "poll_id",
+    class_name: 'VoteOpinion'
   # Validations
   #-----------
 
   # Scope
   #-----------
-  
   # scope :found_by, -> (user) { where('user_id = ?', user_id) }
   # scope :expecting_answer, -> { where(status: [:invited, :googled, :registered])}
+
+  scope :with_my_opinion_votes, -> (user) { active.joins(:vote_opinions).where('user_id = ?', user.id) }
+
   # ------------------------
   # --    PUBLIC      ---
   # ------------------------

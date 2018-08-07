@@ -1,0 +1,51 @@
+// Place all the styles related to the Votes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+td.date-choice{
+  min-width: 11em;
+  text-align: center;
+  padding-right: 5px;
+  padding-left: 5px;
+  padding-top:1em;
+
+}
+td.date-choice{
+  select{
+    margin:auto;
+    width:73%;
+  }
+  textarea{
+    margin:auto;
+    width: 9em;
+    height:4em;
+  }
+}
+td.date-choice:nth-child(2n+1){
+  //border: 2px solid navy;
+}
+td.date-choice:nth-child(2n+0){
+  background: LightBlue;
+}
+
+.footer-line{
+  line-height: 80px;
+  vertical-align: bottom;
+}
+.validated_vote{
+  background-color: green;
+  color:white;
+}
+.invalidated_vote{
+  color:white;
+  background-color: red;
+}
+.mitigated_vote{
+  color:white;
+  background-color: orange;
+}
+.others_votes{
+  line-height: 26px;
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
+}

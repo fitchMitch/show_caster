@@ -15,6 +15,7 @@ fr:
     address: Adresse
     cell_phone_nr: Mobile
     company : La troupe
+    admin_company : Admin troupe
     complementary: Eléments complémentaires
     delete: Supprimer
     edit: Editer des coordonnées
