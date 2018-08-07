@@ -29,6 +29,7 @@ html.no-js
           = nav class: 'navbar-right' do
             = link_to t("splash.next"), "#about"
             = link_to t("splash.us"), "#features"
+            = link_to t("splash.photos"), "#photos"
             = link_to t("splash.contact"), "#contact"
             - if user_signed_in?
               = link_to t("users.admin_company"), users_path

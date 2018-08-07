@@ -5,6 +5,7 @@ fr:
     error: "Oops! Bon, ben... ca a comme qui dirait foiré, mon gaillard ! Ca devrait aller mieux plus tard"
     next: Prochainement
     us: Nous
+    photos: Photos
     contact: Contact
   mailchimp:
     disclaimer: Les variables d'environnement MAILCHIMP_API_KEY et MAILCHIMP_SPLASH_SIGNUP_LIST_ID doivent être définies pour que l'enregistrement à la mailing liste puisse fonctionner ! If you don't want this feature, you can just remove the mailing list signup feature from app/views/splash/index.html.haml
