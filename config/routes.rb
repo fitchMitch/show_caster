@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   # Users and Sessions
   resources :users do
     resources :pictures, module: :users
@@ -16,6 +15,7 @@ Rails.application.routes.draw do
 
   # Events
   resources :courses, controller: :courses, type: 'Course'
+
   resources :performances, controller: :performances, type: 'Performance'
   resources :performances do
     resources :pictures, module: :events
@@ -26,8 +26,19 @@ Rails.application.routes.draw do
 
   # Polls
   resources :polls, only: %i[index]
-  resources :poll_opinions, controller: :poll_opinions, type: 'PollOpinion'
-  resources :poll_dates, controller: :poll_dates, type: 'PollDate'
+  resources :poll_opinions, controller: :poll_opinions, type: 'PollOpinion' do
+    # Votes
+    resources :vote_opinions,
+      controller: :vote_opinions,
+      type: 'VoteOpinion',
+      shallow: true #  [:index, :new, :create] are nested
+  end
+  resources :poll_dates, controller: :poll_dates, type: 'PollDate' do
+    # Votes
+    resources :vote_dates,
+      controller: :vote_dates,
+      type: 'VoteDate'
+  end
 
   # Answers
   resources :answers

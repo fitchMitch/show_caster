@@ -1,0 +1,14 @@
+= simple_form_for(@user) do |f|
+  = f.error_notification
+
+  .form-inputs
+    .row
+      .col-sm-12.space-up-10
+        i
+          p.bio= t("users.bio_desc")
+    .row
+      .col-sm-12.space-up-10
+        = f.input :bio, label: t("users.bio")
+
+  .form-actions
+    = f.button :submit, class: 'btn btn-primary'

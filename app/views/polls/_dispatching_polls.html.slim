@@ -1,8 +1,8 @@
 #expecting_answer.tab-pane.fade.in.active role="tabpanel"
   - @all_polls[:expecting_answer].each do |poll|
     = render 'table_line', poll: poll
-#still_active.tab-pane.fade role="tabpanel"
-  - @all_polls[:still_active].each do |poll|
+#voted.tab-pane.fade role="tabpanel"
+  - @all_polls[:voted].each do |poll|
     = render 'table_line', poll: poll
 #expired.tab-pane.fade role="tabpanel"
   - @all_polls[:expired].each do |poll|

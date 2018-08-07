@@ -1,7 +1,5 @@
 class DashboardsController < ApplicationController
 
-  # respond_to :html, :json, :js
-
   def index
     @periods = {
       three_month: 3.months.ago,
@@ -23,9 +21,9 @@ class DashboardsController < ApplicationController
       computed = []
       requests.each do |r|
         r.periods.each do |label_duration, start_date|
-          # n_perf is an array, av_perf a scalar
-          n_perf, av_perf = init_compute(start_date, r.role)
-          computed << [n_perf, av_perf, label_duration ]
+          # nr_of_shows is an array, avrg_nr_of_shows a scalar
+          nr_of_shows, avrg_nr_of_shows = init_compute(start_date, r.role)
+          computed << [nr_of_shows, avrg_nr_of_shows, label_duration]
         end
       end
       associate_perf_to_people(computed)
@@ -33,13 +31,13 @@ class DashboardsController < ApplicationController
 
     def init_compute(start_date, role_nr)
       # Dashboard returns [count_me, perso (=user_id)]
-      n_perf  = Dashboard.played_since( start_date, nil, role_nr)
-      av_perf = get_average( n_perf )
-      return n_perf, av_perf
+      nr_of_shows  = Dashboard.played_since( start_date, nil, role_nr)
+      avrg_nr_of_shows = get_average( nr_of_shows )
+      return nr_of_shows, avrg_nr_of_shows
     end
 
-    def get_average(n_perf_period)
-      total = n_perf_period.inject(0) { |sum, n| sum + n.count_me if n.count_me.present?}
+    def get_average(nr_of_shows)
+      total = nr_of_shows.inject(0) { |sum, n| sum + n.count_me if n.count_me.present?}
       total / User.active.count
     end
 
@@ -50,21 +48,21 @@ class DashboardsController < ApplicationController
           firstname: person.firstname,
           lastname: person.lastname,
           id: person.id,
-          data: []
+          shows_data: []
         }
         computed.each do |analysis|
           # analysis 0 is the [nr of performances]
-          # analysis 1 is average
+          # analysis 1 is average of performances nr
           # analysis 2 is the period label
-          identification[:data] << [getData(person.id, analysis[0]),analysis[1],analysis[2]]
+          identification[:shows_data] << [getData(person.id, analysis[0]), analysis[1], analysis[2]]
         end
         res << identification
       end
       res
     end
 
-    def getData(user_id, n_perf_period)
-      n_perf_period.each do |event|
+    def getData(user_id, nr_of_shows_period)
+      nr_of_shows_period.each do |event|
         return event.count_me if event.perso == user_id
       end
       nil

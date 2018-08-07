@@ -2,68 +2,54 @@ fr:
   pundit:
     not_authorized: Navré ! Vous n'êtes pas autorisé à aller sur cette page
   users:
-    # deleted_name : Ancien Joueur (RIP)
-    # last_sign_in_at: Dernière connexion
-    # last_connexion: Dernière connexion
-    # promote: Promouvoir
-    # promoted: "%{name} a changé de statut"
-    # promoted_failed: "%{name} n'a pas pu changer de statut"
-    # invitation_accepted_at: Enregistré(e)
-    # position: Promouvoir
-    # reinvite: Le ré-inviter par mail
-    # we_wait_for: Très cher et attendu
     address: Adresse
-    cell_phone_nr: Mobile
-    company : La troupe
-    complementary: Eléments complémentaires
-    delete: Supprimer
-    edit: Editer des coordonnées
-    email: Email
-    invitations: Invitations
-    list: Liste des membres
-    not_updated: Oups ! La correction n'est pas passée
-    not_logged_in: Vous devez être identifié pour accéder à cette page
-    role: Rôle
-    role: Role
-    roles_status: Rôles et statuts
-    status: Statut
-    setup: "%{full_name} est enregistré. Il faut l'inviter à présent."
-    updated: "Mise à jour : tip top !"
-
-    address: Adresse
+    admin_company : Admin troupe
     back: Retour
-    edit_member_title: Corriger quelques trucs
-    show_new_member_title: Voir quelques trucs
+    bio: Portrait - Bio
+    bio_desc: La bio n'est trop longue ni trop courte. Elle est affichée en première page du site pour présenter les joueurs dans la rubrique "Nous"
     cell_phone_nr: Numéro de portable
+    create_success_message: Et voilà, c'est terminé !
     edit_new_member_title: Editer quelques renseignements
     edit: Editer
     edit_button: Valider
-    new_member_title: Quelques renseignements supplémentaires
-    role : Role
-    show_button: Voir
-    update_success_message: La modification a été enregistrée
-    create_success_message: Et voilà, c'est terminé !
-    minimum_length_caveat: 10 caractères au minimum
+    company : La troupe
+    complementary: Eléments complémentaires
+    delete: Supprimer
     deleted_name: RIP
-    submit: Créer ou modifier une personne
+    edit: Editer des coordonnées
+    edit_member_title: Corriger quelques trucs
+    email: Email
+    invitations: Invitations
     invite: L'inviter
     invited : "%{name} vient d'être invité(e), un message lui a été adressé"
     invited_fail : "%{name} n'a pas pu être invité, difficile de savoir pourquoi"
+    list: Liste des membres
+    minimum_length_caveat: 10 caractères au minimum
+    new_member_title: Quelques renseignements supplémentaires
+    not_updated: Oups ! La correction n'est pas passée
+    not_logged_in: Vous devez être identifié pour accéder à cette page
+    promote: Promouvoir
+    promoted: "%{name} a changé de statut, un message l'en a informé(e)"
+    promoted_failed: "%{name} n'a pas pu changer de statut"
+    photograph: Photographie
+    photograph_comment: Cette photo sera reprise sur le site web, dans son format carré.
+    role: Rôle
+    roles_status: Rôles et statuts
+    status: Statut
+    setup: "%{full_name} est enregistré. Il faut l'inviter à présent."
+    show_new_member_title: Voir quelques trucs
+    show_button: Voir
+    submit: Créer ou modifier une personne
+    updated: "Mise à jour : tip top !"
+    update_success_message: La modification a été enregistrée
+
     state:
       invited: Invité.e
       processing: En cours ?
       rip: a quitté la compagnie
       to_invite: 'Inviter %{firstname}'
 
-
-
     welcome_mail:
       subject: Bienvenue ô Sésame, bienvenue chez oit
     promote_mail:
       subject: Votre rôle à changé chez les Sésames
-
-    promote: Promouvoir
-    promoted: "%{name} a changé de statut, un message l'en a informé(e)"
-    promoted_failed: "%{name} n'a pas pu changer de statut"
-    photograph: Photographie
-    photograph_comment: Cette photo sera reprise sur le site web, dans son format carré.

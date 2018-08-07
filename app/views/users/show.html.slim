@@ -18,7 +18,7 @@
               small= t("users.photograph_comment")
     .col-sm-8
       .row
-        .col-sm-4.right.hidden-sm.hidden-xs Google Photo
+        .col-sm-4.right.hidden-sm.hidden-xs Photo Google
         .col-sm-8
           - if @user.photo_url.present?
             = image_tag(@user.photo_url, size: "150x150")
@@ -49,6 +49,9 @@
               li role="presentation"  class="active"
                 a href="#person_photograph" aria-controls="person_photograph" role="tab" data-toggle="tab"
                   = t("users.photograph")
+              li role="presentation"
+                a href="#person_bio" aria-controls="person_bio" role="tab" data-toggle="tab"
+                  = t("users.bio")
           .row
             .tab-content
               - if policy(@user).promote?
@@ -56,3 +59,5 @@
                   = render partial: 'show_role', locals: {user: @user}
               #person_photograph.tab-pane.fade.in.active role="tabpanel"
                 = render partial: 'show_photograph', locals: {user: @user}
+              #person_bio.tab-pane.fade role="tabpanel"
+                = render partial: 'show_bio', locals: {user: @user}

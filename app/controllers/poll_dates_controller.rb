@@ -3,13 +3,15 @@ class PollDatesController < PollsController
 
   def new
     authorize PollDate
-    @poll = PollDate.new
-    @poll.expiration_date = Date.today.weeks_since(2)
+    @poll = PollDate.new(
+      expiration_date: Date.today.weeks_since(2),
+      owner_id: current_user.id)
     2.times { answer = @poll.answers.build() }
   end
 
   def create
     @poll = PollDate.new(poll_params)
+    @poll.owner_id = current_user.id
     authorize @poll
     if @poll.save
       redirect_to polls_path, notice: I18n.t("polls.save_success")

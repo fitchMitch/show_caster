@@ -31,6 +31,7 @@ class Answer < ApplicationRecord
       class_name: 'PollDate',
       optional: true,
       touch: true
+    has_many :votes
     #delegate :firstname,:lastname, :full_name, to: :member
     # =====================
 
@@ -49,7 +50,6 @@ class Answer < ApplicationRecord
     validates :date_answer,
       presence: true,
       if: :answer_label_nil?
-
 
     # ------------------------
     # --    PUBLIC      ---

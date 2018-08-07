@@ -48,11 +48,15 @@ class User < ApplicationRecord
   # =====================
   has_many :pictures, as: :imageable, dependent: :destroy
   has_many :courses, as: :courseable
+  has_many :vote_opinions
+  has_many :vote_dates
+  has_many :polls,foreign_key: :owner_id
   #delegate :firstname,:lastname, :full_name, to: :member
   # =====================
 
   # scope :found_by, -> (user) { where('user_id = ?', user_id) }
   scope :active, -> { where(status: [:invited, :googled, :registered])}
+  scope :active_count, -> { active.count}
   # =====================
 
   # Validations
@@ -65,6 +69,7 @@ class User < ApplicationRecord
     uniqueness: { case_sensitive: false }
 
   validates :uid, uniqueness: { case_sensitive: true }, allow_nil: true
+  validates :bio, length: { maximum: 250 }
 
   # ------------------------
   # --    PUBLIC      ---

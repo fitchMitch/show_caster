@@ -16,21 +16,21 @@
     ul.nav.nav-tabs role="tablist"
       li.active role="presentation"
         a aria-controls='expecting_answer' data-toggle='tab' href='#expecting_answer' role='tab'
-          = t("polls.expiration_date")
+          = t("polls.tab_expiration_date")
       li role="presentation"
-        a aria-controls='still_active' data-toggle='tab' href='#still_active' role='tab'
-          = t("polls.still_active")
+        a aria-controls='voted' data-toggle='tab' href='#voted' role='tab'
+          = t("polls.voted")
       li role="presentation"
         a aria-controls='expired' data-toggle='tab' href='#expired' role='tab'
-          = t("polls.expired")
+          = t("polls.expired").html_safe
     .space-up-10
     .row.strong
-      .col-md-4.hidden-xs
+      .col-md-6.hidden-xs
         strong= t('polls.question')
-      .col-md-4.hidden-xs
+      .col-md-3.hidden-xs
         strong= t('polls.answers')
       .col-md-2.hidden-xs
-        strong=  t('polls.expiration_date')
+        strong= t('polls.expiration_date')
     .space-up-10
     .row.tab-content
-      = render partial:'dispatching_opinion_polls'
+      = render partial:'dispatching_polls'

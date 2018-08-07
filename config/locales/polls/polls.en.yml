@@ -1,5 +1,2 @@
 en:
-  locations:
-    premises_management: Premises
-    updated: Location update was successfully updated.
-    destroyed:  Location was successfully destroyed.
+  polls: todo

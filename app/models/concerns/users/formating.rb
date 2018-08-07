@@ -23,7 +23,10 @@ module Users
 
     def first_and_last_name
       self.firstname.nil? || self.firstname == '' ? lastname.upcase : "#{firstname} #{lastname.upcase}"
+    end
 
+    def first_and_l
+      self.firstname.nil? || self.firstname == '' ? lastname.upcase : "#{firstname} #{lastname.upcase[0,1]}"
     end
     # ------------------------
     # --    PROTECTED      ---

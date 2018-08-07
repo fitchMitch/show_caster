@@ -1,7 +1,5 @@
 class AnswersController < ApplicationController
-  before_action :set_answer, only: [:show, :edit, :update, :destroy]
-
-  # respond_to :html, :json, :js
+  before_action :set_answer, only: %i[show edit update destroy]
 
   def index
     authorize Answer
@@ -55,4 +53,6 @@ class AnswersController < ApplicationController
     def answer_params
       params.require(:answer).permit(:answer_label, :date_answer, :poll_id)
     end
+
+
 end

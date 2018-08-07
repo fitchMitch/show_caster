@@ -174,3 +174,22 @@ body.splash {
     color: white;
   }
 }
+.player-frame{
+  display:block;
+  padding: 10px;
+  height : 450px;
+
+  .player-image{
+    // width: 260px;
+    text-align: center;
+    margin: auto;
+  }
+  .player-bio{
+    text-align: justify;
+    margin: auto;
+    width:250px;
+    margin-top: 20px;
+    height: 150px;
+    overflow: hidden;
+  }
+}
