@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-  default from: "no-reply@etienneweil.fr"
+  default from: "no-reply@www.les-sesames.fr"
 
   def welcome_mail(user)
     # This mails informs the user he's been invited to be a member

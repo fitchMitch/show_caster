@@ -5,7 +5,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     select_account: true,
     scope: 'userinfo.email, calendar'
   }
-  extra[:redirect_uri] = "http://etienneweil.fr:3200/auth/google_oauth2/callback" if Rails.env.production?
+  extra[:redirect_uri] = "http://www.les-sesames.fr/auth/google_oauth2/callback" if Rails.env.production?
 
   provider :google_oauth2,
     ENV.fetch("GOOGLE_CLIENT_ID"),
@@ -15,4 +15,4 @@ end
 
 OmniAuth.config.on_failure = SessionsController.action(:oauth_failure)
 
-OmniAuth.config.full_host = Rails.env.production? ? 'https://etienneweil.fr:3200' : 'http://localhost:3000'
+OmniAuth.config.full_host = Rails.env.production? ? 'https://www.les-sesames.fr' : 'http://localhost:3000'
