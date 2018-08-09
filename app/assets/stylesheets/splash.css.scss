@@ -31,12 +31,20 @@ $border-radius-large: 2px;
 // CUSTOMIZING
 // -------------------
 @import 'globals/common';
+.showing-off{
+  line-height: 2.2em;
+  font-weight: 600;
+}
 .showing-off:nth-child(2) > span:nth-child(1) > strong:nth-child(1){
     color:$sesame-yellow;
 }
 .showing-off:nth-child(2) > span:nth-child(1){
-  font-size: 1.3em;
+  font-size: 1.4em;
+  line-height: 1.7em;
   before:{ content: "Prochain spectacle : "}
+}
+hr.splash-next-performance{
+  width:40%
 }
 // -------------------
 // END CUSTOMIZING
@@ -183,6 +191,12 @@ body.splash {
     // width: 260px;
     text-align: center;
     margin: auto;
+    img{
+      border:1px solid $sesame-blue;
+      border-radius: 45px;
+      -webkit-border-radius: 45px;
+      -moz-border-radius: 45px;
+    }
   }
   .player-bio{
     text-align: justify;
@@ -195,4 +209,10 @@ body.splash {
 }
 .photo-galery{
   margin:5px;
+  img{
+    border:1px solid $sesame-blue;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+  }
 }
