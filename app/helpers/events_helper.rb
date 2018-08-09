@@ -71,5 +71,13 @@ module EventsHelper
     I18n.t("#{get_dictionnary(events.first)}.passed_events_title").html_safe
   end
 
+  def players_on_stage(event)
+    event.actors.where('stage_role = ?', 0)
+  end
+
+  def mc_and_djs(event)
+    event.actors.where('stage_role != ?', 0)
+  end
+
 
 end

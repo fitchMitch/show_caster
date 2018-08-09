@@ -1,6 +1,6 @@
 fr:
   events:
-    actors : Joueurs et rôles
+    actors : Avec
     actor_firstname : Prénom
     address: Adresse
     created: Le spectacle a bien été ajouté sur cet agenda et celui de Google

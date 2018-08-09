@@ -29,12 +29,23 @@
     dt
       p.space-up-20= t("events.actors")
     dd
-      - for actor in @event.actors
-        .badge_user.room-right-10  style= "#{badge_user actor.user}"
-          = "#{actor.user.full_name} "
-          - if actor.stage_role != "player"
-            span.badge
-              = "#{actor.stage_role_i18n}"
+      .row.space-up-20
+        .col-md-4.col-sm-6.col-xs-12
+          p
+            strong
+              | Joueurs
+          - for actor in players_on_stage(@event)
+            .badge_user.room-right-10.player-list  style= "#{badge_user actor.user}"
+              = "#{actor.user.full_name} "
+        .col-md-4.col-sm-6.col-xs-12
+          p
+            strong
+              | MC and DJs
+          - for actor in mc_and_djs(@event)
+            .badge_user.room-right-10.player-list  style= "#{badge_user actor.user}"
+              span.badge
+                = "#{actor.stage_role_i18n} "
+              = " #{actor.user.full_name} "
     hr
       - if @event.event_date < Time.zone.now
         dt
