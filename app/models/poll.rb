@@ -58,4 +58,8 @@ class Poll < ApplicationRecord
     Vote.where('poll_id = ?',self.id).group(:user).count.keys.size
   end
 
+  def poll_creation_mail
+    PollMailer.poll_creation_mail(self).deliver_now
+  end
+
 end

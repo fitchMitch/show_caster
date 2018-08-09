@@ -1,0 +1,14 @@
+h3 Hello !
+p
+  = @initiater
+  | aimerait avoir ton avis sur une question. Le plus vite sera le mieux, honnêtement.
+  | Voici le lien pour
+  = link_to(' Voter', @url)
+p
+  Vieux frère, vieille soeur, je te dis à plus
+p
+  | -----------
+p
+  small
+    | Date limite de remise : 
+    = I18n.l( @final_call, format:"%a %d %b")

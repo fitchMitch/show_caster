@@ -30,3 +30,7 @@ fr:
     plus_answers: Plus de réponses
     no_expiration_date: Non fournie
     tab_expiration_date: En attente de ma réponse
+
+    mails:
+      new_poll:
+        subject: Hey ! %{firstname} a lancé un nouveau sondage sur les sésames.fr !

@@ -125,6 +125,10 @@ class User < ApplicationRecord
     user
   end
 
+  def self.company_mails
+    User.active.pluck(:email)
+  end
+
   def welcome_mail
     UserMailer.welcome_mail(self).deliver_now
   end

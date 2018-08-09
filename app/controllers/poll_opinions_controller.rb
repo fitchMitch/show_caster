@@ -14,6 +14,7 @@ class PollOpinionsController < PollsController
     @poll.owner_id = current_user.id
     authorize @poll
     if @poll.save
+      @poll.poll_creation_mail
       redirect_to polls_path, notice: I18n.t("polls.save_success")
     else
       flash[:alert] = I18n.t("polls.save_fails")
