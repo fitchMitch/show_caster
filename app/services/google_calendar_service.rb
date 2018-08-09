@@ -30,26 +30,26 @@ class GoogleCalendarService
   end
 
   def sesame_calendar_id
-    "test"
+    ENV['GOOGLE_CLIENT_SECRETS']
   end
 
   # Where primary is 'my' calendar
   def add_event_to_g_company_cal(opt)
     event = make_a_google_event(opt)
-    @calendar.insert_event('primary', event, send_notifications: true)
+    @calendar.insert_event(sesame_calendar_id, event, send_notifications: true)
   end
 
-  def update_event_to_primarys(opt)
+  def update_event_google_calendar(opt)
     if opt.fetch(:fk, nil).nil?
       "inexisting Google Calendar event"
     else
       event = make_a_google_event(opt)
-      @calendar.update_event('primary',opt[:fk], event) if opt[:fk].present?
+      @calendar.update_event(sesame_calendar_id,opt[:fk], event) if opt[:fk].present?
     end
   end
 
-  def delete_event_to_primarys(event)
-    event.fk.nil? ? nil : @calendar.delete_event('primary',event.fk)
+  def delete_event_google_calendar(event)
+    event.fk.nil? ? nil : @calendar.delete_event(sesame_calendar_id,event.fk)
   end
 
   def make_a_google_event(opt)

@@ -58,11 +58,11 @@ class EventsController < ApplicationController
 
     def update_google_calendar(google_service, event)
       opt = google_event_params(event)
-      google_service.update_event_to_primarys(opt)
+      google_service.update_event_google_calendar(opt)
     end
 
     def delete_google_calendar(google_service, event)
-      google_service.delete_event_to_primarys(event)
+      google_service.delete_event_google_calendar(event)
     end
 
     def set_type
