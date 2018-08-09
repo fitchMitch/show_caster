@@ -68,7 +68,7 @@ module EventsHelper
   end
 
   def passed_label(events)
-    I18n.t("#{get_dictionnary(events.first)}.passed_events_title")
+    I18n.t("#{get_dictionnary(events.first)}.passed_events_title").html_safe
   end
 
 

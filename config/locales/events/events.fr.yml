@@ -34,4 +34,4 @@ fr:
     title: Titre
     updated: "Le spectacle a bien été mis à jour. NB : il n'existait pas sur Google Calendar."
     updated_with_Google: Le spectacle a bien été mis à jour (et sur Google Agenda aussi).
-    passed_events_title: Spectacles du temps écoulé
+    passed_events_title: Spectacles du temps écoulé <i class="fa fa-image fa-lg"></i>
