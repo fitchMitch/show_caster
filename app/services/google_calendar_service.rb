@@ -54,8 +54,9 @@ class GoogleCalendarService
 
   def make_a_google_event(opt)
     theater_name = opt.fetch(:theater_name, I18n.t("events.nowhere"))
+    event_title = "events.#{opt.fetch(:title, "g_title.performance")}"
     event_hash = {
-      summary: I18n.t("events.new_opus", name: theater_name),
+      summary: I18n.t(event_title, name: theater_name),
       location: opt.fetch(:location,I18n.t("events.nowhere")),
       description: I18n.t("events.mere_new_opus", name: theater_name),
       start: {

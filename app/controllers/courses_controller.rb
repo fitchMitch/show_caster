@@ -33,7 +33,6 @@ class CoursesController < EventsController
     else
       respond_to do |format|
         format.html { render :new}
-        # format.js
       end
     end
   end
@@ -54,6 +53,7 @@ class CoursesController < EventsController
   private
     def google_event_params(event)
       opt = {
+        title: "g_title.course",
         location: event.theater.location,
         theater_name: event.theater.theater_name,
         event_date: event.event_date.iso8601,

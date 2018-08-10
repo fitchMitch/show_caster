@@ -45,6 +45,7 @@ class PerformancesController < EventsController
       end
 
       opt = {
+        title: "g_title.performance",
         location: event.theater.location,
         theater_name: event.theater.theater_name,
         event_date: event.event_date.iso8601,
