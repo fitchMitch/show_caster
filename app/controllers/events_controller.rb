@@ -35,18 +35,16 @@ class EventsController < ApplicationController
 
   def destroy
     @service = GoogleCalendarService.new(current_user)
-    Event.transaction do
-      if @event.destroy
-        result = delete_google_calendar(@service, @event)
-        if result.nil?
-          raise  ActiveRecord::Rollback
-          redirect_to events_url(@event), alert: I18n.t("events.google_locked")
-        else
-          redirect_to events_url(@event), notice: I18n.t("events.destroyed")
-        end
+    if @event.destroy
+      result = delete_google_calendar(@service, @event)
+      if result.nil?
+        redirect_to events_url(@event), alert: I18n.t("events.google_locked")
       else
-        redirect_to event_url(@event), notice: I18n.t("events.fail_to_destroyed")
+        redirect_to events_url(@event), notice: I18n.t("events.destroyed")
       end
+    else
+      Rails.logger.debug("Rails event destroy failure")
+      redirect_to event_url(@event), notice: I18n.t("events.fail_to_destroyed")
     end
   end
 
