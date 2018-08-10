@@ -25,14 +25,13 @@ section.colored.primary#about
                 hr.splash-next-performance
             - unless @other_performances.empty?
               p Spectacles suivants :
-          - @other_performances.each do |event|
-            .row.showing-off
-              span.space-up-5
-
-                  = "#{l event.event_date, format:"%a %d %B"} "
-                  | à
-                  =" #{l event.event_date, format:"%Hh%M"} au #{event.theater.theater_name}"
-        p= link_to I18n.t("layout.welcome"), "#contact", class: "btn btn-primary-inverted btn-lg"
+              - @other_performances.each do |event|
+                .row.showing-off
+                  span.space-up-5
+                      = "#{l event.event_date, format:"%a %d %B"} "
+                      | à
+                      =" #{l event.event_date, format:"%Hh%M"} au #{event.theater.theater_name}"
+            p= link_to I18n.t("layout.welcome"), "#contact", class: "btn btn-primary-inverted btn-lg"
 
 section.features#features
     .container
