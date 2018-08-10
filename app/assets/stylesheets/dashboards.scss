@@ -1,3 +1,11 @@
-// Place all the styles related to the Dashboard controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.dashboard-line{
+  height: 3em;
+  line-height: 3em;
+  border: 1px grey dashed;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  vertical-align: middle;
+  :nth-child(2n+2) {background-color: silver;}
+  :nth-child(5) {background-color: grey;}
+  :nth-child(6) {background-color: teal;}
+}
