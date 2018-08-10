@@ -32,21 +32,20 @@
       .row.space-up-20
         .col-md-4.col-sm-6.col-xs-12
           p
-            strong
-              | Joueurs
+            strong= t("events.players")
           - for actor in players_on_stage(@event)
             .badge_user.room-right-10.player-list  style= "#{badge_user actor.user}"
               = "#{actor.user.full_name} "
         .col-md-4.col-sm-6.col-xs-12
           p
-            strong
-              | MC and DJs
+            strong=t("events.mc_and_djs")
           - for actor in mc_and_djs(@event)
             .badge_user.room-right-10.player-list  style= "#{badge_user actor.user}"
               span.badge
                 = "#{actor.stage_role_i18n} "
               = " #{actor.user.full_name} "
-    hr
+
+      hr
       - if @event.event_date < Time.zone.now
         dt
           span.add-photos
@@ -55,7 +54,7 @@
             = fa_icon("image 2x")
         dd
           = render partial: 'pictures/form', locals: {imageable: @event, picture: Picture.new, edit: false}
-    hr
+          hr
       - unless @event.pictures.empty?
         dt= fa_icon("image 2x")
         dd
