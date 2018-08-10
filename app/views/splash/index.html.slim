@@ -11,27 +11,7 @@ section.colored.primary#about
   .container
     .row
       .inner-column.showing-off
-        h1 Nos prochains spectacles !
-        - unless @next_performances.empty?
-          .row.showing-off
-            span
-              strong
-                hr.splash-next-performance
-                = "#{l @very_next_performance.event_date, format:"%a %d %B"} "
-                | à
-                =" #{l @very_next_performance.event_date, format:"%Hh%M"} au #{@very_next_performance.theater.theater_name}"
-                br
-                = "Joueurs prévus :  #{@players_firstnames.to_sentence}"
-                hr.splash-next-performance
-            - unless @other_performances.empty?
-              p Spectacles suivants :
-              - @other_performances.each do |event|
-                .row.showing-off
-                  span.space-up-5
-                      = "#{l event.event_date, format:"%a %d %B"} "
-                      | à
-                      =" #{l event.event_date, format:"%Hh%M"} au #{event.theater.theater_name}"
-            p= link_to I18n.t("layout.welcome"), "#contact", class: "btn btn-primary-inverted btn-lg"
+        = render partial: 'next_shows'
 
 section.features#features
     .container

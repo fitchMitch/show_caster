@@ -14,7 +14,7 @@ fr:
     events_management: Spectacles
     fail_to_create : Une erreur a dû se produire chez Google et l'événement ne peut pas être inscrit....
     fail_to_destroyed: Ouh, pas bon, ça. Suppression impossible... Prevenir l'administrateur.
-    google_locked: Hm... Apparemment, les services Google Calendar sont indisponibles. Veuillez réessayer plus tard.
+    google_locked: "OK pour nous, mais il faut vérifier Google Agenda : ça n'a pas l'air d'etre bon chez eux."
     google_agenda_ok: "Inutile de créer un rendez-vous spectacle dans l'agenda Google, l'application s'en charge !"
     list: Liste des spectacles
     theater: Salle
@@ -22,16 +22,21 @@ fr:
     nexting: Prochainement
     new_page_title: Nouveau Spectacle
     new_button: Nouveau Spectacle
+    mc_and_djs: MC and DJs
     mere_new_opus: Nouvel opus
-    new_opus: Spectacle des Sésames au %{name}
     not_updated: Le spectacle n'a pas pu être enregistré
     nowhere: on ne sait pas où
+    players: Joueurs
     players_part: Côté joueurs
     progress: Avancement
     plus_actors: d'acteurs
     see: Voir la fiche spectacle
     show_in: Spectacle au %{name}
     title: Titre
+    g_title:
+      performance: Spectacle des Sésames au %{name}
+      course: Cours / Entrainement impro au %{name}
+
     updated: "Le spectacle a bien été mis à jour. NB : il n'existait pas sur Google Calendar."
     updated_with_Google: Le spectacle a bien été mis à jour (et sur Google Agenda aussi).
     passed_events_title: Spectacles du temps écoulé <i class="fa fa-image fa-lg"></i>
