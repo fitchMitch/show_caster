@@ -28,6 +28,8 @@ class Course < Event
 
   # Relationships
   belongs_to :courseable, polymorphic: true
+  belongs_to :theater;
+  belongs_to :user;
 
 
 

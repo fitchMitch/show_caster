@@ -13,7 +13,8 @@ class Theater < ApplicationRecord
   include Users::Formating
   before_save { self.formatting }
   # Relationships
-  # has_many :events
+  has_many :performances
+  has_many :courses
 
   # Validations
   validates :theater_name,

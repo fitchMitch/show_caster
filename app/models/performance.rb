@@ -28,6 +28,7 @@ class Performance < Event
 
   # Relationships
   belongs_to :user
+  belongs_to :theater
   has_many :pictures, as: :imageable, dependent: :destroy
 
   has_many :actors, dependent: :destroy, inverse_of: :performance, foreign_key: "event_id"
