@@ -51,6 +51,8 @@ module EventsHelper
       'events'
     when 'Course'
       'courses'
+    else
+      'dashboards'
     end
   end
 
