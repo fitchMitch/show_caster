@@ -30,7 +30,7 @@ class GoogleCalendarService
   end
 
   def sesame_calendar_id
-    ENV['GOOGLE_CLIENT_SECRETS']
+    ENV['GOOGLE_CALENDAR_ID']
   end
 
   # Where primary is 'my' calendar
