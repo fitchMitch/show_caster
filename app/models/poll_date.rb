@@ -40,7 +40,11 @@ class PollDate < Poll
   #-----------
   # scope :found_by, -> (user) { where('user_id = ?', user_id) }
   # scope :expecting_answer, -> { where(status: [:invited, :googled, :registered])}
-  scope :with_my_date_votes, -> (user) { joins(:vote_dates).where('user_id = ?', user.id) }
+  scope :with_my_date_votes, -> (user) {
+    active
+    .joins(:vote_dates)
+    .where('user_id = ?', user.id)
+  }
   # ------------------------
   # --    PUBLIC      ---
   # ------------------------

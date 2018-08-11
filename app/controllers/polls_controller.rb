@@ -35,8 +35,7 @@ class PollsController < ApplicationController
 
   def set_type
     type = params.fetch(:type, nil)
-    val = (['PollOpinion', 'PollDate'].include? type) ? type : nil
-    val.underscore
+    val = (['PollOpinion', 'PollDate'].include? type) ? type.underscore : nil
   end
 
   def votes_destroy(poll)

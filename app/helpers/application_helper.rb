@@ -25,6 +25,11 @@ module ApplicationHelper
     end
   end
 
+  def red_point(current_user)
+    bell = "<span class='bell'>#{fa_icon("bell")}</span>"
+    Poll.expecting_my_vote(current_user) > 0 ? bell.html_safe : ""
+  end
+
   # change the default link renderer for will_paginate
   def will_paginate(collection_or_options = nil, options = {})
     if collection_or_options.is_a? Hash

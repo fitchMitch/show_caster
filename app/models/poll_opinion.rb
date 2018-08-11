@@ -40,8 +40,20 @@ class PollOpinion < Poll
   # scope :expecting_answer, -> { where(status: [:invited, :googled, :registered])}
 
   scope :with_my_opinion_votes, -> (user) { active.joins(:vote_opinions).where('user_id = ?', user.id) }
+  # scope :without_my_opinion_votes, -> (user) {
+  #   active
+  #     .left_outer_joins(:vote_opinions)
+  #     .distinct
+  #     .select('polls.*, count(votes.*) as total_votes')
+  #     .group("polls.id")
+  #     .where( 'user_id = ?', user.id)
+  #     .having( 'count(votes.*) = ?', 0)
+  #   }
+
 
   # ------------------------
   # --    PUBLIC      ---
   # ------------------------
+
+
 end
