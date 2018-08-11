@@ -30,8 +30,7 @@ class GoogleCalendarService
   end
 
   def company_calendar_id
-    "toto"
-    # ENV['GOOGLE_CALENDAR_ID']
+    ENV['GOOGLE_CALENDAR_ID']
   end
 
   # Where primary is 'my' calendar
