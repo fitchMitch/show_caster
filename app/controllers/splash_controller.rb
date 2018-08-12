@@ -1,19 +1,19 @@
 class SplashController < ApplicationController
-  # skip_before_action :require_login, only: [:new, :create]
+
   skip_before_action :require_login
 
   def index
     @players_firstnames = []
     @next_performances = Event.performances.future_events.limit(5).includes(:actors)
     @very_next_performance = @next_performances.first || nil
-    
+
     unless @very_next_performance.nil?
       @next_players = @very_next_performance.actors.where('stage_role = ?', 0)
       @next_players.each do |player|
         @players_firstnames << player.user.firstname
       end
     end
-    @other_performances = @next_performances.drop(0)
+    @other_performances = @next_performances.drop(1)
   end
 
   def signup
