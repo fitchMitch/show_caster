@@ -42,7 +42,7 @@ class GoogleCalendarService
   def existing_event?(id)
     begin
       response = @calendar.get_event( company_calendar_id, id )
-      response.i_cal_uid == id
+      response.id == id
     rescue
       Rails.logger.debug("Calendar id fails here : #{id}")
       false
