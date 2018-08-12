@@ -57,13 +57,14 @@ def photo_count
   self.pictures.count
 end
 
-def self.last_four_images
+def self.last_performance_photos(n)
+  return if n < 1
   e = Performance.passed_events.limit(2)
   e1, e2, res  = e.first , e.second, []
   unless e.empty?
-    res += Picture.four_pictures(e1)
-    res += Picture.four_pictures(e2) if res.count < 4 && e2.present?
-    res = res[0..3] if res.count > 4
+    res += Picture.last_pictures(e1, n)
+    res += Picture.last_pictures(e2, n) if res.count < n && e2.present?
+    res = res[0..n] if res.count > n
   end
   res
 end

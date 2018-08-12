@@ -17,7 +17,7 @@ section.features#features
     .container
       .row
         .inner-column.showing-off
-          h1 Les joueurs
+          h1 Les joueurs chez les Sésames
       .row
         = render partial: 'bio'
       .row
@@ -27,9 +27,10 @@ section.images#photos
     .container
       .row
         .inner-column.showing-off
-          h1 Photos des derniers spectacles
+          - unless Performance.last_performance_photos(4).empty?
+            h1 Photos des derniers spectacles
       .row
-        - Performance.last_four_images.each do |pic|
+        - Performance.last_performance_photos(4).each do |pic|
           col.md-3.col-sm-6.col-xs-12
             = image_tag  pic.photo.url(:square), style: 'height:290px;width:auto;', class: 'space-up-20 photo-galery'
 
