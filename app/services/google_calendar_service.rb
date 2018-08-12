@@ -33,23 +33,52 @@ class GoogleCalendarService
     ENV['GOOGLE_CALENDAR_ID']
   end
 
-  # Where primary is 'my' calendar
+  # Where 'primary' is 'my' calendar
   def add_event_to_g_company_cal(opt)
     event = make_a_google_event(opt)
     @calendar.insert_event(company_calendar_id, event, send_notifications: true)
   end
 
+  def existing_event?(id)
+    begin
+      response = @calendar.get_event( company_calendar_id, id )
+      response.i_cal_uid == id
+    rescue
+      Rails.logger.debug("Calendar id fails here : #{id}")
+      false
+    end
+  end
+
   def update_event_google_calendar(opt)
-    if opt.fetch(:fk, nil).nil?
-      "inexisting Google Calendar event"
-    else
-      event = make_a_google_event(opt)
-      @calendar.update_event(company_calendar_id,opt[:fk], event) if opt[:fk].present?
+    begin
+      if opt.fetch(:fk, nil).nil?
+        "inexisting Google Calendar event"
+      else
+        if existing_event? opt[:fk]
+          @calendar.update_event(company_calendar_id, opt[:fk], make_a_google_event(opt))
+        else
+          Rails.logger.debug("missing event in Google Calendar with id: #{opt[:fk]}")
+          nil
+        end
+      end
+    rescue
+      Rails.logger.debug("API Call failed with #{$!} \nin update_event_google_calendar")
+      nil
     end
   end
 
   def delete_event_google_calendar(event)
-    event.fk.nil? ? nil : @calendar.delete_event(company_calendar_id,event.fk)
+    begin
+      if !event.try(:fk).nil? && existing_event?(event.fk)
+        @calendar.delete_event(company_calendar_id, event.fk)
+      else
+        Rails.logger.debug("fails to delete from GCalendar event id/fk: #{event.id} / #{event.fk}")
+        nil
+      end
+    rescue
+      Rails.logger.debug("API Call failed with #{$!} \nin delete_event_google_calendar")
+      nil
+    end
   end
 
   def make_a_google_event(opt)
@@ -57,7 +86,7 @@ class GoogleCalendarService
     event_title = "events.#{opt.fetch(:title, "g_title.performance")}"
     event_hash = {
       summary: I18n.t(event_title, name: theater_name),
-      location: opt.fetch(:location,I18n.t("events.nowhere")),
+      location: opt.fetch(:location, I18n.t("events.nowhere")),
       description: I18n.t("events.mere_new_opus", name: theater_name),
       start: {
         date_time: opt.fetch(:event_date, nil),
