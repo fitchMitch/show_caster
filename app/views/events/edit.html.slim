@@ -4,7 +4,7 @@
       = link_to performances_path, :class => 'btn btn-default' do
         span.glyphicon.glyphicon-list-alt
           = " #{ t("back") }"
-    = link_to @event, :class => 'btn btn-default' do
+    = link_to @event, :class => 'btn btn-primary' do
       span.glyphicon.glyphicon-eye-open
         = " #{ t('events.see') }"
     h2= event_edit_page_title(@event)
