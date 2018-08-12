@@ -31,7 +31,7 @@ RSpec.describe Vote, type: :model do
   context  "Persistance (opinion)" do
     let(:symfields) { %i(vote_label comment user_id poll_id) }
     let!(:valid_attributes_opinion) { FactoryBot.build(:vote_opinion).attributes}
-    let(:vote_op){create(:vote_opinion,valid_attributes_opinion)}
+    let(:vote_op){create(:vote_opinion, valid_attributes_opinion)}
     subject { vote_op }
 
     it "should be verified : factory validation" do
@@ -44,7 +44,7 @@ RSpec.describe Vote, type: :model do
   context "Persistance (date)" do
     let(:symfields) { %i(vote_label comment user_id poll_id) }
     let!(:valid_attributes_date) { FactoryBot.build(:vote_date).attributes}
-    let(:vote_da){create(:vote_date,valid_attributes_date)}
+    let(:vote_da){create(:vote_date, valid_attributes_date)}
     subject { vote_da }
 
     it "should be verified : factory validation" do

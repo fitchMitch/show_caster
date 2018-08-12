@@ -59,12 +59,12 @@ module UsersHelper
     end
   end
 
-  def badge_user(user,role=nil)
+  def badge_user(user, role=nil)
     colors = user.color.partition(";")
     "border: 4px #{colors[2]} solid; color:#{colors[0]}".html_safe
   end
 
-  def badge_user_from_id(user_id,role=nil)
+  def badge_user_from_id(user_id, role=nil)
     user = User.find_by_id(user_id)
     "<span class='badge_user' style='#{badge_user(user, role)}'> \
     #{user.firstname} #{user.lastname.first}</span>".html_safe

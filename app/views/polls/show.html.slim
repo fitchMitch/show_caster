@@ -28,6 +28,6 @@
     dt
       p.space-up-10= t("answers.answers")
     dd.space-up-10
-      - @poll.answers.each_with_index do |a,index|
+      - @poll.answers.each_with_index do |a, index|
         p="#{index+1}. #{a.answer_label}<br/>".html_safe
     hr

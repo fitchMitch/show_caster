@@ -1,5 +1,5 @@
 $(document).ready ->
-  write_it = (w,h)->
+  write_it = (w, h)->
     s = "hauteur : #{h}  x largeur : #{w}"
     $('#widthbox').text s
     return
@@ -8,12 +8,12 @@ $(document).ready ->
     mutations.forEach (mutationRecord) ->
       h = parseInt($('#photo_crop_h').val(), 10)
       w = parseInt($('#photo_crop_w').val(), 10)
-      write_it(w,h)
+      write_it(w, h)
       indicatorsDisplay(w, h)
       return
     return
   )
-  indicatorsDisplay = (w,h) ->
+  indicatorsDisplay = (w, h) ->
     if w > 0
       if Math.abs(h/w - 1) < 0.01
         $("#widthbox").addClass("squareBorder")

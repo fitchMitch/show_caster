@@ -26,7 +26,7 @@ class Dashboard
   def check_attributes(attri)
     role = attri.fetch(:role, 0)
     raise 'periods is not a hash' unless attri[:periods].is_a? Hash
-    attri[:periods].each do |key,val|
+    attri[:periods].each do |key, val|
       raise 'dates are not timezoned' unless val.is_a? Time
     end
     { role: role,

@@ -21,7 +21,7 @@ module VotesHelper
     end
   end
 
-  def others_votes_list(answer,user)
+  def others_votes_list(answer, user)
     votes = VoteDate
       .where('poll_id = ?', answer.poll_id)
       .where('answer_id = ?', answer.id)

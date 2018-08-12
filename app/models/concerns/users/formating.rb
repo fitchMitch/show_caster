@@ -2,7 +2,7 @@ module Users
   module Formating
     extend ActiveSupport::Concern
 
-    def pick (a,b)
+    def pick (a, b)
       (a..b).to_a.sample.to_i
     end
 
@@ -11,13 +11,13 @@ module Users
       s_bckg = pick(66, 100)
       l_bckg = pick(32, 50)
       # txt
-      s_txt  = pick(36,76)
+      s_txt  = pick(36, 76)
       l_txt  = pick(76, 95)
       # hue
       h_user = h_random pick(0, 1000)
 
-      letters = to_hsl(h_user,s_txt,l_txt)
-      background = to_hsl(h_user,s_bckg,l_bckg)
+      letters = to_hsl(h_user, s_txt, l_txt)
+      background = to_hsl(h_user, s_bckg, l_bckg)
       letters + ";" + background
     end
 
@@ -26,7 +26,7 @@ module Users
     end
 
     def first_and_l
-      self.firstname.nil? || self.firstname == '' ? lastname.upcase : "#{firstname} #{lastname.upcase[0,1]}"
+      self.firstname.nil? || self.firstname == '' ? lastname.upcase : "#{firstname} #{lastname.upcase[0, 1]}"
     end
     # ------------------------
     # --    PROTECTED      ---
@@ -62,7 +62,7 @@ module Users
         ((nr * 90) + 340).modulo(360).floor
       end
 
-      def to_hsl(h,s,l)
+      def to_hsl(h, s, l)
         "hsl(#{h}, #{s}%, #{l}%)"
       end
   end

@@ -36,7 +36,7 @@ RSpec.describe Answer, type: :model do
         date_answer: Date.today.weeks_since(3)
       }
     }
-    let(:answ){create(:answer_opinion,valid_attributes)}
+    let(:answ){create(:answer_opinion, valid_attributes)}
     subject { answ }
 
     it { should belong_to(:poll_opinion)}
@@ -54,7 +54,7 @@ RSpec.describe Answer, type: :model do
         date_answer: Date.today.weeks_since(3)
       }
     }
-    let(:answ){create(:answer_date,valid_attributes)}
+    let(:answ){create(:answer_date, valid_attributes)}
     subject { answ }
 
     it { should belong_to(:poll_opinion)}

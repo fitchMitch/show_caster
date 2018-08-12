@@ -6,7 +6,7 @@ today      =     Time.zone.now
 created_at =     today
 updated_at =     today
 
-def n_out_of_m?(n,m)
+def n_out_of_m?(n, m)
   (1..m).to_a.sample <= n
 end
 
@@ -28,7 +28,7 @@ User.create!(
   lastname =               FFaker::NameFR::unique.last_name
   email =                  FFaker::Internet.free_email
   role =                   (0..3).to_a.sample
-  is_registered =          n_out_of_m?(8,11)
+  is_registered =          n_out_of_m?(8, 11)
   cell_phone_nr =          nil
   address =                nil
   if is_registered
