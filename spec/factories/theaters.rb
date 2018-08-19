@@ -11,15 +11,15 @@
 
 FactoryBot.define do
   factory :theater do
-    theater_name        "Au #{FFaker::Animal::unique.common_name} enfumé"
+    theater_name        {"Au #{FFaker::Animal::unique.common_name} enfumé"}
     location            {FFaker::AddressFR::full_address}
-    manager             "Tolier"
-    manager_phone       "0148245774"
+    manager             {"Tolier"}
+    manager_phone       {"0148245774"}
 
     factory :theater_with_event do
 
       transient do
-        events_count 1
+        events_count {1}
       end
 
       after(:create) do |theater, evaluator|
@@ -29,9 +29,9 @@ FactoryBot.define do
   end
 
   factory :other_theater, class: Theater do
-    theater_name        "MJC Oudine"
-    location            "25 rue Eugène Oudiné, 75013 PARIS"
-    manager             "un autre Tolier"
-    manager_phone       "07 35252145"
+    theater_name        {"MJC Oudine"}
+    location            {"25 rue Eugène Oudiné, 75013 PARIS"}
+    manager             {"un autre Tolier"}
+    manager_phone       {"07 35252145"}
   end
 end

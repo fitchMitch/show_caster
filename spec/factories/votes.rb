@@ -15,10 +15,10 @@
 
 FactoryBot.define do
   factory :vote do
-    comment FFaker::Lorem::sentence(1)
+    comment {FFaker::Lorem::sentence(1)}
     user
     factory :vote_opinion do
-      vote_label (0..1).to_a.sample
+      vote_label {(0..1).to_a.sample}
       association :answer, factory: :answer_opinion
       after(:create) do |vote|
         vote.poll_id = vote.answer.poll_opinion.id
@@ -26,7 +26,7 @@ FactoryBot.define do
     end
 
     factory :vote_date do
-      vote_label (0..2).to_a.sample
+      vote_label {(0..2).to_a.sample}
       association :answer, factory: :answer_date
       after(:create) do |vote|
         vote.poll_id = vote.answer.poll_date.id

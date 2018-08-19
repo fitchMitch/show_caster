@@ -15,14 +15,14 @@ FactoryBot.define do
   factory :poll do
     question          { "Poll : #{FFaker::Lorem::sentence(1)} ?"}
     expiration_date   { Date.today + (1..15).to_a.sample.days }
-
+    association :owner, factory: :user
     transient do
-      answers_count 3
+      answers_count {3}
     end
   end
 
   factory :poll_opinion, parent: :poll, class: 'PollOpinion' do
-    type 'PollOpinion'
+    type {'PollOpinion'}
 
     factory :poll_opinion_with_answers do
       after(:create) do |poll_opinion, evaluator|
@@ -32,7 +32,7 @@ FactoryBot.define do
   end
 
   factory :poll_date, parent: :poll, class: 'PollDate' do
-    type 'PollDate'
+    type {'PollDate'}
 
     factory :poll_date_with_answers do
       after(:create) do |poll_date, evaluator|
