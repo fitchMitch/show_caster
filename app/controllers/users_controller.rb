@@ -52,8 +52,8 @@ class UsersController < ApplicationController
     @user.status = params[:user][:status]
     @user.role = params[:user][:role]
     if @user.save
-      inform_promoted_person(@user)
-      redirect_to users_path, notice: I18n.t('users.promoted', name: @user.full_name)
+      message = inform_promoted_person(@user)
+      redirect_to users_path, notice: I18n.t(message, name: @user.full_name)
     else
       flash[:alert] = I18n.t('users.promoted_failed', name: @user.full_name)
       render 'users/show'
@@ -76,11 +76,10 @@ class UsersController < ApplicationController
   private
     def inform_promoted_person(user)
       role = user.role
-      excl_1 = Rails.env.downcase == 'development'
-      excl_2 = current_user == user
-      excl_3 = role == 'player'
-      user.promoted_mail unless  excl_1 || excl_2 || excl_3
-      # user.promoted_mail unless  excl_2 || excl_3
+      excl_1 = current_user == user
+      excl_2 = role == 'player'
+      user.promoted_mail unless  excl_1 || excl_2
+      role == 'player' ? 'users.promoted_muted' : 'users.promoted'
     end
 
     def set_user

@@ -12,7 +12,7 @@ class UserMailer < ApplicationMailer
     # This mails informs the users of his role update.
     @user = user
     @url  = get_user_s_url(@user)
-    @role = user.role
+    @role = user.role_i18n
     mail(to: @user.email, subject: I18n.t("users.promote_mail.subject"))
   end
 

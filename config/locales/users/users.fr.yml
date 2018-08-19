@@ -30,6 +30,7 @@ fr:
     not_logged_in: Vous devez être identifié pour accéder à cette page
     promote: Promouvoir
     promoted: "%{name} a changé de statut, un message l'en a informé(e)"
+    promoted_muted: "%{name} a changé de statut, aucun message ne l'en a informé(e)"
     promoted_failed: "%{name} n'a pas pu changer de statut"
     photograph: Photographie
     photograph_comment: Cette photo sera reprise sur le site web, dans son format carré.
