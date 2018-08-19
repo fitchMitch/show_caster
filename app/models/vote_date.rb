@@ -30,6 +30,8 @@ class VoteDate < Vote
 
   belongs_to :answer,
     dependent: :destroy
+
+  belongs_to :user
   # Validations
   #-----------
 

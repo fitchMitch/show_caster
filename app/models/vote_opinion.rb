@@ -30,7 +30,7 @@ class VoteOpinion < Vote
 
   belongs_to :answer,
     dependent: :destroy
-
+  belongs_to :user
   # Validations
   #-----------
 

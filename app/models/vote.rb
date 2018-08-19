@@ -33,6 +33,8 @@ class Vote < ApplicationRecord
   #-----------
 
   belongs_to :user
+  belongs_to :answer
+  belongs_to :poll
   has_many :vote_opinions, class_name: 'VoteOpinion'
   has_many :vote_dates, class_name: 'VoteDate'
 
