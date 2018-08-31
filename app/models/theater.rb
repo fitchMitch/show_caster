@@ -15,6 +15,7 @@ class Theater < ApplicationRecord
   # Relationships
   has_many :performances
   has_many :courses
+  has_many :events
 
   # Validations
   validates :theater_name,

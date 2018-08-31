@@ -23,7 +23,7 @@ FactoryBot.define do
     note                        {"there is a note"}
     descro                      {"there is a descro"}
     factory :picture_event do
-      imageable { |a| a.association(:event) }
+      imageable { |a| a.association(:performance) } #TODO
     end
     factory :picture_user do
       imageable { |a| a.association(:user) }

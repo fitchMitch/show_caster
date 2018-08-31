@@ -17,6 +17,8 @@ FactoryBot.define do
   factory :vote do
     comment {FFaker::Lorem::sentence(1)}
     user
+    poll
+    answer
     factory :vote_opinion do
       vote_label {(0..1).to_a.sample}
       association :answer, factory: :answer_opinion

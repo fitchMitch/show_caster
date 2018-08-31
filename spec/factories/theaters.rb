@@ -23,7 +23,7 @@ FactoryBot.define do
       end
 
       after(:create) do |theater, evaluator|
-        create_list(:event, evaluator.events_count, theater: theater)
+        create_list(:performance, evaluator.events_count, theater: theater)
       end
     end
   end
