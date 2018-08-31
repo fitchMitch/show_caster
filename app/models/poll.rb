@@ -21,10 +21,13 @@ class Poll < ApplicationRecord
 
   # Relationships
   #-----------
-  has_many :poll_opinions, class_name: 'PollOpinion'
-  has_many :poll_dates, class_name: 'PollDate'
+  has_many :poll_opinions,
+    class_name: 'PollOpinion'
+  has_many :poll_dates,
+    class_name: 'PollDate'
 
-  belongs_to :owner, class_name: 'User'
+  belongs_to :owner,
+    class_name: 'User'
 
   has_many :answers,
     dependent: :destroy
@@ -65,7 +68,7 @@ class Poll < ApplicationRecord
   def self.expecting_my_vote(current_user)
     total =  PollOpinion.active.count
     total -= PollOpinion.with_my_opinion_votes(current_user).count
-    
+
     total += PollDate.active.count
     total -= PollDate.with_my_date_votes(current_user).count
   end

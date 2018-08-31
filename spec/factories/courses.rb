@@ -2,10 +2,10 @@
 #
 # Table name: events
 #
-#  id              :integer          not null, primary key
+#  id              :integer          not null primary key
 #  event_date      :datetime
 #  duration        :integer
-#  progress        :integer          default("draft")
+#  progress        :integer          default(draft)
 #  note            :text
 #  user_id         :integer
 #  theater_id      :integer
@@ -14,7 +14,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  title           :string
-#  type            :string           default("Performance")
+#  type            :string           default(Performance)
 #  courseable_id   :integer
 #  courseable_type :string
 #
@@ -42,6 +42,5 @@ FactoryBot.define do
         create(:coach, courseable: course)
       end
     end
-
   end
 end

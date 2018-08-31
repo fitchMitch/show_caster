@@ -1,8 +1,7 @@
 module Users
   module Validating
     extend ActiveSupport::Concern
-
-    # attr_accessor :cell_phone_nr, :email, :firstname, :lastname
+    VALID_EMAIL_REGEX = /\A[\w+0-9\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
     included do
       validates :cell_phone_nr,
@@ -14,7 +13,6 @@ module Users
         uniqueness: true,
         presence: true
 
-      VALID_EMAIL_REGEX = /\A[\w+0-9\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
       validates :firstname,
         presence: true,
