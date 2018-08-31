@@ -16,15 +16,12 @@ require 'rails_helper'
 
 RSpec.describe Coach, type: :model do
   context 'with valid attributes' do
-    # create(:user,:admin,:registered )
-    # let!(:existing_coach) { create(:coach) }
     let!(:valid_attributes) do
       { firstname: 'eric',
         lastname: 'bicon',
         email: 'gogo@lele.fr',
         cell_phone_nr: '0123456789',
-        note: "a note"
-      }
+        note: 'a note' }
     end
 
     it { should validate_presence_of :firstname }
@@ -34,16 +31,14 @@ RSpec.describe Coach, type: :model do
     it { should validate_length_of(:lastname).is_at_least(2) }
     it { should validate_length_of(:lastname).is_at_most(50) }
 
-
-    it { should allow_value('eric').for(:firstname) }
+    it { should allow_value('Eric').for(:firstname) }
     it { should allow_value('BICONE').for(:lastname) }
     it { should allow_value('gogo@lele.fr').for(:email) }
 
     describe 'Persistance' do
       it 'should be persisted - factory validation' do
         coach = create(:coach, valid_attributes)
-
-        expect(coach.firstname).to eq(valid_attributes[:firstname])
+        expect(coach.firstname).to eq(valid_attributes[:firstname].capitalize)
         expect(coach.lastname).to eq(valid_attributes[:lastname].upcase)
         expect(coach.email).to eq(valid_attributes[:email])
         expect(coach.cell_phone_nr).to eq('01 23 45 67 89')
@@ -53,5 +48,12 @@ RSpec.describe Coach, type: :model do
 
   context 'with invalid email attributes' do
     it { should_not allow_value('gog.o@lelefr').for :email }
+  end
+
+  describe '#full_name' do
+    let!(:coach) { build(:coach, firstname: 'firstname', lastname: 'lastname') }
+    it 'should set a proper capitalized full_name' do
+      expect(coach.full_name).to eq 'Firstname LASTNAME'
+    end
   end
 end

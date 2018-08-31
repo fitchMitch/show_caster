@@ -148,7 +148,7 @@ class User < ApplicationRecord
       self.lastname = lastname.upcase if lastname.present?
       self.email = email.downcase if email.present?
       self.role ||= 'player'
-      self.color ||= get_color
+      self.color ||= pick_color
       self.phone_number_format
     end
 

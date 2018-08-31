@@ -36,14 +36,6 @@ class Coach < ApplicationRecord
   # --    PUBLIC      ---
   # ------------------------
   def full_name
-    self.first_and_last_name.html_safe
+    first_and_last_name.html_safe
   end
-
-  protected
-
-    def format_fields
-      self.lastname = lastname.upcase if lastname.present?
-      self.email = email.downcase if email.present?
-      self.phone_number_format
-    end
 end
