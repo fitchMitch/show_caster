@@ -20,7 +20,6 @@ RSpec.describe Vote, type: :model do
     let(:vote) {FactoryBot.build(:vote_opinion)}
     subject { vote }
 
-
     it { should belong_to(:poll)}
     it { should belong_to(:answer)}
     it { should belong_to(:user)}
@@ -30,13 +29,11 @@ RSpec.describe Vote, type: :model do
   end
 
   context  "Persistance (opinion)" do
-    let(:symfields) { %i(vote_label comment) }
-    let!(:valid_attributes_opinion) { FactoryBot.create(:vote_opinion).attributes}
-    let(:vote_op){create(:vote_opinion, valid_attributes_opinion)}
-    subject { vote_op }
+    let!(:symfields) { %i(vote_label comment) }
+    let!(:valid_attributes_opinion) { build(:vote_opinion).attributes}
+    let!(:vote_op){create(:vote_opinion, valid_attributes_opinion)}
 
     it "when done through factory should be ok" do
-      binding.pry
       symfields.each do |s_field|
         expect(vote_op.send(s_field)).to be == valid_attributes_opinion[s_field.to_s]
       end
@@ -45,9 +42,8 @@ RSpec.describe Vote, type: :model do
 
   context "Persistance (date)" do
     let(:symfields) { %i(vote_label comment ) }
-    let!(:valid_attributes_date) { FactoryBot.create(:vote_date).attributes}
+    let!(:valid_attributes_date) { build(:vote_date).attributes}
     let(:vote_da){create(:vote_date, valid_attributes_date)}
-    subject { vote_da }
 
     it "when done through factory should be ok" do
       symfields.each do |s_field|
