@@ -43,6 +43,7 @@ class Vote < ApplicationRecord
   validates_associated :user, :answer
   validates :user, presence: true
   validates :answer, presence: true
+  validates :poll, presence: true
 
   # Scope
   #-----------

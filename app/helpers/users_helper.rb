@@ -27,6 +27,7 @@ module UsersHelper
   end
 
   def status_label(user)
+    user.status = :archived if user.status.nil?
     label_hash = case user.status.to_sym
     when :invited
       {klass: "warning",
