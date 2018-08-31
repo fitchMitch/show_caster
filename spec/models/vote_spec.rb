@@ -20,21 +20,23 @@ RSpec.describe Vote, type: :model do
     let(:vote) {FactoryBot.build(:vote_opinion)}
     subject { vote }
 
-    it { should belong_to(:poll_opinion)}
-    it { should belong_to(:poll_dates)}
+
+    it { should belong_to(:poll)}
+    it { should belong_to(:answer)}
     it { should belong_to(:user)}
 
     it { should validate_presence_of (:user) }
-    it { should validate_presence_of (:poll) }
+    it { should validate_presence_of (:answer) }
   end
 
   context  "Persistance (opinion)" do
-    let(:symfields) { %i(vote_label comment user_id poll_id) }
-    let!(:valid_attributes_opinion) { FactoryBot.build(:vote_opinion).attributes}
+    let(:symfields) { %i(vote_label comment) }
+    let!(:valid_attributes_opinion) { FactoryBot.create(:vote_opinion).attributes}
     let(:vote_op){create(:vote_opinion, valid_attributes_opinion)}
     subject { vote_op }
 
-    it "should be verified : factory validation" do
+    it "when done through factory should be ok" do
+      binding.pry
       symfields.each do |s_field|
         expect(vote_op.send(s_field)).to be == valid_attributes_opinion[s_field.to_s]
       end
@@ -42,12 +44,12 @@ RSpec.describe Vote, type: :model do
   end
 
   context "Persistance (date)" do
-    let(:symfields) { %i(vote_label comment user_id poll_id) }
-    let!(:valid_attributes_date) { FactoryBot.build(:vote_date).attributes}
+    let(:symfields) { %i(vote_label comment ) }
+    let!(:valid_attributes_date) { FactoryBot.create(:vote_date).attributes}
     let(:vote_da){create(:vote_date, valid_attributes_date)}
     subject { vote_da }
 
-    it "should be verified : factory validation" do
+    it "when done through factory should be ok" do
       symfields.each do |s_field|
         expect(vote_da.send(s_field)).to be == valid_attributes_date[s_field.to_s]
       end
@@ -56,7 +58,7 @@ RSpec.describe Vote, type: :model do
 
   context "with invalid attributes" do
     let!(:invalid_poll_attribute) { FactoryBot.build(:vote_date, poll_id: nil).attributes}
-    let!(:invalid_user_attribute) { FactoryBot.build(:vote_date, poll_id: nil).attributes}
+    let!(:invalid_user_attribute) { FactoryBot.build(:vote_date, user_id: nil).attributes}
     it "tolerates empty fields but the poll_id" do
       vote = build(:vote, invalid_poll_attribute)
       expect(vote).not_to be_valid
