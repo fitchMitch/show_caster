@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'vcr'
+# require 'vcr'
 
 RSpec.feature  "Events | " do
   feature "as a registered admin" do
@@ -36,7 +36,8 @@ RSpec.feature  "Events | " do
         click_button(I18n.t("helpers.submit.performance.create"))
       end
 
-      scenario "it shall create a Event", :vcr do
+      # scenario "it shall create a Event", :vcr do
+      scenario "it shall create a Event" do
         expect(page.body).to have_content I18n.t("performances.created")
         expect(page.body).to have_content Event::DURATIONS.rassoc(performance.duration)
         expect(page.body).to have_content performance.progress_i18n
@@ -52,7 +53,8 @@ RSpec.feature  "Events | " do
         click_button(I18n.t("helpers.submit.performance.update"))
       end
 
-      scenario "it shall update Events", :vcr do
+      scenario "it shall update Events" do
+      # scenario "it shall update Events", :vcr do
         expect(page.body).to have_content I18n.t("performances.updated")
         expect(page.body).to have_content Event::DURATIONS.rassoc(performance.duration)
         expect(page.body).to have_content performance.progress_i18n
@@ -80,7 +82,8 @@ RSpec.feature  "Events | " do
         page.find('.destroy', match: :first).click
       end
 
-      scenario "it shall delete Events" ,:vcr do
+      scenario "it shall delete Events" do
+      # scenario "it shall delete Events" ,:vcr do
         expect(page.body).to have_content (I18n.t("performances.destroyed"))
         expect(page.body).to have_selector("h2", text: I18n.t("performances.list"))
       end
