@@ -77,7 +77,7 @@ RSpec.describe "Theaters", type: :request do
 
       it "updates the requested theater_name with a new theater_name" do
         url = "/theaters/#{theater.to_param}"
-        put url , params:{ id: theater.id, theater:new_attributes_theater_name }
+        put url, params:{ id: theater.id, theater:new_attributes_theater_name }
         theater.reload
         expect(theater).to have_attributes(
           theater_name: new_attributes_theater_name[:theater_name]
@@ -86,7 +86,7 @@ RSpec.describe "Theaters", type: :request do
 
       it "updates the requested theater" do
         url = "/theaters/#{theater.to_param}"
-        put url , params:{ id: theater.id, theater: new_attributes}
+        put url, params:{ id: theater.id, theater: new_attributes}
         theater.reload
         expect(theater).to have_attributes( manager_phone: '06 66 66 66 66' )
         expect(theater).to have_attributes( manager: new_attributes[:manager])
@@ -95,7 +95,7 @@ RSpec.describe "Theaters", type: :request do
 
       it "redirects to the users page" do
         url = "/theaters/#{theater.to_param}"
-        put url , params:{ id: theater.id, theater: new_attributes }
+        put url, params:{ id: theater.id, theater: new_attributes }
         expect(response).to redirect_to theaters_path
       end
     end
@@ -109,7 +109,7 @@ RSpec.describe "Theaters", type: :request do
 
       it "assigns the theater as @theater" do
         url = "/theaters/#{theater.to_param}"
-        put url , params:{ id: theater.id, theater: invalid_attributes }
+        put url, params:{ id: theater.id, theater: invalid_attributes }
         theater.reload
         expect(theater.theater_name).not_to eq(invalid_attributes[:theater_name])
       end

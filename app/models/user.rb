@@ -41,7 +41,7 @@ class User < ApplicationRecord
   enum role: {
     :player => 0,
     :admin_com => 1,
-    :admin => 2 ,
+    :admin => 2,
     :other => 3
   }
 

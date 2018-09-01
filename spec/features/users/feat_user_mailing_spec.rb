@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature  "Users" , :type => :feature do
+RSpec.feature  "Users", :type => :feature do
   feature "invite mail feature" do
     given!(:admin) { create(:user, :admin, :registered, lastname: "ADMIN") }
     given!(:player) { create(:user, :player, :setup) }

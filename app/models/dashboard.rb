@@ -15,7 +15,7 @@ class Dashboard
     ending ||= Time.zone.now
     Performance
       .select('count(events.theater_id) as count_me', 'actors.user_id as perso' )
-      .where('events.event_date > ? and events.event_date < ? ', starting , ending)
+      .where('events.event_date > ? and events.event_date < ? ', starting, ending)
       .where('actors.stage_role = ?', role_nr)
       .joins(:actors)
       .group('perso')

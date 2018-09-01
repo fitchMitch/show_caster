@@ -25,7 +25,7 @@ RSpec.feature "PollOpinion" do
     given!(:admin) { create(:user, :admin, :registered, lastname: "ADMIN") }
     given!(:poll_opinion_attributes) {
       {
-        question: "Au square Edouard IV , vous êtes d'accord ?",
+        question: "Au square Edouard IV, vous êtes d'accord ?",
         expiration_date: Date.today.weeks_since(2),
         answers: ["une réponse", "une autre réponse"]
       }

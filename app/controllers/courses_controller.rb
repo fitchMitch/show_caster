@@ -78,7 +78,7 @@ class CoursesController < EventsController
           :duration,
           :note,
           :user_id,
-          :theater_id ,
+          :theater_id,
           :fk,
           :type,
           :provider,

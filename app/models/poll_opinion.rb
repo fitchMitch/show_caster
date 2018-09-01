@@ -22,13 +22,13 @@ class PollOpinion < Poll
   #-----------
   has_many :answers,
     dependent: :destroy,
-    inverse_of: :poll_opinion ,
+    inverse_of: :poll_opinion,
     foreign_key: "poll_id",
     class_name: 'Answer'
 
   has_many :vote_opinions,
     dependent: :destroy,
-    inverse_of: :poll_opinion ,
+    inverse_of: :poll_opinion,
     foreign_key: "poll_id",
     class_name: 'VoteOpinion'
   # Validations

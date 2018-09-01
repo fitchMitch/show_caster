@@ -27,7 +27,7 @@ RSpec.describe "PollDates", type: :request do
       end
 
       it "redirects to the polls page" do
-        delete url , params:{ id: poll.id, poll: poll.attributes }
+        delete url, params:{ id: poll.id, poll: poll.attributes }
         expect(response).to redirect_to(polls_path)
       end
     end
@@ -85,7 +85,7 @@ RSpec.describe "PollDates", type: :request do
 
       it "updates the requested poll_question with a new poll_question" do
         url = "/poll_dates/#{poll.to_param}"
-        put url , params:{ id: poll.id, poll_date:new_attributes_poll_question }
+        put url, params:{ id: poll.id, poll_date:new_attributes_poll_question }
         poll.reload
         expect(poll).to have_attributes(
           question: new_attributes_poll_question[:question]
@@ -94,7 +94,7 @@ RSpec.describe "PollDates", type: :request do
 
       it "updates the requested poll" do
         url = "/poll_dates/#{poll.to_param}"
-        put url , params:{ id: poll.id, poll_date: new_attributes}
+        put url, params:{ id: poll.id, poll_date: new_attributes}
         poll.reload
         expect(poll).to have_attributes( question: new_attributes[:question] )
         expect(poll).to have_attributes( expiration_date: new_attributes[:expiration_date])
@@ -102,7 +102,7 @@ RSpec.describe "PollDates", type: :request do
 
       it "redirects to the users page" do
         url = "/poll_dates/#{poll.to_param}"
-        put url , params:{ id: poll.id, poll_date: new_attributes }
+        put url, params:{ id: poll.id, poll_date: new_attributes }
         expect(response).to redirect_to polls_path
       end
     end
@@ -116,7 +116,7 @@ RSpec.describe "PollDates", type: :request do
 
       it "assigns the poll as @poll" do
         url = "/poll_dates/#{poll.to_param}"
-        put url , params:{ id: poll.id, poll_date: invalid_attributes }
+        put url, params:{ id: poll.id, poll_date: invalid_attributes }
         poll.reload
         expect(poll.question).not_to eq(invalid_attributes[:question])
       end

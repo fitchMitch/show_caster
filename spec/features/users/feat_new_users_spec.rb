@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature  "new users features" , :type => :feature do
+RSpec.feature  "new users features", :type => :feature do
   given!(:admin) { create(:user, :admin, :registered, lastname: "ADMIN") }
 
   before :each do

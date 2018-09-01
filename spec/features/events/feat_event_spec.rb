@@ -83,7 +83,7 @@ RSpec.feature  "Events | " do
       end
 
       scenario "it shall delete Events" do
-      # scenario "it shall delete Events" ,:vcr do
+      # scenario "it shall delete Events",:vcr do
         expect(page.body).to have_content (I18n.t("performances.destroyed"))
         expect(page.body).to have_selector("h2", text: I18n.t("performances.list"))
       end

@@ -23,14 +23,14 @@ class PollDate < Poll
 
   has_many :answers,
     dependent: :destroy,
-    inverse_of: :poll_date ,
+    inverse_of: :poll_date,
     foreign_key: "poll_id",
     class_name: 'Answer'
 
-  has_many :vote_dates ,
-    dependent: :destroy ,
-    inverse_of: :poll_date ,
-    foreign_key: "poll_id" ,
+  has_many :vote_dates,
+    dependent: :destroy,
+    inverse_of: :poll_date,
+    foreign_key: "poll_id",
     class_name: 'VoteDate'
 
   # Validations

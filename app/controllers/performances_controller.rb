@@ -69,7 +69,7 @@ class PerformancesController < EventsController
           :duration,
           :note,
           :user_id,
-          :theater_id ,
+          :theater_id,
           :progress,
           :uid,
           :fk,

@@ -60,7 +60,7 @@ end
 def self.last_performance_photos(n)
   return if n < 1
   e = Performance.passed_events.limit(2)
-  e1, e2, res  = e.first , e.second, []
+  e1, e2, res  = e.first, e.second, []
   unless e.empty?
     res += Picture.last_pictures(e1, n)
     res += Picture.last_pictures(e2, n) if res.count < n && e2.present?

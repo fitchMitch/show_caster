@@ -4,7 +4,7 @@ class CreateEvents < ActiveRecord::Migration[5.0]
       t.datetime :event_date
       t.integer :duration
       t.integer :progress, default: 0
-      t.text :note ,  null: true
+      t.text :note,  null: true
       t.references :user, foreign_key: true
       t.references :theater, foreign_key: true
       t.string :fk,  null: true

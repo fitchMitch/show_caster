@@ -40,7 +40,7 @@ RSpec.describe Theater, type: :model do
     it "tolerates empty fields but the name" do
       theater = build(:theater, theater_name: "")
       expect(theater).not_to be_valid
-      other_theater = build(:other_theater, manager: "" , manager_phone: "", location: "")
+      other_theater = build(:other_theater, manager: "", manager_phone: "", location: "")
       expect(other_theater).to be_valid
     end
   end

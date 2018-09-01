@@ -100,7 +100,7 @@ RSpec.describe "Performances", type: :request do
 
         it "updates the requested event with a new theater_id" do
           url = "/performances/#{event.to_param}"
-          put url , params:{ id: event.id, event:new_attributes_theater }
+          put url, params:{ id: event.id, event:new_attributes_theater }
           event.reload
           expect(event).to have_attributes(
             theater_id: new_attributes_theater[:theater_id]
@@ -109,7 +109,7 @@ RSpec.describe "Performances", type: :request do
 
         it "redirects to the users page" do
           url = "/performances/#{event.to_param}"
-          put url , params:{ id: event.id, event: new_attributes }
+          put url, params:{ id: event.id, event: new_attributes }
           expect(response).to redirect_to events_path
         end
       end
@@ -117,7 +117,7 @@ RSpec.describe "Performances", type: :request do
       context "with invalid params" do
         it "assigns the event as @event" do
           url = "/performances/#{event.to_param}"
-          put url , params:{ id: event.id, event: invalid_attributes }
+          put url, params:{ id: event.id, event: invalid_attributes }
           event.reload
           expect(event.theater_id).not_to eq(invalid_attributes[:theater_id])
         end
@@ -143,7 +143,7 @@ RSpec.describe "Performances", type: :request do
 
       # it "redirects to the events page", :vcr do
       it "redirects to the events page" do
-        delete url , params:{ id: event.id, event: event.attributes }
+        delete url, params:{ id: event.id, event: event.attributes }
         expect(response).to redirect_to(events_path)
       end
     end

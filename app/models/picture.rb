@@ -38,10 +38,10 @@ class Picture < ApplicationRecord
       square: "450x450#",
       medium: "600x600>",
       thumb: "100x100>"
-    } ,
+    },
     processors: [:papercrop]
     # default_url: "images/default_photo/:style/default.jpg",
-    # ,default_url: "/images/:style/missing.png"
+    #,default_url: "/images/:style/missing.png"
 
   #delegate :firstname,:lastname, :full_name, to: :member
   # =====================
