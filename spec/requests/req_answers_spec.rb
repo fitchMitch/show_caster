@@ -18,7 +18,7 @@ RSpec.describe 'Answers', type: :request do
 
     describe 'DELETE #destroy' do
       let!(:answer) { create(:answer) }
-      let(:url) { "/answers/#{answer.to_param}" }
+      let(:url) { "/answers/#{ answer.to_param }" }
 
       it 'deletes Answer' do
         expect do
@@ -80,7 +80,7 @@ RSpec.describe 'Answers', type: :request do
 
       context 'with valid params' do
         it 'updates the requested answer (opinion)' do
-          url = "/answers/#{answer_opinion.to_param}"
+          url = "/answers/#{ answer_opinion.to_param }"
           put url, params: {
             id: answer_opinion.id,
             answer_label: new_attributes[:answer_label],
@@ -91,7 +91,7 @@ RSpec.describe 'Answers', type: :request do
         end
 
         it 'updates the requested answer (date)' do
-          url = "/answers/#{answer_date.to_param}"
+          url = "/answers/#{ answer_date.to_param }"
           put url, params: {
             id: answer_date.id,
             date_answer: new_attributes[:date_answer],
@@ -110,7 +110,7 @@ RSpec.describe 'Answers', type: :request do
         let(:answer) { create(:answer) }
 
         it 'assigns the answer as @answer' do
-          url = "/answers/#{answer.to_param}"
+          url = "/answers/#{ answer.to_param }"
           put url, params: { id: answer.id, answer: invalid_attributes }
           answer.reload
           expect(answer.answer_label).not_to eq(invalid_attributes[:answer_label])
@@ -118,7 +118,7 @@ RSpec.describe 'Answers', type: :request do
 
         it "re-renders the 'edit' template" do
           skip("for this never happens due to nested forms")
-          url = "/answers/#{answer.to_param}"
+          url = "/answers/#{ answer.to_param }"
           put url, params: { id: answer.id, answer: invalid_attributes }
           expect(response).to render_template :edit
         end

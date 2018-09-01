@@ -8,7 +8,7 @@ RSpec.feature  "Users", type: :feature do
     before :each do
       log_in admin
       visit users_path
-      selector = ".row.user-list.#{player.firstname}.#{player.lastname}"
+      selector = ".row.user-list.#{ player.firstname }.#{ player.lastname }"
       within (selector) do
         find_button.click
       end
@@ -33,7 +33,7 @@ RSpec.feature  "Users", type: :feature do
     before :each do
       log_in admin
       visit users_path
-      selector = ".row.user-list.#{player.firstname}.#{player.lastname}"
+      selector = ".row.user-list.#{ player.firstname }.#{ player.lastname }"
       within (selector) do
         find_button.click
       end

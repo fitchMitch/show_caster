@@ -6,7 +6,7 @@ class CoursesController < EventsController
 
   def new
     authorize(Course)
-    @event = Course.new({duration: 180})
+    @event = Course.new({ duration: 180})
   end
 
   def index
@@ -32,7 +32,7 @@ class CoursesController < EventsController
       redirect_to events_url(@event), notice: I18n.t("events.created")
     else
       respond_to do |format|
-        format.html { render :new}
+        format.html { render :new }
       end
     end
   end

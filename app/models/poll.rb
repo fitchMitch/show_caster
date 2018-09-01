@@ -46,9 +46,9 @@ class Poll < ApplicationRecord
   # Scope
   #-----------
   default_scope  -> { order('expiration_date ASC') }
-  scope :opinion_polls, -> {where('type = ?', 'PollOpinion') }
-  scope :date_polls, -> {where('type = ?', 'PollDate')}
-  scope :passed_ordered, -> {unscoped.order('expiration_date DESC') }
+  scope :opinion_polls, -> { where('type = ?', 'PollOpinion') }
+  scope :date_polls, -> { where('type = ?', 'PollDate')}
+  scope :passed_ordered, -> { unscoped.order('expiration_date DESC') }
   # scope :found_by, -> (user) { where('user_id = ?', user_id) }
   # scope :expecting_answer, -> { where(status: [:invited, :googled, :registered])}
   scope :expired, -> { where('expiration_date < ?', Time.zone.now) }

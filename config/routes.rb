@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   resources :users do
     resources :pictures, module: :users
   end
-  post '/promote',        to:  'users#promote'
-  post '/invite',        to:  'users#invite'
+  post '/promote', to:  'users#promote'
+  post '/invite',  to:  'users#invite'
 
   resources :sessions, only: %i[index new create destroy]
   get '/sesame_login' => 'sessions#new'
@@ -29,15 +29,15 @@ Rails.application.routes.draw do
   resources :poll_opinions, controller: :poll_opinions, type: 'PollOpinion' do
     # Votes
     resources :vote_opinions,
-      controller: :vote_opinions,
-      type: 'VoteOpinion',
-      shallow: true #  [:index, :new, :create] are nested
+              controller: :vote_opinions,
+              type: 'VoteOpinion',
+              shallow: true #  [:index, :new, :create] are nested
   end
   resources :poll_dates, controller: :poll_dates, type: 'PollDate' do
     # Votes
     resources :vote_dates,
-      controller: :vote_dates,
-      type: 'VoteDate'
+              controller: :vote_dates,
+              type: 'VoteDate'
   end
 
   # Answers

@@ -44,7 +44,7 @@ class GoogleCalendarService
       response = @calendar.get_event( company_calendar_id, id )
       response.id == id
     rescue
-      Rails.logger.debug("Calendar id fails here : #{id}")
+      Rails.logger.debug("Calendar id fails here : #{ id }")
       false
     end
   end
@@ -57,7 +57,7 @@ class GoogleCalendarService
         if existing_event? opt[:fk]
           @calendar.update_event(company_calendar_id, opt[:fk], make_a_google_event(opt))
         else
-          Rails.logger.debug("missing event in Google Calendar with id: #{opt[:fk]}")
+          Rails.logger.debug("missing event in Google Calendar with id: #{ opt[:fk]}")
           nil
         end
       end
@@ -72,7 +72,7 @@ class GoogleCalendarService
       if !event.try(:fk).nil? && existing_event?(event.fk)
         @calendar.delete_event(company_calendar_id, event.fk)
       else
-        Rails.logger.debug("fails to delete from GCalendar event id/fk: #{event.id} / #{event.fk}")
+        Rails.logger.debug("fails to delete from GCalendar event id/fk: #{ event.id } / #{ event.fk }")
         nil
       end
     rescue
@@ -83,7 +83,7 @@ class GoogleCalendarService
 
   def make_a_google_event(opt)
     theater_name = opt.fetch(:theater_name, I18n.t("events.nowhere"))
-    event_title = "events.#{opt.fetch(:title, "g_title.performance")}"
+    event_title = "events.#{ opt.fetch(:title, "g_title.performance")}"
     event_hash = {
       summary: I18n.t(event_title, name: theater_name),
       location: opt.fetch(:location, I18n.t("events.nowhere")),
@@ -99,8 +99,8 @@ class GoogleCalendarService
       attendees: opt.fetch(:attendees_email,[]),
       reminders: {
         override: [
-          {method: 'email', minutes: 2 * 24 * 60},
-          {method: 'popup', minutes: 8 * 60 }
+          { method: 'email', minutes: 2 * 24 * 60},
+          { method: 'popup', minutes: 8 * 60 }
         ],
         use_default: false
       }

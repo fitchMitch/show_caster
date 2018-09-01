@@ -3,7 +3,7 @@
     .col-md-3.room-left-15
       strong= l event.event_date, format:"%a %d %b à %Hh%M "
       br
-      = " #{event.title}"
+      = " #{ event.title }"
       br
       span.label.label-success
         = event.theater.theater_name
@@ -13,6 +13,6 @@
     .col-md-2.room-left-15
       - if policy(event).show? && event.type == 'Performance'
         = link_to fa_icon("eye lg"), event
-      = render partial: 'update_delete_icons', locals: {event: event}
+      = render partial: 'update_delete_icons', locals: { event: event }
 
   hr

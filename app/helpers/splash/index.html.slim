@@ -16,9 +16,9 @@ section.colored.primary#about
           .row.showing-off
             span.space-up-5
               strong
-                = "#{l event.event_date, format:"%a %d %B"} "
+                = "#{ l event.event_date, format:"%a %d %B"} "
               | à
-              =" #{l event.event_date, format:"%Hh%M"} au #{event.theater.theater_name}"
+              =" #{ l event.event_date, format:"%Hh%M"} au #{ event.theater.theater_name }"
 
 
         p
@@ -51,13 +51,13 @@ section.features#features
       p.space-up-50
 section.images
   .quarter-block
-    = image_tag asset_url "008.JPG", {class: "img-thumbnail"}
+    = image_tag asset_url "008.JPG", { class: "img-thumbnail"}
   .quarter-block
-    = image_tag asset_url "001.JPG", {class: "img-thumbnail"}
+    = image_tag asset_url "001.JPG", { class: "img-thumbnail"}
   .quarter-block
-    = image_tag asset_url "002.JPG", {class: "img-thumbnail"}
+    = image_tag asset_url "002.JPG", { class: "img-thumbnail"}
   .quarter-block
-    = image_tag asset_url "004.JPG", {class: "img-thumbnail"}
+    = image_tag asset_url "004.JPG", { class: "img-thumbnail"}
 p.space-up-250
 p#contact.space-up-25
 section.contact

@@ -31,7 +31,7 @@ class GoogleDriveService
     # Photos : https://drive.google.com/open?id=0B3Djw_z2qYLeRHFQMHlCd0VQc28
     # photo_folder_id = "0B3Djw_z2qYLedURtLVV4Mm9RVjA" # This is the Photos id, I think
     # photo_folder_id = "0B3Djw_z2qYLea0NyNmQwZnFqUWs" # This is the Photos id, I think
-    # q = "mimeType='image/jpeg' and sharedWithMe=true and '#{photo_folder_id}' in parents"
+    # q = "mimeType='image/jpeg' and sharedWithMe=true and '#{ photo_folder_id }' in parents"
     # q = "sharedWithMe=true and mimeType='application/vnd.google-apps.folder' and '0B3Djw_z2qYLea0NyNmQwZnFqUWs' in parents"
     q = "sharedWithMe=true and mimeType='application/vnd.google-apps.folder'"
     files =   @service.fetch_all(items: :files) do |page_token|

@@ -35,7 +35,7 @@ RSpec.describe PollOpinionPolicy do
   end
 
   context "As an admin_com" do
-    let!(:user) {FactoryBot.create(:user,:admin_com,:registered) }
+    let!(:user) { FactoryBot.create(:user,:admin_com,:registered) }
 
     subject { PollOpinionPolicy.new(user, poll)}
     it { is_expected.to     permit_action(:index) }

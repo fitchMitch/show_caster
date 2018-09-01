@@ -35,7 +35,7 @@ RSpec.describe PerformancePolicy do
   end
 
   context "As an admin_com" do
-    let!(:user) {FactoryBot.create(:user,:admin_com,:registered) }
+    let!(:user) { FactoryBot.create(:user,:admin_com,:registered) }
 
     subject { PerformancePolicy.new(user, performance)}
     it { is_expected.to     permit_action(:index) }

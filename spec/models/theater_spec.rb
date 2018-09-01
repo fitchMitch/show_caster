@@ -14,7 +14,7 @@ require 'rails_helper'
 RSpec.describe Theater, type: :model do
   context "with valid attributes" do
     let (:valid_attributes) {
-      {theater_name: "A la belle Etoile",
+      { theater_name: "A la belle Etoile",
       location: "12 de la rue",
       manager: "M.Jules",
       manager_phone: "0123456789"}

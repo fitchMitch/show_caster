@@ -9,9 +9,9 @@ class DashboardsController < ApplicationController
     @a_year = { a_year: 1.year.ago }
 
     requests = []
-    requests << Dashboard.new({role: 0, periods: @periods})
-    requests << Dashboard.new({role: 1, periods: @a_year})
-    requests << Dashboard.new({role: 2, periods: @a_year})
+    requests << Dashboard.new({ role: 0, periods: @periods })
+    requests << Dashboard.new({ role: 1, periods: @a_year })
+    requests << Dashboard.new({ role: 2, periods: @a_year })
 
     @res = set_perfs(requests)
   end

@@ -9,7 +9,7 @@
       = link_to edit_course_path(@event), class: 'btn btn-primary' do
         span.glyphicon.glyphicon-pencil
           = " #{ t('courses.edit_page_title') }"
-    h1= "Cours du #{l @event.event_date, format:"%A %d %B à %Hh%M"}"
+    h1= "Cours du #{ l @event.event_date, format:"%A %d %B à %Hh%M"}"
     h3= course_label(@event)
 
   dl.dl-horizontal

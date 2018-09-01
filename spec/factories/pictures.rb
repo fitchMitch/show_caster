@@ -19,7 +19,7 @@
 FactoryBot.define do
   factory :picture do
     fk                          {"aForeying_Key"}
-    photo                       {File.new("#{Rails.root}/spec/support/fixtures/pbhinanagkgpkadi.jpg")}
+    photo                       { File.new("#{ Rails.root }/spec/support/fixtures/pbhinanagkgpkadi.jpg")}
     note                        {"there is a note"}
     descro                      {"there is a descro"}
     factory :picture_event do

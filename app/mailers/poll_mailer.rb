@@ -10,6 +10,6 @@ class PollMailer < ApplicationMailer
 
   private
     def get_poll_url
-      "http://#{get_site}/polls"
+      "http://#{ get_site }/polls"
     end
 end

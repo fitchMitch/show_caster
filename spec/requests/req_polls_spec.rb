@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Polls", type: :request do
-  let(:valid_attributes) { {question: "A la belle Etoile ?", expiration_date: Date.today} }
+  let(:valid_attributes) { { question: "A la belle Etoile ?", expiration_date: Date.today } }
   let!(:admin) { create(:user, :admin, :registered) }
 
   context "/ As logged as admin," do

@@ -16,7 +16,7 @@ $(document).ready ->
     first_word = if cond then "Cours" else "Auto-coachée"
     #course_event_date_3i day
     #course_event_date_2i month
-    title = "#{first_word} du #{$("#course_event_date_3i").val()} #{$("#course_event_date_2i option:selected").text()} "
+    title = "#{ first_word } du #{$("#course_event_date_3i").val()} #{$("#course_event_date_2i option:selected").text()} "
     $("#course_title").val(title)
 
   # ---------------------------

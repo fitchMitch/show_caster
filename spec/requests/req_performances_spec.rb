@@ -22,7 +22,7 @@ RSpec.describe "Performances", type: :request do
     } }
 
   context "/ As logged as admin," do
-    let!(:admin) {create(:user)}
+    let!(:admin) { create(:user)}
     before :each do
       request_log_in(admin)
     end
@@ -45,7 +45,7 @@ RSpec.describe "Performances", type: :request do
         # it "creates a new Event", :vcr do
         it "creates a new Event" do
           expect {
-            post '/performances', params: {event: valid_attributes}
+            post '/performances', params: { event: valid_attributes }
           }.to change(Event, :count).by(1)
         end
       end
@@ -59,7 +59,7 @@ RSpec.describe "Performances", type: :request do
 
       context "posting with valid params" do
         before :each do
-          post '/performances', params: {event: valid_attributes}
+          post '/performances', params: { event: valid_attributes }
         end
         # it "creates every attribute", :vcr do
         it "creates every attribute"do
@@ -72,7 +72,7 @@ RSpec.describe "Performances", type: :request do
       end
       context "posting with invalid params" do
         before :each do
-          post '/performances', params: {event: invalid_attributes}
+          post '/performances', params: { event: invalid_attributes }
         end
         it "creates nothing" do
           expect(Event.count.zero?).to be(true)
@@ -84,7 +84,7 @@ RSpec.describe "Performances", type: :request do
       let!(:other_theater){ create(:other_theater)}
       let!(:theater){ create(:theater)}
       let(:new_attributes_theater) {
-        {theater_id: other_theater.id}
+        { theater_id: other_theater.id }
       }
       let(:new_attributes) {
         { note:"A strange delight",
@@ -99,7 +99,7 @@ RSpec.describe "Performances", type: :request do
       context "with invalid params" do
 
         it "updates the requested event with a new theater_id" do
-          url = "/performances/#{event.to_param}"
+          url = "/performances/#{ event.to_param }"
           put url, params:{ id: event.id, event:new_attributes_theater }
           event.reload
           expect(event).to have_attributes(
@@ -108,7 +108,7 @@ RSpec.describe "Performances", type: :request do
         end
 
         it "redirects to the users page" do
-          url = "/performances/#{event.to_param}"
+          url = "/performances/#{ event.to_param }"
           put url, params:{ id: event.id, event: new_attributes }
           expect(response).to redirect_to events_path
         end
@@ -116,14 +116,14 @@ RSpec.describe "Performances", type: :request do
 
       context "with invalid params" do
         it "assigns the event as @event" do
-          url = "/performances/#{event.to_param}"
+          url = "/performances/#{ event.to_param }"
           put url, params:{ id: event.id, event: invalid_attributes }
           event.reload
           expect(event.theater_id).not_to eq(invalid_attributes[:theater_id])
         end
 
         it "re-renders the 'edit' template" do
-          url = "/performances/#{event.to_param}"
+          url = "/performances/#{ event.to_param }"
           put url, params:{ id: event.id, event: invalid_attributes }
           expect(response).to render_template :edit
         end
@@ -132,7 +132,7 @@ RSpec.describe "Performances", type: :request do
     describe "DELETE #destroy" do
       let(:valid_session) { request_log_in( admin ) }
       let!(:event) { create(:performance) }
-      let(:url) { "/performances/#{event.to_param}" }
+      let(:url) { "/performances/#{ event.to_param }" }
 
       # it "deletes Event", :vcr do
       it "deletes Event" do

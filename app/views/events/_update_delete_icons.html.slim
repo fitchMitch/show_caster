@@ -3,4 +3,4 @@
   = link_to fa_icon("edit lg" ), edit_event_path(event)
 - if policy(event).destroy?
   = image_tag('transp.png')
-  = link_to(fa_icon("trash lg"), event, class:'destroy', id: 'destroy', data: {confirm: t('sure_question')}, method: :delete)
+  = link_to(fa_icon("trash lg"), event, class:'destroy', id: 'destroy', data: { confirm: t('sure_question')}, method: :delete)

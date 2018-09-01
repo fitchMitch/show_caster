@@ -68,7 +68,7 @@ ul.navbar-right{
 $splash-section-padding: 4em;
 .inner-column {
   h1 { color:$sesame-yellow;}
-  input {background-color: $sesame-blue;}
+  input { background-color: $sesame-blue;}
 }
 
 body.splash {
@@ -97,7 +97,7 @@ body.splash {
     padding-top: 4 * $font-size-base + $slideup-navbar-height;
     background-size: cover;
     min-height: 600px;
-    p {padding: 2em 0;}
+    p { padding: 2em 0;}
     overflow: hidden;
     position: relative;
 

@@ -18,6 +18,6 @@ FactoryBot.define do
     lastname
     email
     cell_phone_nr
-    note                    {FFaker::LoremFR.phrases(2).join('')}
+    note                    { FFaker::LoremFR.phrases(2).join('')}
   end
 end

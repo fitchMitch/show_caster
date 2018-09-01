@@ -16,7 +16,7 @@
         = link_to_edit(poll)
       - if policy(poll).destroy?
         = image_tag('transp.png')
-        = link_to(fa_icon("trash lg"), poll, class:'destroy', id: 'destroy', data: {confirm: t('sure_question')}, method: :delete)
+        = link_to(fa_icon("trash lg"), poll, class:'destroy', id: 'destroy', data: { confirm: t('sure_question')}, method: :delete)
   small.text-muted
     .row
       .col-md-4

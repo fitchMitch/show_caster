@@ -1,6 +1,6 @@
 .container
   h2.edit_user
-    = "#{@user.full_name}"
+    = "#{@user.full_name }"
     - if policy(@user).edit?
       = link_to edit_user_path(@user) do
         = image_tag('transp.png')
@@ -12,7 +12,7 @@
         .image-container
           .image-part
             = image_tag(@user.pictures.first.photo(:square), width:350)
-          = render partial: 'pictures/link_part', locals: {imageable: @user, picto: @user.pictures.first}
+          = render partial: 'pictures/link_part', locals: { imageable: @user, picto: @user.pictures.first }
           i
             small= t("users.photograph_comment")
         p.bio= @user.bio unless @user.try(:bio).nil?
@@ -56,8 +56,8 @@
             .tab-content
               - if policy(@user).promote?
                 #person_role.tab-pane.fade role="tabpanel"
-                  = render partial: 'show_role', locals: {user: @user}
+                  = render partial: 'show_role', locals: { user: @user }
               #person_photograph.tab-pane.fade.in.active role="tabpanel"
-                = render partial: 'show_photograph', locals: {user: @user}
+                = render partial: 'show_photograph', locals: { user: @user }
               #person_bio.tab-pane.fade role="tabpanel"
-                = render partial: 'show_bio', locals: {user: @user}
+                = render partial: 'show_bio', locals: { user: @user }

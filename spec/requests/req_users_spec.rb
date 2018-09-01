@@ -3,19 +3,19 @@ require 'rails_helper'
 
 RSpec.describe "Users", type: :request do
    let (:valid_attributes) {
-         {firstname: "eric",
+         { firstname: "eric",
          lastname: "bicon",
          email: "gogo@lele.fr",
          cell_phone_nr: "0163456789"}
        }
    let (:new_valid_attributes) {
-         {firstname: "Gelle",
+         { firstname: "Gelle",
          lastname: "Lieffer",
          email: "gaga@lele.fr",
          cell_phone_nr: "0123488789"}
        }
    let (:invalid_attributes) {
-         {firstname: "eric",
+         { firstname: "eric",
          lastname: "bicon",
          email: "gogo@lelefr",
          cell_phone_nr: "0123456789"}
@@ -38,7 +38,7 @@ RSpec.describe "Users", type: :request do
       it "builds a new User" do
         user = User.new valid_attributes
         expect(user).to be_valid
-        post '/users', params: {user: valid_attributes}
+        post '/users', params: { user: valid_attributes }
         expect(response).to redirect_to users_path
       end
     end
@@ -58,7 +58,7 @@ RSpec.describe "Users", type: :request do
         it "creates a new User" do
           user = User.new valid_attributes
           expect(user).to be_valid
-          post '/users', params: {user: valid_attributes}
+          post '/users', params: { user: valid_attributes }
           expect(response).to redirect_to users_path
         end
       end
@@ -69,7 +69,7 @@ RSpec.describe "Users", type: :request do
         it "fails to create a new User" do
           user = User.new invalid_attributes
           expect(user).not_to be_valid
-          post '/users', params: {user: invalid_attributes}
+          post '/users', params: { user: invalid_attributes }
           expect(response).to render_template(:new)
         end
       end
@@ -79,10 +79,10 @@ RSpec.describe "Users", type: :request do
         before :each do
           @admin = create(:user, :admin, :setup)
           request_log_in @admin
-          @url = "/users/#{@admin.id}"
+          @url = "/users/#{@admin.id }"
         end
         it "is ok" do
-          put @url, params: {id: @admin.id, user: new_valid_attributes}
+          put @url, params: { id: @admin.id, user: new_valid_attributes }
           expect(response).to redirect_to users_path
         end
       end
@@ -90,10 +90,10 @@ RSpec.describe "Users", type: :request do
         before :each do
           @admin = create(:user, :admin, :setup)
           request_log_in @admin
-          @url = "/users/#{@admin.id}"
+          @url = "/users/#{@admin.id }"
         end
         it "fails to update user" do
-          put @url, params: {id: @admin.id, user: invalid_attributes}
+          put @url, params: { id: @admin.id, user: invalid_attributes }
           expect(response).to render_template(:edit)
         end
       end

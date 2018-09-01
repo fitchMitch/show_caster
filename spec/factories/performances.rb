@@ -21,7 +21,7 @@
 
 FactoryBot.define do
   factory :performance do
-    event_date      {Time.zone.now + 2.days}
+    event_date      { Time.zone.now + 2.days }
     duration        {100}
     note            {'MyText'}
     title           {'Les mentals enterrés'}

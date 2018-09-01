@@ -57,7 +57,7 @@ class User < ApplicationRecord
 
   # scope :found_by, -> (user) { where('user_id = ?', user_id) }
   scope :active, -> { where(status: [:invited, :googled, :registered])}
-  scope :active_count, -> { active.count}
+  scope :active_count, -> { active.count }
   # =====================
 
   # Validations
@@ -77,7 +77,7 @@ class User < ApplicationRecord
   # ------------------------
   def full_name
     text = self.first_and_last_name
-    text = "#{I18n.t("users.deleted_name")} -  #{text}" if self.archived?
+    text = "#{ I18n.t("users.deleted_name")} -  #{ text }" if self.archived?
     text.html_safe
   end
 

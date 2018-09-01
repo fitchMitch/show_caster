@@ -17,7 +17,7 @@ require 'rails_helper'
 
 RSpec.describe Vote, type: :model do
   context "validations" do
-    let(:vote) {FactoryBot.build(:vote_opinion)}
+    let(:vote) { FactoryBot.build(:vote_opinion)}
     subject { vote }
 
     it { should belong_to(:poll)}
@@ -30,8 +30,8 @@ RSpec.describe Vote, type: :model do
 
   context  "Persistance (opinion)" do
     let!(:symfields) { %i(vote_label comment) }
-    let!(:valid_attributes_opinion) { build(:vote_opinion).attributes}
-    let!(:vote_op){create(:vote_opinion, valid_attributes_opinion)}
+    let!(:valid_attributes_opinion) { build(:vote_opinion).attributes }
+    let!(:vote_op){ create(:vote_opinion, valid_attributes_opinion)}
 
     it "when done through factory should be ok" do
       symfields.each do |s_field|
@@ -42,8 +42,8 @@ RSpec.describe Vote, type: :model do
 
   context "Persistance (date)" do
     let(:symfields) { %i(vote_label comment ) }
-    let!(:valid_attributes_date) { build(:vote_date).attributes}
-    let(:vote_da){create(:vote_date, valid_attributes_date)}
+    let!(:valid_attributes_date) { build(:vote_date).attributes }
+    let(:vote_da){ create(:vote_date, valid_attributes_date)}
 
     it "when done through factory should be ok" do
       symfields.each do |s_field|
@@ -53,8 +53,8 @@ RSpec.describe Vote, type: :model do
   end
 
   context "with invalid attributes" do
-    let!(:invalid_poll_attribute) { FactoryBot.build(:vote_date, poll_id: nil).attributes}
-    let!(:invalid_user_attribute) { FactoryBot.build(:vote_date, user_id: nil).attributes}
+    let!(:invalid_poll_attribute) { FactoryBot.build(:vote_date, poll_id: nil).attributes }
+    let!(:invalid_user_attribute) { FactoryBot.build(:vote_date, user_id: nil).attributes }
     it "tolerates empty fields but the poll_id" do
       vote = build(:vote, invalid_poll_attribute)
       expect(vote).not_to be_valid

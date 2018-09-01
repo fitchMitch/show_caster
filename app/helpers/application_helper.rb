@@ -26,7 +26,7 @@ module ApplicationHelper
   end
 
   def red_point(current_user)
-    bell = "<span class='bell'>#{fa_icon("bell")}</span>"
+    bell = "<span class='bell'>#{ fa_icon("bell")}</span>"
     Poll.expecting_my_vote(current_user) > 0 ? bell.html_safe : ""
   end
 
@@ -43,7 +43,7 @@ module ApplicationHelper
   end
 
   def user_badge(u)
-    "<span class=\"badge badge-default\">#{u.trigram}</span>".html_safe
+    "<span class=\"badge badge-default\">#{ u.trigram }</span>".html_safe
   end
 
   def search_hash_key(thisHash, value)
@@ -108,7 +108,7 @@ module ApplicationHelper
       a_year: 365 * 24 * 60 * 60
     }
     s = Time.zone.now.strftime('%s').to_i - t1.strftime('%s').to_i
-    time_data = {s: s, t1: t1, direction: 'past'}
+    time_data = { s: s, t1: t1, direction: 'past'}
 
     if s < 0
       time_data[:direction] = 'future'

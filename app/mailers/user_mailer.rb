@@ -19,6 +19,6 @@ class UserMailer < ApplicationMailer
   private
     def get_user_s_url(user)
       site = Rails.application.config.action_mailer.default_url_options[:host]
-      "http://#{site}/users/#{user.id}"
+      "http://#{ site }/users/#{ user.id }"
     end
 end

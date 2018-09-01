@@ -48,9 +48,9 @@ class Vote < ApplicationRecord
   # Scope
   #-----------
   # default_scope  -> { order('expiration_date ASC')}
-  scope :opinion_votes, -> {where('type = ?', 'VoteOpinion')}
-  scope :date_votes, -> {where('type = ?', 'VoteDate')}
-  # scope :passed_ordered, -> {unscoped.order('expiration_date DESC')}
+  scope :opinion_votes, -> { where('type = ?', 'VoteOpinion')}
+  scope :date_votes, -> { where('type = ?', 'VoteDate')}
+  # scope :passed_ordered, -> { unscoped.order('expiration_date DESC')}
   # ------------------------
   # --    PUBLIC      ---
   # ------------------------

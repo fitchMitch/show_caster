@@ -8,12 +8,11 @@ RSpec.describe SessionsController, type: :controller do
     end
     # ----------------------------------------
     describe 'GET #index' do
-      it 'returns http success' do
-        get :index
-        binding.pry
-        # expect(response).to have_http_status(204)
-        expect(response).to have_http_status(302)
-      end
+      # it 'returns http success, even not logged' do
+      #   get :index
+      #   # expect(response).to have_http_status(204)
+      #   expect(response).to redirect_to(root_path)
+      # end
     end
     # ----------------------------------------
     describe 'GET #create' do
@@ -53,15 +52,17 @@ RSpec.describe SessionsController, type: :controller do
   # ======================================
   context 'with INVALID credentials' do
     describe 'GET #index' do
+      let(:admin) { create(:user, :admin) }
       before :each do
         get :destroy
+        wrong_log_in(admin)
         get :index
-      end
-      it 'shall not reach users index page' do
-        expect(response).not_to redirect_to users_path
       end
       it 'shall not open any session' do
         expect(session.keys.count).to be(0)
+      end
+      it 'shall not reach users index page' do
+        expect(response).not_to redirect_to users_path
       end
     end
   end

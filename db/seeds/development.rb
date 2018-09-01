@@ -68,9 +68,9 @@ Theater.create!(
   manager_phone:        '0521452142'
 )
 Theater.create!(
-  theater_name:       "Le #{FFaker::Animal.common_name} agité",
+  theater_name:       "Le #{ FFaker::Animal.common_name } agité",
   location:              FFaker::AddressFR::unique.full_address,
-  manager:              "Mr. #{FFaker::NameFR::unique.last_name}",
+  manager:              "Mr. #{ FFaker::NameFR::unique.last_name }",
   manager_phone:        FFaker::PhoneNumberFR::mobile_phone_number
 )
 theaters = Theater.all
@@ -78,7 +78,7 @@ theaters = Theater.all
 # Events
 
 16.times do |n|
-  name  = "Le #{FFaker::Name.name} étoilé "
+  name  = "Le #{ FFaker::Name.name } étoilé "
   event_date = today + (-200..200).to_a.sample * 3600 * 24
   duration = Event::DURATIONS.sample[1]
   note = FFaker::Lorem::paragraph(1)
@@ -99,7 +99,7 @@ performances = Performance.all
 
 14.times do |n|
   event_date = today + (-200..200).to_a.sample * 3600 * 24
-  name  = "Cours du #{event_date}"
+  name  = "Cours du #{ event_date }"
   duration = Event::DURATIONS.sample[1]
   note = FFaker::Lorem::paragraph(1)
   Course.create!(
@@ -137,7 +137,7 @@ Coach.create!(
 )
 # PollOpinions
 2.times do |n|
-  question = "#{FFaker::Lorem::sentence(1)} ?"
+  question = "#{ FFaker::Lorem::sentence(1)} ?"
   expiration_date = Date.today + (10..30).to_a.sample.days
   PollOpinion.create!(
     question:           question,
@@ -149,7 +149,7 @@ poll_opinions = PollOpinion.all
 
 # PollDates
 2.times do |n|
-  question = "Quand fait on le #{FFaker::Lorem::sentence(1)} ?"
+  question = "Quand fait on le #{ FFaker::Lorem::sentence(1)} ?"
   expiration_date = Date.today + (10..30).to_a.sample.days
   PollDate.create!(
     question:           question,

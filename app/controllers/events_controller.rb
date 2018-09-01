@@ -71,11 +71,11 @@ class EventsController < ApplicationController
 
     def events_url(obj)
       obj_type = obj.class.name.pluralize.downcase
-      send "#{obj_type}_url".to_sym
+      send "#{ obj_type }_url".to_sym
     end
 
     def event_url(obj)
       obj_type = obj.class.name.downcase
-      send "#{obj_type}_url".to_sym, obj
+      send "#{ obj_type }_url".to_sym, obj
     end
 end

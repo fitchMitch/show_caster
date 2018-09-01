@@ -4,7 +4,7 @@ require 'polls_helper'
 RSpec.feature "PollOpinion" do
   feature "as a registered admin" do
     def fill_form(form_type, id=nil, valid=true)
-      form_label = id.nil? ? "##{form_type}_poll_opinion" : "##{form_type}_poll_opinion_#{id}"
+      form_label = id.nil? ? "##{ form_type }_poll_opinion" : "##{ form_type }_poll_opinion_#{ id }"
       source = valid == true ? poll_opinion_attributes : poll_opinion_bad_attributes
       within form_label do
         fill_in "poll_opinion_question", with: source[:question]

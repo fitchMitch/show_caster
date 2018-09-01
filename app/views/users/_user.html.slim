@@ -1,4 +1,4 @@
-.row.user-list class= "#{user.firstname} #{user.lastname}"
+.row.user-list class= "#{ user.firstname } #{ user.lastname }"
   .col-md-3
     - if user.photo_url.present?
       = image_tag(user.photo_url, size: "35x35")

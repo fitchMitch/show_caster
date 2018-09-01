@@ -12,7 +12,7 @@ class VoteDatesController < VotesController
         .where('answer_id = ?', answer.id)
         .where('user_id = ?', current_user.id)
       vote = votes.any? ? votes.first : nil
-      @answers_votes << {answer: answer, vote: vote}
+      @answers_votes << { answer: answer, vote: vote }
     end
   end
 

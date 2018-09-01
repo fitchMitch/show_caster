@@ -49,7 +49,7 @@ RSpec.feature  "Theater" do
         log_in admin
         theater = create(:theater)
         visit edit_theater_path(theater)
-        within "#edit_theater_#{theater.id}" do
+        within "#edit_theater_#{ theater.id }" do
           fill_in "theater_theater_name", with: "Edouard IV"
           fill_in "theater_location", with: "the place to be"
           fill_in "theater_manager", with: "Edouard himself"
@@ -73,7 +73,7 @@ RSpec.feature  "Theater" do
         log_in admin
         theater = create(:theater)
         visit edit_theater_path(theater)
-        within "#edit_theater_#{theater.id}" do
+        within "#edit_theater_#{ theater.id }" do
           fill_in "theater_theater_name", with: ""
           fill_in "theater_location", with: "the place to be"
           fill_in "theater_manager", with: "Edouard himself"

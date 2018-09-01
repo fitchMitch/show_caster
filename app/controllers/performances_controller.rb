@@ -30,7 +30,7 @@ class PerformancesController < EventsController
       redirect_to events_url(@event), notice: I18n.t("events.created")
     else
       respond_to do |format|
-        format.html { render :new}
+        format.html { render :new }
       end
     end
   end
@@ -41,7 +41,7 @@ class PerformancesController < EventsController
       attendees_email = []
       attendees_ids.each do |id|
         email = User.find_by(id: id).email
-        attendees_email << {email: email}
+        attendees_email << { email: email }
       end
 
       opt = {
