@@ -24,9 +24,9 @@ class Vote < ApplicationRecord
   # Enums
   #-----------
   enum vote_label: {
-    :noway => 0,
-    :yess => 1,
-    :maybe => 2
+    noway: 0,
+    yess: 1,
+    maybe: 2
   }
 
   # Relationships

@@ -2,11 +2,11 @@
 .container
   .page-header
     span.room-right-15
-      = link_to courses_path, :class => 'btn btn-default' do
+      = link_to courses_path, class: 'btn btn-default' do
         span.glyphicon.glyphicon-list-alt
           = " #{ t("back") }"
     - if @event.present? && policy(@event).edit?
-      = link_to edit_course_path(@event), :class => 'btn btn-primary' do
+      = link_to edit_course_path(@event), class: 'btn btn-primary' do
         span.glyphicon.glyphicon-pencil
           = " #{ t('courses.edit_page_title') }"
     h1= "Cours du #{l @event.event_date, format:"%A %d %B à %Hh%M"}"

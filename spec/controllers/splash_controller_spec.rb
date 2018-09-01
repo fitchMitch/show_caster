@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SplashController, :type => :controller do
+RSpec.describe SplashController, type: :controller do
   # before :each do
   #   begin
   #     # Devise
@@ -60,8 +60,8 @@ RSpec.describe SplashController, :type => :controller do
       # assign( :gibbon_api, double( "API" ) )
 
       stub_request(:post, "https://api.mailchimp.com/2.0/lists/subscribe").
-        with(:body => "{\"apikey\":\"1\",\"id\":\"1\",\"email\":{\"email\":null},\"double_optin\":true}").
-        to_return(:status => 200, :body => "", :headers => {})
+        with(body: "{\"apikey\":\"1\",\"id\":\"1\",\"email\":{\"email\":null},\"double_optin\":true}").
+        to_return(status: 200, body: "", headers: {})
 
       post :signup, xhr: true, params: { email: "wschenk@gmail.com" }
 

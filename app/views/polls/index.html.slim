@@ -4,11 +4,11 @@
     - if policy(Poll).new?
       .row.action-line
         .col-md-3
-          = link_to new_poll_date_path, :class => 'btn btn-primary' do
+          = link_to new_poll_date_path, class: 'btn btn-primary' do
             span.glyphicon.glyphicon-calendar
               = " #{t('polls.new_date')}"
         .col-md-3
-          = link_to new_poll_opinion_path, :class => 'btn btn-primary' do
+          = link_to new_poll_opinion_path, class: 'btn btn-primary' do
             span.glyphicon.glyphicon-question-sign
               = " #{t('polls.new_opinion')}"
 

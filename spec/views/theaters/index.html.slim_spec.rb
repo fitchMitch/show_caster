@@ -5,16 +5,16 @@ RSpec.describe "theaters/index", type: :view do
    # allow(view).to receive(:policy).and_return(double(TheaterPolicy, new?: true))
     assign(:theaters, [
       Theater.create!(
-        :theater_name => "Theater Name",
-        :location => "Theater Address",
-        :manager => "Manager",
-        :manager_phone => "0123654789"
+        theater_name: "Theater Name",
+        location: "Theater Address",
+        manager: "Manager",
+        manager_phone: "0123654789"
       ),
       Theater.create!(
-        :theater_name => "Theater Name",
-        :location => "Theater Address",
-        :manager => "Manager",
-        :manager_phone => "0123654789"
+        theater_name: "Theater Name",
+        location: "Theater Address",
+        manager: "Manager",
+        manager_phone: "0123654789"
       )
     ])
   end

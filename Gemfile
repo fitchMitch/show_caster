@@ -8,6 +8,8 @@ end
 # Technical
 # -----------------------
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+ruby "2.2.7"
+
 gem 'rails',                                                '~> 5.0.6'
 gem 'pg',                                                   '~> 0.20'
 gem 'jbuilder',                                             '~> 2.5'
@@ -56,11 +58,13 @@ group :development, :test do
   gem 'pry-byebug',                                           '~> 3.6'
   gem "slim-rails",                                           '~> 3.1'
   gem 'rubocop-rspec',                                        '~> 1.28'
-  # gem 'rspec', '~> 3.7.0'
-  # gem 'rspec-rails'
-  %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
-    gem lib, :git => "https://github.com/rspec/#{lib}.git", :branch => 'master'
-  end
+  gem 'rspec', '~> 3.7.0'
+  gem 'rspec-collection_matchers'
+  gem 'rspec-rails'
+  gem 'shoulda'
+  # %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
+  #   gem lib, git: "https://github.com/rspec/#{lib}.git", branch: 'master'
+  # end
   gem "database_cleaner",                                       '~> 1.7'
   gem 'rails-controller-testing',                               '~> 1.0'
   gem 'shoulda-matchers',                                       '~> 3.1'
@@ -89,7 +93,7 @@ group :test do
   gem 'pundit-matchers',                                        '~> 1.4.1'
 end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :production do
   gem 'lograge',    '~> 0.10'

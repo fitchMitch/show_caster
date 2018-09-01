@@ -2,7 +2,7 @@
   .page-header
     - if policy(Coach).new?
       .page-header
-        = link_to new_coach_path, :class => 'btn btn-primary' do
+        = link_to new_coach_path, class: 'btn btn-primary' do
           span.glyphicon.glyphicon-plus
           = " #{t("coaches.new")}"
     h2= t("coaches.list")

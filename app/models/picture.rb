@@ -56,7 +56,7 @@ class Picture < ApplicationRecord
   # Validations
   # =====================
   validates_attachment_content_type :photo, content_type: /\Aimage\/.*\z/
-  crop_attached_file :photo, :aspect => false
+  crop_attached_file :photo, aspect: false
   validates_attachment :photo,
     presence: true,
     size: { in: 0..4.megabytes }

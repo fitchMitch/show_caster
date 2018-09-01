@@ -34,7 +34,7 @@ User.create!(
   if is_registered
     cell_phone_nr =        FFaker::PhoneNumberFR::mobile_phone_number
     address =              FFaker::AddressFR::unique.full_address
-    # :setup => 0, :invited => 1, :googled => 2, :registered => 3, :archived => 4
+    # setup: 0, invited: 1, googled: 2, registered: 3, archived: 4
     status =               3
   else
     status =              (0..3).to_a.sample

@@ -32,17 +32,17 @@ class User < ApplicationRecord
 
   # Enums
   enum status: {
-    :setup => 0,
-    :invited => 1,
-    :googled => 2,
-    :registered => 3,
-    :archived => 4
+    setup: 0,
+    invited: 1,
+    googled: 2,
+    registered: 3,
+    archived: 4
   }
   enum role: {
-    :player => 0,
-    :admin_com => 1,
-    :admin => 2,
-    :other => 3
+    player: 0,
+    admin_com: 1,
+    admin: 2,
+    other: 3
   }
 
   # Relationships

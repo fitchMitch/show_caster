@@ -2,7 +2,7 @@
   .page-header
     - if policy(Theater).new?
       .page-header
-        = link_to new_theater_path, :class => 'btn btn-primary' do
+        = link_to new_theater_path, class: 'btn btn-primary' do
           span.glyphicon.glyphicon-plus
           = " #{t("theaters.new")}"
     h2= t("theaters.list")

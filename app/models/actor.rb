@@ -17,10 +17,10 @@ class Actor < ApplicationRecord
 
   # Enums
   enum stage_role: {
-      :player => 0,
-      :dj => 1,
-      :mc => 2,
-      :other => 3
+      player: 0,
+      dj: 1,
+      mc: 2,
+      other: 3
     }
 
   # Relationships

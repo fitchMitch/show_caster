@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe "theaters/new", type: :view do
   before(:each) do
     assign(:theater, Theater.new(
-      :theater_name => "MyString",
-      :location => "MyString",
-      :manager => "MyString",
-      :manager_phone => "MyString"
+      theater_name: "MyString",
+      location: "MyString",
+      manager: "MyString",
+      manager_phone: "MyString"
     ))
   end
 
