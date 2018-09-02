@@ -1,16 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe SplashController, type: :controller do
-  # before :each do
-  #   begin
-  #     # Devise
-  #     # sign_out :player
-  #     # sign_out :admin
-  #     logout
-  #   rescue NameError
-  #   end
-  # end
-
   after do
     ENV['HTTP_AUTH_USERNAME'] = nil
     ENV['HTTP_AUTH_PASSWORD'] = nil

@@ -42,7 +42,8 @@ Rails.application.configure do
 
   config.action_mailer.raise_delivery_errors = true
   # config.action_mailer.delivery_method = :smtp
-  host = 'localhost:3000' # Don't use this literally; use your local dev host instead
+  # Don't use this literally; use your local dev host instead
+  host = 'localhost:3000'
   config.action_mailer.default_url_options = { host: host }
 
   ActionMailer::Base.smtp_settings = {
@@ -50,7 +51,7 @@ Rails.application.configure do
     port:            '587',
     authentication: :plain,
     user_name:       ENV['SMTP_EMAIL'],
-    password:        ENV['SMTP_PASSWORD'],
+    password:        ENV['SMTP_PASSWORD']
   }
 
   # Print deprecation notices to the Rails logger.

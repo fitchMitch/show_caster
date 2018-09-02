@@ -25,10 +25,19 @@ module ShowCaster
     config.generators.system_tests = nil
 
     # I18n
-    config.i18n.load_path += Dir[Rails.root.join('lib','locale','*.{ rb, yml }')]
-    config.i18n.load_path += Dir[Rails.root.join('config','locales','**','*.yml')]
+    config.i18n.load_path += Dir[Rails.root.join(
+      'lib',
+      'locale',
+      '*.{ rb, yml }'
+    )]
+    config.i18n.load_path += Dir[Rails.root.join(
+      'config',
+      'locales',
+      '**',
+      '*.yml'
+    )]
     # Whitelist locales available for the application
-    config.i18n.available_locales = [:en, :fr]
+    config.i18n.available_locales = %i[en fr]
     config.i18n.default_locale = :fr
 
     config.time_zone = 'Paris'

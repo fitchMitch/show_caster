@@ -11,19 +11,26 @@
 
 FactoryBot.define do
   factory :theater do
-    theater_name        {"Au #{ FFaker::Animal::unique.common_name } enfumé"}
+    theater_name        { "Au #{FFaker::Animal::unique.common_name} enfumé" }
     location            { FFaker::AddressFR::full_address }
-    manager             {"Tolier"}
-    manager_phone       {"0148245774"}
+    manager             { 'Tolier' }
+    manager_phone       { '0148245774' }
 
-    factory :theater_with_event do
-
+    factory :theater_with_performance do
       transient do
-        events_count {1}
+        events_count { 1 }
       end
-
       after(:create) do |theater, evaluator|
         create_list(:performance, evaluator.events_count, theater: theater)
+      end
+    end
+
+    factory :theater_with_course do
+      transient do
+        events_count { 1 }
+      end
+      after(:create) do |theater, evaluator|
+        create_list(:course, evaluator.events_count, theater: theater)
       end
     end
   end
