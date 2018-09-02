@@ -1,9 +1,7 @@
 module Sessions
   module LoginHelper
-    def request_for_google(user, valid = true)
+    def request_for_google(user, valid= true)
       request.env['omniauth.auth'] = {
-        'provider' => 'google_oauth2',
-        'uid' =>  user.uid,
         'info' =>  {
           'name' =>  user.full_name,
           'email' =>  user.email,
@@ -19,11 +17,11 @@ module Sessions
           'refresh_token' => '1/52gjoGWkNN4ae5fP_i4-P9ZsrjXosy_zBmpjWOGhzBQ',
           'expires_at' => 1524340628,
           'expires' => true
-          }
         }
-      unless valid
-        request.env['omniauth.auth'][:provider] = ''
-        request.env['omniauth.auth'][:uid] = ''
+      }
+      if valid == true
+        request.env['omniauth.auth']['provider'] = 'google_oauth2'
+        request.env['omniauth.auth']['uid'] = user.uid
       end
       request.env['omniauth.auth'].with_indifferent_access
     end
@@ -31,12 +29,12 @@ module Sessions
     def log_in(user)
       request.env['omniauth.auth'] = request_for_google(user)
       # get '/auth/:provider/callback', params: { provider: "google_oauth2" }
-      get :create, params: { provider: 'google_oauth2'}
+      get :create, params: { provider: 'google_oauth2' }
     end
 
     def wrong_log_in(user)
       request.env['omniauth.auth'] = request_for_google(user, false)
-      get :create, params: { provider: 'google_oauth2'}
+      get :create, params: { provider: 'google_oauth2' }
     end
 
     def log_in_admin
