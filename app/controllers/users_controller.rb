@@ -10,7 +10,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     authorize(@user)
     if @user.save
-      redirect_to users_path, notice: I18n.t("users.setup", full_name: @user.full_name)
+      redirect_to users_path,
+                  notice: I18n.t('users.setup', full_name: @user.full_name)
     else
       render :new
     end
@@ -23,7 +24,7 @@ class UsersController < ApplicationController
 
   def edit
     authorize(@user)
-    target = @user.setup? ? "edit" : "complement"
+    target = @user.setup? ? 'edit' : 'complement'
     render target.to_s
   end
 
@@ -33,11 +34,12 @@ class UsersController < ApplicationController
 
   def update
     authorize(@user)
-    params[:user][:status] = "registered" unless user_params[:cell_phone_nr].blank?
+    phone_exists = user_params[:cell_phone_nr].blank?
+    params[:user][:status] = 'registered' unless phone_exists
     if @user.update_attributes(user_params)
-      redirect_to users_path, notice: I18n.t("users.updated")
+      redirect_to users_path, notice: I18n.t('users.updated')
     else
-      render :edit, notice: I18n.t("users.not_updated")
+      render :edit, notice: I18n.t('users.not_updated')
     end
   end
 
@@ -63,10 +65,11 @@ class UsersController < ApplicationController
   def invite
     @user = User.find(params[:user][:id])
     return if @user.nil?
-    @user.status = "invited"
+    @user.status = 'invited'
     if @user.save
       @user.welcome_mail
-      redirect_to user_path(@user), notice: I18n.t('users.invited', name: @user.full_name)
+      redirect_to user_path(@user),
+                  notice: I18n.t('users.invited', name: @user.full_name)
     else
       flash[:alert] = I18n.t('users.invited_failed', name: @user.full_name)
       render 'users/show'
@@ -74,29 +77,30 @@ class UsersController < ApplicationController
   end
 
   private
-    def inform_promoted_person(user)
-      role = user.role
-      excl_1 = current_user == user
-      excl_2 = role == 'player'
-      user.promoted_mail unless  excl_1 || excl_2
-      role == 'player' ? 'users.promoted_muted' : 'users.promoted'
-    end
 
-    def set_user
-      @user = User.find(params[:id])
-    end
+  def inform_promoted_person(user)
+    role = user.role
+    excl_1 = current_user == user
+    excl_2 = role == 'player'
+    user.promoted_mail unless excl_1 || excl_2
+    role == 'player' ? 'users.promoted_muted' : 'users.promoted'
+  end
 
-    def user_params
-      params
-        .require(:user)
-        .permit(
-          :firstname,
-          :lastname,
-          :email,
-          :address,
-          :cell_phone_nr,
-          :status,
-          :bio
-      )
-    end
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def user_params
+    params
+      .require(:user)
+      .permit(
+        :firstname,
+        :lastname,
+        :email,
+        :address,
+        :cell_phone_nr,
+        :status,
+        :bio
+    )
+  end
 end
