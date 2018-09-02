@@ -13,16 +13,16 @@
     h3= course_label(@event)
 
   dl.dl-horizontal
-    dt= t('events.dur')
+    dt= t('performances.dur')
     dd= distance_of_time_in_words @event.event_date, @event.event_date + @event.duration * 60
 
-    dt.space-up-10= t('events.theater')
+    dt.space-up-10= t('performances.theater')
     dd.space-up-10= @event.theater.theater_name
 
-    dt.space-up-10= t('events.address')
+    dt.space-up-10= t('performances.address')
     dd.space-up-10= @event.theater.location
 
     - if @event.note.present?
-      dt.space-up-10= t('events.note')
+      dt.space-up-10= t('performances.note')
       dd.space-up-10= @event.note
   hr

@@ -15,16 +15,16 @@ class EventsController < ApplicationController
     @service = GoogleCalendarService.new(current_user)
     result = update_google_calendar(@service, @event)
     if result.nil?
-      redirect_to event_url(@event), alert: I18n.t("events.google_locked")
+      redirect_to event_url(@event), alert: I18n.t("performances.google_locked")
     else
       if @event.update(event_params)
         if result.is_a? String
-          redirect_to events_url(@event), notice: I18n.t("events.updated")
+          redirect_to events_url(@event), notice: I18n.t("performances.updated")
         else
-          redirect_to events_url(@event), notice: I18n.t("events.updated_with_Google")
+          redirect_to events_url(@event), notice: I18n.t("performances.updated_with_Google")
         end
       else
-        flash[:notice] = I18n.t("events.desynchronized")
+        flash[:notice] = I18n.t("performances.desynchronized")
         render 'edit'
       end
     end
@@ -35,13 +35,13 @@ class EventsController < ApplicationController
     if @event.destroy
       result = delete_google_calendar(@service, @event)
       if result.nil?
-        redirect_to events_url(@event), alert: I18n.t("events.google_locked")
+        redirect_to events_url(@event), alert: I18n.t("performances.google_locked")
       else
-        redirect_to events_url(@event), notice: I18n.t("events.destroyed")
+        redirect_to events_url(@event), notice: I18n.t("performances.destroyed")
       end
     else
       Rails.logger.debug("Rails event destroy failure")
-      redirect_to event_url(@event), notice: I18n.t("events.fail_to_destroyed")
+      redirect_to event_url(@event), notice: I18n.t("performances.fail_to_destroyed")
     end
   end
 

@@ -12,13 +12,13 @@
             = image_tag("transp.png")
             = fa_icon "hand-right"
             = image_tag("transp.png")
-            = I18n.t("events.google_agenda_ok")
+            = I18n.t("performances.google_agenda_ok")
 
     h2= t('courses.list')
     ul.nav.nav-tabs role="tablist"
       li.active role="presentation"
         a aria-controls='nexting' data-toggle='tab' href='#nexting' role='tab'
-          = t("events.nexting")
+          = t("performances.nexting")
       li role="presentation"
         a aria-controls='pasting' data-toggle='tab' href='#pasting' role='tab'
           = passed_label(@passed_events)
@@ -27,11 +27,11 @@
       .col-md-3.room-left-15
         strong= t('courses.date_title')
       .col-md-1.room-left-15.hidden-xs
-        strong=  t('events.dur')
+        strong=  t('performances.dur')
       .col-md-2.room-left-15
         strong= t('courses.coach')
       .col-md-3.room-left-15.hidden-xs
-        strong= t('events.note')
+        strong= t('performances.note')
       .col-md-2.room-left-15.hidden-xs
     .space-up-10
     .row.tab-content

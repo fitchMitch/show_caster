@@ -46,14 +46,7 @@ module EventsHelper
   end
 
   def get_dictionnary(event)
-    case event.class.name
-    when 'Performance'
-      'events'
-    when 'Course'
-      'courses'
-    else
-      'dashboards'
-    end
+    event.class.name.downcase.pluralize
   end
 
   def event_edit_page_title(event)

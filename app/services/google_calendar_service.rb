@@ -82,12 +82,12 @@ class GoogleCalendarService
   end
 
   def make_a_google_event(opt)
-    theater_name = opt.fetch(:theater_name, I18n.t("events.nowhere"))
+    theater_name = opt.fetch(:theater_name, I18n.t("performances.nowhere"))
     event_title = "events.#{ opt.fetch(:title, "g_title.performance")}"
     event_hash = {
       summary: I18n.t(event_title, name: theater_name),
-      location: opt.fetch(:location, I18n.t("events.nowhere")),
-      description: I18n.t("events.mere_new_opus", name: theater_name),
+      location: opt.fetch(:location, I18n.t("performances.nowhere")),
+      description: I18n.t("performances.mere_new_opus", name: theater_name),
       start: {
         date_time: opt.fetch(:event_date, nil),
         time_zone: 'Europe/Paris',

@@ -1,5 +1,5 @@
 fr:
-  events:
+  performances:
     actors : Avec
     actor_firstname : Prénom
     address: Adresse
@@ -15,7 +15,7 @@ fr:
     fail_to_create : Une erreur a dû se produire chez Google et l'événement ne peut pas être inscrit....
     fail_to_destroyed: Ouh, pas bon, ça. Suppression impossible... Prevenir l'administrateur.
     google_locked: "OK pour nous, mais il faut vérifier Google Agenda : ça n'a pas l'air d'etre bon chez eux."
-    google_agenda_ok: "Inutile de créer un rendez-vous spectacle dans l'agenda Google, l'application s'en charge !"
+    google_agenda_ok: "Note : l'application se charge de créer les nouveaux rendez-vous dans l'agenda Google"
     list: Liste des spectacles
     theater: Salle
     note: Commentaire et notes

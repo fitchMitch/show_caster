@@ -6,34 +6,34 @@
         .col-md-3
           = link_to new_performance_path, class: 'btn btn-primary' do
             span.glyphicon.glyphicon-plus
-              = " #{ t('events.new_button')}"
+              = " #{t('performances.new_button')}"
         .col-md-9
           p.bg-info.room-around-5
             = image_tag("transp.png")
             = fa_icon "hand-right"
             = image_tag("transp.png")
-            = I18n.t("events.google_agenda_ok")
+            = I18n.t("performances.google_agenda_ok")
 
-    h2= t('events.list')
+    h2= t('performances.list')
     ul.nav.nav-tabs role="tablist"
       li.active role="presentation"
         a aria-controls='nexting' data-toggle='tab' href='#nexting' role='tab'
-          = t("events.nexting")
+          = t("performances.nexting")
       li role="presentation"
         a aria-controls='pasting' data-toggle='tab' href='#pasting' role='tab'
           = passed_label(@passed_events)
     .space-up-10
     .row.strong
       .col-md-2.hidden-xs.room-left-15
-        strong= t('events.date')
+        strong= t('performances.date')
       .col-md-2.hidden-xs.room-left-15
-        strong= t('events.title')
+        strong= t("performances.title")
       .col-md-1.hidden-xs.room-left-15
-        strong=  t('events.dur')
+        strong=  t('performances.dur')
       .col-md-3.hidden-xs.room-left-15
-        strong= t('events.note')
+        strong= t('performances.note')
       .col-md-1.hidden-xs.room-left-15
-        strong= t('events.progress')
+        strong= t('performances.progress')
       .col-md-1.hidden-xs.room-left-15
       .col-md-2.hidden-xs.room-left-15
     .space-up-10

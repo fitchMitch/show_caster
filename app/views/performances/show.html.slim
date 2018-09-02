@@ -7,38 +7,38 @@
     - if @event.present? && policy(@event).edit?
       = link_to edit_performance_path(@event), class: 'btn btn-primary' do
         span.glyphicon.glyphicon-pencil
-          = " #{ t('events.edit_page_title') }"
+          = " #{ t('performances.edit_page_title') }"
     h1= "Le #{ l @event.event_date, format:"%A %d %B à %Hh%M"}"
     h1= "#{ t 'theater_company'} sont au \"#{@event.theater.theater_name }\""
 
   dl.dl-horizontal
-    dt= t('events.dur')
+    dt= t('performances.dur')
     dd= distance_of_time_in_words @event.event_date, @event.event_date + @event.duration * 60
 
-    dt.space-up-10= t('events.address')
+    dt.space-up-10= t('performances.address')
     dd.space-up-10= @event.theater.location
 
-    /!dt.space-up-10= t('events.progress')
+    /!dt.space-up-10= t('performances.progress')
     /!dd.space-up-10= get_progress(@event)
 
-    dt.space-up-10= t('events.note')
+    dt.space-up-10= t('performances.note')
     dd.space-up-10= @event.note
-    dt= t('events.created_by')
+    dt= t('performances.created_by')
     - if @event.user.present?
       dd= @event.user.full_name
     dt
-      p.space-up-20= t("events.actors")
+      p.space-up-20= t("performances.actors")
     dd
       .row.space-up-20
         .col-md-4.col-sm-6.col-xs-12
           p
-            strong= t("events.players")
+            strong= t("performances.players")
           - for actor in players_on_stage(@event)
             .badge_user.room-right-10.player-list  style= "#{ badge_user actor.user }"
               = "#{ actor.user.full_name } "
         .col-md-4.col-sm-6.col-xs-12
           p
-            strong=t("events.mc_and_djs")
+            strong=t("performances.mc_and_djs")
           - for actor in mc_and_djs(@event)
             .badge_user.room-right-10.player-list  style= "#{ badge_user actor.user }"
               span.badge

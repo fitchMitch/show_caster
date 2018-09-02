@@ -30,7 +30,7 @@
           ul.dropdown-menu
             - if policy(Performance).index?
               li= link_to performances_path do
-                = t("events.events_management")
+                = t("performances.events_management")
                 = image_tag("transp.png")
                 = fa_icon("image")
             - if policy(Theater).index?

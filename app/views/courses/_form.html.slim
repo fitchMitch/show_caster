@@ -17,13 +17,13 @@
       .col-sm-6.col-lg-3= f.input :duration,
           selected: default_duration(@event),
           collection: Event::DURATIONS,
-          label: t("events.duration")
+          label: t("performances.duration")
       .col-sm-6.col-lg-3= f.association :theater,
         collection: Theater.order(:theater_name),
         label_method: :theater_name,
         value_method: :id,
         include_blank: false,
-        label: t('events.theater')
+        label: t('performances.theater')
       .col-sm-6.col-lg-3
         br
         = link_to(fa_icon('add', text: t("theaters.add")), new_theater_path, class: 'btn btn-default')
@@ -48,7 +48,7 @@
 
     .row
       .col-md-12
-        = f.input :note, label: t("events.note")
+        = f.input :note, label: t("performances.note")
 
     .row
       .col-md-12
