@@ -17,24 +17,31 @@ class SplashController < ApplicationController
   end
 
   def signup
-
-    if ENV['MAILCHIMP_SPLASH_SIGNUP_LIST_ID'].blank? or ENV['MAILCHIMP_API_KEY'].blank?
-      @message = "The MAILCHIMP_API_KEY and MAILCHIMP_SPLASH_SIGNUP_LIST_ID environment variables need to be set for mailing list signup to work! If you don't want this feature, you can just remove the mailing list signup feature from app/views/splash/index.html.haml"
+    env_condition_1 = ENV['MAILCHIMP_SPLASH_SIGNUP_LIST_ID'].blank?
+    env_condition_2 = ENV['MAILCHIMP_API_KEY'].blank?
+    if env_condition_1 || env_condition_2
+      @message = "The MAILCHIMP_API_KEY and MAILCHIMP_SPLASH_SIGNUP_LIST_ID \
+      environment variables need to be set for mailing list signup to work! \
+      If you don't want this feature, you can just remove the mailing \
+      list signup feature from app/views/splash/index.html.haml"
     else
       begin
-        gb = Gibbon::Request.new(api_key: ENV['MAILCHIMP_API_KEY'], debug: true)
-        gb.lists(ENV['MAILCHIMP_SPLASH_SIGNUP_LIST_ID']).members.create(
-         body: {
-           email_address: params[:signup_email],
-           status: "subscribed"
-           }
-         )
+         MAILCHIMP.lists(ENV['MAILCHIMP_SPLASH_SIGNUP_LIST_ID'])
+                  .members.create(
+                     body: {
+                       email_address: params[:signup_email],
+                       status: "subscribed" } )
         @message = I18n.t("splash.ok_then")
-      rescue StandardError => e
+      rescue Gibbon::MailChimpError => e
         @error = true
-        if try(e.message) == "You must set an api_key prior to making a call"
+        if e.status_code.to_s[0] == "4" #like 401, 403...)
           @message = I18n.t("splash.enthousiast")
+          Rails.logger.info("MailChimp : #{e.title}")
         else
+          Rails.logger.warn('---------MailChimpError--------------')
+          Rails.logger.warn(e.body)
+          Rails.logger.warn(e.status_code)
+          Rails.logger.warn('---------MailChimpError end--------------')
           @message = I18n.t("splash.error")
         end
       end
