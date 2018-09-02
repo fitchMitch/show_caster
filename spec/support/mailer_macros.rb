@@ -1,11 +1,11 @@
 module MailerMacros
-
   def last_email
-    ActionMailer::Base.deliveries.last
+    condition = ActionMailer::Base.deliveries.empty?
+    condition ? nil : ActionMailer::Base.deliveries.last
   end
 
   def last_email_address
-    last_email.to.join
+    last_email.nil? ? nil : last_email.to.join
   end
 
   def reset_email
@@ -23,5 +23,4 @@ module MailerMacros
   def all_email_addresses
     all_emails.map(&:to).flatten
   end
-
 end
