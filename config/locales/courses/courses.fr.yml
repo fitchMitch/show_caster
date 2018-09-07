@@ -12,5 +12,6 @@ fr:
     external_coach_list: Liste des coaches
     date: Date du cours
     passed_events_title: Cours appartenant au passé
+    g_title_course: Cours / Entrainement impro au %{name}
     question:
       autocoached: En auto-coaché ?

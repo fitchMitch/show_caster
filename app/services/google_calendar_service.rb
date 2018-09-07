@@ -82,24 +82,26 @@ class GoogleCalendarService
   end
 
   def make_a_google_event(opt)
-    theater_name = opt.fetch(:theater_name, I18n.t("performances.nowhere"))
+    theater_name = opt.fetch(:theater_name)
     event_title = "events.#{ opt.fetch(:title, "g_title.performance")}"
     event_hash = {
-      summary: I18n.t(event_title, name: theater_name),
+      summary: opt.fetch(:title, "Show"),
       location: opt.fetch(:location, I18n.t("performances.nowhere")),
-      description: I18n.t("performances.mere_new_opus", name: theater_name),
+      description: I18n.t(
+        "performances.mere_new_opus",
+        name: opt.fetch(:theater_name)),
       start: {
         date_time: opt.fetch(:event_date, nil),
-        time_zone: 'Europe/Paris',
+        time_zone: 'Europe/Paris'
       },
       end: {
         date_time: opt.fetch(:event_end, nil),
-        time_zone: 'Europe/Paris',
+        time_zone: 'Europe/Paris'
       },
-      attendees: opt.fetch(:attendees_email,[]),
+      attendees: opt.fetch(:attendees_email, []),
       reminders: {
         override: [
-          { method: 'email', minutes: 2 * 24 * 60},
+          { method: 'email', minutes: 2 * 24 * 60 },
           { method: 'popup', minutes: 8 * 60 }
         ],
         use_default: false
