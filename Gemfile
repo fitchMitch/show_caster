@@ -57,11 +57,7 @@ group :development, :test do
   gem 'pry',                                                  '~> 0.11'
   gem 'pry-byebug',                                           '~> 3.6'
   gem "slim-rails",                                           '~> 3.1'
-  gem 'rubocop-rspec',                                        '~> 1.28'
-  gem 'rspec', '~> 3.7.0'
-  gem 'rspec-collection_matchers'
-  gem 'rspec-rails'
-  gem 'shoulda'
+
   # %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
   #   gem lib, git: "https://github.com/rspec/#{ lib }.git", branch: 'master'
   # end
@@ -91,6 +87,11 @@ group :test do
   gem "launchy",                                                '~> 2.4'
   gem "selenium-webdriver",                                     '~> 3.11'
   gem 'pundit-matchers',                                        '~> 1.4.1'
+  gem 'rubocop-rspec',                                          '~> 1.28'
+  gem 'rspec',                                                  '~> 3.7.0'
+  gem 'rspec-collection_matchers'
+  gem 'rspec-rails'
+  gem 'shoulda'
 end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
