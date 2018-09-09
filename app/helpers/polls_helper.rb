@@ -1,25 +1,30 @@
 module PollsHelper
   def poll_date(this_date)
     condition = (this_date.is_a? Date) || (this_date.is_a? Time)
-    condition ? I18n.l(this_date, format:"%a %d %b") : this_date
+    condition ? I18n.l(this_date, format: "%a %d %b") : this_date
   end
 
   def poll_datetime(this_date)
     condition = (this_date.is_a? Date) || (this_date.is_a? Time)
-    condition ? I18n.l(this_date, format:"%a %d %b | %H:%M") : this_date
+    condition ? I18n.l(this_date, format: "%a %d %b | %H:%M") : this_date
   end
 
   def answers_list(poll)
     li = []
     case poll.type
-      when 'PollOpinion'
-        li = poll.answers.map { |a| content_tag :li, a.answer_label }
-      when 'PollDate'
-        li = poll.answers.map { |a| content_tag :li, poll_datetime(a.date_answer) } if poll.answers.any?
-      else
-        Rails.logger.debug("unexpected type : #{ poll.type }")
+    when 'PollOpinion'
+      li = poll.answers.map { |a| content_tag :li, a.answer_label }
+    when 'PollDate'
+      if poll.answers.any?
+        li = poll.answers.map do |a|
+          content_tag :li, poll_datetime(a.date_answer)
+        end
+      end
+    else
+      Rails.logger.debug("unexpected type : #{poll.type}")
     end
-    tag = poll.type == 'PollOpinion' ? "<ol>#{ li.join('')}</ol>" : "<ul>#{ li.join('')}</ul>"
+    tag = "<ul>#{li.join('')}</ul>"
+    tag = "<ol>#{li.join('')}</ol>" if poll.type == 'PollOpinion'
     tag.html_safe
   end
 

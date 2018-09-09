@@ -1,20 +1,20 @@
 module UsersHelper
   require 'nokogiri'
   # Returns the Gravatar for the given user.
-  def gravatar_for(user, options = { size: 60 })
-    gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
-    size = options[:size]
-    gravatar_url = "https://www.gravatar.com/avatar/#{ gravatar_id }?s=#{ size }"
-    image_tag(gravatar_url, alt: user.full_name, class: 'gravatar')
-  end
+  # def gravatar_for(user, options = { size: 60 })
+  #   gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
+  #   size = options[:size]
+  #   gravatar_url = "https://www.gravatar.com/avatar/#{ gravatar_id }?s=#{ size }"
+  #   image_tag(gravatar_url, alt: user.full_name, class: 'gravatar')
+  # end
 
   def link_to_user(user, current_user)
-    if ( current_user?(user) || current_user.admin?)
+    if (current_user?(user) || current_user.admin?)
     # if ( current_user?(user) || current_user.admin?) && policy(user).edit?
       if user.archived?
-        "#{ link_to user.full_name, user_path(user)}".html_safe
+        "#{link_to user.full_name, user_path(user)}".html_safe
       else
-        "<strong>#{ link_to user.full_name, user_path(user)}</strong>".html_safe
+        "<strong>#{link_to user.full_name, user_path(user)}</strong>".html_safe
       end
     else
       user.full_name
@@ -28,35 +28,31 @@ module UsersHelper
 
   def status_label(user)
     user.status = :archived if user.status.nil?
-    label_hash = case user.status.to_sym
-    when :invited
-      { klass: "warning",
-      text: I18n.t("users.state.invited"),
-      link:nil }
-    when :googled
-      { klass: "info",
-      text: I18n.t("users.state.processing"),
-      link:nil }
-    when :archived
-      { klass: "default",
-      text: I18n.t("users.state.rip"),
-      link: nil }
-    else
-      { klass: "danger",
-      text: I18n.t("users.state.to_invite", firstname: user.firstname),
-      link:"to_user"}
+    label_hash =  case user.status.to_sym
+                  when :invited
+                    { klass: 'warning',
+                      text: I18n.t('users.state.invited'),
+                      link: nil }
+                  when :googled
+                    { klass: 'info',
+                      text: I18n.t('users.state.processing'),
+                      link: nil }
+                  when :archived
+                    { klass: 'default',
+                      text: I18n.t('users.state.rip'),
+                      link: nil }
+                  else
+                    { klass: 'danger',
+                      text: I18n.t('users.state.to_invite',
+                                    firstname: user.firstname),
+                      link: 'to_user' }
     end
     if user.status.to_sym == :registered
       user.role_i18n
+    elsif label_hash[:link].nil?
+      "<span class=\"label label-#{ label_hash[:klass]}\">#{ label_hash[:text]}</span>".html_safe
     else
-      if label_hash[:link].nil?
-        "<span class=\"label label-#{ label_hash[:klass]}\">#{ label_hash[:text]}</span>".html_safe
-      else
-        # link_to user_path(user), { class: 'undecorated-link'} do
-        #   "<span class=\"label label-#{ label_hash[:klass]}\">#{ label_hash[:text]}</span>".html_safe
-        # end
-        render partial: 'show_invite_button', locals: { user: user }
-      end
+      render partial: 'show_invite_button', locals: { user: user }
     end
   end
 
