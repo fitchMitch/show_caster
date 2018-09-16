@@ -18,9 +18,6 @@
     dt.space-up-10= t('performances.address')
     dd.space-up-10= @event.theater.location
 
-    /!dt.space-up-10= t('performances.progress')
-    /!dd.space-up-10= get_progress(@event)
-
     dt.space-up-10= t('performances.note')
     dd.space-up-10= @event.note
     dt= t('performances.created_by')
@@ -42,7 +39,8 @@
           - for actor in mc_and_djs(@event)
             .badge_user.room-right-10.player-list  style= "#{ badge_user actor.user }"
               span.badge
-                = "#{ actor.stage_role_i18n } "
+                small
+                  = "#{ actor.stage_role_i18n } "
               = " #{ actor.user.full_name } "
 
       hr
