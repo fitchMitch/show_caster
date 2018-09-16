@@ -1,5 +1,4 @@
 class TheaterPolicy < ApplicationPolicy
-
   class Scope < Scope
     def resolve
       scope.all
@@ -33,5 +32,4 @@ class TheaterPolicy < ApplicationPolicy
   def destroy?
     false
   end
-
 end

@@ -1,5 +1,4 @@
 class CoachPolicy < ApplicationPolicy
-
   class Scope < Scope
     def resolve
       scope.all
@@ -33,7 +32,4 @@ class CoachPolicy < ApplicationPolicy
   def destroy?
     false
   end
-
-  private
-
 end

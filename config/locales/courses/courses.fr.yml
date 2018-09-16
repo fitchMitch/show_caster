@@ -15,3 +15,5 @@ fr:
     g_title_course: Cours / Entrainement impro au %{name}
     question:
       autocoached: En auto-coaché ?
+    hint:
+      comment: Peut-être mettre un lien qui mène au résumé du cours ? 

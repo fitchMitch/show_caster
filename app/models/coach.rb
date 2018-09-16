@@ -28,10 +28,10 @@ class Coach < ApplicationRecord
   # Validations
   # =====================
   validates :email,
-    length: { maximum: 255 },
-    format: { with: VALID_EMAIL_REGEX },
-    uniqueness: { case_sensitive: false },
-    allow_blank: true
+            length: { maximum: 255 },
+            format: { with: VALID_EMAIL_REGEX },
+            uniqueness: { case_sensitive: false },
+            allow_blank: true
   # ------------------------
   # --    PUBLIC      ---
   # ------------------------

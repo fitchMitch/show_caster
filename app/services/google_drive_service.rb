@@ -13,11 +13,11 @@ class GoogleDriveService
 
   def configure_client(current_user)
     client_secrets = Google::APIClient::ClientSecrets.new(
-      {"installed" =>
-        { "access_token" => current_user.token,
-          "refresh_token" => current_user.refresh_token,
-          "client_id" => ENV['GOOGLE_CLIENT_ID'],
-          "client_secret" => ENV['GOOGLE_CLIENT_SECRETS'],
+      { 'installed' =>
+        { 'access_token' => current_user.token,
+          'refresh_token' => current_user.refresh_token,
+          'client_id' => ENV['GOOGLE_CLIENT_ID'],
+          'client_secret' => ENV['GOOGLE_CLIENT_SECRETS']
         }
       }
     )
@@ -34,14 +34,13 @@ class GoogleDriveService
     # q = "mimeType='image/jpeg' and sharedWithMe=true and '#{ photo_folder_id }' in parents"
     # q = "sharedWithMe=true and mimeType='application/vnd.google-apps.folder' and '0B3Djw_z2qYLea0NyNmQwZnFqUWs' in parents"
     q = "sharedWithMe=true and mimeType='application/vnd.google-apps.folder'"
-    files =   @service.fetch_all(items: :files) do |page_token|
-        @service.list_files(
-          q: q,
-          spaces: 'drive',
-          fields: 'nextPageToken, files(id, name, parents)',
-          page_token: page_token)
+    @service.fetch_all(items: :files) do |page_token|
+      @service.list_files(
+        q: q,
+        spaces: 'drive',
+        fields: 'nextPageToken, files(id, name, parents)',
+        page_token: page_token
+      )
     end
-
-
   end
 end

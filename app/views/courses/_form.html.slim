@@ -26,10 +26,13 @@
         label: t('performances.theater')
       .col-sm-6.col-lg-3
         br
-        = link_to(fa_icon('add', text: t("theaters.add")), new_theater_path, class: 'btn btn-default')
+        = link_to fa_icon('add', text: t("theaters.add")),
+                  new_theater_path, class: 'btn btn-default'
     .row
       .col-sm-3.col-md-3.col-lg-3
-        br= f.input :is_autocoached, as: :boolean, label: t('courses.question.autocoached')
+        br= f.input :is_autocoached,
+                    as: :boolean,
+                    label: t('courses.question.autocoached')
       .col-sm-9.col-md-3.col-lg-3.is_autocoached.show_me= f.input :users_list,
           collection: User.active.order(:firstname),
           label_method: :full_name,
@@ -44,11 +47,14 @@
           label: t('courses.external_coach_list')
       .col-sm-3.col-md-3.col-lg-3.is_not_autocoached.hide_me
         br
-        = link_to(fa_icon('add', text: t("coaches.add")), new_coach_path, class: 'btn btn-default')
+        = link_to fa_icon('add', text: t("coaches.add")),
+                  new_coach_path,
+                  class: 'btn btn-default'
 
     .row
       .col-md-12
-        = f.input :note, label: t("performances.note")
+        = f.input :note, label: t("performances.note"),
+                  hint: I18n.t('courses.hint.comment')
 
     .row
       .col-md-12

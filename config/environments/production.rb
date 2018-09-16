@@ -66,7 +66,7 @@ Rails.application.configure do
     port:            '587',
     authentication: :plain,
     user_name:       ENV['SMTP_EMAIL'],
-    password:        ENV['SMTP_PASSWORD'],
+    password:        ENV['SMTP_PASSWORD']
   }
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
