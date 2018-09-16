@@ -21,18 +21,19 @@
 FactoryBot.define do
   factory :course do
     event_date      { Time.zone.now + 2.days }
-    duration        {100}
-    note            {'MyText'}
-    title           {'Un bon petit cours de derrière les fagots'}
+    duration        { 100 }
+    note            { 'MyText' }
+    title           { 'Un bon petit cours de derrière les fagots' }
     theater
     user
-    provider        {'google'}
+    provider        { 'google' }
     fk              { 'a' * 40 }
-    progress        {0}
-    type            {'Course'}
+    progress        { 0 }
+    type            { 'Course' }
 
     factory :course_with_coach do
       association :courseable, factory: :coach
+      user { nil }
     end
   end
 end

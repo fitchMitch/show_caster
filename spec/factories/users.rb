@@ -60,39 +60,39 @@ FactoryBot.define do
     firstname
     lastname
     email
-    role                    {2 }# Default is admin
-    status                  {3 }# Default is registered
-    bio                     { "Sa bio : #{ FFaker::Lorem::sentence(3)}"}
+    role                    { 2 } # Default is admin
+    status                  { 3 } # Default is registered
+    bio                     { "Sa bio : #{FFaker::Lorem.sentence(3)}" }
 
     trait :player do
-      role                 { 0}
+      role                 { 0 }
     end
     trait :admin_com do
-      role                  {1}
+      role                 { 1 }
     end
     trait :admin do
-      role                 { 2}
+      role                 { 2 }
     end
     trait :other_player do
-      role                  {3}
+      role                  { 3 }
     end
 
     trait :setup do
-      status                {0}
+      status                { 0 }
     end
     trait :invited do
-      status                {1}
+      status                { 1 }
     end
     trait :googled do
-      status                {2}
+      status                { 2 }
     end
     trait :registered do
-      status                {3}
+      status                { 3 }
       cell_phone_nr
       address
     end
     trait :archived do
-      status                {4}
+      status                { 4 }
       cell_phone_nr
       address
     end

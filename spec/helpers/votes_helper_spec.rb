@@ -1,15 +1,25 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the VotesHelper. For example:
-#
-# describe VotesHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe VotesHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let!(:poll1)        { build(:poll, type: nil) }
+  let!(:poll_opinion) { create(:poll_opinion) }
+  let!(:poll_date)    { create(:poll_date) }
+  let!(:poll2)        { build(:poll, type: 'gaouda') }
+  describe '#new_vote_path' do
+    it 'shall display nil' do
+      expect(helper.new_vote_path(poll1)).to eq(nil)
+      expect(helper.new_vote_path(poll_opinion)).to include(helper.updown_icons)
+      expect(helper.new_vote_path(poll_date)).to include(helper.updown_icons)
+      expect(helper.new_vote_path(poll2)).to eq(nil)
+    end
+  end
+
+  describe '#others_votes_list' do
+    let!(:votop) { create(:vote_opinion) }
+    it 'shall display name anyway' do
+      expect(
+        helper.others_votes_list(votop.answer, votop.user)
+      ).to include(votop.user.first_and_l)
+    end
+  end
 end
