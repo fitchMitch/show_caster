@@ -55,6 +55,7 @@ class UsersController < ApplicationController
     @user.role = params[:user][:role]
     if @user.save
       message = inform_promoted_person(@user)
+      @user.reload
       redirect_to users_path, notice: I18n.t(message, name: @user.full_name)
     else
       flash[:alert] = I18n.t('users.promoted_failed', name: @user.full_name)

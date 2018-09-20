@@ -1,10 +1,9 @@
 class UserMailer < ApplicationMailer
-  default from: "no-reply@www.les-sesames.fr"
 
   def welcome_mail(user)
     # This mails informs the user he's been invited to be a member
     @user = user
-    @url  = get_user_s_url(@user)
+    @url = login_url
     mail(to: @user.email, subject: I18n.t("users.welcome_mail.subject"))
   end
 
@@ -17,8 +16,12 @@ class UserMailer < ApplicationMailer
   end
 
   private
-    def get_user_s_url(user)
-      site = Rails.application.config.action_mailer.default_url_options[:host]
-      "http://#{ site }/users/#{ user.id }"
-    end
+
+  def get_user_s_url(user)
+    "http://#{get_site}/users/#{user.id}"
+  end
+
+  def login_url
+    "http://#{get_site}/sesame_login"
+  end
 end

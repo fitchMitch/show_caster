@@ -1,5 +1,4 @@
 class PollMailer < ApplicationMailer
-  default from: "no-reply@www.les-sesames.fr"
 
   def poll_creation_mail(poll)
     @initiater = poll.owner.firstname

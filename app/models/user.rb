@@ -106,8 +106,8 @@ class User < ApplicationRecord
       if user.update_attributes(from_token)
         user
       else
-        logger.error "OAuth user updating went wrong"
-        logger.error from_token
+        Rails.logger.error "OAuth user updating went wrong"
+        Rails.logger.error from_token
         nil
       end
     end

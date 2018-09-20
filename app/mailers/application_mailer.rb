@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'no-reply@www.les-sesames.fr'
+  default from: 'no-reply@les-sesames.fr'
   layout 'mailer'
 
   def get_site
