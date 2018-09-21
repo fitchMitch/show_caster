@@ -87,10 +87,13 @@ class User < ApplicationRecord
     result = if user.nil?
       "unknown user"
     else
+      return if data[:email].nil?
       credentials = access_token[:credentials]
+      return if credentials[:expires_at].nil?
+      lastname = data[:last_name].nil? ? '' : data[:last_name].upcase
       from_token = {
         firstname: data[:first_name],
-        lastname: data[:last_name].upcase,
+        lastname: lastname,
         email: data[:email].downcase,
         provider: access_token[:provider],
         uid: access_token[:uid],
