@@ -82,49 +82,51 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(access_token)
+
     data = access_token[:info]
     user = User.retrieve(data)
     result = if user.nil?
       "unknown user"
     else
-      return if data[:email].nil?
       credentials = access_token[:credentials]
-      return if credentials[:expires_at].nil?
-      lastname = data[:last_name].nil? ? '' : data[:last_name].upcase
-      from_token = {
-        firstname: data[:first_name],
-        lastname: lastname,
-        email: data[:email].downcase,
-        provider: access_token[:provider],
-        uid: access_token[:uid],
-        photo_url: data[:image],
-        token: credentials[:token],
-        refresh_token: credentials[:refresh_token],
-        expires_at: Time.at(credentials[:expires_at].to_i).to_datetime
-      }
-      # Additional attributes
-      from_token[:status] = :googled if user.setup? || user.invited?
-      from_token[:last_sign_in_at] = Time.zone.now
-
-      if user.update_attributes(from_token)
-        user
-      else
-        Rails.logger.error "OAuth user updating went wrong"
-        Rails.logger.error from_token
+      if credentials[:expires_at].nil? || data[:email].nil?
+        Rails.logger.error(access_token.to_s)
         nil
+      else
+        firstname = data[:first_name].nil? ? user.firstname : data[:first_name]
+        lastname = data[:last_name].nil? ? user.lastname : data[:last_name].upcase
+        from_token = {
+          firstname: firstname,
+          lastname: lastname,
+          email: data[:email].downcase,
+          provider: access_token[:provider],
+          uid: access_token[:uid],
+          photo_url: data[:image],
+          token: credentials[:token],
+          refresh_token: credentials[:refresh_token],
+          expires_at: Time.at(credentials[:expires_at].to_i).to_datetime
+        }
+        # Additional attributes
+        from_token[:status] = :googled if user.setup? || user.invited?
+        from_token[:last_sign_in_at] = Time.zone.now
+
+        if user.update_attributes(from_token)
+          user
+        else
+          Rails.logger.error "OAuth user updating went wrong"
+          Rails.logger.error from_token
+          nil
+        end
       end
     end
   end
 
   def self.retrieve(data)
-    user = User.find_by(
-      email: data[:email].downcase
-    )
-    if user.nil?
-      user = User.find_by(
-        firstname: data[:first_name],
-        lastname: data[:last_name].upcase
-      )
+    user = User.find_by_email(data[:email].downcase)
+    if user.nil? && !data[:last_name].nil? && data[:first_name].nil?
+      users = User.where(firstname: data[:firstname])
+                 .where(lastname: data[:lastname])
+      user = users.count == 0 ? nil : user.first
     end
     user
   end
