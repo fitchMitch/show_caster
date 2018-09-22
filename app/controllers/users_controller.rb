@@ -35,7 +35,7 @@ class UsersController < ApplicationController
     if @user.update_attributes(user_params)
       redirect_to users_path, notice: I18n.t('users.updated')
     else
-      render :edit, notice: I18n.t('users.not_updated')
+      render :complement, notice: I18n.t('users.not_updated')
     end
   end
 
