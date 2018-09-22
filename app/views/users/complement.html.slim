@@ -5,8 +5,18 @@
     = simple_form_for(@user) do |f|
       = f.error_notification
       .form-inputs
-        = f.input :cell_phone_nr, label: t("users.cell_phone_nr"), placeholder: t("users.minimum_length_caveat"), required: true
-        = f.input :address, label: t("users.address")
+        .row
+          .col-sm-6
+            = f.input :firstname, label: t("firstname")
+          .col-sm-6
+            = f.input :lastname, label: t("lastname")
+        .row
+          .col-sm-6
+            = f.input :cell_phone_nr, label: t("users.cell_phone_nr"), placeholder: t("users.minimum_length_caveat"), required: true
+            = f.input :email, label: t("email")
+        .row
+          .col-xs-12
+            = f.input :address, label: t("users.address")
 
       .form-actions
         = f.button :submit, class: 'btn btn-primary'
