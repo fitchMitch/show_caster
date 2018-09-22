@@ -82,7 +82,7 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(access_token)
-
+    byebug
     data = access_token[:info]
     user = User.retrieve(data)
     result = if user.nil?
@@ -123,10 +123,10 @@ class User < ApplicationRecord
 
   def self.retrieve(data)
     user = User.find_by_email(data[:email].downcase)
-    if user.nil? && !data[:last_name].nil? && data[:first_name].nil?
-      users = User.where(firstname: data[:firstname])
-                 .where(lastname: data[:lastname])
-      user = users.count == 0 ? nil : user.first
+    if user.nil? && !data[:last_name].nil? && !data[:first_name].nil?
+      users = User.where(firstname: data[:first_name])
+                  .where(lastname: data[:last_name])
+      user = users.count >= 1 ? users.first : nil
     end
     user
   end

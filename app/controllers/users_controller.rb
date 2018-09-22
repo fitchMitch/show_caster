@@ -23,17 +23,13 @@ class UsersController < ApplicationController
   end
 
   def edit
-    authorize(@user)
     target = @user.setup? ? 'edit' : 'complement'
-    render target.to_s
+    render target
   end
 
-  def show
-    authorize(@user)
-  end
+  def show; end
 
   def update
-    authorize(@user)
     phone_exists = user_params[:cell_phone_nr].blank?
     params[:user][:status] = 'registered' unless phone_exists
     if @user.update_attributes(user_params)
@@ -43,9 +39,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy
-    authorize(@user)
-  end
+  def destroy; end
 
   def promote
     @user = User.find(params[:user][:id])
@@ -81,14 +75,15 @@ class UsersController < ApplicationController
 
   def inform_promoted_person(user)
     role = user.role
-    excl_1 = current_user == user
-    excl_2 = role == 'player'
-    user.promoted_mail unless excl_1 || excl_2
+    excl1 = current_user == user
+    excl2 = role == 'player'
+    user.promoted_mail unless excl1 || excl2
     role == 'player' ? 'users.promoted_muted' : 'users.promoted'
   end
 
   def set_user
     @user = User.find(params[:id])
+    authorize(@user)
   end
 
   def user_params
