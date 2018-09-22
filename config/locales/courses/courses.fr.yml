@@ -16,4 +16,5 @@ fr:
     question:
       autocoached: En auto-coaché ?
     hint:
-      comment: Peut-être mettre un lien qui mène au résumé du cours ? 
+      comment: Peut-être mettre un lien qui mène au résumé du cours ?
+    passed_events_title: Cours du temps passé
