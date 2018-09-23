@@ -35,9 +35,9 @@ class UserPolicy < ApplicationPolicy
   end
 
   def promote?
-    c0 = !(@user.nil? || @record.nil?)
-    if c0
-      c1 = @record.status != "setup"
+    c0 = @user.nil? || @record.nil?
+    unless c0
+      c1 = @record.setup?
       c2 = communicator_or_admin?
       c3 = @record != @user || (User.admin.count > 1)
       c1 && c2 && c3
@@ -46,7 +46,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def invite?
-    create? && @record.status == "setup"
+    create? && @record.setup?
   end
 
   def destroy?

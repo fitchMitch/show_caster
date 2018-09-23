@@ -20,7 +20,8 @@
               label: t("performances.duration")
           .col-md-4
             br
-            = link_to(fa_icon('add', text: t("theaters.add")), new_theater_path, class: 'btn btn-default')
+            = link_to(fa_icon('add', text: t("theaters.add")),
+                      new_theater_path, class: 'btn btn-default')
         .row
           .col-md-12.form-inline
             = f.input :event_date,
@@ -39,7 +40,9 @@
         = f.simple_fields_for :actors do |actor|
           = render 'actor_fields', f: actor
         .links
-          = link_to_add_association fa_icon("plus 2x", text: t('performances.plus_actors')), f, :actors
+          = link_to_add_association fa_icon("plus 2x", text: t('performances.plus_actors')),
+                                    f,
+                                    :actors
     .row
       .col-md-12
         .form-actions.center

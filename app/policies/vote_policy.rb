@@ -33,5 +33,4 @@ class VotePolicy < ApplicationPolicy
   def destroy?
     create?
   end
-
 end

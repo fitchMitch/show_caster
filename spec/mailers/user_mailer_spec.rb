@@ -13,7 +13,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it "should have a correct from" do
-      expect(w_mail.from).to eq(["no-reply@www.les-sesames.fr"])
+      expect(w_mail.from).to eq(["no-reply@les-sesames.fr"])
     end
 
     it "should have a correct to" do
@@ -43,7 +43,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it "should have a correct from" do
-      expect(w_mail.from).to eq(["no-reply@www.les-sesames.fr"])
+      expect(w_mail.from).to eq(["no-reply@les-sesames.fr"])
     end
 
     it "should have a correct to" do

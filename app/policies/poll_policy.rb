@@ -1,5 +1,4 @@
 class PollPolicy < EventPolicy
-
   class Scope < Scope
     def resolve
       scope.all
@@ -34,11 +33,11 @@ class PollPolicy < EventPolicy
     admin?
   end
 
-
   private
-    def owner?
-      record.owner_id = user.id
-    end
+
+  def owner?
+    record.owner_id = user.id
+  end
 
 
 end
