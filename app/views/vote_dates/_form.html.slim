@@ -1,19 +1,19 @@
-.alert.alert-info
-  = fa_icon('calendar 2x')
-  = image_tag("transp.png")
-  = @poll_date.question
-Table
+//.alert.alert-info
+//  = fa_icon('calendar 2x')
+//  = image_tag("transp.png")
+//  = poll_date.question
+Table.center
   tr
     - @answers_votes.each do |answer_vote|
       td.date-choice
-        = simple_form_for [@poll_date, @vote_date] do |f|
-          = render(partial: 'date_panel', locals: { display_date: answer_vote[:answer].date_answer })
+        = vote_date_header(answer_vote)
+        = simple_form_for [poll, vote] do |f|
           = f.input :vote_label,
             label: "<small>#{ t("votes.choose")}</small>".html_safe,
             selected: answer_vote[:vote].try(:vote_label) || "",
             include_blank: true
           = f.input :poll_id,
-            input_html: { value: @poll_date.id },
+            input_html: { value: poll.id },
             as: :hidden
           = f.input :answer_id,
             input_html: { value: answer_vote[:answer].id || ""},
@@ -26,6 +26,8 @@ Table
       - @answers_votes.each do |answer_vote|
         td.date-choice
           - User.active.order('firstname').each do |user|
-            = render( partial: "others_vote_dates", locals: { content: others_votes_list(answer_vote[:answer],user), user: user })
+            = render partial: "vote_dates/others_vote_dates",
+                     locals: { content: others_votes_list(answer_vote[:answer],user),
+                               user: user }
             br
-          = render(partial: 'date_panel', locals: { display_date: answer_vote[:answer].date_answer })
+          = vote_date_header(answer_vote)

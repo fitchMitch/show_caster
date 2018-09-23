@@ -43,6 +43,12 @@ class VoteOpinion < Vote
       .pluck(:user_id)
       .uniq
   }
+  scope :which_answer, -> (poll_opinion, user) {
+      where('poll_id = ?', poll_opinion.id)
+      .where('user_id = ?', user.id)
+      .pluck(:answer_id)
+      .uniq
+  }
   # scope :expecting_answer, -> { where(status: [:invited, :googled, :registered])}
   # ------------------------
   # --    PUBLIC      ---

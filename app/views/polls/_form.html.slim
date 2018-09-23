@@ -4,14 +4,23 @@
 
   .form-inputs
     .row
-      .col-md-9= f.input :question, label: t("polls.question"), hint: t("polls.question_hint")
-      .col-md-3= f.input :expiration_date, label: t("polls.expiration_date"), hint: t("polls.expiration_hint"), html5: true
+      .col-md-9= f.input :question,
+                 label: t("polls.question"),
+                 hint: t("polls.question_hint")
+      .col-md-3= f.input :expiration_date,
+                 label: t("polls.expiration_date"),
+                 hint: t("polls.expiration_hint"),
+                 html5: true
     .row
       .col-md-12
         #answers= f.simple_fields_for :answers do |answer|
-          = render 'answer_fields', f: answer
+          = render 'answer_fields',
+                   f: answer
         .links
-          = link_to_add_association fa_icon("plus 2x", text: t('polls.plus_answers')), f, :answers
+          = link_to_add_association fa_icon("plus 2x",
+                                    text: t('polls.plus_answers')),
+                                    f,
+                                    :answers
     .row
       .col-md-12
         .form-actions.center

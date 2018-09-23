@@ -1,36 +1,30 @@
-- if @poll_opinion.expiration_date < Date.today
-  = panel_question(@poll_opinion)
+- if poll_opinion.expiration_date < Time.zone.now
+  //= panel_question(poll_opinion)
   h4 Ont voté pour :
-  - @poll_opinion.answers.each do |answer|
+  - poll_opinion.answers.each do |answer|
     p
       strong= answer.answer_label
     p.user-badge-line
-      - VoteOpinion.who_voted_for(@poll_opinion, answer).each do |person_id|
+      - VoteOpinion.who_voted_for(poll_opinion, answer).each do |person_id|
         = badge_user_from_id person_id
         = image_tag("transp.png")
     p= image_tag("transp.png")
 - else
-  = simple_form_for [@vote.poll_opinion, @vote] do |f|
+  = simple_form_for [vote.poll_opinion, vote] do |f|
     = f.error_notification
-
     .form-inputs
       .row
-        .col-md-4
-          h3= @poll_opinion.question
-        .col-md-5
+        .col-md-12
           = f.association :answer,
             as: :radio_buttons,
-            collection: @poll_opinion.answers,
+            collection: poll_opinion.answers,
             label_method: :answer_label,
             value_method: :id,
-            label: t("votes.vote_start_phrase")
-        .col-md-3
-          = f.input :comment,
-            as: :text,
-            label:t("votes.comment")
-            /hint: t("votes.comment_hint"),
+            label: t("votes.vote_start_phrase"),
+            checked: answer_id,
+            html5: true
       .row
-        .col-md-12
+        .col-md-12.center
           .form-actions.center
             = f.button :submit,
               class: 'btn btn-primary center space-up-45'

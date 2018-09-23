@@ -21,22 +21,22 @@ class VoteDatesController < VotesController
     authorize @vote
     @vote.clean_votes
     if @vote.save
-      redirect_to new_poll_date_vote_date_path(@vote.poll_id),
-        notice: I18n.t("votes.save_success")
+      redirect_to poll_date_path(@vote.poll),
+        notice: I18n.t('votes.save_success')
     else
-      flash[:alert] = I18n.t("votes.save_fails")
-      render :new
+      flash[:alert] = I18n.t('votes.save_fails')
+      redirect_to poll_date_path(@vote.poll)
     end
   end
 
   private
-    def set_vote
-      @vote = VoteDate.find(params[:id])
-      authorize @vote
-    end
 
-    def set_poll
-      @poll_date = PollDate.find(params[:poll_date_id])
-    end
+  def set_vote
+    @vote = VoteDate.find(params[:id])
+    authorize @vote
+  end
 
+  def set_poll
+    @poll_date = PollDate.find(params[:poll_date_id])
+  end
 end

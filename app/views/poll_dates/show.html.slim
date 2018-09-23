@@ -1,0 +1,27 @@
+.container
+  .page-header
+    span.room-right-15
+      = link_to polls_path, class: 'btn btn-default' do
+        span.glyphicon.glyphicon-list-alt
+          = " #{ t("back") }"
+  .center-div
+    .row
+      .col-md-6
+        = panel_question(@poll)
+        small.text-muted
+          .row
+            .col-md-8
+              .row
+                .col-md-5
+                  strong= t("polls.last_interaction")
+                .col-md-5
+                  strong= poll_date @poll.updated_at
+              .row
+                .col-md-5= t("created_at")
+                .col-md-5= poll_date @poll.created_at
+            .col-md-4
+              = t("polls.questioned_by")
+              br
+              = @poll.owner.first_and_l unless @poll.owner.nil?
+    .row.space-up-25
+      = render partial: '/vote_dates/form', locals: { poll: @poll, vote: @vote_date }

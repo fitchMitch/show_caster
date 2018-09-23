@@ -1,10 +1,10 @@
 class PollsController < ApplicationController
-
-
   def index
     authorize Poll
-    poll_with_voted_opinions = PollOpinion.with_my_opinion_votes(current_user).distinct
-    poll_with_voted_dates = PollDate.with_my_date_votes(current_user).distinct
+    poll_with_voted_opinions = PollOpinion.with_my_opinion_votes(current_user)
+                                          .distinct
+    poll_with_voted_dates = PollDate.with_my_date_votes(current_user)
+                                    .distinct
 
     @all_polls = {
       voted: poll_with_voted_opinions + poll_with_voted_dates,
@@ -13,8 +13,7 @@ class PollsController < ApplicationController
     @all_polls[:expecting_answer] = Poll.active - @all_polls[:voted]
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     @poll.update(poll_params)

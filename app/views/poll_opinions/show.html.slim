@@ -1,0 +1,38 @@
+.container
+  .page-header
+    span.room-right-15
+      = link_to polls_path, class: 'btn btn-default' do
+        span.glyphicon.glyphicon-list-alt
+          = " #{ t("back") }"
+  .row.title-emphasis
+    .col-md-6
+      | Question
+    .col-md-1
+      | Echéance
+    .col-md-5
+      | Fil de discussion
+  .row
+    .col-md-6
+      = panel_question(@poll)
+      small.text-muted
+        .row
+          .col-md-8
+            .row
+              .col-md-5
+                strong= t("polls.last_interaction")
+              .col-md-5
+                strong= poll_date @poll.updated_at
+            .row
+              .col-md-5= t("created_at")
+              .col-md-5= poll_date @poll.created_at
+          .col-md-4
+            = t("polls.questioned_by")
+            br
+            = @poll.owner.first_and_l unless @poll.owner.nil?
+      br
+      = render partial: '/vote_opinions/form',
+               locals: {poll_opinion: @poll, vote: @vote, answer_id: @answer_id}
+    .col-md-1
+      span.label.label-warning= poll_date @poll.expiration_date
+    .col-md-5.text-muted
+      | Les commentaires iront ici

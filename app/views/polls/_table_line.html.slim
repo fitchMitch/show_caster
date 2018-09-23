@@ -8,7 +8,7 @@
       span.label.label-primary= poll_date poll.expiration_date
       br
       p.space-up-35
-        = new_vote_path(poll)
+        = link_to updown_icons, poll
 
     .col-md-2.hidden-xs
       - if policy(poll).edit?
@@ -16,7 +16,12 @@
         = link_to_edit(poll)
       - if policy(poll).destroy?
         = image_tag('transp.png')
-        = link_to(fa_icon("trash lg"), poll, class:'destroy', id: 'destroy', data: { confirm: t('sure_question')}, method: :delete)
+        = link_to(fa_icon("trash lg"),
+                  poll,
+                  class:'destroy',
+                  id: 'destroy',
+                  data: { confirm: t('sure_question')},
+                  method: :delete)
   small.text-muted
     .row
       .col-md-4
