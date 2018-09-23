@@ -82,7 +82,6 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(access_token)
-    byebug
     data = access_token[:info]
     user = User.retrieve(data)
     result = if user.nil?
