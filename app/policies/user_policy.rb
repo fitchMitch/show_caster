@@ -37,7 +37,7 @@ class UserPolicy < ApplicationPolicy
   def promote?
     c0 = @user.nil? || @record.nil?
     unless c0
-      c1 = @record.setup?
+      c1 = @record.status != "setup"
       c2 = communicator_or_admin?
       c3 = @record != @user || (User.admin.count > 1)
       c1 && c2 && c3
