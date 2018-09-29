@@ -35,14 +35,10 @@ class UserPolicy < ApplicationPolicy
   end
 
   def promote?
-    c0 = @user.nil? || @record.nil?
-    unless c0
-      c1 = @record.status != "setup"
-      c2 = communicator_or_admin?
-      c3 = @record != @user || (User.admin.count > 1)
-      c1 && c2 && c3
-    end
-    # TODO test around this
+    return false if @user.nil? || @record.nil?
+    c1 = @record.status != 'setup'
+    c2 = communicator_or_admin?
+    c1 && c2 && @record != @user || (User.admin.count > 1)
   end
 
   def invite?
