@@ -52,11 +52,7 @@
             = fa_icon("image 2x")
         dd
           = render partial: 'pictures/form',
-                            locals: {
-                              imageable: @event,
-                              picture: Picture.new,
-                              edit: false
-                              }
+                            locals: { imageable: @event, picture: Picture.new, edit: false }
           hr
       - unless @event.pictures.empty?
         dt= fa_icon("image 2x")
