@@ -71,6 +71,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def bio
+    @user = User.find(params[:user][:id])
+    return if @user.nil?
+    @user.bio = params[:user][:bio]
+    if @user.save
+      redirect_to users_path, notice: I18n.t("users.bio_successfull")
+    else
+      flash[:alert] = I18n.t('users.bio_failed', name: @user.full_name)
+      render 'users/show'
+    end
+  end
+
   private
 
   def inform_promoted_person(user)

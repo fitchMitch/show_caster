@@ -1,4 +1,4 @@
-= simple_form_for(@user) do |f|
+= simple_form_for(user, as: :user, url: bio_path, html: { method: :post, class: 'form-horizontal' }) do |f|
   = f.error_notification
 
   .form-inputs
@@ -9,6 +9,9 @@
     .row
       .col-sm-12.space-up-10
         = f.input :bio, label: t("users.bio")
+        = f.input :id,
+                  as: :hidden,
+                  input_html:{ value: user.id }
 
   .form-actions
     = f.button :submit, class: 'btn btn-primary'

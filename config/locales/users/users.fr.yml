@@ -7,6 +7,8 @@ fr:
     back: Retour
     bio: Portrait - Bio
     bio_desc: La bio n'est trop longue ni trop courte. Elle est affichée en première page du site pour présenter les joueurs dans la rubrique "Nous"
+    bio_failed: La bio n'a pas été prise en compte :(
+    bio_successfull: C'est dans la boîte !
     cell_phone_nr: Numéro de portable
     create_success_message: Et voilà, c'est terminé !
     edit_new_member_title: Editer quelques renseignements

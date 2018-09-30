@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :pictures, module: :users
   end
   post '/promote', to:  'users#promote'
+  post '/bio'    , to:  'users#bio'
   post '/invite',  to:  'users#invite'
 
   resources :sessions, only: %i[index new create destroy]
