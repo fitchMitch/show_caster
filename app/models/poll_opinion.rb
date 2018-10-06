@@ -31,6 +31,8 @@ class PollOpinion < Poll
     inverse_of: :poll_opinion,
     foreign_key: "poll_id",
     class_name: 'VoteOpinion'
+
+    acts_as_commontable dependent: :destroy
   # Validations
   #-----------
 

@@ -24,6 +24,7 @@
 #
 
 class User < ApplicationRecord
+  acts_as_commontator
   # includes
   include Users::Formating
   include Users::Validating
@@ -79,6 +80,10 @@ class User < ApplicationRecord
     text = self.first_and_last_name
     text = "#{ I18n.t("users.deleted_name")} -  #{ text }" if self.archived?
     text.html_safe
+  end
+
+  def is_commontator
+    true
   end
 
   def self.from_omniauth(access_token)

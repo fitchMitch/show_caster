@@ -9,7 +9,9 @@
 // or
 //   $ bundle show bootstrap-sass
 //
-
+/*
+*= require commontator/application
+*/
 
 // These both need to be imported before bootstrap:
 @import 'globals/fonts';

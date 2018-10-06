@@ -34,6 +34,7 @@ gem 'enum_help',                                            '~> 0.0'
 gem 'cocoon',                                               '~> 1.2'
 gem 'papercrop',                                            '~> 0.3'
 gem 'rails-assets-jcrop', source: 'https://rails-assets.org'
+gem 'commontator',                                          '~> 5.1.0'
 # API ones
 # -----------------------
 gem 'gibbon',                                               '~> 3.2'
