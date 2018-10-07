@@ -16,6 +16,7 @@ gem 'jbuilder',                                             '~> 2.5'
 gem 'annotate'
 gem 'coffee-rails',                                         '~> 4.2'
 gem 'slim',                                                 '>= 3.0.9'
+gem "slim-rails",                                           '~> 3.1'
 # Front gems
 # -----------------------
 gem 'jquery-rails',                                         '~> 4.3'
@@ -46,7 +47,6 @@ gem 'pundit',                                               '~> 1.1'
 gem "paperclip",                                            "~> 6.0.0"
 gem 'paperclip-i18n',                                       '~> 4.3'
 gem 'mini_magick',                                          '~> 4.8'
-
 #---------------------------
 
 group :development, :test do
@@ -57,7 +57,6 @@ group :development, :test do
   gem 'binding_of_caller',                                    '~> 0.8'
   gem 'pry',                                                  '~> 0.11'
   gem 'pry-byebug',                                           '~> 3.6'
-  gem "slim-rails",                                           '~> 3.1'
 
   # %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
   #   gem lib, git: "https://github.com/rspec/#{ lib }.git", branch: 'master'

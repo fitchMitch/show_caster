@@ -1,8 +1,7 @@
-$("#thread_<%= @thread.id %>_new_comment_form_div").html("<%= escape_javascript(
-  render partial: 'form',
-         locals: { comment: @comment,
-                      thread: @thread,
-                      per_page: @per_page }) %>");
+alert("working !")
+$("#thread_<%= @thread.id %>_new_comment_form_div").html(
+  "<%= escape_javascript(render partial: 'form', locals: { comment: @comment, thread: @thread, per_page: @per_page }) %>"
+);
 
 $("#thread_<%= @thread.id %>_new_comment_form_div").fadeIn()[0].scrollIntoView();
 
