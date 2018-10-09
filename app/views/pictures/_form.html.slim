@@ -28,7 +28,7 @@
       .col-md-7
         .row.space-up-5
           .col-md-6
-            = f.button :button, type: :submit, class: 'btn-primary'
+            = f.button :button, type: :submit, class: 'btn-primary', id: 'photo_validation_button'
           - if edit
             .col-md-6.right
               = link_to polymorphic_path([imageable, picture]),

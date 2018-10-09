@@ -20,53 +20,35 @@ class Picture < ApplicationRecord
   # Extra accessors
   # includes
   # Pre and Post processing
-
   # Enums
-
   # Relationships
   # =====================
-
   belongs_to :imageable,
-    polymorphic: true,
-    optional: true
+             polymorphic: true,
+             optional: true
 
   has_attached_file :photo,
-    url: "/system/:hash.:extension",
-    default_url: "public/missing/:style/missing_avatar.jpg",
-    hash_secret: "acara124",
-    styles: {
-      square: "450x450#",
-      medium: "600x600>",
-      thumb: "100x100>"
-    },
-    processors: [:papercrop]
-    # default_url: "images/default_photo/:style/default.jpg",
-    #,default_url: "/images/:style/missing.png"
-
-  #delegate :firstname,:lastname, :full_name, to: :member
+                    url: '/system/:hash.:extension',
+                    default_url: 'public/missing/:style/missing_avatar.jpg',
+                    hash_secret: 'acara124',
+                    styles: {
+                      square: '450x450#',
+                      medium: '600x600>',
+                      thumb: '100x100>'
+                    },
+                    processors: [:papercrop]
   # =====================
-
-   scope :last_pictures, -> (e, n) {
-     where("imageable_id = ? and imageable_type=?", e.id, 'Event' )
-     .limit(n)
-     .order("RANDOM()")
-   }
-  # =====================
-
   # Validations
   # =====================
+  validates_attachment :photo, presence: true, size: { in: 0.1..4.megabytes }
   validates_attachment_content_type :photo, content_type: /\Aimage\/.*\z/
   crop_attached_file :photo, aspect: false
-  validates_attachment :photo,
-    presence: true,
-    size: { in: 0..4.megabytes }
+  # =====================
 
-  # ------------------------
-  # --    PUBLIC      ---
-  # ------------------------
-
-
-  protected
-
+  scope :last_pictures, -> (image, number_of) {
+    where('imageable_id = ? and imageable_type=?', image.id, 'Event')
+    .limit(number_of)
+    .order("RANDOM()")
+   }
 
 end
