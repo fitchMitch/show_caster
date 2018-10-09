@@ -23,9 +23,16 @@
             .col-sm-5
               #widthbox
         .col-md-1
+
   .actions
     .row
       .col-md-7
+        .row
+          .col-xs-12
+            #loader
+              | "De l'écoute avant tout" "De la patience aussi"
+              br
+              = image_tag("Zoidberg.png")
         .row.space-up-5
           .col-md-6
             = f.button :button, type: :submit, class: 'btn-primary', id: 'photo_validation_button'

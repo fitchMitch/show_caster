@@ -5,8 +5,11 @@ $(document).ready ->
     files = picture_handler.files
     if files.length == 0
       $("#photo_validation_button").prop('disabled', 'disabled')
+      $("#loader").hide()
     else
       $("#photo_validation_button").prop('disabled', false)
+      $("#loader").show("slow")
+      $("#new_picture").submit()
   allow_submission()
   $("#picture_photo").on 'change', allow_submission
   #==========================
