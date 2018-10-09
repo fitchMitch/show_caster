@@ -3,7 +3,6 @@ $(document).ready ->
   allow_submission = () ->
     picture_handler = document.getElementById("picture_photo")
     files = picture_handler.files
-    alert files.length
     if files.length == 0
       $("#photo_validation_button").prop('disabled', 'disabled')
     else
