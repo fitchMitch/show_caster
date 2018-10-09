@@ -3,11 +3,6 @@
 
   .field
     = f.input :photo, as: :file, label: false
-    .row
-      .col-md-6
-        = f.input :descro, label: t("pictures.descro"), hint: I18n.t("pictures.descro_hint")
-      .col-md-6
-        = f.input :note, label: t("pictures.note"), hint: I18n.t("pictures.note_hint")
     - if !@picture.nil? && @picture.photo.present?
       .row
         .col-md-7
@@ -33,7 +28,7 @@
       .col-md-7
         .row.space-up-5
           .col-md-6
-            = f.button :button, type: :submit, class: 'btn-primary'
+            = f.button :button, type: :submit, class: 'btn-primary', id: 'photo_validation_button'
           - if edit
             .col-md-6.right
               = link_to polymorphic_path([imageable, picture]),
