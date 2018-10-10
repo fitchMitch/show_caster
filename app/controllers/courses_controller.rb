@@ -6,6 +6,14 @@ class CoursesController < EventsController
   def new
     authorize(Course)
     @event = Course.new({ duration: 180})
+    @is_coach = false
+    @is_autocoached = '1'
+  end
+
+  def edit
+    @selected_user_id = @event.courseable.id
+    @is_coach = @event.courseable.is_a? Coach
+    @is_autocoached = (@event.courseable.is_a? Coach) ? '0' : '1'
   end
 
   def index
@@ -19,8 +27,11 @@ class CoursesController < EventsController
     authorize @event
     @service = GoogleCalendarService.new(current_user)
     result = add_to_google_calendar(@service, @event)
-    redirect_to event_path(@event.reload),
-                alert: I18n.t("performances.fail_to_create")  and return if result.nil?
+    if result.nil?
+      redirect_to event_path(@event.reload),
+                alert: I18n.t("performances.fail_to_create")
+      return nil
+    end
 
     @event.fk = result.id
     @event.user_id = current_user.id

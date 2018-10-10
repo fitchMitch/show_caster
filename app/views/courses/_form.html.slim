@@ -6,24 +6,26 @@
     .row
       .col-md-12.form-inline
         = f.input :event_date,
-          minute_step: 15,
-          start_hour: 9,
-          end_hour: 23,
-          start_year: Time.zone.now.year.to_i,
-          end_year: Time.zone.now.year.to_i + 2,
-          label: t("courses.date")
+                  minute_step: 15,
+                  start_hour: 9,
+                  end_hour: 23,
+                  start_year: Time.zone.now.year.to_i,
+                  end_year: Time.zone.now.year.to_i + 2,
+                  label: t("courses.date")
     .row.space-up-10
       .col-sm-6.col-lg-3= f.input :title, label: t("courses.title")
-      .col-sm-6.col-lg-3= f.input :duration,
-          selected: default_duration(@event),
-          collection: Event::DURATIONS,
-          label: t("performances.duration")
-      .col-sm-6.col-lg-3= f.association :theater,
-        collection: Theater.order(:theater_name),
-        label_method: :theater_name,
-        value_method: :id,
-        include_blank: false,
-        label: t('performances.theater')
+      .col-sm-6.col-lg-3
+        = f.input :duration,
+                  selected: default_duration(@event),
+                  collection: Event::DURATIONS,
+                  label: t("performances.duration")
+      .col-sm-6.col-lg-3
+        = f.association :theater,
+                        collection: Theater.order(:theater_name),
+                        label_method: :theater_name,
+                        value_method: :id,
+                        include_blank: false,
+                        label: t('performances.theater')
       .col-sm-6.col-lg-3
         br
         = link_to fa_icon('add', text: t("theaters.add")),
@@ -31,20 +33,26 @@
     .row
       .col-sm-3.col-md-3.col-lg-3
         br= f.input :is_autocoached,
-                    as: :boolean,
-                    label: t('courses.question.autocoached')
-      .col-sm-9.col-md-3.col-lg-3.is_autocoached.show_me= f.input :users_list,
-          collection: User.active.order(:firstname),
-          label_method: :full_name,
-          value_method: :id,
-          include_blank: false,
-          label: t('courses.coach_list')
-      .col-sm-9.col-md-3.col-lg-3.is_not_autocoached.hide_me= f.input :coaches_list,
-          collection: Coach.order(:firstname),
-          label_method: :full_name,
-          value_method: :id,
-          include_blank: false,
-          label: t('courses.external_coach_list')
+                    as: :radio_buttons,
+                    collection: [['oui', '1'],['non', '0']],
+                    label: t('courses.question.autocoached'),
+                    checked: @is_autocoached
+      .col-sm-9.col-md-3.col-lg-3.is_autocoached.show_me
+        = f.input :users_list,
+                  collection: User.active.order(:firstname),
+                  label_method: :full_name,
+                  value_method: :id,
+                  include_blank: false,
+                  selected: @selected_user_id,
+                  label: t('courses.coach_list')
+      .col-sm-9.col-md-3.col-lg-3.is_not_autocoached.hide_me
+        = f.input :coaches_list,
+                  collection: Coach.order(:firstname),
+                  label_method: :full_name,
+                  value_method: :id,
+                  include_blank: false,
+                  selected: @selected_user_id,
+                  label: t('courses.external_coach_list')
       .col-sm-3.col-md-3.col-lg-3.is_not_autocoached.hide_me
         br
         = link_to fa_icon('add', text: t("coaches.add")),
