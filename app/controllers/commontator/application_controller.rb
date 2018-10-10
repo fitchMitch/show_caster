@@ -13,7 +13,7 @@ module Commontator
 
     def set_user
       begin
-        @current_user ||= User.find(session[:current_user_id]) if session[:current_user_id]
+        @user ||= User.find(session[:current_user_id]) if session[:current_user_id]
       rescue Exception => e
         nil
       end
