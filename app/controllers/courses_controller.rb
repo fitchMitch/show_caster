@@ -1,11 +1,12 @@
 class CoursesController < EventsController
-  before_action :set_polymorphic_courseable_out_of_params, only: [:create, :update]
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_polymorphic_courseable_out_of_params,
+                only: %i[create update]
+  before_action :set_event,
+                only: %i[show edit update destroy]
 
   def new
     authorize(Course)
-    @event = Course.new({ duration: 180})
+    @event = Course.new(duration: 180)
     @is_coach = false
     @is_autocoached = '1'
   end
@@ -29,17 +30,17 @@ class CoursesController < EventsController
     result = add_to_google_calendar(@service, @event)
     if result.nil?
       redirect_to event_path(@event.reload),
-                alert: I18n.t("performances.fail_to_create")
+                  alert: I18n.t('performances.fail_to_create')
       return nil
     end
 
     @event.fk = result.id
     @event.user_id = current_user.id
-    @event.provider = "google_calendar_v3"
+    @event.provider = 'google_calendar_v3'
 
     if @event.save
       redirect_to events_url(@event),
-                  notice: I18n.t("performances.created")
+                  notice: I18n.t('performances.created')
     else
       respond_to do |format|
         format.html { render :new }
