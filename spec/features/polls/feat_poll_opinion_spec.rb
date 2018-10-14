@@ -37,12 +37,12 @@ RSpec.feature "PollOpinion" do
       end
 
       scenario "should list the poll_opinion's band members" do
-        expect(page.body).to have_selector("h2", text: I18n.t("polls.list"))
+        expect(page.body).to have_selector("h2", text: I18n.t('polls.list'))
       end
 
       scenario "should propose an add button" do
         visit new_poll_opinion_path
-        expect(page.body).to have_selector("h2", text: I18n.t("polls.new_opinion"))
+        expect(page.body).to have_selector("h2", text: I18n.t('polls.new_opinion'))
       end
     end
 
@@ -51,11 +51,11 @@ RSpec.feature "PollOpinion" do
         log_in admin
         visit new_poll_opinion_path
         fill_form("new")
-        click_button(I18n.t("helpers.submit.poll_opinion.create"))
+        click_button(I18n.t('helpers.submit.poll_opinion.create'))
       end
 
       scenario "it shall create a PollOpinion" do
-        expect(page.body).to have_content I18n.t("polls.save_success")
+        expect(page.body).to have_content I18n.t('polls.save_success')
         expect(page.body).to have_content poll_opinion_attributes[:question]
         expect(page.body).to have_content poll_date poll_opinion_attributes[:expiration_date]
       end
@@ -67,11 +67,11 @@ RSpec.feature "PollOpinion" do
     #     poll_opinion = create(:poll_opinion_with_answers)
     #     visit edit_poll_opinion_path(poll_opinion)
     #     fill_form("edit", poll_opinion.id)
-    #     click_button(I18n.t("helpers.submit.poll_opinion.update"))
+    #     click_button(I18n.t('helpers.submit.poll_opinion.update'))
     #   end
     #
     #   scenario "it shall create a PollOpinion" do
-    #     expect(page.body).to have_content I18n.t("polls.update_success")
+    #     expect(page.body).to have_content I18n.t('polls.update_success')
     #     page_test page
     #   end
     # end
@@ -82,12 +82,12 @@ RSpec.feature "PollOpinion" do
         poll_opinion = create(:poll_opinion_with_answers)
         visit edit_poll_opinion_path(poll_opinion)
         fill_form("edit", poll_opinion.id, false)
-        click_button(I18n.t("helpers.submit.poll_opinion.update"))
+        click_button(I18n.t('helpers.submit.poll_opinion.update'))
       end
 
       scenario "it shall create a PollOpinion" do
-        expect(page.body).to have_content (I18n.t("polls.save_fails"))
-        expect(page.body).to have_selector("h2", text: I18n.t("edit"))
+        expect(page.body).to have_content (I18n.t('polls.save_fails'))
+        expect(page.body).to have_selector("h2", text: I18n.t('edit'))
       end
     end
 
@@ -101,8 +101,8 @@ RSpec.feature "PollOpinion" do
 
       scenario "it shall create a PollOpinion" do
         poll_opinion = PollOpinion.last
-        expect(page.body).to have_content (I18n.t("polls.destroyed"))
-        expect(page.body).to have_selector("h2", text: I18n.t("polls.list"))
+        expect(page.body).to have_content (I18n.t('polls.destroyed'))
+        expect(page.body).to have_selector("h2", text: I18n.t('polls.list'))
       end
     end
   end

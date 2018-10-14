@@ -20,7 +20,7 @@ class PerformancesController < EventsController
     @service = GoogleCalendarService.new(current_user)
     result = add_to_google_calendar(@service, @event)
     redirect_to event_path(@event.reload),
-                alert: I18n.t("performances.fail_to_create") and return if result.nil?
+                alert: I18n.t('performances.fail_to_create') and return if result.nil?
 
     @event.fk = result.id
     @event.user_id = current_user.id

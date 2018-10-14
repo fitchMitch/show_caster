@@ -92,7 +92,7 @@ class GoogleCalendarService
     event_title = "events.#{ opt.fetch(:title, "g_title.performance")}"
     event_hash = {
       summary: opt.fetch(:title, "Show"),
-      location: opt.fetch(:location, I18n.t("performances.nowhere")),
+      location: opt.fetch(:location, I18n.t('performances.nowhere')),
       description: I18n.t(
         "performances.mere_new_opus",
         name: opt.fetch(:theater_name)),

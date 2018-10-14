@@ -11,7 +11,7 @@ RSpec.feature  "new users features", type: :feature do
       fill_in "user_lastname", with: "Duchemin"
       fill_in "user_email", with: "truc@hoc.fr"
     end
-    click_button(I18n.t("helpers.submit.user.create"))
+    click_button(I18n.t('helpers.submit.user.create'))
   end
   it "should add a User" do
     expect(User.last.email).to eq("truc@hoc.fr")
@@ -24,7 +24,7 @@ RSpec.feature  "new users features", type: :feature do
       fill_in "user_lastname", with: "Duchemin"
       fill_in "user_email", with: "truc@hoc.fr"
     end
-    click_button(I18n.t("helpers.submit.user.create"))
-    expect(page.body).to have_content(I18n.t("activerecord.errors.models.user.attributes.email.taken"))
+    click_button(I18n.t('helpers.submit.user.create'))
+    expect(page.body).to have_content(I18n.t('activerecord.errors.models.user.attributes.email.taken'))
   end
 end

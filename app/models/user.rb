@@ -76,8 +76,8 @@ class User < ApplicationRecord
   # --    PUBLIC      ---
   # ------------------------
   def full_name
-    text = self.first_and_last_name
-    text = "#{ I18n.t("users.deleted_name")} -  #{ text }" if self.archived?
+    text = first_and_last_name
+    text = "#{I18n.t('users.deleted_name')} -  #{text}" if archived?
     text.html_safe
   end
 

@@ -31,18 +31,18 @@ class SplashController < ApplicationController
                      body: {
                        email_address: params[:signup_email],
                        status: "subscribed" } )
-        @message = I18n.t("splash.ok_then")
+        @message = I18n.t('splash.ok_then')
       rescue Gibbon::MailChimpError => e
         @error = true
         if e.status_code.to_s[0] == "4" #like 401, 403...)
-          @message = I18n.t("splash.enthousiast")
+          @message = I18n.t('splash.enthousiast')
           Rails.logger.info("MailChimp : #{e.title}")
         else
           Rails.logger.warn('---------MailChimpError--------------')
           Rails.logger.warn(e.body)
           Rails.logger.warn(e.status_code)
           Rails.logger.warn('---------MailChimpError end--------------')
-          @message = I18n.t("splash.error")
+          @message = I18n.t('splash.error')
         end
       end
     end

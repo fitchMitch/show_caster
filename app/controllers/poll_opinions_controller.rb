@@ -15,9 +15,9 @@ class PollOpinionsController < PollsController
     authorize @poll
     if @poll.save
       @poll.poll_creation_mail
-      redirect_to polls_path, notice: I18n.t("polls.save_success")
+      redirect_to polls_path, notice: I18n.t('polls.save_success')
     else
-      flash[:alert] = I18n.t("polls.save_fails")
+      flash[:alert] = I18n.t('polls.save_fails')
       render :new
     end
   end

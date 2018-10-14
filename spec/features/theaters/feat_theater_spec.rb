@@ -10,14 +10,14 @@ RSpec.feature  "Theater" do
       end
 
       scenario "should list the theater's band members" do
-        expect(page.body).to have_selector("h2", text: I18n.t("theaters.list"))
+        expect(page.body).to have_selector("h2", text: I18n.t('theaters.list'))
       end
 
       scenario "should propose an add button" do
-        # expect(page.body).to have_button text:I18n.t("theaters.new")
-        # click_button(I18n.t("theaters.new"))
+        # expect(page.body).to have_button text:I18n.t('theaters.new')
+        # click_button(I18n.t('theaters.new'))
         visit new_theater_path
-        expect(page.body).to have_selector("h2", text: I18n.t("theaters.new"))
+        expect(page.body).to have_selector("h2", text: I18n.t('theaters.new'))
       end
     end
 
@@ -31,12 +31,12 @@ RSpec.feature  "Theater" do
           fill_in "theater_manager", with: "Edouard himself"
           fill_in "theater_manager_phone", with: "0123654789"
         end
-        click_button(I18n.t("helpers.submit.theater.create"))
+        click_button(I18n.t('helpers.submit.theater.create'))
       end
 
       scenario "it shall create a Theater" do
         theater = Theater.last
-        expect(page.body).to have_content I18n.t("theaters.save_success")
+        expect(page.body).to have_content I18n.t('theaters.save_success')
         expect(page.body).to have_content theater.theater_name
         expect(page.body).to have_content theater.location
         expect(page.body).to have_content theater.manager
@@ -55,12 +55,12 @@ RSpec.feature  "Theater" do
           fill_in "theater_manager", with: "Edouard himself"
           fill_in "theater_manager_phone", with: "0123654789"
         end
-        click_button(I18n.t("helpers.submit.theater.update"))
+        click_button(I18n.t('helpers.submit.theater.update'))
       end
 
       scenario "it shall create a Theater" do
         theater = Theater.last
-        expect(page.body).to have_content I18n.t("theaters.update_success")
+        expect(page.body).to have_content I18n.t('theaters.update_success')
         expect(page.body).to have_content theater.theater_name
         expect(page.body).to have_content theater.location
         expect(page.body).to have_content theater.manager
@@ -79,13 +79,13 @@ RSpec.feature  "Theater" do
           fill_in "theater_manager", with: "Edouard himself"
           fill_in "theater_manager_phone", with: "0123654789"
         end
-        click_button(I18n.t("helpers.submit.theater.update"))
+        click_button(I18n.t('helpers.submit.theater.update'))
       end
 
       scenario "it shall create a Theater" do
         theater = Theater.last
-        expect(page.body).to have_content (I18n.t("theaters.save_fails"))
-        expect(page.body).to have_selector("h2", text: I18n.t("theaters.edit_theater"))
+        expect(page.body).to have_content (I18n.t('theaters.save_fails'))
+        expect(page.body).to have_selector("h2", text: I18n.t('theaters.edit_theater'))
       end
     end
   end

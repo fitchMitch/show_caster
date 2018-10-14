@@ -33,7 +33,7 @@
             .col-md-6.right
               = link_to polymorphic_path([imageable, picture]),
                         method: :delete,
-                        data: { confirm: I18n.t("sure_question") } do
+                        data: { confirm: I18n.t('sure_question') } do
                 = fa_icon("trash 2x")
           - else
             .col-md-6

@@ -21,27 +21,27 @@ class AnswersController < ApplicationController
     @answer = Answer.new(answer_params)
     authorize @answer
     if @answer.save
-      redirect_to answers_path, notice: I18n.t("answers.save_success")
+      redirect_to answers_path, notice: I18n.t('answers.save_success')
     else
-      flash[:alert] = I18n.t("answers.save_fails")
+      flash[:alert] = I18n.t('answers.save_fails')
       render :new
     end
   end
 
   def update
     @answer.update(answer_params)
-    flash[:notice] = I18n.t("answers.updated")
+    flash[:notice] = I18n.t('answers.updated')
     if @answer.save
-      redirect_to answers_path, notice: I18n.t("answers.update_success")
+      redirect_to answers_path, notice: I18n.t('answers.update_success')
     else
-      flash[:alert] = I18n.t("answers.save_fails")
+      flash[:alert] = I18n.t('answers.save_fails')
       render :edit
     end
   end
 
   def destroy
     @answer.destroy
-    redirect_to answers_url, notice: I18n.t("answers.destroyed")
+    redirect_to answers_url, notice: I18n.t('answers.destroyed')
   end
 
   private

@@ -59,7 +59,7 @@ class Answer < ApplicationRecord
     def no_date_in_the_past
       if date_answer < Time.zone.now
         errors.add(:date_answer,
-                   I18n.t("answers.in_the_past_error")
+                   I18n.t('answers.in_the_past_error')
                   )
       end
     end

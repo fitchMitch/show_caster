@@ -14,9 +14,9 @@ class VoteOpinionsController < VotesController
     @vote.poll_id = @answer.poll_id
     @vote.clean_votes
     if @vote.save
-      redirect_to polls_path, notice: I18n.t("votes.save_success")
+      redirect_to polls_path, notice: I18n.t('votes.save_success')
     else
-      flash[:alert] = I18n.t("votes.save_fails")
+      flash[:alert] = I18n.t('votes.save_fails')
       redirect_to([@vote.poll, @vote])
     end
   end

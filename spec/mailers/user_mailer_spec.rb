@@ -21,7 +21,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it "should have a correct subject" do
-      expect(w_mail.subject).to eq(I18n.t("users.welcome_mail.subject"))
+      expect(w_mail.subject).to eq(I18n.t('users.welcome_mail.subject'))
     end
 
     it "should have a correct body" do
@@ -51,7 +51,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it "should have a correct subject" do
-      expect(w_mail.subject).to eq(I18n.t("users.promote_mail.subject"))
+      expect(w_mail.subject).to eq(I18n.t('users.promote_mail.subject'))
     end
 
     it "should have a correct body" do

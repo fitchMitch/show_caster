@@ -76,7 +76,7 @@ class UsersController < ApplicationController
     return if @user.nil?
     @user.bio = params[:user][:bio]
     if @user.save
-      redirect_to users_path, notice: I18n.t("users.bio_successfull")
+      redirect_to users_path, notice: I18n.t('users.bio_successfull')
     else
       flash[:alert] = I18n.t('users.bio_failed', name: @user.full_name)
       render 'users/show'

@@ -17,12 +17,12 @@ RSpec.feature  "Events | " do
       end
 
       scenario "should list the performances" do
-        expect(page.body).to have_selector("h2", text: I18n.t("performances.list"))
+        expect(page.body).to have_selector("h2", text: I18n.t('performances.list'))
       end
 
       scenario "should propose an add button" do
         visit new_performance_path
-        expect(page.body).to have_selector("h2", text: I18n.t("performances.new"))
+        expect(page.body).to have_selector("h2", text: I18n.t('performances.new'))
       end
     end
 
@@ -33,12 +33,12 @@ RSpec.feature  "Events | " do
         last_theater_id = Theater.all.last.id
         page.find('#event_theater_id').find(:xpath, 'option[1]').select_option
         page.find('#event_duration').find(:xpath, 'option[3]').select_option
-        click_button(I18n.t("helpers.submit.performance.create"))
+        click_button(I18n.t('helpers.submit.performance.create'))
       end
 
       # scenario "it shall create a Event", :vcr do
       scenario "it shall create a Event" do
-        expect(page.body).to have_content I18n.t("performances.created")
+        expect(page.body).to have_content I18n.t('performances.created')
         expect(page.body).to have_content Event::DURATIONS.rassoc(performance.duration)
         expect(page.body).to have_content performance.progress_i18n
       end
@@ -50,12 +50,12 @@ RSpec.feature  "Events | " do
         visit edit_performance_path(performance_w)
         page.find('#event_theater_id').find(:xpath, 'option[1]').select_option
         page.find('#event_duration').find(:xpath, 'option[4]').select_option
-        click_button(I18n.t("helpers.submit.performance.update"))
+        click_button(I18n.t('helpers.submit.performance.update'))
       end
 
       scenario "it shall update Events" do
       # scenario "it shall update Events", :vcr do
-        expect(page.body).to have_content I18n.t("performances.updated")
+        expect(page.body).to have_content I18n.t('performances.updated')
         expect(page.body).to have_content Event::DURATIONS.rassoc(performance.duration)
         expect(page.body).to have_content performance.progress_i18n
       end
@@ -66,12 +66,12 @@ RSpec.feature  "Events | " do
         log_in admin
         visit edit_performance_path(performance_w)
         page.find('#event_theater_id').find(:xpath, 'option[1]').select_option
-        click_button(I18n.t("helpers.submit.performance.update"))
+        click_button(I18n.t('helpers.submit.performance.update'))
       end
 
       scenario "it shall not update Events" do
-        expect(page.body).to have_content (I18n.t("performances.desynchronized"))
-        expect(page.body).to have_selector("h2", text: I18n.t("performances.edit_title"))
+        expect(page.body).to have_content(I18n.t('performances.desynchronized'))
+        expect(page.body).to have_selector("h2", text: I18n.t('performances.edit_title'))
       end
     end
 
@@ -84,8 +84,8 @@ RSpec.feature  "Events | " do
 
       scenario "it shall delete Events" do
       # scenario "it shall delete Events",:vcr do
-        expect(page.body).to have_content (I18n.t("performances.destroyed"))
-        expect(page.body).to have_selector("h2", text: I18n.t("performances.list"))
+        expect(page.body).to have_content(I18n.t('performances.destroyed'))
+        expect(page.body).to have_selector("h2", text: I18n.t('performances.list'))
       end
     end
   end

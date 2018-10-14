@@ -10,14 +10,14 @@ RSpec.feature  "Coach" do
       end
 
       scenario "should list the coach's band members" do
-        expect(page.body).to have_selector("h2", text: I18n.t("coaches.list"))
+        expect(page.body).to have_selector("h2", text: I18n.t('coaches.list'))
       end
 
       scenario "should propose an add button" do
-        # expect(page.body).to have_button text:I18n.t("coaches.new")
-        # click_button(I18n.t("coaches.new"))
+        # expect(page.body).to have_button text:I18n.t('coaches.new')
+        # click_button(I18n.t('coaches.new'))
         visit new_coach_path
-        expect(page.body).to have_selector("h2", text: I18n.t("coaches.new"))
+        expect(page.body).to have_selector("h2", text: I18n.t('coaches.new'))
       end
     end
 
@@ -32,12 +32,12 @@ RSpec.feature  "Coach" do
           fill_in "coach_cell_phone_nr", with: "0123654789"
           fill_in "coach_note", with: "fracan"
         end
-        click_button(I18n.t("helpers.submit.coach.create"))
+        click_button(I18n.t('helpers.submit.coach.create'))
       end
 
       scenario "it shall create a Coach" do
         coach = Coach.last
-        expect(page.body).to have_content I18n.t("coaches.save_success")
+        expect(page.body).to have_content I18n.t('coaches.save_success')
         expect(page.body).to have_content coach.firstname
         expect(page.body).to have_content coach.lastname
         expect(page.body).to have_content coach.email
@@ -58,12 +58,12 @@ RSpec.feature  "Coach" do
           fill_in "coach_cell_phone_nr", with: "0123654789"
           fill_in "coach_note", with: "fracan"
         end
-        click_button(I18n.t("helpers.submit.coach.update"))
+        click_button(I18n.t('helpers.submit.coach.update'))
       end
 
       scenario "it shall create a Coach" do
         coach = Coach.last
-        expect(page.body).to have_content I18n.t("coaches.update_success")
+        expect(page.body).to have_content I18n.t('coaches.update_success')
         expect(page.body).to have_content coach.firstname
         expect(page.body).to have_content coach.lastname
         expect(page.body).to have_content coach.email
@@ -84,13 +84,13 @@ RSpec.feature  "Coach" do
           fill_in "coach_cell_phone_nr", with: "0123654789"
           fill_in "coach_note", with: "fracan"
         end
-        click_button(I18n.t("helpers.submit.coach.update"))
+        click_button(I18n.t('helpers.submit.coach.update'))
       end
 
       scenario "it shall create a Coach" do
         coach = Coach.last
-        expect(page.body).to have_content (I18n.t("coaches.save_fails"))
-        expect(page.body).to have_selector("h2", text: I18n.t("edit"))
+        expect(page.body).to have_content (I18n.t('coaches.save_fails'))
+        expect(page.body).to have_selector("h2", text: I18n.t('edit'))
       end
     end
   end
