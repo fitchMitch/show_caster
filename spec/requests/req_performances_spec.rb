@@ -2,27 +2,30 @@ require 'rails_helper'
 # require 'vcr' TODO
 
 RSpec.describe "Performances", type: :request do
-  let(:valid_attributes) { {
-    duration: 20,
-    note: "A string",
-    event_date: 2.days.from_now,
-    user_id: create(:user).id,
-    theater_id: create(:theater).id,
-    provider: "google",
-    progress: "draft"
-    } }
-  let(:invalid_attributes) { {
-    duration: 10, # !!!
-    note: "A string",
-    event_date: 2.days.from_now,
-    user_id: create(:user).id,
-    theater_id: create(:theater).id,
-    provider: "google",
-    progress: "draft"
-    } }
+  let(:valid_attributes) do
+    {
+      duration: 20,
+      note: 'A string',
+      event_date: 2.days.from_now,
+      user_id: create(:user).id,
+      theater_id: create(:theater).id,
+      provider: 'google'
+    }
+  end
 
-  context "/ As logged as admin," do
-    let!(:admin) { create(:user)}
+  let(:invalid_attributes) do
+    {
+      duration: 10, # !!!
+      note: 'A string',
+      event_date: 2.days.from_now,
+      user_id: create(:user).id,
+      theater_id: create(:theater).id,
+      provider: 'google'
+    }
+  end
+
+  context '/ As logged as admin,' do
+    let!(:admin) { create(:user) }
     before :each do
       request_log_in(admin)
     end
@@ -64,10 +67,10 @@ RSpec.describe "Performances", type: :request do
         # it "creates every attribute", :vcr do
         it "creates every attribute"do
           expect(Event.last.note).to eq(valid_attributes[:note])
-          expect(Event.last.user.id) == valid_attributes[:user_id]
-          expect(Event.last.theater.id) == valid_attributes[:theater_id]
-          expect(Event.last.duration) == valid_attributes[:duration]
-          expect(Event.last.progress) == 0
+          expect(Event.last.user.id).to eq(valid_attributes[:user_id])
+          expect(Event.last.theater.id).to eq(valid_attributes[:theater_id])
+          expect(Event.last.duration).to eq(valid_attributes[:duration])
+          expect(Event.last.progress).to eq(0)
         end
       end
       context "posting with invalid params" do
@@ -83,14 +86,14 @@ RSpec.describe "Performances", type: :request do
     describe "PUT #update" do
       let!(:other_theater){ create(:other_theater)}
       let!(:theater){ create(:theater)}
-      let(:new_attributes_theater) {
+      let(:new_attributes_theater) do
         { theater_id: other_theater.id }
-      }
-      let(:new_attributes) {
+      end
+      let(:new_attributes) do
         { note:"A strange delight",
           duration: 120
         }
-      }
+      end
       let(:invalid_attributes) { { theater_id: nil } }
 
       let(:valid_session) { request_log_in( admin ) }
