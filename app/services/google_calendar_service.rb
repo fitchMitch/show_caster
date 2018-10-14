@@ -15,7 +15,7 @@ class GoogleCalendarService
         { "access_token" => current_user.token,
           "refresh_token" => current_user.refresh_token,
           "client_id" => ENV['GOOGLE_CLIENT_ID'],
-          "client_secret" => ENV['GOOGLE_CLIENT_SECRETS'],
+          "client_secret" => ENV['GOOGLE_CLIENT_SECRETS']
         }
       }
     )
@@ -61,9 +61,10 @@ class GoogleCalendarService
         "missing event in Google Calendar with id: #{opt[:fk]}"
       )
     end
-  rescue
+  rescue StandardError => e
     Rails.logger.debug(
-      "API Call failed with #{$!} \nin update_event_google_calendar"
+      "API Call failed with #{$ERROR_INFO} \n" \
+      "in update_event_google_calendar | #{e}"
     )
   end
 
@@ -72,15 +73,16 @@ class GoogleCalendarService
       @calendar.delete_event(company_calendar_id, event.fk)
     else
       Rails.logger.debug(
-        "fails to delete from GCalendar event id/fk:" \
-        " #{ event.id } / #{ event.fk }")
+        'fails to delete from GCalendar event id/fk:' \
+        " #{event.id} / #{event.fk}"
+      )
       nil
     end
   rescue
     Rails.logger
          .debug(
-           "API Call failed with #{$!} \n" \
-           "in delete_event_google_calendar"
+           "API Call failed with #{$ERROR_INFO} \n" \
+           'in delete_event_google_calendar'
          )
     nil
   end

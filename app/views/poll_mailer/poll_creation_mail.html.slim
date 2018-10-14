@@ -1,17 +1,16 @@
 h3 Hello !
 p
-  = @initiater
-  = " "
-  | &nbsp; aimerait avoir ton avis sur une question. Le plus vite sera le mieux, honnêtement.
+  ="#{ @initiater} "
+  | aimerait avoir ton avis sur une question. Le plus vite sera le mieux, honnêtement.
 p
   | Voici le lien pour
-  =" "
-  = link_to('Voter', @url)
-
+  =" #{link_to('se loguer', @url_login)} ".html_safe
+  | et le lien pour
+  =" #{link_to('Voter', @url)}".html_safe
 p
   | -----------
   br
   | Date limite pour répondre :
-  = " #{ I18n.l( @final_call, format:"%a %d %b")}"
+  = " #{I18n.l( @final_call, format:"%a %d %b")}"
   br
   | -----------

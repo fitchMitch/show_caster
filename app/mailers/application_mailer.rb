@@ -5,4 +5,8 @@ class ApplicationMailer < ActionMailer::Base
   def get_site
     Rails.application.config.action_mailer.default_url_options[:host]
   end
+
+  def url_login
+    "#{get_site}/sesame_login"
+  end
 end
