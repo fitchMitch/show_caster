@@ -50,10 +50,20 @@ class Answer < ApplicationRecord
     validates :date_answer,
       presence: true,
       if: :answer_label_nil?
+    validate :no_date_in_the_past,
+      if: :answer_label_nil?
 
     # ------------------------
     # --    PUBLIC      ---
     # ------------------------
+    def no_date_in_the_past
+      if date_answer < Time.zone.now
+        errors.add(:date_answer,
+                   I18n.t("answers.in_the_past_error")
+                  )
+      end
+    end
+
     def date_answer_nil?
       date_answer.nil?
     end
