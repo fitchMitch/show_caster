@@ -1,0 +1,6 @@
+fr:
+  events:
+    desynchronized: Shoot ! Le calendrier de Google n'a pas pris la mise à jour de cet événement
+    updated: "Le spectacle a bien été mis à jour. NB : il n'existait pas sur Google Calendar."
+    updated_with_Google: Le spectacle a bien été mis à jour (et sur Google Agenda aussi).
+    update_failed: La mise à jour a lamentablement échoué

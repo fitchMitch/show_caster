@@ -1,10 +1,10 @@
 class PerformancesController < EventsController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, only: %i[show edit update destroy]
 
   def new
     authorize(Performance)
     @event = Performance.new
-    4.times { actor = @event.actors.build }
+    4.times { @event.actors.build }
   end
 
   def index

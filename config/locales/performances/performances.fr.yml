@@ -38,7 +38,6 @@ fr:
       course: Cours / Entrainement impro au %{name}
     g_title_performance: Spectacle des Sésames au %{name}
 
-
     updated: "Le spectacle a bien été mis à jour. NB : il n'existait pas sur Google Calendar."
     updated_with_Google: Le spectacle a bien été mis à jour (et sur Google Agenda aussi).
     passed_events_title: Spectacles du temps écoulé <i class="fa fa-image fa-lg"></i>

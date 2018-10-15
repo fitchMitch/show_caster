@@ -5,23 +5,38 @@ class EventsController < ApplicationController
   def show; end
 
   def update
-    @service = GoogleCalendarService.new(current_user)
-    result = update_google_calendar(@service, @event)
-    if result.nil?
-      redirect_to event_url(@event),
-                  alert: I18n.t('performances.google_locked')
-    elsif @event.update(event_params)
+    if @event.update(event_params)
+      @service = GoogleCalendarService.new(current_user)
+      result = update_google_calendar(@service, @event)
       if result.is_a? String
         redirect_to events_url(@event),
-                    notice: I18n.t('performances.updated')
+                    notice: I18n.t('events.desynchronized')
       else
         redirect_to events_url(@event),
-                    notice: I18n.t('performances.updated_with_Google')
+                    notice: I18n.t('events.updated_with_Google')
       end
     else
-      flash[:notice] = I18n.t('performances.desynchronized')
+      flash[:notice] = I18n.t('events.update_failed')
       render 'edit'
     end
+
+    # @service = GoogleCalendarService.new(current_user)
+    # result = update_google_calendar(@service, event_params)
+    # if result.nil?
+    #   redirect_to event_url(@event),
+    #               alert: I18n.t('performances.google_locked')
+    # elsif @event.update(event_params)
+    #   if result.is_a? String
+    #     redirect_to events_url(@event),
+    #                 notice: I18n.t('performances.updated')
+    #   else
+    #     redirect_to events_url(@event),
+    #                 notice: I18n.t('performances.updated_with_Google')
+    #   end
+    # else
+    #   flash[:notice] = I18n.t('performances.desynchronized')
+    #   render 'edit'
+    # end
   end
 
   def destroy

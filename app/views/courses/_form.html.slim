@@ -12,6 +12,8 @@
                   start_year: Time.zone.now.year.to_i,
                   end_year: Time.zone.now.year.to_i + 2,
                   label: t("courses.date")
+        =f.input :fk,
+                 as: :hidden
     .row.space-up-10
       .col-sm-6.col-lg-3= f.input :title, label: t("courses.title")
       .col-sm-6.col-lg-3
