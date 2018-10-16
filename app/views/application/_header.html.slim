@@ -4,7 +4,7 @@
       .inline
         = image_tag("infinity_h40.png", height: 30)
         = image_tag("transp.png")
-        = I18n.t("layout.home")
+        = I18n.t('layout.home')
   = horizontal do
     = nav class: 'navbar-right' do
       - if user_signed_in?
@@ -44,7 +44,7 @@
         - if policy(current_user).index?
           = link_to users_path do
             span
-              = t("layout.users", theater_company: I18n.t("company_name_short"))
+              = t("layout.users", theater_company: I18n.t('company_name_short'))
               = image_tag("transp.png")
               span.badge
                 = User.active.count

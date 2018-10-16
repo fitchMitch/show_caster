@@ -32,11 +32,11 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    redirect_to root_url, notice:  I18n.t("sessions.signed_out")
+    redirect_to root_url, notice:  I18n.t('sessions.signed_out')
   end
 
   def oauth_failure
-    render text: I18n.t("sessions.omniauth.failure", kind: 'Google')
+    render text: I18n.t('sessions.omniauth.failure', kind: 'Google')
   end
 
   protected

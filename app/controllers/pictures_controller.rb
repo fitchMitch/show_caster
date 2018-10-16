@@ -30,7 +30,7 @@ class PicturesController < ApplicationController
     respond_to do |format|
       if @picture.update(picture_params)
         @picture.update_column(:photo_updated_at, @picture.photo_updated_at)
-        format.html { redirect_to @imageable, notice: I18n.t("pictures.update_success") }
+        format.html { redirect_to @imageable, notice: I18n.t('pictures.update_success') }
         format.json { render :show, status: :ok, location: @picture }
       else
         format.html { render edit_polymorphic_path([@imageable,@picture]) }
@@ -45,7 +45,7 @@ class PicturesController < ApplicationController
     @picture = @imageable.pictures.find(params[:id])
     @picture.destroy
     respond_to do |format|
-      format.html { redirect_to @imageable, notice: I18n.t("pictures.destroy_success") }
+      format.html { redirect_to @imageable, notice: I18n.t('pictures.destroy_success') }
       format.json { head :no_content }
     end
   end

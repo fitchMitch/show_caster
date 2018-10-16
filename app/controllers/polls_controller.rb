@@ -17,11 +17,11 @@ class PollsController < ApplicationController
 
   def update
     @poll.update(poll_params)
-    flash[:notice] = I18n.t("polls.updated")
+    flash[:notice] = I18n.t('polls.updated')
     if @poll.save
-      redirect_to polls_path, notice: I18n.t("polls.update_success")
+      redirect_to polls_path, notice: I18n.t('polls.update_success')
     else
-      flash[:alert] = I18n.t("polls.save_fails")
+      flash[:alert] = I18n.t('polls.save_fails')
       render :edit
     end
   end
@@ -29,7 +29,7 @@ class PollsController < ApplicationController
   def destroy
     votes_destroy(@poll)
     @poll.destroy
-    redirect_to polls_url, notice: I18n.t("polls.destroyed")
+    redirect_to polls_url, notice: I18n.t('polls.destroyed')
   end
 
   def set_type

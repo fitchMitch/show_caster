@@ -32,15 +32,15 @@ module PollsHelper
     common_part = [
       "|",
       "<span class='badge'>#{ poll.votes_count }</span>",
-      I18n.t("polls.responses_sent")
+      I18n.t('polls.responses_sent')
     ]
     heading_poll_opinion = [
       fa_icon("question-circle lg"),
-      "#{ I18n.t("polls.opinion_question")}"
+      "#{ I18n.t('polls.opinion_question')}"
     ] + common_part
     heading_poll_date = [
       fa_icon("calendar lg"),
-      "#{ I18n.t("polls.calendar_question")}"
+      "#{ I18n.t('polls.calendar_question')}"
     ] + common_part
     heading_opinion = heading_poll_opinion.join("#{ image_tag("transp.png")}").html_safe
     heading_date= heading_poll_date.join("#{ image_tag("transp.png")}").html_safe

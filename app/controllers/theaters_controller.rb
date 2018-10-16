@@ -23,27 +23,27 @@ class TheatersController < ApplicationController
     @theater = Theater.new(theater_params)
     authorize @theater
     if @theater.save
-      redirect_to theaters_path, notice: I18n.t("theaters.save_success")
+      redirect_to theaters_path, notice: I18n.t('theaters.save_success')
     else
-      flash[:alert] = I18n.t("theaters.save_fails")
+      flash[:alert] = I18n.t('theaters.save_fails')
       render :new
     end
   end
 
   def update
     @theater.update(theater_params)
-    flash[:notice] = I18n.t("theaters.updated")
+    flash[:notice] = I18n.t('theaters.updated')
     if @theater.save
-      redirect_to theaters_path, notice: I18n.t("theaters.update_success")
+      redirect_to theaters_path, notice: I18n.t('theaters.update_success')
     else
-      flash[:alert] = I18n.t("theaters.save_fails")
+      flash[:alert] = I18n.t('theaters.save_fails')
       render :edit
     end
   end
 
   def destroy
     @theater.destroy
-    redirect_to theaters_url, notice: I18n.t("theaters.destroyed")
+    redirect_to theaters_url, notice: I18n.t('theaters.destroyed')
   end
 
   private

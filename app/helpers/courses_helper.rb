@@ -14,7 +14,7 @@ module CoursesHelper
     if event.courseable_type == 'Coach'
       "Coach : #{event.courseable.full_name}"
     else
-      "Auto coaché par #{event.user.full_name}"
+      "Auto coaché par #{event.courseable.full_name}"
     end
   end
 end

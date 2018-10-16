@@ -15,7 +15,7 @@ class GoogleCalendarService
         { "access_token" => current_user.token,
           "refresh_token" => current_user.refresh_token,
           "client_id" => ENV['GOOGLE_CLIENT_ID'],
-          "client_secret" => ENV['GOOGLE_CLIENT_SECRETS'],
+          "client_secret" => ENV['GOOGLE_CLIENT_SECRETS']
         }
       }
     )
@@ -36,49 +36,55 @@ class GoogleCalendarService
   # Where 'primary' is 'my' calendar
   def add_event_to_g_company_cal(opt)
     event = make_a_google_event(opt)
-    @calendar.insert_event(company_calendar_id, event, send_notifications: true)
+    @calendar.insert_event company_calendar_id,
+                           event,
+                           send_notifications: true
   end
 
   def existing_event?(id)
-    begin
-      response = @calendar.get_event( company_calendar_id, id )
-      response.id == id
-    rescue
-      Rails.logger.debug("Calendar id fails here : #{ id }")
-      false
-    end
+    response = @calendar.get_event(company_calendar_id, id)
+    response.id == id
+  rescue
+    Rails.logger.debug("Calendar id fails here : #{id}")
+    false
   end
 
   def update_event_google_calendar(opt)
-    begin
-      if opt.fetch(:fk, nil).nil?
-        "inexisting Google Calendar event"
-      else
-        if existing_event? opt[:fk]
-          @calendar.update_event(company_calendar_id, opt[:fk], make_a_google_event(opt))
-        else
-          Rails.logger.debug("missing event in Google Calendar with id: #{ opt[:fk]}")
-          nil
-        end
-      end
-    rescue
-      Rails.logger.debug("API Call failed with #{$!} \nin update_event_google_calendar")
-      nil
+    if opt.fetch(:fk, nil).nil?
+      'inexisting Google Calendar event'
+    elsif existing_event? opt[:fk]
+      @calendar.update_event company_calendar_id,
+                             opt[:fk],
+                             make_a_google_event(opt)
+    else
+      Rails.logger.debug(
+        "missing event in Google Calendar with id: #{opt[:fk]}"
+      )
     end
+  rescue StandardError => e
+    Rails.logger.debug(
+      "API Call failed with #{$ERROR_INFO} \n" \
+      "in update_event_google_calendar | #{e}"
+    )
   end
 
   def delete_event_google_calendar(event)
-    begin
-      if !event.try(:fk).nil? && existing_event?(event.fk)
-        @calendar.delete_event(company_calendar_id, event.fk)
-      else
-        Rails.logger.debug("fails to delete from GCalendar event id/fk: #{ event.id } / #{ event.fk }")
-        nil
-      end
-    rescue
-      Rails.logger.debug("API Call failed with #{$!} \nin delete_event_google_calendar")
+    if !event.try(:fk).nil? && existing_event?(event.fk)
+      @calendar.delete_event(company_calendar_id, event.fk)
+    else
+      Rails.logger.debug(
+        'fails to delete from GCalendar event id/fk:' \
+        " #{event.id} / #{event.fk}"
+      )
       nil
     end
+  rescue
+    Rails.logger
+         .debug(
+           "API Call failed with #{$ERROR_INFO} \n" \
+           'in delete_event_google_calendar'
+         )
+    nil
   end
 
   def make_a_google_event(opt)
@@ -86,7 +92,7 @@ class GoogleCalendarService
     event_title = "events.#{ opt.fetch(:title, "g_title.performance")}"
     event_hash = {
       summary: opt.fetch(:title, "Show"),
-      location: opt.fetch(:location, I18n.t("performances.nowhere")),
+      location: opt.fetch(:location, I18n.t('performances.nowhere')),
       description: I18n.t(
         "performances.mere_new_opus",
         name: opt.fetch(:theater_name)),

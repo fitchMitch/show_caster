@@ -2,7 +2,7 @@ class CoachesController < ApplicationController
   before_action :set_coach, only: [:show, :edit, :update, :destroy]
 
   # respond_to :html, :json, :js
-  
+
   def new
     authorize Coach
     @coach = Coach.new
@@ -23,27 +23,27 @@ class CoachesController < ApplicationController
     @coach = Coach.new(coach_params)
     authorize @coach
     if @coach.save
-      redirect_to coaches_path, notice: I18n.t("coaches.save_success")
+      redirect_to coaches_path, notice: I18n.t('coaches.save_success')
     else
-      flash[:alert] = I18n.t("coaches.save_fails")
+      flash[:alert] = I18n.t('coaches.save_fails')
       render :new
     end
   end
 
   def update
     @coach.update(coach_params)
-    flash[:notice] = I18n.t("coaches.updated")
+    flash[:notice] = I18n.t('coaches.updated')
     if @coach.save
-      redirect_to coaches_path, notice: I18n.t("coaches.update_success")
+      redirect_to coaches_path, notice: I18n.t('coaches.update_success')
     else
-      flash[:alert] = I18n.t("coaches.save_fails")
+      flash[:alert] = I18n.t('coaches.save_fails')
       render :edit
     end
   end
 
   def destroy
     @coach.destroy
-    redirect_to coaches_url, notice: I18n.t("coaches.destroyed")
+    redirect_to coaches_url, notice: I18n.t('coaches.destroyed')
   end
 
   private

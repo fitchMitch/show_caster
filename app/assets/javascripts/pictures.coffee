@@ -1,13 +1,18 @@
 $(document).ready ->
   # Can't validate an empty form
+
   allow_submission = () ->
     picture_handler = document.getElementById("picture_photo")
     files = picture_handler.files
     if files.length == 0
       $("#photo_validation_button").prop('disabled', 'disabled')
+      $("#loader").hide()
     else
       $("#photo_validation_button").prop('disabled', false)
-  allow_submission()
+      $("#loader").show("slow")
+      $("#new_picture").submit()
+  page_is_a_picture_page = document.getElementById("picture_photo") != null
+  allow_submission() if page_is_a_picture_page
   $("#picture_photo").on 'change', allow_submission
   #==========================
 

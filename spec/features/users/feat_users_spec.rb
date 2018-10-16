@@ -12,7 +12,7 @@ RSpec.feature  "Users list" do
     end
 
     scenario "should list the theater's band members" do
-      expect(page.body).to have_selector("h2", text: I18n.t("users.list"))
+      expect(page.body).to have_selector("h2", text: I18n.t('users.list'))
     end
 
     scenario "should show at least an administrator" do
@@ -47,40 +47,40 @@ RSpec.feature  "Users list" do
       player = create(:user, :player, :invited)
       visit user_path(player)
       page.find('.users_promote').find("option[value='archived']").select_option
-      click_button(I18n.t("users.promote"))
-      expect(page.body).to have_selector("h2", text: I18n.t("users.list"))
+      click_button(I18n.t('users.promote'))
+      expect(page.body).to have_selector("h2", text: I18n.t('users.list'))
       expect(page.body).to have_text("RIP")
     end
     scenario "with invited status, it proposes archived status" do
       player = create(:user, :player, :invited)
       visit user_path(player)
       page.find('.users_promote').find("option[value='archived']").select_option
-      click_button(I18n.t("users.promote"))
-      expect(page.body).to have_selector("h2", text: I18n.t("users.list"))
+      click_button(I18n.t('users.promote'))
+      expect(page.body).to have_selector("h2", text: I18n.t('users.list'))
       expect(page.body).to have_text("RIP")
     end
     scenario "with googled status, it proposes archived status" do
       player = create(:user, :player, :googled)
       visit user_path(player)
       page.find('.users_promote').find("option[value='archived']").select_option
-      click_button(I18n.t("users.promote"))
-      expect(page.body).to have_selector("h2", text: I18n.t("users.list"))
+      click_button(I18n.t('users.promote'))
+      expect(page.body).to have_selector("h2", text: I18n.t('users.list'))
       expect(page.body).to have_text("RIP")
     end
     scenario "with registered status, it proposes archived status" do
       player = create(:user, :player, :registered)
       visit user_path(player)
       page.find('.users_promote').find("option[value='archived']").select_option
-      click_button(I18n.t("users.promote"))
-      expect(page.body).to have_selector("h2", text: I18n.t("users.list"))
+      click_button(I18n.t('users.promote'))
+      expect(page.body).to have_selector("h2", text: I18n.t('users.list'))
       expect(page.body).to have_text("RIP")
     end
     scenario "with archived status, it proposes setup status" do
       player = create(:user, :player, :archived)
       visit user_path(player)
       page.find('.users_promote').find("option[value='setup']").select_option
-      click_button(I18n.t("users.promote"))
-      expect(page.body).to have_selector("h2", text: I18n.t("users.list"))
+      click_button(I18n.t('users.promote'))
+      expect(page.body).to have_selector("h2", text: I18n.t('users.list'))
       expect(page.body).not_to have_text("RIP")
     end
   end
@@ -94,17 +94,17 @@ RSpec.feature  "Users list" do
       player = create(:user, :player, :invited)
       visit user_path(player)
       page.find('.users_promote').find("option[value='admin']").select_option
-      click_button(I18n.t("users.promote"))
-      expect(page.body).to have_selector("h2", text: I18n.t("users.list"))
+      click_button(I18n.t('users.promote'))
+      expect(page.body).to have_selector("h2", text: I18n.t('users.list'))
       click_link(player.full_name)
-      expect(page.body).to have_text(I18n.t("enums.user.role.admin"))
+      expect(page.body).to have_text(I18n.t('enums.user.role.admin'))
     end
   end
 
   feature "As visitor " do
     scenario "getting INDEX it fails mouwhahahahaa" do
       visit users_path
-      expect(page.body).not_to have_selector("h2", text: I18n.t("users.list"))
+      expect(page.body).not_to have_selector("h2", text: I18n.t('users.list'))
     end
   end
 end

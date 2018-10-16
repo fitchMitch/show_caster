@@ -8,10 +8,10 @@ class Events::PicturesController < PicturesController
 
     respond_to do |format|
       if @picture.save
-        format.html { redirect_to @imageable, notice: I18n.t("pictures.save_success")  }
+        format.html { redirect_to @imageable, notice: I18n.t('pictures.save_success')  }
         format.json { render :show, status: :created, location: @imageable }
       else
-        format.html { redirect_to @imageable, notice: I18n.t("pictures.save_failure")  }
+        format.html { redirect_to @imageable, notice: I18n.t('pictures.save_failure')  }
         format.json { render json: @picture.errors, status: :unprocessable_entity }
       end
     end

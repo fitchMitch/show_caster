@@ -13,7 +13,6 @@ RSpec.describe "theaters/show", type: :view do
   it "renders attributes in <p>" do
 
     render
-    # byebug
     expect(rendered).to match(/Theater Name/)
     expect(rendered).to match(/Theater Address/)
     expect(rendered).to match(/Manager/)
