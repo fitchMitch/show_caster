@@ -1,9 +1,16 @@
-$("#thread_<%= @thread.id %>_new_comment_form_div").html(
-  "<%= escape_javascript(render partial: 'form', locals: { comment: @comment, thread: @thread, per_page: @per_page }) %>"
-);
-
-$("#thread_<%= @thread.id %>_new_comment_form_div").fadeIn()[0].scrollIntoView();
-
-$("#thread_<%= @thread.id %>_new_comment_link_div").hide();
-
+function defer(method) {
+    if (window.jQuery) {
+        method();
+    } else {
+        setTimeout(function() { defer(method) }, 51);
+    }
+}
+defer(function(){
+  $("#thread_<%= @thread.id %>_new_comment_form_div").html(
+    "<%= escape_javascript(render partial: 'form', locals: { comment: @comment, thread: @thread, per_page: @per_page }) %>"
+  );
+  $("#thread_<%= @thread.id %>_new_comment_form_div").show('slow');
+  // $("#thread_<%= @thread.id %>_new_comment_form_div").fadeIn()[0].scrollIntoView();
+  $("#thread_<%= @thread.id %>_new_comment_link_div").hide();
+})
 <%= javascript_proc %>
