@@ -71,4 +71,22 @@ module UsersHelper
     "<span class='badge_user' style='#{badge_user(user)}'>" \
     "#{user.firstname} #{user.lastname.first}</span>".html_safe
   end
+
+  def sesame_picture_url(user)
+    if user.pictures && user.pictures.first && user.pictures.first.photo
+      user.pictures.first.photo(:square)
+    else
+      user.photo_url
+    end
+  end
+
+  def badge_user_for_comment(user, size = 60)
+    square_size = "#{size}x#{size}"
+    in_dallas = "border: 3px solid black;
+                 border-color: #{user.hsl_user_color2};
+                 "
+    # in_dallas = "border-bottom-color: #{user.hsl_user_color1};border-top-color:  #{user.hsl_user_color2}"
+    # in_dallas = "border-color: #{user.hsl_user_color1} #{user.hsl_user_color2} ;border: 3px solid"
+    image_tag(sesame_picture_url(user), size: square_size, class: 'in-dallas', style: in_dallas)
+  end
 end

@@ -151,6 +151,14 @@ class User < ApplicationRecord
     self.archived? ? ["setup", "archived"] : [self.status, "archived"]
   end
 
+  def hsl_user_color1
+    color.split(';').first
+  end
+
+  def hsl_user_color2
+    color.split(';').second
+  end
+
   protected
 
     def format_fields

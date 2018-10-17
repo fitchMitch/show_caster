@@ -22,7 +22,7 @@
   </div>
   <div id="comment_<%= comment.id.to_s %>_middle_div" class="comment_div">
     <span id="comment_<%= comment.id.to_s %>_avatar_span" class="comment_avatar">
-      <%= avatar %>
+      <%= badge_user_for_comment(user,55) %>
     </span>
     <span id="comment_<%= comment.id.to_s %>_votes_span" class="comment_votes">
       <%= render partial: 'commontator/comments/votes',
@@ -36,12 +36,12 @@
   </div>
   <div id="comment_<%= comment.id.to_s %>_bottom_div" class="comment_div">
     <span id="comment_<%= comment.id.to_s %>_created_timestamp_span" class="comment_timestamp">
-      <%= comment.created_timestamp %>
+      <%= comment_creation_time(comment)%>
     </span>
     <br/>
     <span id="comment_<%= comment.id.to_s %>_updated_timestamp_span" class="comment_timestamp">
     <% if comment.is_modified? %>
-      <%= comment.updated_timestamp %>
+      <%= comment_update_time(comment)%>
     <% end %>
     </span>
   </div>

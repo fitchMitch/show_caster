@@ -5,7 +5,7 @@
 
   border-top: 1px solid;
   border-left: 1px solid;
-  
+
   margin-top: 15px;
   margin-bottom: 15px;
 
@@ -17,12 +17,19 @@
   color: #000;
   border-color: #DDD;
   background-color: #FFF;
-  
+
   clear: both;
 }
 
 .comment_actions {
   float: right;
+}
+.comment_commontator{
+  font-weight: 500;
+  font-family: sans-serif;
+  color: $sesame-blue;
+  background-color: $sesame-yellow
+
 }
 
 .comment_body {

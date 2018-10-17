@@ -27,7 +27,7 @@ fr:
       actions:
         cancel: Annuler
         confirm_delete: "Etes vous sûr.e ?"
-        create: "Poster mon commntaire"
+        create: "Poster mon commentaire"
         delete: Supprimer
         edit: Editer
         new: "Nouveau commentaire"
@@ -42,7 +42,9 @@ fr:
       status:
         created_at: "Posté le %{created_at}."
         deleted_by: "Commentaire supprimé par %{deleter_name}."
+        posted: "Posté il y a  %{posted_at}"
         updated_at: "Dernière modification par %{editor_name} le %{updated_at}."
+        updated: "Modifié il y a %{updated_at}"
     email:
       comment_created:
         body: "%{creator_name} a commenté %{commontable_name}:"
