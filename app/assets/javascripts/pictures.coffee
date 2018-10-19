@@ -1,14 +1,12 @@
 $(document).ready ->
-  # Can't validate an empty form
 
+  picture_handler = document.getElementById("picture_photo")
   allow_submission = () ->
-    picture_handler = document.getElementById("picture_photo")
-    files = picture_handler.files
-    if files.length == 0
+    if picture_handler == undefined || picture_handler.files.length == 0
       $("#photo_validation_button").prop('disabled', 'disabled')
       $("#loader").hide()
-    else
-      $("#photo_validation_button").prop('disabled', false)
+    else if picture_handler.files.length > 0
+      $("#photo_validation_button").prop('disabled', false).hide('slow')
       $("#loader").show("slow")
       $("#new_picture").submit()
   page_is_a_picture_page = document.getElementById("picture_photo") != null
@@ -20,16 +18,6 @@ $(document).ready ->
     s = "hauteur : #{ h }  x largeur : #{ w }"
     $('#widthbox').text s
     return
-
-  observer = new MutationObserver((mutations) ->
-    mutations.forEach (mutationRecord) ->
-      h = parseInt($('#photo_crop_h').val(), 10)
-      w = parseInt($('#photo_crop_w').val(), 10)
-      write_it(w, h)
-      indicatorsDisplay(w, h)
-      return
-    return
-  )
   indicatorsDisplay = (w, h) ->
     if w > 0
       if Math.abs(h/w - 1) < 0.01
@@ -46,6 +34,16 @@ $(document).ready ->
         $("#widthbox").removeClass("movieBorder")
         $("#movie").hide()
     return
+
+  observer = new MutationObserver((mutations) ->
+    mutations.forEach (mutationRecord) ->
+      h = parseInt($('#photo_crop_h').val(), 10)
+      w = parseInt($('#photo_crop_w').val(), 10)
+      write_it(w, h)
+      indicatorsDisplay(w, h)
+      return
+    return
+  )
 
   target = document.getElementById("photo_crop_w")
   observer.observe target,
