@@ -3,13 +3,16 @@
 
 Each show of a Theater Company gets programmed with its set of actors, and concert hall. Each one is
 synched with the company's Google Agenda. Possibility to upload and crop photographs taken during the shows.
-Splash page for audience where registered emails are synchronized with the Company's MailChimp account.
+Splash page for audience displaying basic information about the players and the future shows; it registers emails with the Company's MailChimp account.
 
-## Featuring
+## Also Featuring
+* Oauth2 Google authentication
 * Invitation workflow
 * Roles management
-* Oauth2 Google authentication
-* Statistics
+* courses management with external coach or autocoached
+* Plays Statistics per player
+* Poll management (Doole's way)
+* Commontator's comments
 * I18n
 
 
