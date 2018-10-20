@@ -26,6 +26,8 @@ class PollOpinionsController < PollsController
     @vote = @poll.vote_opinions.build
     @answers_id = VoteOpinion.which_answer(@poll, current_user)
     @answer_id = @answers_id.count > 0 ? @answers_id.first : nil
+    @commontable = @poll
+    commontator_thread_show(@commontable)
   end
 
   private

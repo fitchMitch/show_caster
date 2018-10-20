@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Commontator::Engine => '/commontator'
   # Users and Sessions
   resources :users do
     resources :pictures, module: :users

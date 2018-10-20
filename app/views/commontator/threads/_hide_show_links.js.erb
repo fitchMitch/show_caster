@@ -1,0 +1,25 @@
+<% # Clients of this partial must supply the following variables:
+   # thread
+%>
+function defer(method) {
+    if (window.jQuery) {
+        method();
+    } else {
+        setTimeout(function() { defer(method) }, 50);
+    }
+}
+defer(function(){
+  $("#thread_<%= thread.id %>_hide_link").click(function() {
+    $("#thread_<%= thread.id %>_span").hide();
+    $("#thread_<%= thread.id %>_show_span").fadeIn()[0].scrollIntoView();
+  });
+
+  $("#thread_<%= thread.id %>_show_link").click(function() {
+    $("#thread_<%= thread.id %>_span").fadeIn()[0].scrollIntoView();
+    // $("#thread_<%= thread.id %>_span").fadeIn()[0].scrollIntoView();
+    $("#thread_<%= thread.id %>_show_span").hide();
+  });
+
+  $("#thread_<%= thread.id %>_hide_span").show();
+  $("#thread_<%= thread.id %>_new_comment_form_div").fadeIn()[0].scrollIntoView();
+})

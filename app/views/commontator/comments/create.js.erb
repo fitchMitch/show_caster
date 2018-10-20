@@ -1,0 +1,40 @@
+<%= render partial: 'commontator/threads/show',
+           locals: { thread: @thread,
+                        user: @user,
+                        page: @thread.new_comment_page(@per_page),
+                        per_page: @per_page } %>
+
+<% unless @new_comment.nil? %>
+function defer(method) {
+    if (window.jQuery) {
+        method();
+    } else {
+        setTimeout(function() { defer(method) }, 55);
+    }
+}
+defer(function(){
+  $("#thread_<%= @thread.id %>_new_comment_form_div").html("<%= escape_javascript(
+    render partial: 'form',
+           locals: { comment: @new_comment,
+                        thread: @thread,
+                        per_page: @per_page }) %>");
+  alert("zoe est gaie")
+  $("#thread_<%= @thread.id %>_new_comment_form_div").show();
+})
+<% else %>
+function defer(method) {
+    if (window.jQuery) {
+        method();
+    } else {
+        setTimeout(function() { defer(method) }, 52);
+    }
+}
+defer(function(){
+  $("#thread_<%= @thread.id %>_new_comment_form_div").hide();
+  $("#thread_<%= @thread.id %>_new_comment_link_div").fadeIn();
+})
+<% end %>
+defer(function(){
+$("#comment_<%= @comment.id.to_s %>_div").hide().fadeIn()[0].scrollIntoView();
+})
+<%= javascript_proc %>

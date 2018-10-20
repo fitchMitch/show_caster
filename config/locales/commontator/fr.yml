@@ -1,0 +1,80 @@
+fr:
+  activerecord:
+    attributes:
+      commontator/comment:
+        body: Comment
+        creator: Auteur
+        editor: Editeur
+        thread: Discussion
+      commontator/subscription:
+        subscriber: Abonnement
+        thread: Discussion
+      commontator/thread:
+        commontable: Fil
+    models:
+      commontator/comment:
+        one: commentaire
+        other: commentaires
+      commontator/subscription:
+        one: Abonnement
+        other: Abonnements
+      commontator/thread:
+        one: Fil
+        other: Fils
+  commontator:
+    anonymous: Anonyme
+    comment:
+      actions:
+        cancel: Annuler
+        confirm_delete: "Etes vous sûr.e ?"
+        create: "Poster mon commentaire"
+        delete: Supprimer
+        edit: Editer
+        new: "Nouveau commentaire"
+        undelete: Récupérer
+        update: "Modifier un commentaire"
+      errors:
+        already_deleted: "Ce commentaire a déjà été détruit."
+        create: "Ce commentaire n'a pas pu être envoyé car :"
+        double_posted: "c'est le double d'un autre."
+        not_deleted: "Ce commentaire n'est pas supprimé."
+        update: "Ce commentaire n' apas pu être modifié car:"
+      status:
+        created_at: "Posté le %{created_at}."
+        deleted_by: "Commentaire supprimé par %{deleter_name}."
+        posted: "Posté il y a  %{posted_at}"
+        updated_at: "Dernière modification par %{editor_name} le %{updated_at}."
+        updated: "Modifié il y a %{updated_at}"
+    email:
+      comment_created:
+        body: "%{creator_name} a commenté %{commontable_name}:"
+        subject: "%{creator_name} a posté un commentaire le %{commontable_name}"
+      thread_link_html: "<a href=\"%{comment_url}\">Click here</a> to view all comments on %{commontable_name}."
+    require_login: "Vous deveez vou loguer avant de poster un commentaire."
+    subscription:
+      actions:
+        confirm_unsubscribe: "C'est pas une mauvaise manip ? C'est sûr ?"
+        subscribe: S'abonner
+        unsubscribe: Se désabonner
+      errors:
+        already_subscribed: "Vosu avez déjà soucrit à cette discussion."
+        not_subscribed: "Vous n'êtes pas inscrit à cette discussion."
+    thread:
+      actions:
+        show_all: "Montrer les commentaires"
+        filter: "Filtrer les commentaires"
+        close: "Clore la discussion"
+        confirm_close: "C'est sûr ?"
+        reopen: "Réouvrir la discussion"
+        show: "Montrer les commentaires"
+        hide: "Cacher les commentaires"
+      errors:
+        already_closed: "Cette discussion a déjà été close."
+        not_closed: "Cette discussion n'est pas close"
+      status:
+        cannot_post: "De nouveaux commentaires ne peuven pas être envoyés pour l'instant."
+        closed: "Commentaires (clos par %{closer_name})"
+        open: Commentaires
+  time:
+    formats:
+      commontator: "%b %d %Y at %I:%M%p %Z"

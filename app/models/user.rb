@@ -24,6 +24,7 @@
 #
 
 class User < ApplicationRecord
+  acts_as_commontator
   # includes
   include Users::Formating
   include Users::Validating
@@ -79,6 +80,10 @@ class User < ApplicationRecord
     text = first_and_last_name
     text = "#{I18n.t('users.deleted_name')} -  #{text}" if archived?
     text.html_safe
+  end
+
+  def is_commontator
+    true
   end
 
   def self.from_omniauth(access_token)
@@ -144,6 +149,14 @@ class User < ApplicationRecord
 
   def restricted_statuses
     self.archived? ? ["setup", "archived"] : [self.status, "archived"]
+  end
+
+  def hsl_user_color1
+    color.split(';').first
+  end
+
+  def hsl_user_color2
+    color.split(';').second
   end
 
   protected
