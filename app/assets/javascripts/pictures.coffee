@@ -1,19 +1,4 @@
 $(document).ready ->
-
-  picture_handler = document.getElementById("picture_photo")
-  allow_submission = () ->
-    if picture_handler == undefined || picture_handler.files.length == 0
-      $("#photo_validation_button").prop('disabled', 'disabled')
-      $("#loader").hide()
-    else if picture_handler.files.length > 0
-      $("#photo_validation_button").prop('disabled', false).hide('slow')
-      $("#loader").show("slow")
-      $("#new_picture").submit()
-  page_is_a_picture_page = document.getElementById("picture_photo") != null
-  allow_submission() if page_is_a_picture_page
-  $("#picture_photo").on 'change', allow_submission
-  #==========================
-
   write_it = (w, h)->
     s = "hauteur : #{ h }  x largeur : #{ w }"
     $('#widthbox').text s
@@ -34,6 +19,22 @@ $(document).ready ->
         $("#widthbox").removeClass("movieBorder")
         $("#movie").hide()
     return
+  allow_submission = () ->
+    if picture_handler == undefined || picture_handler.files.length == 0
+      $("#photo_validation_button").prop('disabled', 'disabled')
+      $("#loader").hide()
+    else if picture_handler.files.length > 0
+      $("#photo_validation_button").prop('disabled', false).hide('slow')
+      $("#loader").show("slow")
+      $("#new_picture").submit()
+  #==========================
+  #=======   MAIN   =========
+  #==========================
+  $("#loader").hide()
+  picture_handler = document.getElementById("picture_photo")
+  if picture_handler != null
+    allow_submission() if picture_handler.length > 0
+    $("#picture_photo").on 'change', allow_submission
 
   observer = new MutationObserver((mutations) ->
     mutations.forEach (mutationRecord) ->
