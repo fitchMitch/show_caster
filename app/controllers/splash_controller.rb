@@ -59,7 +59,7 @@ class SplashController < ApplicationController
     next_players.each do |player|
       players_firstnames << player.user.firstname
     end
-    players_firstnames << mc.user.firstname
+    players_firstnames << mc.user.firstname unless mc.nil?
     players_firstnames
   end
 
