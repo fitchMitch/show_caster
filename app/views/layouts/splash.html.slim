@@ -10,11 +10,8 @@ html.no-js
     meta  name='viewport' content=('width=device-width' ) /
 
     = stylesheet_link_tag 'splash', media: nil
-
-    / Append your own using content_for :stylesheets
     = yield :stylesheets
     = javascript_include_tag 'modernizr'
-
     = csrf_meta_tag
 
   body.splash#top data={ spy: "scroll", target: "#navbar"}
