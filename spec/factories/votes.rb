@@ -7,7 +7,6 @@
 #  answer_id  :integer
 #  user_id    :integer
 #  type       :string
-#  comment    :string
 #  vote_label :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -15,7 +14,6 @@
 
 FactoryBot.define do
   factory :vote do
-    comment { FFaker::Lorem.sentence(1)}
     user
     poll
     answer

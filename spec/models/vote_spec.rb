@@ -29,7 +29,7 @@ RSpec.describe Vote, type: :model do
   end
 
   context  "Persistance (opinion)" do
-    let!(:symfields) { %i(vote_label comment) }
+    let!(:symfields) { %i(vote_label comment) } # TODO label_comment has disappeared
     let!(:valid_attributes_opinion) { build(:vote_opinion).attributes }
     let!(:vote_op){ create(:vote_opinion, valid_attributes_opinion)}
 

@@ -23,7 +23,6 @@ class VotesController < ApplicationController
         .permit(
           :vote_label,
           :answer_id,
-          :comment,
           :poll_id,
           :poll_opinion_id,
           :poll_date_id

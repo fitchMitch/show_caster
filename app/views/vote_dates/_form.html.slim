@@ -18,10 +18,6 @@ Table.center
           = f.input :answer_id,
             input_html: { value: answer_vote[:answer].id || ""},
             as: :hidden
-          = f.input :comment,
-            as: :text,
-            input_html: { value: answer_vote[:vote].try(:comment) || "" },
-            label: "<small>#{ t("votes.comment")}</small>".html_safe
     tr
       - @answers_votes.each do |answer_vote|
         td.date-choice
