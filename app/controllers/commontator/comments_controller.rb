@@ -29,7 +29,7 @@ module Commontator
       subscribe_mentioned if Commontator.mentions_enabled
 
       respond_to do |format|
-        if  !params[:cancel].nil?
+        if !params[:cancel].nil?
           format.html { redirect_to @thread }
           format.js { render :cancel }
         elsif @comment.save
