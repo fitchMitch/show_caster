@@ -16,7 +16,6 @@ module Commontator
         format.html { redirect_to @thread }
         format.js
       end
-
     end
 
     # POST /threads/1/comments

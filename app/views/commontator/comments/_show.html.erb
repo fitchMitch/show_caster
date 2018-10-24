@@ -22,7 +22,7 @@
   </div>
   <div id="comment_<%= comment.id.to_s %>_middle_div" class="comment_div">
     <span id="comment_<%= comment.id.to_s %>_avatar_span" class="comment_avatar">
-      <%= badge_user_for_comment(user,55) %>
+      <%= ApplicationController.helpers.badge_user_for_comment(user,55) %>
     </span>
     <span id="comment_<%= comment.id.to_s %>_votes_span" class="comment_votes">
       <%= render partial: 'commontator/comments/votes',

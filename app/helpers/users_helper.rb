@@ -85,8 +85,9 @@ module UsersHelper
     in_dallas = "border: 3px solid black;
                  border-color: #{user.hsl_user_color2};
                  "
-    # in_dallas = "border-bottom-color: #{user.hsl_user_color1};border-top-color:  #{user.hsl_user_color2}"
-    # in_dallas = "border-color: #{user.hsl_user_color1} #{user.hsl_user_color2} ;border: 3px solid"
-    image_tag(sesame_picture_url(user), size: square_size, class: 'in-dallas', style: in_dallas)
+    image_tag sesame_picture_url(user),
+              size: square_size,
+              class: 'in-dallas',
+              style: in_dallas
   end
 end
