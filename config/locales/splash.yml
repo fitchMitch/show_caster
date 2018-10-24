@@ -7,6 +7,8 @@ fr:
     us: Nous
     photos: Photos
     contact: Contact
+    performance:
+      next_performance: Notre prochain spectacle
   mailchimp:
     disclaimer: Les variables d'environnement MAILCHIMP_API_KEY et MAILCHIMP_SPLASH_SIGNUP_LIST_ID doivent être définies pour que l'enregistrement à la mailing liste puisse fonctionner ! If you don't want this feature, you can just remove the mailing list signup feature from app/views/splash/index.html.haml
     already_signed_up: Vous vous êtes déjà abonné(e) à notre liste. Merci pour votre enthousiasme !
