@@ -56,7 +56,7 @@ FactoryBot.define do
 end
 
 FactoryBot.define do
-  factory :user do
+  factory :user, aliases: %i[owner creator editor] do
     firstname
     lastname
     email
