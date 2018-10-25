@@ -18,7 +18,6 @@ defer(function(){
            locals: { comment: @new_comment,
                         thread: @thread,
                         per_page: @per_page }) %>");
-  alert("zoe est gaie")
   $("#thread_<%= @thread.id %>_new_comment_form_div").show();
 })
 <% else %>

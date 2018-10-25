@@ -12,8 +12,8 @@
 
 FactoryBot.define do
   factory :answer do
-    answer_label {"MyString"}
-    date_answer { Time.zone.now - (1..10).to_a.sample.days }
+    answer_label  { "Answer : #{FFaker::Lorem.sentence(1)} !" }
+    date_answer   { Time.zone.now - (1..10).to_a.sample.days }
 
     factory :answer_opinion do
       poll_opinion

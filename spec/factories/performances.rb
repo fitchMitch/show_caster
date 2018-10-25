@@ -22,18 +22,18 @@
 FactoryBot.define do
   factory :performance do
     event_date      { Time.zone.now + 2.days }
-    duration        {100}
-    note            {'MyText'}
-    title           {'Les mentals enterrés'}
+    duration        { 100 }
+    note            { 'MyText' }
+    title           { 'Les mentals enterrés' }
     theater
     # user{}
-    provider        {'google'}
+    provider        { 'google' }
     fk              { 'a' * 40 }
-    progress        {0}
+    progress        { 0 }
 
     factory :performance_with_actors do
       transient do
-        actors_count {6}
+        actors_count { 6 }
       end
       after(:create) do |performance, evaluator|
         create_list(:actor, evaluator.actors_count, performance: performance)
@@ -42,7 +42,7 @@ FactoryBot.define do
 
     factory :performance_with_picture do
       transient do
-        picture_count {1}
+        picture_count { 1 }
       end
       after(:create) do |event|
         create(:picture, imageable: event)

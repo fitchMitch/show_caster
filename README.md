@@ -11,7 +11,7 @@ Splash page for audience displaying basic information about the players and the 
 * Roles management
 * courses management with external coach or autocoached
 * Plays Statistics per player
-* Poll management (Doole's way)
+* Poll management (Doodle's way)
 * Commontator's comments
 * I18n
 
