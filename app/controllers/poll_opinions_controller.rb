@@ -5,8 +5,9 @@ class PollOpinionsController < PollsController
     authorize PollOpinion
     @poll = PollOpinion.new(
       expiration_date: Date.today.weeks_since(2),
-      owner_id: current_user.id)
-    2.times { answer = @poll.answers.build() }
+      owner_id: current_user.id
+    )
+    2.times { @poll.answers.build }
   end
 
   def create
