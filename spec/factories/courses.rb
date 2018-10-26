@@ -33,7 +33,9 @@ FactoryBot.define do
 
     factory :course_with_coach do
       association :courseable, factory: :coach
-      user { nil }
+    end
+    factory :auto_coached_course do
+      association :courseable, factory: :user
     end
   end
 end

@@ -26,7 +26,7 @@ FactoryBot.define do
     note            { 'MyText' }
     title           { 'Les mentals enterrés' }
     theater
-    # user{}
+    user
     provider        { 'google' }
     fk              { 'a' * 40 }
     progress        { 0 }

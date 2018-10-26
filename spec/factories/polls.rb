@@ -5,7 +5,6 @@ FactoryBot.define do
     owner
     transient do
       answers_count { 3 }
-      comments_count { 3 }
     end
   end
 
@@ -13,17 +12,13 @@ FactoryBot.define do
     type { 'PollOpinion' }
 
     factory :poll_opinion_with_answers do
+      transient do
+        comments_count { 3 }
+      end
       after(:create) do |poll_opinion, evaluator|
         create_list(
           :answer_opinion,
           evaluator.answers_count,
-          poll_opinion: poll_opinion
-        )
-      end
-      after(:create) do |poll_opinion, evaluator|
-        create_list(
-          :poll_opinion_thread,
-          evaluator.comments_count,
           poll_opinion: poll_opinion
         )
       end
