@@ -76,7 +76,7 @@ module UsersHelper
     if user.pictures && user.pictures.first && user.pictures.first.photo
       user.pictures.first.photo(:square)
     else
-      user.photo_url
+      user.photo_url || image_url('Zoidberg.png')
     end
   end
 

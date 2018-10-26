@@ -37,7 +37,6 @@ end
 #   c.hook_into :webmock
 # end
 
-
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root }/spec/fixtures"
 
