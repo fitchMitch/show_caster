@@ -6,16 +6,14 @@ class AnswersController < ApplicationController
     @answers = Answer.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     authorize Answer
     @answer = Answer.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @answer = Answer.new(answer_params)
@@ -45,14 +43,13 @@ class AnswersController < ApplicationController
   end
 
   private
-    def set_answer
-      @answer = Answer.find(params[:id])
-      authorize @answer
-    end
 
-    def answer_params
-      params.require(:answer).permit(:answer_label, :date_answer, :poll_id)
-    end
+  def set_answer
+    @answer = Answer.find(params[:id])
+    authorize @answer
+  end
 
-
+  def answer_params
+    params.require(:answer).permit(:answer_label, :date_answer, :poll_id)
+  end
 end
