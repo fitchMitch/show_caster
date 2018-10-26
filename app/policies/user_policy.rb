@@ -35,7 +35,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def promote?
-    return false if @user.nil? || @record.nil?
+    return false if @user.nil? || @record.nil? || @user.player?
     c1 = @record.status != 'setup'
     c2 = communicator_or_admin?
     c1 && c2 && @record != @user || (User.admin.count > 1)

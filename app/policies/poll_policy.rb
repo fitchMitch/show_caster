@@ -6,11 +6,11 @@ class PollPolicy < EventPolicy
   end
 
   def new?
-    true
+    registered?
   end
 
   def edit?
-    communicator_or_admin? || owner?
+    registered?
   end
 
   def index?
@@ -18,7 +18,7 @@ class PollPolicy < EventPolicy
   end
 
   def show?
-    true
+    registered?
   end
 
   def update?
@@ -30,7 +30,7 @@ class PollPolicy < EventPolicy
   end
 
   def destroy?
-    admin?
+    communicator_or_admin?
   end
 
   private
@@ -38,6 +38,4 @@ class PollPolicy < EventPolicy
   def owner?
     record.owner_id = user.id
   end
-
-
 end

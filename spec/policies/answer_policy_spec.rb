@@ -1,9 +1,9 @@
 require 'rails_helper'
 RSpec.describe AnswerPolicy do
-  subject { AnswerPolicy.new(user, answer)}
-  let!(:answer) { answer = FactoryBot.create(:answer) }
+  subject { AnswerPolicy.new(user, answer) }
+  let!(:answer) { FactoryBot.create(:answer) }
 
-  context "As a visitor" do
+  context 'As a visitor' do
     let!(:user) { nil }
     it { is_expected.to     forbid_action(:index) }
     it { is_expected.to     forbid_action(:show) }
@@ -12,10 +12,10 @@ RSpec.describe AnswerPolicy do
     it { is_expected.to     forbid_action(:destroy) }
   end
 
-  context "As a player" do
-    let!(:user) { FactoryBot.create(:user, :player,:registered) }
+  context 'As a player' do
+    let!(:user) { FactoryBot.create(:user, :player, :registered) }
 
-    subject { AnswerPolicy.new(user, answer)}
+    subject { AnswerPolicy.new(user, answer) }
     it { is_expected.to      permit_action(:index) }
     it { is_expected.to      permit_action(:show) }
     it { is_expected.to      permit_action(:edit) }
@@ -23,10 +23,10 @@ RSpec.describe AnswerPolicy do
     it { is_expected.to      forbid_action(:destroy) }
   end
 
-  context "As an admin" do
-    let!(:user) { FactoryBot.create(:user, :admin,:registered) }
+  context 'As an admin' do
+    let!(:user) { FactoryBot.create(:user, :admin, :registered) }
 
-    subject { AnswerPolicy.new(user, answer)}
+    subject { AnswerPolicy.new(user, answer) }
     it { is_expected.to     permit_action(:index) }
     it { is_expected.to     permit_action(:show) }
     it { is_expected.to     permit_action(:edit) }
@@ -34,10 +34,10 @@ RSpec.describe AnswerPolicy do
     it { is_expected.to     permit_action(:destroy) }
   end
 
-  context "As an admin_com" do
-    let!(:user) { FactoryBot.create(:user,:admin_com,:registered) }
+  context 'As an admin_com' do
+    let!(:user) { FactoryBot.create(:user, :admin_com, :registered) }
 
-    subject { AnswerPolicy.new(user, answer)}
+    subject { AnswerPolicy.new(user, answer) }
     it { is_expected.to     permit_action(:index) }
     it { is_expected.to     permit_action(:show) }
     it { is_expected.to     permit_action(:edit) }
