@@ -148,7 +148,7 @@ module Commontator
       @thread = @comment.thread
       commontator_set_new_comment(@thread, @user)
     end
-
+    
     def subscribe_mentioned
       Commontator.commontator_mentions(@user, @thread, '').where(id: params[:mentioned_ids]).each do |user|
         @thread.subscribe(user)

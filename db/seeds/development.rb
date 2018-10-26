@@ -10,6 +10,10 @@ def n_out_of_m?(n, m)
   (1..m).to_a.sample <= n
 end
 
+def randy(n)
+  (0..n).to_a.sample
+end
+
 # -----------------
 # Users
 # -----------------
@@ -37,7 +41,7 @@ User.create!(
     # setup: 0, invited: 1, googled: 2, registered: 3, archived: 4
     status =               3
   else
-    status =              (0..3).to_a.sample
+    status =              randy(3)
     status =              4 if status == 3
   end
 
@@ -81,7 +85,7 @@ theaters = Theater.all
   name  = "Le #{ FFaker::Name.name } étoilé "
   event_date = today + (-200..200).to_a.sample * 3600 * 24
   duration = Event::DURATIONS.sample[1]
-  note = FFaker::Lorem::paragraph(1)
+  note = FFaker::Lorem.paragraph(1)
   Performance.create!(
     theater:             theaters.sample,
     title:                "Les Mentals moisis par les Sésames",
@@ -101,7 +105,7 @@ performances = Performance.all
   event_date = today + (-200..200).to_a.sample * 3600 * 24
   name  = "Cours du #{ event_date }"
   duration = Event::DURATIONS.sample[1]
-  note = FFaker::Lorem::paragraph(1)
+  note = FFaker::Lorem.paragraph(1)
   Course.create!(
     theater:             theaters.sample,
     title:               name,
@@ -137,32 +141,32 @@ Coach.create!(
 )
 # PollOpinions
 2.times do |n|
-  question = "#{ FFaker::Lorem::sentence(1)} ?"
-  expiration_date = Date.today + (10..30).to_a.sample.days
+  question = "#{FFaker::Lorem.sentence(1)} ?"
+  expiration_date = Date.today + (randy(20) + 10).days
   PollOpinion.create!(
     question:           question,
     expiration_date:    expiration_date,
     type:               'PollOpinion'
   )
 end
-poll_opinions = PollOpinion.all
+poll_opinions = Poll.opinion_polls
 
 # PollDates
 2.times do |n|
-  question = "Quand fait on le #{ FFaker::Lorem::sentence(1)} ?"
-  expiration_date = Date.today + (10..30).to_a.sample.days
+  question = "Quand fait on le #{FFaker::Lorem.sentence(1)} ?"
+  expiration_date = Date.today + (randy(20) + 10).days
   PollDate.create!(
     question:           question,
     expiration_date:    expiration_date,
     type:               'PollDate'
   )
 end
-poll_dates = PollDate.all
+poll_dates = Poll.date_polls
 
-#PollAnswers
+# PollAnswers
 poll_opinions.each do |poll|
-  (2..4).to_a.sample.times do |n|
-    answer_label = FFaker::Lorem::sentence(1)
+  (randy(2) + 2).times do
+    answer_label = FFaker::Lorem.sentence(1)
     Answer.create!(
       answer_label: answer_label,
       poll_id: poll.id
@@ -171,11 +175,30 @@ poll_opinions.each do |poll|
 end
 
 poll_dates.each do |poll|
-  (2..4).to_a.sample.times do |n|
-    date_answer = Date.today + (10..30).to_a.sample.days
+  (randy(2) + 2).times do
+    date_answer = Date.today + (randy(20) + 10).days
     Answer.create!(
       date_answer: date_answer,
       poll_id: poll.id
+    )
+  end
+end
+
+# Threads and comments
+poll_opinions.each do |poll|
+  Commontator::Thread.create!(
+    # PollOpinion, ça passe ! Mais les sondages créés dans l'UI sont "Poll"
+    commontable_type: poll.type,
+    commontable_id: poll.id
+  )
+end
+# Comments
+Commontator::Thread.where(commontable_type: 'Poll').each do |thread|
+  randy(4).times do
+    Commontator::Comment.create!(
+      thread_id: thread.id,
+      body: FFaker::Lorem.sentence(randy(3) + 1),
+      creator: users.sample
     )
   end
 end

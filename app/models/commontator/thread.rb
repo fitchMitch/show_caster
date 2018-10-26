@@ -132,6 +132,10 @@ module Commontator
       end
     end
 
+    def comments_count
+      self.comments.count
+    end
+
     ##################
     # Access Control #
     ##################

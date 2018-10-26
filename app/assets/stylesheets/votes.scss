@@ -52,3 +52,11 @@ td.date-choice:nth-child(2n+0){
 .bell{
   color: red;
 }
+.vote_buttons{
+  display: block;
+  padding : 5px;
+  width:80px;
+  background-color:#c8e3ea;
+  border-radius: 5px;
+  border:1px $sesame-blue solid;
+}

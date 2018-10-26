@@ -43,5 +43,4 @@ class PollsController < ApplicationController
       .where('poll_id = ?', poll.id)
       .delete_all
   end
-
 end

@@ -11,6 +11,7 @@
 #  owner_id        :integer
 #
 class PollOpinion < Poll
+  acts_as_commontable dependent: :destroy
   #-----------
   # Includes
   #-----------
@@ -31,7 +32,6 @@ class PollOpinion < Poll
            foreign_key: 'poll_id',
            class_name: 'VoteOpinion'
 
-  acts_as_commontable dependent: :destroy
   # Validations
   #-----------
 

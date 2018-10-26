@@ -1,16 +1,3 @@
-# == Schema Information
-#
-# Table name: polls
-#
-#  id              :integer          not null, primary key
-#  question        :string
-#  expiration_date :date
-#  type            :string
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  owner_id        :integer
-#
-
 class PollDate < Poll
   #-----------
   # Includes
@@ -20,7 +7,6 @@ class PollDate < Poll
   #-----------
   # Relationships
   #-----------
-
   has_many :answers,
     dependent: :destroy,
     inverse_of: :poll_date,
