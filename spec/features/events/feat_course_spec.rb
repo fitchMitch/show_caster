@@ -31,7 +31,7 @@ RSpec.feature  "Events | " do
         log_in admin
         visit new_performance_path
         last_theater_id = Theater.all.last.id
-        page.find('#event_theater_id').find(:xpath, 'option[1]').select_option
+        page.find('#performance_theater_id').find(:xpath, 'option[1]').select_option
         page.find('#event_duration').find(:xpath, 'option[3]').select_option
         click_button(I18n.t('helpers.submit.performance.create'))
       end
@@ -48,7 +48,7 @@ RSpec.feature  "Events | " do
       background :each do
         log_in admin
         visit edit_performance_path(performance_w)
-        page.find('#event_theater_id').find(:xpath, 'option[1]').select_option
+        page.find('#performance_theater_id').find(:xpath, 'option[1]').select_option
         page.find('#event_duration').find(:xpath, 'option[4]').select_option
         click_button(I18n.t('helpers.submit.performance.update'))
       end
@@ -65,7 +65,7 @@ RSpec.feature  "Events | " do
       background :each do
         log_in admin
         visit edit_performance_path(performance_w)
-        page.find('#event_theater_id').find(:xpath, 'option[1]').select_option
+        page.find('#performance_theater_id').find(:xpath, 'option[1]').select_option
         click_button(I18n.t('helpers.submit.performance.update'))
       end
 
