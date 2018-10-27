@@ -1,18 +1,3 @@
-# == Schema Information
-#
-# Table name: votes
-#
-#  id         :integer          not null, primary key
-#  poll_id    :integer
-#  answer_id  :integer
-#  user_id    :integer
-#  type       :string
-#  comment    :string
-#  vote_label :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-
 class Vote < ApplicationRecord
 
   #-----------
@@ -55,17 +40,6 @@ class Vote < ApplicationRecord
   # --    PUBLIC      ---
   # ------------------------
   def clean_votes
-    if self.class.name == "VoteOpinion"
-      VoteOpinion
-        .where('poll_id = ?', self.poll_id)
-        .where('user_id = ?', self.user_id)
-        .delete_all
-    else
-      VoteDate
-        .where('poll_id = ?', self.poll_id)
-        .where('answer_id = ?', self.answer_id)
-        .where('user_id = ?', self.user_id)
-        .delete_all
-    end
+    raise "Shall be overriden"
   end
 end

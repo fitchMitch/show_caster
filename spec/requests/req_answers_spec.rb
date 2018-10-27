@@ -25,7 +25,6 @@ RSpec.describe 'Answers', type: :request do
           delete url, params: { id: answer.id, answer: answer.attributes }
         end.to change(Answer, :count).by(-1)
       end
-
       it 'redirects to the answers page' do
         delete url, params: { id: answer.id, answer: answer.attributes }
         expect(response).to redirect_to(answers_path)

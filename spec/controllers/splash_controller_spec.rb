@@ -23,17 +23,17 @@ RSpec.describe SplashController, type: :controller do
     ENV['HTTP_AUTH_PASSWORD'] = nil
   end
 
-  context 'with views' do
-    render_views
-    it 'should return the index page with the correct google tracking code' do
-      ENV['GOOGLE_ANALYTICS_SITE_ID'] = '123456'
-
-      get :index
-      expect(response.body).to include("ga('create', '123456'");
-
-      ENV['GOOGLE_ANALYTICS_SITE_ID'] = nil
-    end
-  end
+  # context 'with views' do
+    # render_views
+    # it 'should return the index page with the correct google tracking code' do
+    #   ENV['GOOGLE_ANALYTICS_SITE_ID'] = '123456'
+    #
+    #   get :index
+    #   expect(response.body).to include("ga('create', '123456'");
+    #
+    #   ENV['GOOGLE_ANALYTICS_SITE_ID'] = nil
+    # end
+  # end
 
   context 'mailing list signup' do
     it 'should require mailchimp env to be setup' do
