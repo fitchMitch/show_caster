@@ -1,16 +1,3 @@
-# == Schema Information
-#
-# Table name: polls
-#
-#  id              :integer          not null, primary key
-#  question        :string
-#  expiration_date :date
-#  type            :string
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  owner_id        :integer
-#
-
 class Poll < ApplicationRecord
   #-----------
   # Includes
@@ -54,20 +41,20 @@ class Poll < ApplicationRecord
   # ------------------------
   # --    PUBLIC      ---
   # ------------------------
-  def votes_count
-    Vote.where(poll_id: id).group(:user).count.keys.size
-  end
-
-  def poll_creation_mail
-    PollMailer.poll_creation_mail(self).deliver_now
-  end
-
   def self.expecting_my_vote(current_user)
     total =  PollOpinion.active.count
     total -= PollOpinion.with_my_opinion_votes(current_user).count
 
     total += PollDate.active.count
     total - PollDate.with_my_date_votes(current_user).count
+  end
+  
+  def votes_count
+    Vote.where(poll_id: id).group(:user).count.keys.size
+  end
+
+  def poll_creation_mail
+    PollMailer.poll_creation_mail(self).deliver_now
   end
 
   def comments_count

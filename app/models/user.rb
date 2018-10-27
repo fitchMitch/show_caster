@@ -76,16 +76,6 @@ class User < ApplicationRecord
   # ------------------------
   # --    PUBLIC      ---
   # ------------------------
-  def full_name
-    text = first_and_last_name
-    text = "#{I18n.t('users.deleted_name')} -  #{text}" if archived?
-    text.html_safe
-  end
-
-  def is_commontator
-    true
-  end
-
   def self.from_omniauth(access_token)
     data = access_token[:info]
     user = User.retrieve(data)
@@ -139,6 +129,16 @@ class User < ApplicationRecord
     User.active.pluck(:email)
   end
 
+  def full_name
+    text = first_and_last_name
+    text = "#{I18n.t('users.deleted_name')} -  #{text}" if archived?
+    text.html_safe
+  end
+
+  def is_commontator
+    true
+  end
+
   def welcome_mail
     UserMailer.welcome_mail(self).deliver_now
   end
@@ -148,7 +148,7 @@ class User < ApplicationRecord
   end
 
   def restricted_statuses
-    self.archived? ? ["setup", "archived"] : [self.status, "archived"]
+    archived? ? %w[setup archived] : [status, 'archived']
   end
 
   def hsl_user_color1
@@ -168,5 +168,4 @@ class User < ApplicationRecord
       self.color ||= pick_color
       self.phone_number_format
     end
-
 end
