@@ -5,7 +5,9 @@ section.lightimage
         h2
         p.info
         p.info
-        = link_to "Suivre notre actualité", "#contact", class: "btn btn-primary btn-lg"
+        = link_to "Suivre notre actualité",
+                  "#contact",
+                  class: "btn btn-primary btn-lg"
 
 section.colored.primary#about
   .container
@@ -32,7 +34,9 @@ section.images#photos
       .row
         - Performance.last_performance_photos(4).each do |pic|
           col.md-3.col-sm-6.col-xs-12
-            = image_tag  pic.photo.url(:square), style: 'height:290px;width:auto;', class: 'space-up-20 photo-galery'
+            = image_tag  pic.photo.url(:square),
+                         style: 'height:290px;width:auto;',
+                         class: 'space-up-20 photo-galery'
 
 p.space-up-250
 p#contact.space-up-25
@@ -45,7 +49,11 @@ section.contact
         = form_tag splash_signup_path, role: :form, remote: true do
           .form-group
             .input-group
-              = text_field_tag :signup_email, "", class: "form-control", placeholder: 'E-Mail', type: "email"
+              = text_field_tag :signup_email,
+                               "",
+                               class: "form-control",
+                               placeholder: 'E-Mail',
+                               type: "email"
               span.input-group-btn
                 = submit_tag 'Envoyer', class: 'btn btn-primary'
           #signup-message
