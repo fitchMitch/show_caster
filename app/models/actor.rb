@@ -17,14 +17,14 @@ class Actor < ApplicationRecord
 
   # Enums
   enum stage_role: {
-      player: 0,
-      dj: 1,
-      mc: 2,
-      other: 3
-    }
+    player: 0,
+    dj: 1,
+    mc: 2,
+    other: 3
+  }
 
   # Relationships
-  belongs_to :performance, foreign_key: "event_id"
+  belongs_to :performance, foreign_key: 'event_id'
   belongs_to :user
 
   # Validations

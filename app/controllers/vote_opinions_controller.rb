@@ -23,8 +23,8 @@ class VoteOpinionsController < VotesController
 
   private
 
-    def set_vote
-      @vote = VoteOpinion.find(params[:id])
-      authorize @vote
-    end
+  def set_vote
+    @vote = VoteOpinion.find(params[:id])
+    authorize @vote
+  end
 end

@@ -77,14 +77,13 @@ class PerformancesController < EventsController
         :uid,
         :fk,
         :provider,
-        actors_attributes: [
-          :id,
-          :user_id,
-          :event_id,
-          :stage_role,
-          :_destroy
+        actors_attributes: %i[
+          id
+          user_id
+          event_id
+          stage_role
+          _destroy
         ]
       )
   end
-
 end

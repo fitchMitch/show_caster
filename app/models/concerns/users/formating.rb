@@ -2,7 +2,7 @@ module Users
   module Formating
     extend ActiveSupport::Concern
 
-    def pick( a, b )
+    def pick(a, b)
       (a..b).to_a.sample.to_i
     end
 
@@ -18,7 +18,7 @@ module Users
 
       letters = to_hsl(h_user, s_txt, l_txt)
       background = to_hsl(h_user, s_bckg, l_bckg)
-      "#{ letters };#{ background }"
+      "#{letters};#{background}"
     end
 
     def first_and_last_name
@@ -27,7 +27,7 @@ module Users
         lastname_upper
       else
         firstname_cap = firstname.capitalize
-        "#{ firstname_cap } #{ lastname_upper }"
+        "#{firstname_cap} #{lastname_upper}"
       end
     end
 
@@ -35,7 +35,7 @@ module Users
       if firstname.nil? || firstname == ''
         lastname.upcase
       else
-        "#{ firstname } #{ lastname[0].upcase }"
+        "#{firstname} #{lastname[0].upcase}"
       end
     end
 
@@ -45,6 +45,7 @@ module Users
       self.email = email.downcase if email.present?
       phone_number_format
     end
+
     protected
 
     def phone_number_format
@@ -76,7 +77,7 @@ module Users
     end
 
     def to_hsl(h, s, l)
-      "hsl(#{ h }, #{ s }%, #{ l }%)"
+      "hsl(#{h}, #{s}%, #{l}%)"
     end
   end
 end

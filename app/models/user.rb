@@ -80,7 +80,7 @@ class User < ApplicationRecord
     data = access_token[:info]
     user = User.retrieve(data)
     result = if user.nil?
-      "unknown user"
+      'unknown user'
     else
       credentials = access_token[:credentials]
       if credentials[:expires_at].nil? || data[:email].nil?
@@ -107,7 +107,7 @@ class User < ApplicationRecord
         if user.update_attributes(from_token)
           user
         else
-          Rails.logger.error "OAuth user updating went wrong"
+          Rails.logger.error 'OAuth user updating went wrong'
           Rails.logger.error from_token
           nil
         end

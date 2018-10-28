@@ -1,14 +1,12 @@
 class Dashboard
-
   include ActiveModel::AttributeAssignment
   attr_accessor :role, :periods
 
   def initialize(attributes)
-      att = check_attributes(attributes)
-      self.role = att[:role]
-      self.periods = att[:periods]
+    att = check_attributes(attributes)
+    self.role = att[:role]
+    self.periods = att[:periods]
   end
-
 
   def self.played_since(starting, ending = nil, role_nr = 0)
     # returns [count_me, perso (=user_id)]
@@ -29,9 +27,9 @@ class Dashboard
     attri[:periods].each do |key, val|
       raise 'dates are not timezoned' unless val.is_a? Time
     end
-    { role: role,
+    {
+      role: role,
       periods: attri[:periods]
     }
   end
-
 end

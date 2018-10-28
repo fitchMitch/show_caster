@@ -1,12 +1,13 @@
 class PollDatesController < PollsController
-  before_action :set_poll, only: [:show, :edit, :update, :destroy]
+  before_action :set_poll, only: %i[show edit update destroy]
 
   def new
     authorize PollDate
     @poll = PollDate.new(
       expiration_date: Date.today.weeks_since(2),
-      owner_id: current_user.id)
-    2.times { answer = @poll.answers.build() }
+      owner_id: current_user.id
+    )
+    2.times { @poll.answers.build }
   end
 
   def create
@@ -35,24 +36,21 @@ class PollDatesController < PollsController
   end
 
   private
-    def set_poll
-      @poll = PollDate.find(params[:id])
-      authorize @poll
-    end
 
-    def poll_params
-      params
-      .require(set_type.to_sym)
-      .permit(
-        :question,
-        :expiration_date,
-        answers_attributes: [
-          :id,
-          :date_answer,
-          :poll_id,
-          :_destroy
-        ]
-       )
-    end
+  def set_poll
+    @poll = PollDate.find(params[:id])
+    authorize @poll
+  end
 
+  def poll_params
+    params.require(set_type.to_sym)
+          .permit(:question,
+                  :expiration_date,
+                  answers_attributes: %i[
+                    id
+                    date_answer
+                    poll_id
+                    _destroy
+                  ])
+  end
 end

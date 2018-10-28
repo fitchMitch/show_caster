@@ -1,5 +1,5 @@
 class PollOpinionsController < PollsController
-  before_action :set_poll, only: [:show, :edit, :update, :destroy]
+  before_action :set_poll, only: %i[show edit update destroy]
 
   def new
     authorize PollOpinion
@@ -32,24 +32,22 @@ class PollOpinionsController < PollsController
   end
 
   private
-    def set_poll
-      @poll = PollOpinion.find(params[:id])
-      authorize @poll
-    end
 
-    def poll_params
-      params
-      .require(set_type.to_sym)
-      .permit(
-        :question,
-        :expiration_date,
-        answers_attributes: [
-          :id,
-          :answer_label,
-          :poll_id,
-          :_destroy
-        ]
-       )
-    end
+  def set_poll
+    @poll = PollOpinion.find(params[:id])
+    authorize @poll
+  end
 
+  def poll_params
+    params.require(set_type.to_sym)
+          .permit(
+            :question,
+            :expiration_date,
+            answers_attributes: %i[
+              id
+              answer_label
+              poll_id
+              _destroy
+          ])
+  end
 end

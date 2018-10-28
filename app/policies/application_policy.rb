@@ -37,21 +37,21 @@ class ApplicationPolicy
 
   protected
 
-    def communicator_or_admin?
-      (@user.nil? || @user.archived?) ? false : (@user.admin? || @user.admin_com?)
-    end
+  def communicator_or_admin?
+    (@user.nil? || @user.archived?) ? false : (@user.admin? || @user.admin_com?)
+  end
 
-    def registered?
-      !@user.nil? && @user.registered?
-    end
+  def registered?
+    !@user.nil? && @user.registered?
+  end
 
-    def admin?
-      !@user.nil? && @user.admin?
-    end
+  def admin?
+    !@user.nil? && @user.admin?
+  end
 
-    def scope
-      Pundit.policy_scope!(@user, record.class)
-    end
+  def scope
+    Pundit.policy_scope!(@user, record.class)
+  end
 
   class Scope
     attr_reader :user, :scope

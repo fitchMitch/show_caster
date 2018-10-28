@@ -1,16 +1,3 @@
-# == Schema Information
-#
-# Table name: coaches
-#
-#  id            :integer          not null, primary key
-#  firstname     :string
-#  lastname      :string
-#  email         :string
-#  cell_phone_nr :string
-#  note          :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#
 class Coach < ApplicationRecord
   # includes
   include Users::Formating

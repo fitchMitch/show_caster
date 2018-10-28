@@ -53,8 +53,8 @@ class SessionsController < ApplicationController
   end
 
   private
-    def get_current_user
-      @current_user ||= current_user
-    end
 
+  def get_current_user
+    @current_user ||= current_user
+  end
 end

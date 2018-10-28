@@ -63,8 +63,8 @@ Coach.create!(
   firstname: 'Aline',
   lastname: 'PETIT',
   cell_phone_nr: '0623142151',
-  email: "aline.petit@gmail.tu",
-  note: "test is good"
+  email: 'aline.petit@gmail.tu',
+  note: 'test is good'
 )
 
 4.times do |n|
@@ -96,7 +96,7 @@ Theater.create!(
   manager_phone:        '0521452142'
 )
 Theater.create!(
-  theater_name:       "Le #{ FFaker::Animal.common_name } agité",
+  theater_name:         "Le #{ FFaker::Animal.common_name } agité",
   location:              FFaker::AddressFR.unique.full_address,
   manager:              "Mr. #{ FFaker::NameFR.unique.last_name }",
   manager_phone:        FFaker::PhoneNumberFR.mobile_phone_number
@@ -105,13 +105,13 @@ theaters = Theater.all
 
 # Events
 16.times do |n|
-  name  = "Le #{ FFaker::Name.name } étoilé "
+  name = "Le #{ FFaker::Name.name } étoilé "
   event_date = today + (-200..200).to_a.sample * 3600 * 24
   duration = Event::DURATIONS.sample[1]
   note = FFaker::Lorem.paragraph(1)
   Performance.create!(
     theater:             theaters.sample,
-    title:                "Les Mentals moisis par les Sésames",
+    title:                'Les Mentals moisis par les Sésames',
     user:                 users.sample,
     note:                 note,
     duration:             duration,
@@ -125,10 +125,10 @@ performances = Performance.all
 
 14.times do |n|
   event_date = today + (-200..200).to_a.sample * 3600 * 24
-  name  = "Cours du #{ event_date }"
+  name = "Cours du #{ event_date }"
   duration = Event::DURATIONS.sample[1]
   note = FFaker::Lorem.paragraph(1)
-  if n_out_of_m?(4,5)
+  if n_out_of_m?(4, 5)
     courseable_type = 'User'
     courseable_id = users.sample.id
   else
@@ -156,7 +156,7 @@ performances.each do |event|
     Actor.create(
       event_id:       event.id,
       user_id:        User.active.sample.id,
-      stage_role:     Actor::stage_roles.keys.sample.to_sym
+      stage_role:     Actor.stage_roles.keys.sample.to_sym
     )
   end
 end

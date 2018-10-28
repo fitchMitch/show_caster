@@ -13,11 +13,9 @@ class CoachesController < ApplicationController
     @coaches = Coach.all
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @coach = Coach.new(coach_params)
@@ -47,12 +45,19 @@ class CoachesController < ApplicationController
   end
 
   private
-    def set_coach
-      @coach = Coach.find(params[:id])
-      authorize @coach
-    end
 
-    def coach_params
-      params.require(:coach).permit(:firstname, :lastname, :email, :note, :cell_phone_nr)
-    end
+  def set_coach
+    @coach = Coach.find(params[:id])
+    authorize @coach
+  end
+
+  def coach_params
+    params.require(:coach)
+          .permit(:firstname,
+                  :lastname,
+                  :email,
+                  :note,
+                  :cell_phone_nr
+                 )
+  end
 end

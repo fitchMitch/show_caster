@@ -8,16 +8,14 @@ class TheatersController < ApplicationController
     @theaters = Theater.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     authorize Theater
     @theater = Theater.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @theater = Theater.new(theater_params)
@@ -47,19 +45,19 @@ class TheatersController < ApplicationController
   end
 
   private
-    def set_theater
-      @theater = Theater.find(params[:id])
-      authorize @theater
-    end
 
-    def theater_params
-      params
-        .require(:theater)
-        .permit(
-          :theater_name,
-          :location,
-          :manager,
-          :manager_phone
-        )
-    end
+  def set_theater
+    @theater = Theater.find(params[:id])
+    authorize @theater
+  end
+
+  def theater_params
+    params.require(:theater)
+          .permit(
+            :theater_name,
+            :location,
+            :manager,
+            :manager_phone
+                )
+  end
 end

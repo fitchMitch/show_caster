@@ -2,9 +2,9 @@
 # ----------------
 # Common
 # -----------------
-today      =     Time.zone.now
-created_at =     today
-updated_at =     today
+today      = Time.zone.now
+created_at = today
+updated_at = today
 def n_out_of_m?(n, m)
   (1..m).to_a.sample <= n
 end

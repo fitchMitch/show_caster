@@ -33,16 +33,16 @@ module VotesHelper
                     .where('answer_id = ?', answer.id)
                     .where('user_id = ?', user.id)
     vote_first_label = votes.any? ? votes.first.vote_label : '?'
-    output = case vote_first_label
-            when '?'
-              "<span class='text-muted'>#{user.first_and_l}</span>"
-            when 'yess'
-              badge_user_from_id(user.id)
-            when 'noway'
-              "<strong><strike>#{user.first_and_l}</strike></strong>"
-            when 'maybe'
-              "<strong>#{user.first_and_l} ?</strong>"
-            end
+    output =  case vote_first_label
+              when '?'
+                "<span class='text-muted'>#{user.first_and_l}</span>"
+              when 'yess'
+                badge_user_from_id(user.id)
+              when 'noway'
+                "<strong><strike>#{user.first_and_l}</strike></strong>"
+              when 'maybe'
+                "<strong>#{user.first_and_l} ?</strong>"
+              end
     output.html_safe
   end
 

@@ -4,13 +4,12 @@ class VoteDatesController < VotesController
 
   def new
     authorize VoteDate
-    @vote_date = @poll_date.vote_dates.build()
+    @vote_date = @poll_date.vote_dates.build
     @answers_votes = []
     @poll_date.answers.each do |answer|
-      votes = VoteDate
-        .where('poll_id = ?', @poll_date.id)
-        .where('answer_id = ?', answer.id)
-        .where('user_id = ?', current_user.id)
+      votes = VoteDate.where(poll_id: @poll_date.id)
+                      .where(answer_id: answer.id)
+                      .where(user_id: current_user.id)
       vote = votes.any? ? votes.first : nil
       @answers_votes << { answer: answer, vote: vote }
     end
@@ -22,7 +21,7 @@ class VoteDatesController < VotesController
     @vote.clean_votes
     if @vote.save
       redirect_to poll_date_path(@vote.poll),
-        notice: I18n.t('votes.save_success')
+                  notice: I18n.t('votes.save_success')
     else
       flash[:alert] = I18n.t('votes.save_fails')
       redirect_to poll_date_path(@vote.poll)

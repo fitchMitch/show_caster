@@ -5,21 +5,19 @@ module Users
 
     included do
       validates :cell_phone_nr,
-        allow_nil: true,
-        length:
-          { minimum:14,
-            maximum: 25
-          },
-        uniqueness: true,
-        presence: true
-
-
+                allow_nil: true,
+                length: {
+                  minimum: 14,
+                  maximum: 25
+                },
+                uniqueness: true,
+                presence: true
       validates :firstname,
-        presence: true,
-        length: { minimum: 2, maximum: 50 }
+                presence: true,
+                length: { minimum: 2, maximum: 50 }
       validates :lastname,
-        presence: true,
-        length: { minimum: 2, maximum: 50 }
+                presence: true,
+                length: { minimum: 2, maximum: 50 }
     end
   end
 end

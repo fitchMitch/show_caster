@@ -1,5 +1,4 @@
 class UserMailer < ApplicationMailer
-
   def welcome_mail(user)
     # This mails informs the user he's been invited to be a member
     @user = user
