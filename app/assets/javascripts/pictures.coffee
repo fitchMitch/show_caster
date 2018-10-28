@@ -19,7 +19,7 @@ $(document).ready ->
         $("#widthbox").removeClass("movieBorder")
         $("#movie").hide()
     return
-  allow_submission = () ->
+  allow_submission = (e) ->
     if picture_handler == undefined || picture_handler.files.length == 0
       $("#photo_validation_button").prop('disabled', 'disabled')
       $("#loader").hide()
@@ -27,9 +27,11 @@ $(document).ready ->
       $("#photo_validation_button").prop('disabled', false).hide('slow')
       $("#loader").show("slow")
       $("#new_picture").submit()
+    e.stopPropagation() if e != undefined
   #==========================
   #=======   MAIN   =========
   #==========================
+  allow_submission()
   $("#loader").hide()
   picture_handler = document.getElementById("picture_photo")
   if picture_handler != null
