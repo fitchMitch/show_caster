@@ -8,7 +8,7 @@ require 'rspec/rails'
 require 'webmock/rspec'
 require 'capybara/rspec'
 
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f }
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -81,6 +81,6 @@ RSpec.configure do |config|
   end
   # Paperclip configuration
   config.after(:suite) do
-    FileUtils.rm_rf(Dir["#{ Rails.root }/spec/test_files/"])
+    FileUtils.rm_rf(Dir["#{Rails.root}/spec/test_files/"])
   end
 end

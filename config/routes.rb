@@ -3,10 +3,12 @@ Rails.application.routes.draw do
   # Users and Sessions
   resources :users do
     resources :pictures, module: :users
+    member do
+      patch '/promote', to: 'users#promote'
+      patch '/bio'   ,  to: 'users#bio'
+      patch '/invite',  to: 'users#invite'
+    end
   end
-  post '/promote', to:  'users#promote'
-  post '/bio'    , to:  'users#bio'
-  post '/invite',  to:  'users#invite'
 
   resources :sessions, only: %i[index new create destroy]
   get '/sesame_login' => 'sessions#new'

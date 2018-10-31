@@ -31,7 +31,15 @@ class UserPolicy < ApplicationPolicy
   end
 
   def create?
-    communicator_or_admin?
+    new?
+  end
+
+  def invite?
+    registered? && me_or_admin?
+  end
+
+  def bio?
+    registered? && me_or_admin?
   end
 
   def promote?

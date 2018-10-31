@@ -123,7 +123,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'protected format_fields' do
+  describe '#protected format_fields' do
     let(:user) do create(
       :user,
       email: 'ASHTON.KUTCHER@hollYood.fr',
@@ -154,6 +154,53 @@ RSpec.describe User, type: :model do
     end
     it 'should format the email downcase' do
       expect(user.cell_phone_nr).to eq('01 23 45 67 89')
+    end
+  end
+
+  describe '#inform_promoted_person' do
+    let(:user) { build(:user, :registered, :player) }
+    let(:player) { build(:user, :registered, :player) }
+    let(:admin_com) { build(:user, :registered, :admin_com) }
+    let(:admin) { build(:user, :registered, :admin) }
+    let(:other_admin) { build(:user, :registered, :admin) }
+    let(:old_user) { admin_com.admin! }
+    let(:something) { double("something") }
+    before :each do
+      allow(admin).to receive(:promoted_mail) { something }
+      allow(user).to receive(:promoted_mail) { something }
+      allow(player).to receive(:promotion_message) { something }
+      allow(admin_com).to receive(:promotion_message) { something }
+      allow(admin).to receive(:promotion_message) { something }
+      allow(user).to receive(:promotion_message) { something }
+    end
+    it 'should not send any email to current_user' do
+      expect(user).to receive(:promotion_message)
+      expect(user.inform_promoted_person(user, old_user)).to be(something)
+    end
+    it 'should not send any email to players' do
+      expect(player).to receive(:promotion_message)
+      expect(player.inform_promoted_person(admin, other_admin)).to be(something)
+    end
+    it 'should not send any email to an ' \
+    ' administrator becoming admin_com' do
+      expect(admin_com).to receive(:promotion_message)
+      expect(admin_com.inform_promoted_person(other_admin, admin)).to be(something)
+    end
+    it 'should send an email otherwise' do
+      expect(admin).to receive(:promotion_message)
+      expect(admin).to receive(:promoted_mail)
+      admin.inform_promoted_person(other_admin, player)
+    end
+  end
+
+  describe '#promotion_message' do
+    let(:player) { build(:user, :registered, :player) }
+    let(:user) { build(:user, :registered, :admin_com) }
+    it 'should return a message indicating there will be no message for players' do
+      expect(player.promotion_message(true)).to eq('users.promoted_muted')
+    end
+    it 'should return a message announcing the promotion email' do
+      expect(user.promotion_message(false)).to eq('users.promoted')
     end
   end
 end

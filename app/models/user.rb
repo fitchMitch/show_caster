@@ -159,13 +159,29 @@ class User < ApplicationRecord
     color.split(';').second
   end
 
+  def inform_promoted_person(current_user, old_user_role)
+    # No mail when
+    excl1 = current_user == self
+    excl2 = role == 'player'
+    excl3 = role == 'admin_com' && old_user_role == 'admin'
+    exclusion = excl1 || excl2 || excl3
+    # mailing
+    promoted_mail unless exclusion
+    # messaging
+    promotion_message(exclusion)
+  end
+
+  def promotion_message(exclusion)
+    exclusion ? 'users.promoted_muted' : 'users.promoted'
+  end
+
   protected
 
-    def format_fields
-      self.lastname = lastname.upcase if lastname.present?
-      self.email = email.downcase if email.present?
-      self.role ||= 'player'
-      self.color ||= pick_color
-      self.phone_number_format
-    end
+  def format_fields
+    self.lastname = lastname.upcase if lastname.present?
+    self.email = email.downcase if email.present?
+    self.role ||= 'player'
+    self.color ||= pick_color
+    self.phone_number_format
+  end
 end

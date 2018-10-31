@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update destroy]
+  before_action :set_user, only: %i[
+    show edit update destroy promote invite bio
+  ]
 
   def index
     authorize User
@@ -42,56 +44,42 @@ class UsersController < ApplicationController
   def destroy; end
 
   def promote
-    @user = User.find(params[:user][:id])
-    return if @user.nil?
-
-    @user.status = params[:user][:status]
-    @user.role = params[:user][:role]
-    if @user.save
-      message = inform_promoted_person(@user)
-      @user.reload
-      redirect_to users_path, notice: I18n.t(message, name: @user.full_name)
+    old_user_role = @user.role
+    user_updates = {
+      role: params[:user][:role],
+      status: params[:user][:status]
+    }
+    #byebug
+    if @user && @user.update(user_updates)
+      message = @user.inform_promoted_person(current_user, old_user_role)
+      redirect_to @user, notice: I18n.t(message, name: @user.full_name)
     else
       flash[:alert] = I18n.t('users.promoted_failed', name: @user.full_name)
-      render 'users/show'
+      render :show
     end
   end
 
   def invite
-    @user = User.find(params[:user][:id])
-    return if @user.nil?
-    @user.status = 'invited'
-    if @user.save
+    if @user && @user.update(status: 'invited')
       @user.welcome_mail
-      redirect_to user_path(@user),
-                  notice: I18n.t('users.invited', name: @user.full_name)
+      redirect_to user_path(@user), notice: I18n.t('users.invited', name: @user.full_name)
     else
       flash[:alert] = I18n.t('users.invited_failed', name: @user.full_name)
-      render 'users/show'
+      render :show
     end
   end
 
   def bio
-    @user = User.find(params[:user][:id])
-    return if @user.nil?
-    @user.bio = params[:user][:bio]
-    if @user.save
-      redirect_to users_path, notice: I18n.t('users.bio_successfull')
+    if @user && @user.update(bio: params[:user][:bio])
+      redirect_to user_path(@user),
+                  notice: I18n.t('users.bio_successfull')
     else
       flash[:alert] = I18n.t('users.bio_failed', name: @user.full_name)
-      render 'users/show'
+      render :show
     end
   end
 
   private
-
-  def inform_promoted_person(user)
-    role = user.role
-    excl1 = current_user == user
-    excl2 = role == 'player'
-    user.promoted_mail unless excl1 || excl2
-    role == 'player' ? 'users.promoted_muted' : 'users.promoted'
-  end
 
   def set_user
     @user = User.find(params[:id])

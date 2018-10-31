@@ -1,4 +1,7 @@
-= simple_form_for(user, as: :user, url: bio_path, html: { method: :post, class: 'form-horizontal' }) do |f|
+= simple_form_for(user,
+                  as: :user,
+                  url: bio_user_path(user),
+                  html: { method: :patch, class: 'form-horizontal' }) do |f|
   = f.error_notification
 
   .form-inputs
