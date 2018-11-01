@@ -1,35 +1,112 @@
 class Dashboard
   include ActiveModel::AttributeAssignment
-  attr_accessor :role, :periods
+  attr_accessor :indicator_collection, :periods
+
+  def initialize
+    self.indicator_collection = []
+    self.periods = []
+  end
+
+  def add(indicator)
+    indicator_collection << indicator
+    self
+  end
+
+  def sort
+    return self if indicator_collection.size <= 1
+    self.indicator_collection = indicator_collection.sort_by do |indic|
+      [indic.role, indic.period_start_time]
+    end
+  end
+
+  # def get_periods
+  #   periods = []
+  #   indicator_collection.each do |indi|
+  #     periods << indi.period_label
+  #   end
+  #   periods.uniq
+  # end
+end
+
+class Indicator
+  include ActiveModel::AttributeAssignment
+  attr_accessor :role,
+                :period_label,
+                :period_start_time,
+                :show_with_role_count,
+                :average_role_count,
+                :person_activity
 
   def initialize(attributes)
     att = check_attributes(attributes)
     self.role = att[:role]
-    self.periods = att[:periods]
+    self.period_label = att[:period_label]
+    self.period_start_time = att[:period_start_time]
+    self.show_with_role_count = 0
+    self.average_role_count = 0
+    self.person_activity = []
   end
 
-  def self.played_since(starting, ending = nil, role_nr = 0)
+  def people_performance_count(ending = nil)
     # returns [count_me, perso (=user_id)]
     ending ||= Time.zone.now
+    activity = get_performance(ending)
+    activity.each do |act|
+      self.person_activity << PersonActivity.new(act.perso, act.count_me)
+    end
+    show_with_role_count_update(activity) && get_average_role_count
+  end
+
+  def get_person_activity(user_id)
+    targetted_person_activity = person_activity.find do |activity|
+      activity.user_id == user_id
+    end
+    targetted_person_activity.nil? ? 0 : targetted_person_activity.perf_count
+  end
+
+  private
+
+  def get_performance(ending)
     Performance
-      .select('count(events.theater_id) as count_me', 'actors.user_id as perso' )
-      .where('events.event_date > ? and events.event_date < ? ', starting, ending)
-      .where('actors.stage_role = ?', role_nr)
+      .select('count(events.theater_id) as count_me', 'actors.user_id as perso')
+      .where('events.event_date > ? and events.event_date < ?', period_start_time, ending)
+      .where('actors.stage_role = ?', role)
       .joins(:actors)
       .group('perso')
       .order('count_me asc')
-      # TODO consider active people / actors only
+  end
+
+  def show_with_role_count_update(activity)
+    self.show_with_role_count = activity.inject(0) do |sum, n|
+      sum + n.count_me if n.count_me.present?
+    end
+    true
+  end
+
+  def get_average_role_count
+    self.average_role_count = show_with_role_count / User.active.count
+    true
   end
 
   def check_attributes(attri)
-    role = attri.fetch(:role, 0)
-    raise 'periods is not a hash' unless attri[:periods].is_a? Hash
-    attri[:periods].each do |key, val|
-      raise 'dates are not timezoned' unless val.is_a? Time
-    end
+    role = attri.fetch(:role)
+    raise 'periods is not a hash' unless attri[:role].is_a? Integer
+    period_label = attri.fetch(:period_label)
+    raise 'periods is not a String' unless attri[:period_label].is_a? String
+    period_start_time = attri.fetch(:period_start_time)
+    raise 'periods is not a hash' unless attri[:period_start_time].is_a? Time
     {
       role: role,
-      periods: attri[:periods]
+      period_label: period_label,
+      period_start_time: period_start_time
     }
+  end
+end
+
+class PersonActivity
+  attr_accessor :user_id, :perf_count
+  def initialize(user_id, perf_count)
+    @user_id = user_id
+    @perf_count = perf_count
   end
 end

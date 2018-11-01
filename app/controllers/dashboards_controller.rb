@@ -1,6 +1,19 @@
 class DashboardsController < ApplicationController
 
   def index
+    @dashboard = Dashboard.new
+    indicators = [
+      { role: 0, period_label: 'three_month', period_start_time: 3.months.ago },
+      { role: 0, period_label: 'six_month', period_start_time: 6.months.ago },
+      { role: 0, period_label: 'a_year', period_start_time: 1.year.ago },
+      { role: 1, period_label: 'a_year', period_start_time: 1.year.ago },
+      { role: 2, period_label: 'a_year', period_start_time: 1.year.ago }
+    ]
+    indicators.each do |indic|
+      @dashboard.add Indicator.new indic
+    end
+    @dashboard.sort
+
     @periods = {
       three_month: 3.months.ago,
       six_month: 6.months.ago,
@@ -8,47 +21,12 @@ class DashboardsController < ApplicationController
     }
     @a_year = { a_year: 1.year.ago }
 
-    requests = []
-    requests << Dashboard.new(role: 0, periods: @periods)
-    requests << Dashboard.new(role: 1, periods: @a_year)
-    requests << Dashboard.new(role: 2, periods: @a_year)
-
-    @res = set_perfs(requests)
+    @res = display(@dashboard)
   end
 
   private
 
-  def set_perfs(requests)
-    computed = []
-    requests.each do |r|
-      r.periods.each do |label_duration, start_date|
-        # nr_of_shows is an array, avrg_nr_of_shows a scalar
-        nr_of_shows, avrg_nr_of_shows = init_compute(start_date, r.role)
-        computed << [
-          nr_of_shows,
-          avrg_nr_of_shows,
-          label_duration
-        ]
-      end
-    end
-    associate_perf_to_people(computed)
-  end
-
-  def init_compute(start_date, role_nr)
-    # Dashboard returns [count_me, perso (=user_id)]
-    nr_of_shows = Dashboard.played_since(start_date, nil, role_nr)
-    avrg_nr_of_shows = get_average(nr_of_shows)
-    return nr_of_shows, avrg_nr_of_shows
-  end
-
-  def get_average(nr_of_shows)
-    total = nr_of_shows.inject(0) do |sum, n|
-      sum + n.count_me if n.count_me.present?
-    end
-    total / User.active.count
-  end
-
-  def associate_perf_to_people (computed)
+  def display(dashboard)
     res = []
     User.active.each do |person|
       identification = {
@@ -57,22 +35,16 @@ class DashboardsController < ApplicationController
         id: person.id,
         shows_data: []
       }
-      computed.each do |analysis|
+      dashboard.indicator_collection.each do |indicator|
+        indicator.people_performance_count
         identification[:shows_data] << [
-          getData(person.id, analysis[0]), # analysis 0 is the [nr of performances]
-          analysis[1], # analysis 1 is average of performances nr
-          analysis[2] # analysis 2 is the period label
+          indicator.get_person_activity(person.id),
+          indicator.average_role_count,
+          indicator.period_label
         ]
       end
       res << identification
     end
     res
-  end
-
-  def getData(user_id, nr_of_shows_period)
-    nr_of_shows_period.each do |event|
-      return event.count_me if event.perso == user_id
-    end
-    nil
   end
 end
