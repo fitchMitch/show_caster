@@ -52,6 +52,14 @@ RSpec.describe Poll, type: :model do
       expect(poll.comments_count).to eq(2)
     end
   end
+
+  describe '#votes_destroy' do
+    let!(:vote_opinion) { create(:vote_opinion) }
+    let(:poll) { vote_opinion.poll }
+    it 'should count 2 comments' do
+      expect { poll.votes_destroy }.to change(Vote, :count).by(-1)
+    end
+  end
 end
 
 RSpec.describe PollOpinion, type: :model do
