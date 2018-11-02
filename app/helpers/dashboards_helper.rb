@@ -4,9 +4,9 @@ module DashboardsHelper
   end
 
   def show_perf(reci)
-    my, av = reci
-    text = my.nil? ? 0 : my.to_s
-    if my.to_i <= av.to_i
+    player_s_performance, average = reci
+    text = player_s_performance.nil? ? 0 : player_s_performance.to_s
+    if player_s_performance.to_i <= average.to_i
       "<span class='label label-success'>" \
       "#{text} fois</span>".html_safe
     else

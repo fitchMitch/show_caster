@@ -14,9 +14,35 @@ class Dashboard
 
   def sort
     return self if indicator_collection.size <= 1
+    # This is inelegant : because ruby would not accept a sorting on date
+    # with a desc (minus sign) on Times, I head to reverse the sorting in
+    # the end and have the desc part on roles instead.
     self.indicator_collection = indicator_collection.sort_by do |indic|
-      [indic.role, indic.period_start_time]
+      [-indic.role, indic.period_start_time]
+    end.reverse
+    self
+  end
+
+  def display
+    res = []
+    User.active.each do |person|
+      identification = {
+        firstname: person.firstname,
+        lastname: person.lastname,
+        id: person.id,
+        shows_data: []
+      }
+      indicator_collection.each do |indicator|
+        indicator.people_performance_count
+        identification[:shows_data] << [
+          indicator.get_person_activity(person.id),
+          indicator.average_role_count,
+          indicator.period_label
+        ]
+      end
+      res << identification
     end
+    res
   end
 
   # def get_periods
@@ -69,7 +95,7 @@ class Indicator
   def get_performance(ending)
     Performance
       .select('count(events.theater_id) as count_me', 'actors.user_id as perso')
-      .where('events.event_date > ? and events.event_date < ?', period_start_time, ending)
+      .where('events.event_date > ? and events.event_date <= ?', period_start_time, ending)
       .where('actors.stage_role = ?', role)
       .joins(:actors)
       .group('perso')
