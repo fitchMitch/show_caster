@@ -29,7 +29,7 @@ RSpec.describe "Theaters", type: :request do
 
         it "assigns a newly created theater as @theater and formats cell_phone_nr" do
           post '/theaters', params: { theater: valid_attributes }
-          expect(Theater.last.theater_name).to eq("A la belle Etoile")
+          expect(Theater.last.theater_name).to eq("A LA BELLE ETOILE")
         end
 
         it "redirects to the created theater" do
@@ -57,14 +57,13 @@ RSpec.describe "Theaters", type: :request do
 
 
   describe "PUT #update" do
-
     context "with valid params" do
       before :each do
         # admin = create(:user, :admin, :registered)
         request_log_in(admin)
       end
       let(:new_attributes_theater_name) {
-        { theater_name: "Sous les ponts"}
+        { theater_name: "SOUS LES PONTS"}
       }
       let(:new_attributes) {
         { location: 'xx, rue de Lichtenstein PARIS 12',
@@ -121,26 +120,4 @@ RSpec.describe "Theaters", type: :request do
       end
     end
   end
-
-
-
-
-
-
-  # before :each do
-  #   begin
-  #     Devise
-  #     sign_out :user
-  #   rescue NameError
-  #   end
-  # end
-  # describe "GET /theaters" do
-  #   it "doesn't work unless signed_in" do
-  #     get theaters_path
-  #     expect(response).to have_http_status(302)
-  #     # sign_in_as_a_valid_user
-  #     # get theaters_path
-  #     # expect(response).to have_http_status(200)
-  #   end
-  # end
 end

@@ -18,7 +18,7 @@ RSpec.describe 'Answers', type: :request do
 
     describe 'DELETE #destroy' do
       let!(:answer) { create(:answer) }
-      let(:url) { "/answers/#{ answer.to_param }" }
+      let(:url) { "/answers/#{answer.to_param}" }
 
       it 'deletes Answer' do
         expect do
@@ -52,12 +52,6 @@ RSpec.describe 'Answers', type: :request do
       end
 
       context 'with invalid params' do
-        it "re-renders the 'new' template" do
-          skip("for this never happens due to nested forms")
-          post '/answers', params: { answer: invalid_attributes }
-          expect(response).to render_template :new
-        end
-
         it "doesn't persist answer" do
           expect do
             post '/answers', params: { answer: invalid_attributes }
@@ -67,37 +61,28 @@ RSpec.describe 'Answers', type: :request do
     end
 
     describe 'PUT #update' do
-      let(:new_attributes) {
+      let!(:new_attributes) do
         {
-          answer_label: "Sous les ponts, wesh !",
-          date_answer: Date.today.weeks_since(2)
+          answer_label: 'Sous les ponts, wesh !',
+          date_answer: Time.zone.parse('2019-08-06 14:15:00 +0200')
         }
-      }
+      end
+      # This factory exists
       let!(:answer_date) { create(:answer_date) }
       let!(:answer_opinion) { create(:answer_opinion) }
-
+      let(:url) { "/answers/#{answer_opinion.to_param}" }
 
       context 'with valid params' do
-        it 'updates the requested answer (opinion)' do
-          url = "/answers/#{ answer_opinion.to_param }"
+        it 'updates the requested answer (date and opinion)' do
           put url, params: {
             id: answer_opinion.id,
-            answer_label: new_attributes[:answer_label],
-            date_answer: nil
+            answer: new_attributes
           }
           answer_opinion.reload
-          expect(answer_opinion).to have_attributes(answer_label: new_attributes[:answer_label])
-        end
-
-        it 'updates the requested answer (date)' do
-          url = "/answers/#{ answer_date.to_param }"
-          put url, params: {
-            id: answer_date.id,
-            date_answer: new_attributes[:date_answer],
-            answer_label: nil
-          }
-          answer_date.reload
-          expect(answer_date).to have_attributes(date_answer: new_attributes[:date_answer])
+          expect(answer_opinion).to have_attributes(
+            answer_label: new_attributes[:answer_label],
+            date_answer: new_attributes[:date_answer]
+          )
         end
       end
 
@@ -109,17 +94,12 @@ RSpec.describe 'Answers', type: :request do
         let(:answer) { create(:answer) }
 
         it 'assigns the answer as @answer' do
-          url = "/answers/#{ answer.to_param }"
+          url = "/answers/#{answer.to_param}"
           put url, params: { id: answer.id, answer: invalid_attributes }
           answer.reload
-          expect(answer.answer_label).not_to eq(invalid_attributes[:answer_label])
-        end
-
-        it "re-renders the 'edit' template" do
-          skip("for this never happens due to nested forms")
-          url = "/answers/#{ answer.to_param }"
-          put url, params: { id: answer.id, answer: invalid_attributes }
-          expect(response).to render_template :edit
+          expect(answer.answer_label).not_to eq(
+            invalid_attributes[:answer_label]
+          )
         end
       end
     end

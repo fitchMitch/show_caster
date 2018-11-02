@@ -16,9 +16,8 @@ class PollsController < ApplicationController
   def edit; end
 
   def update
-    @poll.update(poll_params)
     flash[:notice] = I18n.t('polls.updated')
-    if @poll.save
+    if @poll.update(poll_params)
       redirect_to polls_path, notice: I18n.t('polls.update_success')
     else
       flash[:alert] = I18n.t('polls.save_fails')
@@ -27,7 +26,7 @@ class PollsController < ApplicationController
   end
 
   def destroy
-    votes_destroy(@poll)
+    @poll.votes_destroy
     @poll.destroy
     redirect_to polls_url, notice: I18n.t('polls.destroyed')
   end
@@ -35,12 +34,5 @@ class PollsController < ApplicationController
   def set_type
     type = params.fetch(:type, nil)
     (['PollOpinion', 'PollDate'].include? type) ? type.underscore : nil
-  end
-
-  def votes_destroy(poll)
-    Rails.logger.info("----- success in votes_destroy ---------")
-    Vote
-      .where('poll_id = ?', poll.id)
-      .delete_all
   end
 end

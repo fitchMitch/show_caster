@@ -27,9 +27,10 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @answer.update(answer_params)
-    flash[:notice] = I18n.t('answers.updated')
-    if @answer.save
+    # @answer
+    # flash[:notice] = I18n.t('answers.updated')
+  
+    if @answer.update(answer_params)
       redirect_to answers_path, notice: I18n.t('answers.update_success')
     else
       flash[:alert] = I18n.t('answers.save_fails')
