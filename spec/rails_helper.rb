@@ -52,6 +52,7 @@ RSpec.configure do |config|
 
   config.include Requests::LoginHelper, type: :request
   config.include Requests::Loging, type: :request
+  config.include AttributesMatcher, type: :request
 
   config.include Selectors, type: :feature
   config.include Features::SessionHelpers, type: :feature

@@ -3,7 +3,7 @@ class PerformancesController < EventsController
 
   def new
     authorize(Performance)
-    @event = Performance.new
+    @event = Performance.new(duration: 75)
     4.times { @event.actors.build }
   end
 
@@ -16,21 +16,21 @@ class PerformancesController < EventsController
   def create
     @event = Performance.new(event_params)
     authorize @event
-
     @service = GoogleCalendarService.new(current_user)
     result = add_to_google_calendar(@service, @event)
-    redirect_to event_path(@event.reload),
-                alert: I18n.t('performances.fail_to_create') and return if result.nil?
-
-    @event.fk = result.id
-    @event.user_id = current_user.id
-    @event.provider = 'google_calendar_v3'
-
-    if @event.save
-      redirect_to events_url(@event), notice: I18n.t('performances.created')
+    if result.nil?
+      flash[:alert] = I18n.t('performances.fail_to_create')
+      format.html { render :new }
     else
-      respond_to do |format|
-        format.html { render :new }
+      @event.fk = result.id
+      @event.user_id = current_user.id
+      @event.provider = 'google_calendar_v3'
+      if @event.save
+        redirect_to events_url(@event), notice: I18n.t('performances.created')
+      else
+        respond_to do |format|
+          format.html { render :new }
+        end
       end
     end
   end
@@ -40,7 +40,7 @@ class PerformancesController < EventsController
   def google_event_params(event)
     attendees_ids = event.actors.pluck(:user_id)
     attendees_email = []
-    theater_name = event.theater.theater_name
+  theater_name = event.theater.theater_name
     attendees_ids.each do |id|
       email = User.find_by(id: id).email
       attendees_email << { email: email }

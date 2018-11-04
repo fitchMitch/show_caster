@@ -16,7 +16,6 @@ class Performance < Event
             foreign_key: 'event_id'
   accepts_nested_attributes_for :actors,
                                 allow_destroy: true
-
   # Validations
   validates_associated :user,
                        :theater

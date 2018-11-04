@@ -29,9 +29,8 @@ class CoursesController < EventsController
     @service = GoogleCalendarService.new(current_user)
     result = add_to_google_calendar(@service, @event)
     if result.nil?
-      redirect_to event_path(@event.reload),
-                  alert: I18n.t('performances.fail_to_create')
-      return nil
+      flash[:alert] = I18n.t('performances.fail_to_create')
+      format.html { render :new }
     end
 
     @event.fk = result.id
