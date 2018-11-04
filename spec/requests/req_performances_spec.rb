@@ -61,9 +61,7 @@ RSpec.describe 'Performances', type: :request do
         let(:result) { double('result', id: '0123145874521') }
         before(:each) do
           allow(GoogleCalendarService).to receive(:new) { google_service }
-          allow_any_instance_of(
-            PerformancesController
-          ).to receive(:add_to_google_calendar) { result }
+          allow(google_service).to receive(:add_to_google_calendar) { result }
         end
         context 'valid conditions' do
           # it 'creates a new Event', :vcr do
@@ -103,9 +101,7 @@ RSpec.describe 'Performances', type: :request do
         let(:result) { nil }
         before(:each) do
           allow(GoogleCalendarService).to receive(:new) { google_service }
-          allow_any_instance_of(
-            PerformancesController
-          ).to receive(:add_to_google_calendar) { result }
+          allow(google_service).to receive(:add_to_google_calendar) { result }
         end
         context 'valid conditions' do
           # it 'creates a new Event', :vcr do
@@ -140,9 +136,7 @@ RSpec.describe 'Performances', type: :request do
         describe 'with valid parameters' do
           context 'and exisiting event in Google Calendar' do
             before(:each) do
-              allow_any_instance_of(
-                PerformancesController
-              ).to receive(:update_google_calendar) { result }
+              allow(google_service).to receive(:update_google_calendar) { result }
               allow(GoogleCalendarService).to receive(:new) { google_service }
               allow(result).to receive(:is_a?) { false }
             end
@@ -178,9 +172,7 @@ RSpec.describe 'Performances', type: :request do
           context 'and missing event in Google Calendar' do
             before(:each) do
               allow(GoogleCalendarService).to receive(:new) { google_service }
-              allow_any_instance_of(
-                PerformancesController
-              ).to receive(:update_google_calendar) { "a String" }
+              allow(google_service).to receive(:update_google_calendar) { "a String" }
             put url,
               params: {
                 id: performance.id,
@@ -226,9 +218,7 @@ RSpec.describe 'Performances', type: :request do
         describe 'with valid parameters' do
           before(:each) do
             allow(GoogleCalendarService).to receive(:new) { google_service }
-            allow_any_instance_of(
-              PerformancesController
-            ).to receive(:update_google_calendar) { nil }
+            allow(google_service).to receive(:update_google_calendar) { nil }
             put url,
                 params: {
                   id: performance.id,
@@ -257,9 +247,7 @@ RSpec.describe 'Performances', type: :request do
         context 'with valid Google service' do
           before(:each) do
             allow(GoogleCalendarService).to receive(:new) { google_service }
-            allow_any_instance_of(
-              PerformancesController
-            ).to receive(:delete_google_calendar) { result }
+            allow(google_service).to receive(:delete_google_calendar) { result }
           end
           it 'destroys the performance' do
             expect {
@@ -287,9 +275,7 @@ RSpec.describe 'Performances', type: :request do
         context 'with INvalid Google service' do
           before(:each) do
             allow(GoogleCalendarService).to receive(:new) { google_service }
-            allow_any_instance_of(
-              PerformancesController
-            ).to receive(:delete_google_calendar) { nil }
+            allow(google_service).to receive(:delete_google_calendar) { nil }
           end
           it 'destroys the performance' do
             expect {
@@ -321,9 +307,7 @@ RSpec.describe 'Performances', type: :request do
           before(:each) do
             allow_any_instance_of(Performance).to receive(:destroy) { false }
             allow(GoogleCalendarService).to receive(:new) { google_service }
-            allow_any_instance_of(
-              PerformancesController
-            ).to receive(:delete_google_calendar) { result }
+            allow(google_service).to receive(:add_to_google_calendar) { result }
           end
           it 'doesn\'t destroy the performance' do
             expect {

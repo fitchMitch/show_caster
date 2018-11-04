@@ -8,7 +8,7 @@ class EventsController < ApplicationController
     # byebug
     if @event.update(event_params)
       @service = GoogleCalendarService.new(current_user)
-      result = update_google_calendar(@service, @event)
+      result = @service.update_google_calendar(@event)
       if (result.is_a? String) || result.nil?
         redirect_to events_url(@event),
                     notice: I18n.t('events.desynchronized')
@@ -25,7 +25,7 @@ class EventsController < ApplicationController
   def destroy
     @service = GoogleCalendarService.new(current_user)
     if @event.destroy
-      result = delete_google_calendar(@service, @event)
+      result = @service.delete_google_calendar(@event)
       if result.nil?
         redirect_to events_url(@event),
                     notice: I18n.t('performances.google_locked')
@@ -40,20 +40,6 @@ class EventsController < ApplicationController
   end
 
   protected
-
-  def add_to_google_calendar(google_service, event)
-    opt = google_event_params(event)
-    google_service.add_event_to_g_company_cal(opt)
-  end
-
-  def update_google_calendar(google_service, event)
-    opt = google_event_params(event)
-    google_service.update_event_google_calendar(opt)
-  end
-
-  def delete_google_calendar(google_service, event)
-    google_service.delete_event_google_calendar(event)
-  end
 
   def set_type
     params[:type].downcase

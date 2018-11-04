@@ -19,7 +19,7 @@ RSpec.describe Theater, type: :model do
       it 'should be verified : factory validation' do
         theater = create(:theater, valid_attributes)
 
-        expect(theater.theater_name).to eq(valid_attributes[:theater_name])
+        expect(theater.theater_name).to eq(valid_attributes[:theater_name].upcase)
         expect(theater.location).to eq(valid_attributes[:location])
         expect(theater.manager).to eq(valid_attributes[:manager])
         expect(theater.manager_phone).to eq('01 23 45 67 89')

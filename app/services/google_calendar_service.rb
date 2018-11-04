@@ -33,8 +33,8 @@ class GoogleCalendarService
     ENV['GOOGLE_CALENDAR_ID']
   end
 
-  # Where 'primary' is 'my' calendar
-  def add_event_to_g_company_cal(opt)
+  def add_to_google_calendar(event)
+    opt = google_event_params(event)
     event = make_a_google_event(opt)
     @calendar.insert_event company_calendar_id,
                            event,
@@ -49,7 +49,9 @@ class GoogleCalendarService
     false
   end
 
-  def update_event_google_calendar(opt)
+
+  def update_google_calendar(event)
+    opt = google_event_params(event)
     if opt.fetch(:fk, nil).nil?
       'inexisting Google Calendar event'
     elsif existing_event? opt[:fk]
@@ -68,7 +70,7 @@ class GoogleCalendarService
     )
   end
 
-  def delete_event_google_calendar(event)
+  def delete_google_calendar(event)
     if !event.try(:fk).nil? && existing_event?(event.fk)
       @calendar.delete_event(company_calendar_id, event.fk)
     else

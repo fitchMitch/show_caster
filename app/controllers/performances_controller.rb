@@ -17,7 +17,7 @@ class PerformancesController < EventsController
     @event = Performance.new(event_params)
     authorize @event
     @service = GoogleCalendarService.new(current_user)
-    result = add_to_google_calendar(@service, @event)
+    result = @service.add_to_google_calendar(@event)
     if result.nil?
       flash[:alert] = I18n.t('performances.fail_to_create')
       format.html { render :new }
@@ -36,24 +36,6 @@ class PerformancesController < EventsController
   end
 
   private
-
-  def google_event_params(event)
-    attendees_ids = event.actors.pluck(:user_id)
-    attendees_email = []
-  theater_name = event.theater.theater_name
-    attendees_ids.each do |id|
-      email = User.find_by(id: id).email
-      attendees_email << { email: email }
-    end
-
-    { title: I18n.t('performances.g_title_performance', name: theater_name),
-      location: event.theater.location,
-      theater_name: theater_name,
-      event_date: event.event_date.iso8601,
-      event_end: (event.event_date + event.duration * 60).iso8601,
-      attendees_email: attendees_email,
-      fk: event.fk }
-  end
 
   def set_event
     @event = Event.unscoped

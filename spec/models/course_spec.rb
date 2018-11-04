@@ -22,4 +22,11 @@
 require 'rails_helper'
 
 RSpec.describe Course, type: :model do
+  it { should belong_to(:user) }
+  it { should belong_to(:theater) }
+  it { should validate_presence_of(:event_date) }
+
+  describe '#google_event_params' do
+    it 'shoulde set google calendar params ok'
+  end
 end

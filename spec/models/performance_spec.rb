@@ -27,4 +27,8 @@ RSpec.describe Performance, type: :model do
   it { should have_many(:actors) }
   it { should validate_presence_of(:event_date) }
   it 'should count an actor at least which stage_role is player'
+
+  describe '#google_event_params' do
+    it 'shoulde set google calendar params ok'
+  end
 end

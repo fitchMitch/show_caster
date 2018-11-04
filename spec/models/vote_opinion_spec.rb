@@ -47,22 +47,18 @@ RSpec.describe VoteOpinion, type: :model do
 
   describe '#clean_votes' do
     let(:vote_opinion) { create(:vote_opinion) }
-    let(:vote_opinion2) do
-      build(
-        :vote_opinion,
-        poll_id: vote_opinion.poll_id,
-        user_id: vote_opinion.user_id
-      )
-    end
-    let(:vote_date) do
-      create(
-        :vote_date,
-        poll_id: vote_opinion.poll_id,
-        user_id: vote_opinion.user_id
-      )
-    end
     it 'shall delete vote_opinion only' do
-      expect { vote_opinion2.clean_votes }.to change(VoteOpinion, :count).by(1)
+      create(
+          :vote_date,
+          poll_id: vote_opinion.poll_id,
+          user_id: vote_opinion.user_id
+      )
+      create(
+          :vote_opinion,
+          poll_id: vote_opinion.poll_id,
+          user_id: vote_opinion.user_id
+      )
+      expect { vote_opinion.clean_votes }.to change(VoteOpinion, :count).by(-2)
     end
   end
 end

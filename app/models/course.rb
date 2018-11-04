@@ -19,4 +19,16 @@ class Course < Event
               greater_than_or_equal_to: 15
             }
   # Scopes
+  def google_event_params
+    theater_name = theater.theater_name
+    {
+      title: I18n.t('courses.g_title_course', name: theater_name),
+      location: theater.location,
+      theater_name: theater_name,
+      event_date: event_date.iso8601,
+      event_end: (event_date + duration * 60).iso8601,
+      attendees_email: [],
+      fk: fk
+    }
+  end
 end
