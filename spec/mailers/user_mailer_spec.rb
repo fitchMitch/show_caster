@@ -5,11 +5,11 @@ RSpec.describe UserMailer, type: :mailer do
     let!(:admin) { create(:user, :admin,:registered)}
     let!(:player) { create(:user, :player,:setup)}
     let(:w_mail) { UserMailer.welcome_mail(player).deliver_now }
-    let(:url) { "http://localhost:3000/users/#{ player.id }" }
+    let(:url) { "http://localhost:3000/users/#{player.id }"}
     let(:to) { player.email }
 
     before :each do
-      url  = "http://localhost:3000/users/#{ player.id }"
+      url  = "http://localhost:3000/users/#{player.id}"
     end
 
     it "should have a correct from" do
@@ -34,11 +34,11 @@ RSpec.describe UserMailer, type: :mailer do
     let(:player) { create(:user, :player,:setup)}
     let(:admin) { create(:user, :admin,:registered)}
     let(:w_mail) { UserMailer.promoted_mail(player).deliver_now }
-    let(:url) { "http://localhost:3000/users/#{ player.id }" }
+    let(:url) { "http://localhost:3000/users/#{player.id }"}
     let(:to) { player.email }
 
     before :each do
-      url  = "http://localhost:3000/users/#{ player.id }"
+      url  = "http://localhost:3000/users/#{player.id}"
       to = admin.email
     end
 

@@ -23,7 +23,7 @@ RSpec.describe Picture, type: :model do
     let (:valid_attributes) {
       { note: "An note",
         descro: "A description",
-        photo: File.new("#{ Rails.root }/spec/support/fixtures/pbhinanagkgpkadi.jpg")
+        photo: File.new("#{Rails.root}/spec/support/fixtures/pbhinanagkgpkadi.jpg")
       }
     }
 

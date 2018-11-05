@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :poll do
-    question          { "Poll : #{ FFaker::Lorem::sentence(1)} ?" }
+    question          { "Poll : #{FFaker::Lorem::sentence(1)} ?"}
     expiration_date   { Date.today + (1..15).to_a.sample.days }
     owner
     transient do

@@ -31,7 +31,7 @@ module PollsHelper
   def panel_question(poll)
     common_part = [
       "|",
-      "<span class='badge'>#{ poll.votes_count }</span>",
+      "<span class='badge'>#{poll.votes_count}</span>",
       I18n.t('polls.responses_sent')
     ]
     heading_poll_opinion = [
@@ -44,14 +44,14 @@ module PollsHelper
     ] + common_part
     heading_opinion = heading_poll_opinion.join("#{ image_tag("transp.png")}").html_safe
     heading_date= heading_poll_date.join("#{ image_tag("transp.png")}").html_safe
-    question = "<strong>#{ poll.question }</strong>".html_safe
+    question = "<strong>#{poll.question}</strong>".html_safe
     case poll.type
       when 'PollOpinion'
         panel question, heading: heading_opinion, context: :warning
       when 'PollDate'
         panel question, heading: heading_date, context: :info
       else
-        Rails.logger.debug("unexpected type : #{ poll.type }")
+        Rails.logger.debug("unexpected type : #{poll.type}")
         nil
     end
   end

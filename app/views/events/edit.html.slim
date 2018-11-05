@@ -3,10 +3,10 @@
     span.room-right-15
       = link_to performances_path, class: 'btn btn-default' do
         span.glyphicon.glyphicon-list-alt
-          = " #{ t("back") }"
+          = " #{t("back")}"
     = link_to @event, class: 'btn btn-primary' do
       span.glyphicon.glyphicon-eye-open
-        = " #{ t('performances.see') }"
+        = " #{t('performances.see')}"
     h2= event_edit_page_title(@event)
 
   = render 'form'

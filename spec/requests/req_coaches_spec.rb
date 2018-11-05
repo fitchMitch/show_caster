@@ -90,7 +90,7 @@ RSpec.describe 'Coachs', type: :request do
         end
         it 'is ok' do
           coach = create(:coach)
-          @url = "/coaches/#{ coach.id }"
+          @url = "/coaches/#{coach.id}"
           put @url, params: { id: coach.id, coach: new_valid_attributes }
           expect(response).to redirect_to coaches_path
         end
@@ -102,7 +102,7 @@ RSpec.describe 'Coachs', type: :request do
         end
         it 'fails to update coach' do
           coach = create(:coach)
-          @url = "/coaches/#{ coach.id }"
+          @url = "/coaches/#{coach.id}"
           put @url, params: { id: coach.id, coach: invalid_attributes }
           expect(response).to render_template(:edit)
         end

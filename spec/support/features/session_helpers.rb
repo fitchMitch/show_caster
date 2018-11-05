@@ -5,7 +5,7 @@ module Features
       OmniAuth.config.test_mode = true
       valid ? mock_valid_auth_hash(user) : mock_invalid_auth_hash
       Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[strategy.to_sym]
-      visit "/auth/#{ strategy.to_s }/callback"
+      visit "/auth/#{strategy.to_s}/callback"
     end
 
     def capy_logout

@@ -3,21 +3,21 @@
     span.room-right-15
       = link_to theaters_path, class: 'btn btn-default' do
         span.glyphicon.glyphicon-list-alt
-          = " #{ t("back") }"
+          = " #{t("back")}"
     = link_to edit_theater_path(@theater), class: 'btn btn-primary' do
       span.glyphicon.glyphicon-pencil
-        = " #{ t("edit") }"
+        = " #{t("edit")}"
     h1
       = @theater.theater_name
 
 
   dl.dl-horizontal
     dt
-      = "#{ t("theaters.location") } : "
+      = "#{t("theaters.location")} : "
     dd= @theater.location
     dt
-      = "#{ t("theaters.manager") } : "
+      = "#{t("theaters.manager")} : "
     dd= @theater.manager
     dt
-      = "#{ t("theaters.manager_phone") } : "
+      = "#{t("theaters.manager_phone")} : "
     dd= @theater.manager_phone

@@ -29,7 +29,7 @@ RSpec.feature  "Users list" do
       click_link(text: admin.full_name)
       expect(page.body).to have_selector(".container > h2.edit_user", text: admin.full_name)
       expect(page.body).to have_selector("i.fa.fa-pencil")
-      next_url = "/users/#{ admin.id }/edit"
+      next_url = "/users/#{admin.id}/edit"
       visit next_url
       expect(page.body).to have_selector("h2", text: I18n.t('users.complementary'))
     end

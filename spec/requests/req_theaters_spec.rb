@@ -75,7 +75,7 @@ RSpec.describe "Theaters", type: :request do
       let(:theater) { create(:theater) }
 
       it "updates the requested theater_name with a new theater_name" do
-        url = "/theaters/#{ theater.to_param }"
+        url = "/theaters/#{theater.to_param}"
         put url, params:{ id: theater.id, theater:new_attributes_theater_name }
         theater.reload
         expect(theater).to have_attributes(
@@ -84,7 +84,7 @@ RSpec.describe "Theaters", type: :request do
       end
 
       it "updates the requested theater" do
-        url = "/theaters/#{ theater.to_param }"
+        url = "/theaters/#{theater.to_param}"
         put url, params:{ id: theater.id, theater: new_attributes }
         theater.reload
         expect(theater).to have_attributes( manager_phone: '06 66 66 66 66' )
@@ -93,7 +93,7 @@ RSpec.describe "Theaters", type: :request do
       end
 
       it "redirects to the users page" do
-        url = "/theaters/#{ theater.to_param }"
+        url = "/theaters/#{theater.to_param}"
         put url, params:{ id: theater.id, theater: new_attributes }
         expect(response).to redirect_to theaters_path
       end
@@ -107,14 +107,14 @@ RSpec.describe "Theaters", type: :request do
       let(:theater) { create(:theater) }
 
       it "assigns the theater as @theater" do
-        url = "/theaters/#{ theater.to_param }"
+        url = "/theaters/#{theater.to_param}"
         put url, params:{ id: theater.id, theater: invalid_attributes }
         theater.reload
         expect(theater.theater_name).not_to eq(invalid_attributes[:theater_name])
       end
 
       it "re-renders the 'edit' template" do
-        url = "/theaters/#{ theater.to_param }"
+        url = "/theaters/#{theater.to_param}"
         put url, params:{ id: theater.id, theater: invalid_attributes }
         expect(response).to render_template :edit
       end

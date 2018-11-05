@@ -3,27 +3,27 @@
     span.room-right-15
       = link_to coaches_path, class: 'btn btn-default' do
         span.glyphicon.glyphicon-list-alt
-          = " #{ t("back") }"
+          = " #{t("back")}"
     = link_to edit_coach_path(@coach), class: 'btn btn-primary' do
       span.glyphicon.glyphicon-pencil
-        = " #{ t("edit") }"
+        = " #{t("edit")}"
     h1
       = @coach.coach_name
 
 
   dl.dl-horizontal
     dt
-      = "#{ t("firstname") } : "
+      = "#{t("firstname")} : "
     dd= @coach.firstname
     dt
-      = "#{ t("lastname") } : "
+      = "#{t("lastname")} : "
     dd= @coach.lastname
     dt
-      = "#{ t("users.cell_phone_nr") } : "
+      = "#{t("users.cell_phone_nr")} : "
     dd= @coach.cell_phone_nr
     dt
-      = "#{ t("email") } : "
+      = "#{t("email")} : "
     dd= @coach.email
     dt
-      = "#{ t("coaches.note") } : "
+      = "#{t("coaches.note")} : "
     dd= @coach.note

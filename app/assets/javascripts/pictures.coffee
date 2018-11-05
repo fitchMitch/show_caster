@@ -1,6 +1,6 @@
 $(document).ready ->
   write_it = (w, h)->
-    s = "hauteur : #{ h }  x largeur : #{ w }"
+    s = "hauteur : #{h}  x largeur : #{w}"
     $('#widthbox').text s
     return
   indicatorsDisplay = (w, h) ->

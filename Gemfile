@@ -1,8 +1,8 @@
-source 'https://rubygems.org'
+esource 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{ repo_name }/#{ repo_name }" unless repo_name.include?("/")
-  "https://github.com/#{ repo_name }.git"
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
 end
 
 # Technical
@@ -59,7 +59,7 @@ group :development, :test do
   gem 'pry-byebug',                                           '~> 3.6'
 
   # %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
-  #   gem lib, git: "https://github.com/rspec/#{ lib }.git", branch: 'master'
+  #   gem lib, git: "https://github.com/rspec/#{lib}.git", branch: 'master'
   # end
   gem "database_cleaner",                                       '~> 1.7'
   gem 'rails-controller-testing',                               '~> 1.0'

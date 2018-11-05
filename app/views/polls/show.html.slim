@@ -3,11 +3,11 @@
     span.room-right-15
       = link_to polls_path, class: 'btn btn-default' do
         span.glyphicon.glyphicon-list-alt
-          = " #{ t("back") }"
+          = " #{t("back")}"
     - if @poll.present? && policy(@poll).edit?
       = link_to edit_poll_path(@poll), class: 'btn btn-primary' do
         span.glyphicon.glyphicon-pencil
-          = " #{ t('polls.edit') }"
+          = " #{t('polls.edit')}"
     h1= @poll.question
 
   dl.dl-horizontal
@@ -29,5 +29,5 @@
       p.space-up-10= t("answers.answers")
     dd.space-up-10
       - @poll.answers.each_with_index do |a, index|
-        p="#{ index+1}. #{ a.answer_label }<br/>".html_safe
+        p="#{index+1}. #{a.answer_label}<br/>".html_safe
     hr

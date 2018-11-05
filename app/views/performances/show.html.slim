@@ -3,13 +3,13 @@
     span.room-right-15
       = link_to performances_path, class: 'btn btn-default' do
         span.glyphicon.glyphicon-list-alt
-          = " #{ t("back") }"
+          = " #{t("back")}"
     - if @event.present? && policy(@event).edit?
       = link_to edit_performance_path(@event), class: 'btn btn-primary' do
         span.glyphicon.glyphicon-pencil
-          = " #{ t('performances.edit_page_title') }"
+          = " #{t('performances.edit_page_title')}"
     h1= "Le #{ l @event.event_date, format:"%A %d %B à %Hh%M"}"
-    h1= "#{ t 'theater_company'} sont au \"#{@event.theater.theater_name }\""
+    h1= "#{t 'theater_company'} sont au \"#{@event.theater.theater_name}\""
 
   dl.dl-horizontal
     dt= t('performances.dur')
@@ -31,17 +31,17 @@
           p
             strong= t("performances.players")
           - for actor in players_on_stage(@event)
-            .badge_user.room-right-10.player-list  style= "#{ badge_user actor.user }"
-              = "#{ actor.user.full_name } "
+            .badge_user.room-right-10.player-list  style= "#{badge_user actor.user}"
+              = "#{actor.user.full_name} "
         .col-md-4.col-sm-6.col-xs-12
           p
             strong=t("performances.mc_and_djs")
           - for actor in mc_and_djs(@event)
-            .badge_user.room-right-10.player-list  style= "#{ badge_user actor.user }"
+            .badge_user.room-right-10.player-list  style= "#{badge_user actor.user}"
               span.badge
                 small
-                  = "#{ actor.stage_role_i18n } "
-              = " #{ actor.user.full_name } "
+                  = "#{actor.stage_role_i18n} "
+              = " #{actor.user.full_name} "
 
       hr
       - if @event.event_date < Time.zone.now

@@ -2,7 +2,7 @@
   .page-header
     = link_to performances_path, class: 'btn btn-default' do
       span.glyphicon.glyphicon-list-alt
-        = " #{ t("back") }"
+        = " #{t("back")}"
     h2= event_new_page_title(@event)
 
   = render 'form'
