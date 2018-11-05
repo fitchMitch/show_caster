@@ -36,22 +36,13 @@ class Dashboard
         indicator.people_performance_count
         identification[:shows_data] << [
           indicator.get_person_activity(person.id),
-          indicator.average_role_count,
-          indicator.period_label
+          indicator.average_role_count
         ]
       end
       res << identification
     end
     res
   end
-
-  # def get_periods
-  #   periods = []
-  #   indicator_collection.each do |indi|
-  #     periods << indi.period_label
-  #   end
-  #   periods.uniq
-  # end
 end
 
 class Indicator
@@ -66,28 +57,29 @@ class Indicator
   def initialize(attributes)
     att = check_attributes(attributes)
     self.role = att[:role]
-    self.period_label = att[:period_label]
     self.period_start_time = att[:period_start_time]
+    self.period_label = att[:period_label]
     self.show_with_role_count = 0
     self.average_role_count = 0
     self.person_activity = []
   end
 
-  def people_performance_count(ending = nil)
-    # returns [count_me, perso (=user_id)]
-    ending ||= Time.zone.now
+  def people_performance_count(ending = Time.zone.now)
     activity = get_performance(ending)
     activity.each do |act|
       self.person_activity << PersonActivity.new(act.perso, act.count_me)
     end
-    show_with_role_count_update(activity) && get_average_role_count
+    show_with_role_count_update(activity)
+    get_average_role_count
   end
 
   def get_person_activity(user_id)
-    targetted_person_activity = person_activity.find do |activity|
-      activity.user_id == user_id
-    end
-    targetted_person_activity.nil? ? 0 : targetted_person_activity.perf_count
+    found_person_activity = find_person_activity_by_id(user_id)
+    found_person_activity.nil? ? 0 : found_person_activity.perf_count
+  end
+
+  def find_person_activity_by_id(user_id)
+    person_activity.find { |activity| activity.user_id == user_id }
   end
 
   private
@@ -106,21 +98,27 @@ class Indicator
     self.show_with_role_count = activity.inject(0) do |sum, n|
       sum + n.count_me if n.count_me.present?
     end
-    true
   end
 
   def get_average_role_count
     self.average_role_count = show_with_role_count / User.active.count
-    true
   end
 
   def check_attributes(attri)
+    raise ArgumentError unless attri.is_a? Hash
+
+    unless attri.keys.sort == %i[role period_label period_start_time].sort
+      raise ArgumentError
+    end
+
     role = attri.fetch(:role)
-    raise 'periods is not a hash' unless attri[:role].is_a? Integer
+    raise ArgumentError unless attri[:role].is_a? Integer
+
     period_label = attri.fetch(:period_label)
-    raise 'periods is not a String' unless attri[:period_label].is_a? String
+    raise ArgumentError unless attri[:period_label].is_a? String
+
     period_start_time = attri.fetch(:period_start_time)
-    raise 'periods is not a hash' unless attri[:period_start_time].is_a? Time
+    raise ArgumentError unless attri[:period_start_time].is_a? Time
     {
       role: role,
       period_label: period_label,
