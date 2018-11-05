@@ -1,4 +1,4 @@
-esource 'https://rubygems.org'
+source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -8,7 +8,7 @@ end
 # Technical
 # -----------------------
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-ruby "2.2.7"
+ruby '2.2.7'
 
 gem 'rails',                                                '~> 5.0.6'
 gem 'pg',                                                   '~> 0.20'
@@ -16,7 +16,7 @@ gem 'jbuilder',                                             '~> 2.5'
 gem 'annotate'
 gem 'coffee-rails',                                         '~> 4.2'
 gem 'slim',                                                 '>= 3.0.9'
-gem "slim-rails",                                           '~> 3.1'
+gem 'slim-rails',                                           '~> 3.1'
 # Front gems
 # -----------------------
 gem 'jquery-rails',                                         '~> 4.3'
@@ -29,7 +29,7 @@ gem 'modernizr-rails',                                      '~> 2.7'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem 'meta-tags', require: 'meta_tags'
-gem "font-awesome-rails",                                   '~> 4.7'
+gem 'font-awesome-rails',                                   '~> 4.7'
 gem 'simple_form',                                          '~> 4.0'
 gem 'enum_help',                                            '~> 0.0'
 gem 'cocoon',                                               '~> 1.2'
@@ -44,7 +44,7 @@ gem 'omniauth-google-oauth2',                               '~> 0.5'
 # middleware
 # -----------------------
 gem 'pundit',                                               '~> 1.1'
-gem "paperclip",                                            "~> 6.0.0"
+gem 'paperclip',                                            '~> 6.0.0'
 gem 'paperclip-i18n',                                       '~> 4.3'
 gem 'mini_magick',                                          '~> 4.8'
 #---------------------------
@@ -61,7 +61,7 @@ group :development, :test do
   # %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
   #   gem lib, git: "https://github.com/rspec/#{lib}.git", branch: 'master'
   # end
-  gem "database_cleaner",                                       '~> 1.7'
+  gem 'database_cleaner',                                       '~> 1.7'
   gem 'rails-controller-testing',                               '~> 1.0'
   gem 'shoulda-matchers',                                       '~> 3.1'
   gem 'ffaker',                                                 '~> 2.9'
@@ -83,9 +83,9 @@ group :test do
   gem 'simplecov', require: false
   # gem 'vcr'
   gem 'webmock',                                                '~> 3.4'
-  gem "capybara",                                               '~> 3.0'
-  gem "launchy",                                                '~> 2.4'
-  gem "selenium-webdriver",                                     '~> 3.11'
+  gem 'capybara',                                               '~> 3.0'
+  gem 'launchy',                                                '~> 2.4'
+  gem 'selenium-webdriver',                                     '~> 3.11'
   gem 'pundit-matchers',                                        '~> 1.4.1'
   gem 'rubocop-rspec',                                          '~> 1.28'
   gem 'rspec',                                                  '~> 3.7.0'
@@ -98,5 +98,5 @@ end
 
 group :production do
   gem 'lograge',    '~> 0.10'
-  gem "passenger", "5.1.12", require: "phusion_passenger/rack_handler"
+  gem 'passenger', '5.1.12', require: 'phusion_passenger/rack_handler'
 end
