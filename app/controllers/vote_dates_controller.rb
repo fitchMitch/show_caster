@@ -10,7 +10,7 @@ class VoteDatesController < VotesController
       votes = VoteDate.where(poll_id: @poll_date.id)
                       .where(answer_id: answer.id)
                       .where(user_id: current_user.id)
-      vote = votes.any? ? votes.first : nil
+      vote = votes.empty? ? nil : votes.first
       @answers_votes << { answer: answer, vote: vote }
     end
   end
