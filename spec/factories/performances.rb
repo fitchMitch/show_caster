@@ -22,14 +22,13 @@
 FactoryBot.define do
   factory :performance do
     event_date      { Time.zone.now + 2.days }
-    duration        { 100 }
+    duration        { 75 }
     note            { 'MyText' }
     title           { 'Les mentals enterrés' }
     theater
     user
     provider        { 'google' }
     fk              { 'a' * 40 }
-    progress        { 0 }
 
     factory :performance_with_actors do
       transient do
