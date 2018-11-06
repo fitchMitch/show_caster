@@ -14,12 +14,7 @@ class Dashboard
 
   def sort
     return self if indicator_collection.size <= 1
-    # This is inelegant : because ruby would not accept a sorting on date
-    # with a desc (minus sign) on Times, I head to reverse the sorting in
-    # the end and have the desc part on roles instead.
-    self.indicator_collection = indicator_collection.sort_by do |indic|
-      [-indic.role, indic.period_start_time]
-    end.reverse
+    self.indicator_collection = indicator_collection.sort { |a, b| a <=> b }
     self
   end
 
@@ -64,10 +59,19 @@ class Indicator
     self.person_activity = []
   end
 
+  def <=>(other)
+    if role == other.role
+      return 0 if period_start_time.to_i == other.period_start_time.to_i
+      other.period_start_time.to_i - period_start_time.to_i > 0 ? 1 : -1
+    else
+      role < other.role ? -1 : 1
+    end
+  end
+
   def people_performance_count(ending = Time.zone.now)
     activity = get_performance(ending)
     activity.each do |act|
-      self.person_activity << PersonActivity.new(act.perso, act.count_me)
+      person_activity << PersonActivity.new(act.perso, act.count_me)
     end
     show_with_role_count_update(activity)
     get_average_role_count

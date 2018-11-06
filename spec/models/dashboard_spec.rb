@@ -12,7 +12,7 @@ RSpec.describe Dashboard, type: :model do
     Indicator.new(
       role: 2,
       period_label: 'l2',
-      period_start_time: Time.zone.now - 2.months
+      period_start_time: Time.zone.now - 1.months
     )
   end
   let(:indicator3) do
@@ -29,6 +29,13 @@ RSpec.describe Dashboard, type: :model do
       period_start_time: Time.zone.now - 2.months
     )
   end
+  let(:indicator5) do
+    Indicator.new(
+      role: 0,
+      period_label: 'l5',
+      period_start_time: Time.zone.now - 1.months
+    )
+  end
   describe '#sort' do
     let!(:dashboard) do
       Dashboard.new
@@ -36,12 +43,14 @@ RSpec.describe Dashboard, type: :model do
                .add(indicator2)
                .add(indicator3)
                .add(indicator4)
+               .add(indicator5)
     end
-    it 'sorts activity first by role, then by decreasing start_time - 1' do
+    it 'sorts activity first by role, then by decreasing start_time' do
       expect(dashboard.sort.indicator_collection.first).to eq(indicator)
-      expect(dashboard.sort.indicator_collection.second).to eq(indicator4)
-      expect(dashboard.sort.indicator_collection.third).to eq(indicator3)
-      expect(dashboard.sort.indicator_collection.fourth).to eq(indicator2)
+      expect(dashboard.sort.indicator_collection.second).to eq(indicator5)
+      expect(dashboard.sort.indicator_collection.third).to eq(indicator4)
+      expect(dashboard.sort.indicator_collection.fourth).to eq(indicator3)
+      expect(dashboard.sort.indicator_collection.fifth).to eq(indicator2)
     end
   end
 
