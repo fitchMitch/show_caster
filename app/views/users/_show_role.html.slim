@@ -1,9 +1,9 @@
 - if policy(user).promote?
   = simple_form_for(user,
                     as: :user,
-                    url: promote_user_path(user), 
+                    url: promote_user_path(user),
                     html: { method: :patch, class: 'form-horizontal' }) do |f|
-    .container-fluid
+    #edit_user_role.container-fluid
       .row.users_promote
         .col-xs-12
           .row
