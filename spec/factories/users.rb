@@ -99,7 +99,7 @@ FactoryBot.define do
 
     factory :user_with_picture do
       after(:create) do |user|
-        create(:picture,  imageable: user)
+        create(:picture, imageable: user)
       end
     end
   end

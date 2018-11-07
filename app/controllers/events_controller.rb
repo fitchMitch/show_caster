@@ -5,7 +5,6 @@ class EventsController < ApplicationController
   def show; end
 
   def update
-    # byebug
     if @event.update(event_params)
       @service = GoogleCalendarService.new(current_user)
       result = @service.update_google_calendar(@event)
