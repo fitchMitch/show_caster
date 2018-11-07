@@ -143,8 +143,8 @@ class User < ApplicationRecord
     UserMailer.welcome_mail(self).deliver_now
   end
 
-  def promoted_mail
-    UserMailer.promoted_mail(self).deliver_now
+  def send_promotion_mail
+    UserMailer.send_promotion_mail(self).deliver_now
   end
 
   def restricted_statuses
@@ -159,16 +159,14 @@ class User < ApplicationRecord
     color.split(';').second
   end
 
-  def inform_promoted_person(current_user, old_user_role)
+  def inform_promoted_person(current_user, old_user)
     # No mail when
-    excl1 = current_user == self
-    excl2 = role == 'player'
-    excl3 = role == 'admin_com' && old_user_role == 'admin'
-    exclusion = excl1 || excl2 || excl3
-    # mailing
-    promoted_mail unless exclusion
+    exclusion_cases = current_user == self ||
+                      (role == 'player' && old_user.status != 'archived') ||
+                      (role == 'admin_com' && old_user.role == 'admin')
+    send_promotion_mail unless exclusion_cases
     # messaging
-    promotion_message(exclusion)
+    promotion_message(exclusion_cases)
   end
 
   def promotion_message(exclusion)

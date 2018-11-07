@@ -44,14 +44,13 @@ class UsersController < ApplicationController
   def destroy; end
 
   def promote
-    old_user_role = @user.role
+    old_user = @user.dup
     user_updates = {
       role: params[:user][:role],
       status: params[:user][:status]
     }
-    #byebug
     if @user && @user.update(user_updates)
-      message = @user.inform_promoted_person(current_user, old_user_role)
+      message = @user.inform_promoted_person(current_user, old_user)
       redirect_to @user, notice: I18n.t(message, name: @user.full_name)
     else
       flash[:alert] = I18n.t('users.promoted_failed', name: @user.full_name)
