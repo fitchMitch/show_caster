@@ -91,19 +91,19 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#promoted_mail' do
+  describe '#send_promotion_mail' do
     let(:user) { create(:user, :registered) }
     let(:p_mail) { double('p_mail') }
     let(:deliver_now) { double('dlvr_now') }
     let(:a_mail) { double('a_mail') }
     before do
-      allow(UserMailer).to receive(:promoted_mail).with(user) do
+      allow(UserMailer).to receive(:send_promotion_mail).with(user) do
         p_mail
       end
       allow(p_mail).to receive(:deliver_now) { a_mail }
     end
     it 'should deliver mail' do
-      expect(user.promoted_mail).to eq a_mail
+      expect(user.send_promotion_mail).to eq a_mail
     end
   end
 
@@ -166,8 +166,8 @@ RSpec.describe User, type: :model do
     let(:old_user) { admin_com.admin! }
     let(:something) { double("something") }
     before :each do
-      allow(admin).to receive(:promoted_mail) { something }
-      allow(user).to receive(:promoted_mail) { something }
+      allow(admin).to receive(:send_promotion_mail) { something }
+      allow(user).to receive(:send_promotion_mail) { something }
       allow(player).to receive(:promotion_message) { something }
       allow(admin_com).to receive(:promotion_message) { something }
       allow(admin).to receive(:promotion_message) { something }
@@ -188,7 +188,7 @@ RSpec.describe User, type: :model do
     end
     it 'should send an email otherwise' do
       expect(admin).to receive(:promotion_message)
-      expect(admin).to receive(:promoted_mail)
+      expect(admin).to receive(:send_promotion_mail)
       admin.inform_promoted_person(other_admin, player)
     end
   end

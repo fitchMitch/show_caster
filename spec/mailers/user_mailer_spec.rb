@@ -30,10 +30,10 @@ RSpec.describe UserMailer, type: :mailer do
 
   end
 
-  describe "User Mailer promoted_mail" do
+  describe "User Mailer send_promotion_mail" do
     let(:player) { create(:user, :player,:setup)}
     let(:admin) { create(:user, :admin,:registered)}
-    let(:w_mail) { UserMailer.promoted_mail(player).deliver_now }
+    let(:w_mail) { UserMailer.send_promotion_mail(player).deliver_now }
     let(:url) { "http://localhost:3000/users/#{player.id }"}
     let(:to) { player.email }
 
