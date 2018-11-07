@@ -4,5 +4,5 @@ fr:
     destroyed:  La salle(???) a bien été supprimée.
     distribution: Distribution
     artist: Joueur
-    promoted_mail:
+    send_promotion_mail:
       subject: Votre rôle a changé sur le site
