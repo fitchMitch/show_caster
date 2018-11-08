@@ -45,7 +45,7 @@ fr:
   helpers:
     submit:
       theater:
-        create: "Valider la création "
+        create: "Valider la création"
         update: "Modifier"
         edit: "Editer"
         new: "Ajouter une salle"
@@ -55,32 +55,32 @@ fr:
         edit: "Editer"
         new: "Créer un joueur/joueuse"
       event:
-        create: "Valider la création "
+        create: "Valider la création"
         update: "Modifier"
         edit: "Editer"
-        new: "Créer un Spectacle"
+        new: "Créer un spectacle"
       picture:
-        create: "Valider "
+        create: "Valider"
         update: "Modifier et rogner"
         edit: "Editer"
         new: "Ajouter une photo"
       coach:
-        create: "Valider "
+        create: "Valider"
         update: "Modifier"
         edit: "Editer"
         new: "Ajouter un.e coach"
       course:
-        create: "Créer un cours "
+        create: "Créer un cours"
         update: "Modifier le cours"
         edit: "Editer le cours"
         new: "Ajouter un cours"
       performance:
-        create: "Créer un spectacle "
+        create: "Créer un spectacle"
         update: "Modifier le spectacle"
         edit: "Editer le spectacle"
         new: "Ajouter un spectacle"
       poll:
-        create: "Créer un sondage "
+        create: "Créer un sondage"
         update: "Modifier le sondage"
         edit: "Editer le sondage"
         new: "Ajouter un sondage"

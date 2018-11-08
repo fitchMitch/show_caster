@@ -33,6 +33,7 @@ fr:
     see: Voir la fiche spectacle
     show_in: Spectacle au %{name}
     title: Titre
+    title_show: Intitulé
     g_title:
       performance: Spectacle des Sésames au %{name}
       course: Cours / Entrainement impro au %{name}

@@ -21,6 +21,12 @@ class Performance < Event
                        :theater
   validates :event_date,
             presence: true
+  validates :title,
+            presence: true,
+            length:  {
+              minimum: 5,
+              maximum: 60
+            }
   validates :duration,
             presence: true,
             numericality: {

@@ -3,7 +3,7 @@ class PerformancesController < EventsController
 
   def new
     authorize(Performance)
-    @event = Performance.new(duration: 75)
+    @event = Performance.new(duration: 75, title: 'Cabaret !')
     4.times { @event.actors.build }
   end
 

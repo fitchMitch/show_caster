@@ -61,7 +61,8 @@ class UsersController < ApplicationController
   def invite
     if @user && @user.update(status: 'invited')
       @user.welcome_mail
-      redirect_to user_path(@user), notice: I18n.t('users.invited', name: @user.full_name)
+      redirect_to user_path(@user),
+                  notice: I18n.t('users.invited', name: @user.full_name)
     else
       flash[:alert] = I18n.t('users.invited_failed', name: @user.full_name)
       render :show

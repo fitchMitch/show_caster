@@ -3,8 +3,11 @@
     .col-md-3.room-left-15
       strong= l event.event_date, format:"%a %d %b à %Hh%M "
       br
-      = " #{event.title}"
-      br
+        strong
+          - if policy(event).show?
+            = link_to event.title, edit_course_path(event)
+          - else
+            = event.title
       span.label.label-success
         = event.theater.theater_name
     .col-md-1.room-left-15= get_duration event.duration

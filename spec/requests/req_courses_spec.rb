@@ -9,6 +9,7 @@ RSpec.describe 'Courses', type: :request do
   let!(:valid_attributes) do
     {
       duration: 20,
+      title: 'Cabaret !',
       note: 'a note',
       event_date: 2.days.from_now,
       user_id: user_attribute.id,

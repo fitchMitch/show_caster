@@ -88,7 +88,6 @@ RSpec.feature 'promotion feature', type: :feature do
       visit users_path
       expect(page.body).to have_selector('h2', text: I18n.t('users.list'))
       expect(page.body).to have_selector('.btn.btn-danger')
-      p rip_player.email
       expect(last_email_address).to eq(rip_player.email)
     end
   end

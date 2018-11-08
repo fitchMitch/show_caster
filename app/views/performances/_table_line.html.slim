@@ -5,7 +5,12 @@
       br
       span.label.label-success
         = event.theater.theater_name
-    .col-md-2.room-left-15= event.title
+    .col-md-2.room-left-15
+      strong
+        - if policy(event).show?
+          = link_to event.title, performance_path(event)
+        - else
+          = event.title
     .col-md-1.room-left-15= get_duration event.duration
     .col-md-3.room-left-15.hidden-xs= event.note
     .col-md-1.room-left-15

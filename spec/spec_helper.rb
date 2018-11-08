@@ -1,7 +1,11 @@
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'simplecov'
-SimpleCov.start 'rails'
+if ARGV.grep(/spec\.rb/).empty?
+  SimpleCov.start 'rails' do
+    add_filter '/commontator/'
+  end
+end
 require "pundit/rspec"
 require 'pundit/matchers'
 require "paperclip/matchers"
