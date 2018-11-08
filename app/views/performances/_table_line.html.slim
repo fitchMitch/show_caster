@@ -18,7 +18,6 @@
       - if policy(event).show?
         = link_to event
           =link_to_event(event)
-      = render partial: 'update_delete_icons', locals: { event: event }
-
-
+      = render partial: 'update_delete_icons',
+               locals: { event: event }
 hr

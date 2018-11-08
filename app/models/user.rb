@@ -53,7 +53,6 @@ class User < ApplicationRecord
   has_many :vote_opinions
   has_many :vote_dates
   has_many :polls, foreign_key: :owner_id
-  #delegate :firstname,:lastname, :full_name, to: :member
   # =====================
 
   # scope :found_by, -> (user) { where('user_id = ?', user_id) }

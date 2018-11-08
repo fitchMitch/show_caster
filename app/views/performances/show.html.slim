@@ -12,8 +12,14 @@
     h1= "#{t 'theater_company'} sont au \"#{@event.theater.theater_name}\""
 
   dl.dl-horizontal
+    dt= t('performances.title_show')
+    dd
+      .blue-sesame-title
+        =@event.title
+
+
     dt= t('performances.dur')
-    dd= distance_of_time_in_words @event.event_date, @event.event_date + @event.duration * 60
+    dd= time_ago_in_words (@event.duration * 60).seconds.from_now
 
     dt.space-up-10= t('performances.address')
     dd.space-up-10= @event.theater.location
