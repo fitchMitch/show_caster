@@ -42,6 +42,10 @@ class UserPolicy < ApplicationPolicy
     registered? && me_or_admin?
   end
 
+  def show_last_connexion?
+    admin?
+  end
+
   def promote?
     return false if @user.nil? || @record.nil? || @user.player?
     c1 = @record.status != 'setup'
