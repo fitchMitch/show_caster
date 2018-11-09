@@ -22,6 +22,8 @@
         .col-sm-8
           - if @user.photo_url.present?
             = image_tag(@user.photo_url, size: "150x150")
+          - else
+            = image_tag('Zoidberg.png', size: "150x150")
       .row.form-std-height
         .col-sm-4.right.hidden-sm.hidden-xs= t("users.role")
         .col-sm-8
@@ -32,6 +34,10 @@
       .row.form-std-height
         .col-sm-4.right.hidden-sm.hidden-xs= t("users.email")
         .col-sm-8= @user.email
+      - if policy(@user).show_last_connexion?
+        .row.form-std-height
+          .col-sm-4.right.hidden-sm.hidden-xs= t("users.last_connexion")
+          .col-sm-8= @user.last_connexion
       .row.form-std-height
         .col-sm-4.right.hidden-sm.hidden-xs= t("users.cell_phone_nr")
         .col-sm-8
