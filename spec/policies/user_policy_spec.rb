@@ -14,6 +14,7 @@ RSpec.describe UserPolicy do
     it { is_expected.to     forbid_action(:show) }
     it { is_expected.to     forbid_action(:destroy) }
     it { is_expected.to     forbid_action(:promote) }
+    it { is_expected.to     forbid_action(:show_last_connexion) }
   end
 
   context "As a player" do
@@ -25,6 +26,7 @@ RSpec.describe UserPolicy do
     it { is_expected.to     forbid_action(:show) }
     it { is_expected.to     forbid_action(:destroy) }
     it { is_expected.to     forbid_action(:promote) }
+    it { is_expected.to     forbid_action(:show_last_connexion) }
   end
 
   context "As an admin_com" do
@@ -36,6 +38,7 @@ RSpec.describe UserPolicy do
     it { is_expected.to     forbid_action(:show) }
     it { is_expected.to     forbid_action(:destroy) }
     it { is_expected.to     permit_action(:promote) }
+    it { is_expected.to     forbid_action(:show_last_connexion) }
   end
 
   context "As an admin" do
@@ -47,5 +50,6 @@ RSpec.describe UserPolicy do
     it { is_expected.to     permit_action(:show) }
     it { is_expected.to     forbid_action(:destroy) }
     it { is_expected.to     permit_action(:promote) }
+    it { is_expected.to     permit_action(:show_last_connexion) }
   end
 end

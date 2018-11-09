@@ -1,18 +1,19 @@
 module Users
   module Formating
+    include ActionView::Helpers::DateHelper
     extend ActiveSupport::Concern
 
-    def pick(a, b)
-      (a..b).to_a.sample.to_i
+    def pick(min, max)
+      (min..max).to_a.sample.to_i
     end
 
     def pick_color
-      # background
-      s_bckg = pick(66, 100)
-      l_bckg = pick(32, 50)
       # txt
       s_txt  = pick(36, 76)
       l_txt  = pick(76, 95)
+      # background
+      s_bckg = pick(66, 100)
+      l_bckg = pick(32, 50)
       # hue
       h_user = h_random pick(0, 1000)
 
@@ -36,6 +37,14 @@ module Users
         lastname.upcase
       else
         "#{firstname} #{lastname[0].upcase}"
+      end
+    end
+
+    def last_connexion
+      if last_sign_in_at.nil?
+        I18n.t("users.never_connected")
+      else
+        I18n.t("users.connected_at", time: time_ago_in_words(last_sign_in_at))
       end
     end
 
@@ -64,10 +73,10 @@ module Users
       my_match.captures.compact.join(' ')
     end
 
-    def to_hex_color(nbr)
-      incomplete_nr = nbr.to_s(16)
-      '0' * (6 - incomplete_nr.length) + incomplete_nr
-    end
+    # def to_hex_color(nbr)
+    #   incomplete_nr = nbr.to_s(16)
+    #   '0' * (6 - incomplete_nr.length) + incomplete_nr
+    # end
 
     def h_random(index)
       gold = (1 + Math.sqrt(5)) / 2
