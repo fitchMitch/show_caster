@@ -1,0 +1,7 @@
+language: ruby
+rvm:
+ - 2.2.7p470
+# safelist
+branches:
+  only:
+    - master
