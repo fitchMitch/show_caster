@@ -1,6 +1,6 @@
 language: ruby
 rvm:
- - 2.2.7p470
+ - 2.2.7
 # safelist
 branches:
   only:
