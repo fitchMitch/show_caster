@@ -14,9 +14,16 @@ RSpec.describe Poll, type: :model do
   end
 
   describe '.expecting_my_vote' do
-    let!(:vote_opinion) { create(:vote_opinion) }
-    let!(:vote_date) { create(:vote_date) }
     let(:user) { create(:user, :registered) }
+    let!(:vote_opinion) { create(:vote_opinion, user_id: user.id) }
+    let!(:vote_date) { create(:vote_date, user_id: user.id) }
+    let!(:vote_date2) do
+      create(
+        :vote_date,
+        poll_id: vote_date.poll_id,
+        user_id: user.id
+      )
+    end
     it 'should count awaiting votes' do
       expect(Poll.expecting_my_vote(user)).to eq(2)
     end

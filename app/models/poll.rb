@@ -46,7 +46,7 @@ class Poll < ApplicationRecord
     total -= PollOpinion.with_my_opinion_votes(current_user).count
 
     total += PollDate.active.count
-    total - PollDate.with_my_date_votes(current_user).count
+    total - PollDate.count_my_date_votes(current_user).count
   end
 
   def votes_count
