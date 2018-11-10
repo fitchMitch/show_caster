@@ -27,6 +27,13 @@ class PollDate < Poll
   # scope :found_by, -> (user) { where('user_id = ?', user_id) }
   scope :with_my_date_votes, -> (user) {
     active.joins(:vote_dates)
-          .where('user_id = ?', user.id)
+          .where('votes.user_id = ?', user.id)
+  }
+  scope :count_my_date_votes, -> (user) {
+    active.joins(:vote_dates)
+          .where('votes.user_id = ?', user.id)
+          .group('polls.id')
+          .count
+          .keys
   }
 end
