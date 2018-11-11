@@ -65,6 +65,7 @@ class GoogleCalendarService
       )
     end
   rescue StandardError => e
+    Bugsnag.notify(e)
     Rails.logger.warn(
       "API Call failed with #{$ERROR_INFO} \n" \
       "in update_event_google_calendar | #{e}"
@@ -82,6 +83,7 @@ class GoogleCalendarService
       nil
     end
   rescue
+    Bugsnag.notify($ERROR_INFO)
     Rails.logger
          .debug(
            "API Call failed with #{$ERROR_INFO} \n" \

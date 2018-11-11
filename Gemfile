@@ -47,6 +47,7 @@ gem 'pundit',                                               '~> 1.1'
 gem 'paperclip',                                            '~> 6.0.0'
 gem 'paperclip-i18n',                                       '~> 4.3'
 gem 'mini_magick',                                          '~> 4.8'
+gem 'bugsnag',                                              '~> 6.8'
 #---------------------------
 
 group :development, :test do
