@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
     end
   rescue Exception => e
     Rails.logger.error(e)
+    Bugsnag.notify(e)
     nil # TODO check if necessary
   end
 

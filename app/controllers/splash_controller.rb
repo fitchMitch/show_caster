@@ -36,7 +36,7 @@ class SplashController < ApplicationController
         @message = I18n.t('splash.ok_then')
       rescue Gibbon::MailChimpError => e
         @error = true
-        if e.status_code.to_s[0] == "4" #like 401, 403...)
+        if e.status_code.to_s[0] == '4' #like 401, 403...)
           @message = I18n.t('splash.enthousiast')
           Rails.logger.info("MailChimp : #{e.title}")
         else
@@ -44,6 +44,7 @@ class SplashController < ApplicationController
           Rails.logger.warn(e.body)
           Rails.logger.warn(e.status_code)
           Rails.logger.warn('---------MailChimpError end--------------')
+          Bugsnag.notify(e)
           @message = I18n.t('splash.error')
         end
       end

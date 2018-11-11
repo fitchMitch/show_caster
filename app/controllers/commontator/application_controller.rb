@@ -15,6 +15,7 @@ module Commontator
       begin
         @user ||= User.find(session[:current_user_id]) if session[:current_user_id]
       rescue Exception => e
+        Bugsnag.notify(e)
         nil
       end
     end
