@@ -23,6 +23,7 @@ fr:
 
   kazoo:
     header_name: Affichage TV match
+    options: Options affichage TV
 
   lastname: Nom
 
