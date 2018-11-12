@@ -84,7 +84,6 @@ RSpec.feature 'promotion feature', type: :feature do
       visit user_path(rip_player)
       page.find('.users_promote').find("option[value='setup']").select_option
       click_button(I18n.t('users.promote'))
-      sleep 1
       visit users_path
       expect(page.body).to have_selector('h2', text: I18n.t('users.list'))
       expect(page.body).to have_selector('.btn.btn-danger')
