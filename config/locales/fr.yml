@@ -21,6 +21,9 @@ fr:
 
   invitations: Invitations
 
+  kazoo:
+    header_name: Affichage TV match
+
   lastname: Nom
 
   other: Autre
