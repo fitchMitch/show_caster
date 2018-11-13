@@ -10,7 +10,7 @@ synched with the company's Google Agenda. Possibility to upload and crop **photo
 * Oauth2 Google authentication
 * Invitation workflow
 * Roles management
-* **courses** management wether with an external **coach** or internally
+* **Courses** management wether with an external **coach** or internally
 * **Dashboard** for players statistics with their role on stage
 * **Poll management** (Doodle's way)
 * Commontator's **comments**
