@@ -15,8 +15,23 @@ class PollsController < ApplicationController
 
   def edit; end
 
+  def create
+    @poll = set_type.classify.constantize.new(poll_params)
+    @poll.owner_id = current_user.id
+    @poll.expiration_date = @poll.expiration_date.end_of_day
+    authorize @poll
+    if @poll.save
+      @poll.poll_creation_mail
+      redirect_to polls_path, notice: I18n.t('polls.save_success')
+    else
+      flash[:alert] = I18n.t('polls.save_fails')
+      render :new
+    end
+  end
+
   def update
     flash[:notice] = I18n.t('polls.updated')
+    @poll.expiration_date = @poll.expiration_date.end_of_day
     if @poll.update(poll_params)
       redirect_to polls_path, notice: I18n.t('polls.update_success')
     else
