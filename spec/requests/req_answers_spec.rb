@@ -41,7 +41,9 @@ RSpec.describe 'Answers', type: :request do
 
         it 'assigns a newly created answer as @pol' do
           post '/answers', params: { answer: valid_attributes }
-          expect(Answer.last.answer_label).to eq(valid_attributes[:answer_label])
+          expect(
+            Answer.last.answer_label
+          ).to eq(valid_attributes[:answer_label])
         end
 
         it 'redirects to the created answer' do
