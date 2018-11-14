@@ -16,10 +16,16 @@ synched with the company's Google Agenda. Possibility to upload and crop **photo
 * Commontator's **comments**
 * I18n
 
-
 ### Other
 * Rails 5.0.6
 * Ruby  2.2.7
 * pg 9.6
 * Rspec (>70% coverage)
 * Seed for dev and production
+
+##Contributing
+* Fork it
+* Create your feature branch (git checkout -b my-new-feature)
+* Commit your changes (git commit -am 'Add some feature')
+* Push to the branch (git push origin my-new-feature)
+* Create new Pull Request
