@@ -84,7 +84,9 @@ RSpec.describe PollOpinion, type: :model do
         poll = create(:poll, valid_attributes)
 
         expect(poll.question).to eq(valid_attributes[:question])
-        expect(poll.expiration_date).to eq(valid_attributes[:expiration_date])
+        expect(poll.expiration_date.to_date).to eq(
+          valid_attributes[:expiration_date].to_date
+        )
         expect(poll.type).to eq(valid_attributes[:type])
       end
     end
@@ -106,7 +108,10 @@ RSpec.describe PollDate, type: :model do
         poll = create(:poll, valid_attributes)
 
         expect(poll.question).to eq(valid_attributes[:question])
-        expect(poll.expiration_date).to eq(valid_attributes[:expiration_date])
+        # TODO
+        expect(poll.expiration_date.to_date).to eq(
+          valid_attributes[:expiration_date].to_date
+        )
         expect(poll.type).to eq(valid_attributes[:type])
       end
     end

@@ -10,19 +10,6 @@ class PollOpinionsController < PollsController
     2.times { @poll.answers.build }
   end
 
-  def create
-    @poll = PollOpinion.new(poll_params)
-    @poll.owner_id = current_user.id
-    authorize @poll
-    if @poll.save
-      @poll.poll_creation_mail
-      redirect_to polls_path, notice: I18n.t('polls.save_success')
-    else
-      flash[:alert] = I18n.t('polls.save_fails')
-      render :new
-    end
-  end
-
   def show
     @vote = @poll.vote_opinions.build
     @answers_id = VoteOpinion.which_answer(@poll, current_user)

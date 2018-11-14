@@ -58,14 +58,18 @@ RSpec.describe 'PollOpinions', type: :request do
 
       context 'with invalid params' do
         it "re-renders the 'new' template" do
-          post '/poll_opinions', params: { poll_opinion: invalid_attributes_question_only }
+          post '/poll_opinions', params: {
+            poll_opinion: invalid_attributes_question_only
+          }
           expect(response).to render_template :new
         end
 
         it 'doesn\'t persist poll' do
-          expect {
-            post '/poll_opinions', params: { poll_opinion: invalid_attributes_question_only }
-          }.to change(Poll, :count).by(0)
+          expect do
+            post '/poll_opinions', params: {
+              poll_opinion: invalid_attributes_question_only
+            }
+          end.to change(Poll, :count).by(0)
         end
       end
     end
@@ -106,8 +110,8 @@ RSpec.describe 'PollOpinions', type: :request do
           put url, params: { id: poll.id, poll_opinion: new_attributes }
           poll.reload
           expect(poll).to have_attributes(question: new_attributes[:question])
-          expect(poll).to have_attributes(
-            expiration_date: new_attributes[:expiration_date]
+          expect(poll.expiration_date.to_date.to_s).to eq(
+            new_attributes[:expiration_date].to_s
           )
         end
 

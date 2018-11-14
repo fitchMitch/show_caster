@@ -13,23 +13,23 @@ fr:
     header: Sondages
     last_interaction: Dernier changement
     list: Liste des sondages
-    question: Question
-    responses_sent: réponses reçues
-    opinion_question: Question d'opinion
-    question_hint: Oh Puissants Sésames ! Que penserez vous mon humble proposition ?
-    questioned_by: Question posée par
     new_opinion: Nouveau sondage d'opinion
     new_date: Nouveau sondage de date
+    no_expiration_date: Non fournie
+    opinion_question: Question d'opinion
+    plus_answers: Plus de réponses
+    question: Question
+    question_hint: Oh Puissants Sésames ! Que penserez vous mon humble proposition ?
+    questioned_by: Question posée par
+    responses_sent: réponses reçues
     save_success: Sondage enregistré et diffusé !
     save_fails: Ce sondage ne s'est pas enregistré !
     see: Voir
-    voted: J'ai déjà répondu
+    tab_expiration_date: En attente de ma réponse
     update: Mise à jour du sondage
     update_success: Mise à jour ok
     updated: Ce sondage a été mis à
-    plus_answers: Plus de réponses
-    no_expiration_date: Non fournie
-    tab_expiration_date: En attente de ma réponse
+    voted: J'ai déjà répondu
 
     mails:
       new_poll:

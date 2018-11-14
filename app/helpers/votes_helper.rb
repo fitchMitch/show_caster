@@ -39,9 +39,9 @@ module VotesHelper
               when 'yess'
                 badge_user_from_id(user.id)
               when 'noway'
-                "<strong><strike>#{user.first_and_l}</strike></strong>"
+                "<strike>#{user.first_and_l}</strike>"
               when 'maybe'
-                "<strong>#{user.first_and_l} ?</strong>"
+                "<span class='maybe-vote'>#{user.first_and_l} ?</span>"
               end
     output.html_safe
   end

@@ -22,7 +22,6 @@ RSpec.describe 'VoteOpinion', type: :request do
   end
   let(:url) { "/poll_opinions/#{poll_opinion.id}/vote_opinions" }
 
-
   context 'As logged as admin,' do
     before do
       request_log_in(admin)
@@ -103,7 +102,9 @@ RSpec.describe 'VoteDate', type: :request do
         end
         it 'redirects to the created vote_date' do
           post url, params: { vote_date: valid_attributes }
-          expect(response).to redirect_to poll_date_path(valid_attributes[:poll_id])
+          expect(response).to redirect_to poll_date_path(
+            valid_attributes[:poll_id]
+          )
         end
         it 'flashes a notice' do
           post url, params: { vote_date: valid_attributes }

@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include Pundit
   protect_from_forgery with: :exception
+  before_bugsnag_notify :add_user_info_to_bugsnag
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   before_action :require_login
@@ -48,5 +49,13 @@ class ApplicationController < ActionController::Base
     else
       redirect_to root_path
     end
+  end
+
+  def add_user_info_to_bugsnag(report)
+    report.user = {
+      email: current_user.email,
+      name: current_user.full_name,
+      id: current_user.id
+    }
   end
 end
