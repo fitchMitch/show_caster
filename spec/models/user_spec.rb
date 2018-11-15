@@ -75,9 +75,6 @@ RSpec.describe User, type: :model do
     let(:f1) { { info: { email: 'g' }, credentials: { expires_at: nil } } }
     let(:f2) { { info: { email: nil }, credentials: { expires_at: 'g' } } }
     let(:access_token) { Hash.new }
-    # let(:access_token) { double('access_token') }
-    # let(:access_token_f1) { double('access_token1') }
-    # let(:access_token_f2) { double('access_token2') }
     context 'when user is retrieved' do
       before :each do
         access_token = f1
