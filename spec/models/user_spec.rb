@@ -104,7 +104,7 @@ RSpec.describe User, type: :model do
         allow(User).to receive(:retrieve) { nil }
       end
       it 'should not retrieve any user' do
-        expect(User.from_omniauth(access_token)).to be_nil
+        expect(User.from_omniauth(access_token)).to eq('unknown user')
       end
     end
   end
