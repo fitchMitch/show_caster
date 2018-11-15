@@ -93,8 +93,8 @@ class GoogleCalendarService
   end
 
   def make_a_google_event(opt)
-    event_title  = "events.#{opt.fetch(:title, "g_title.performance")}"
-    event_hash   = {
+    # event_title  = "events.#{opt.fetch(:title, 'g_title.performance')}"
+    event_hash = {
       summary: opt.fetch(:title, 'Show'),
       location: opt.fetch(:location, I18n.t('performances.nowhere')),
       description: I18n.t(
@@ -118,7 +118,29 @@ class GoogleCalendarService
         use_default: false
       }
     }
-    event_hash[:id] = opt[:fk] if opt.has_key?('fk')
+    event_hash[:id] = opt[:fk] if opt.key?('fk')
     Google::Apis::CalendarV3::Event.new(event_hash)
+  end
+
+  def self.token_user_information(user, access_token)
+    data = access_token[:info]
+    credentials = access_token[:credentials]
+    firstname = data[:first_name].nil? ? user.firstname : data[:first_name]
+    lastname = data[:last_name].nil? ? user.lastname : data[:last_name].upcase
+    from_token = {
+      firstname: firstname,
+      lastname: lastname,
+      email: data[:email].downcase,
+      provider: access_token[:provider],
+      uid: access_token[:uid],
+      photo_url: data[:image],
+      token: credentials[:token],
+      refresh_token: credentials[:refresh_token],
+      expires_at: Time.at(credentials[:expires_at].to_i).to_datetime
+    }
+    # Additional attributes
+    from_token[:status] = :googled if user.setup? || user.invited?
+    from_token[:last_sign_in_at] = Time.zone.now
+    from_token
   end
 end

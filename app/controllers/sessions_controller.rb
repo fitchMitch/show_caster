@@ -18,10 +18,17 @@ class SessionsController < ApplicationController
   def create
     @user = User.from_omniauth(auth_hash)
     if @user.is_a? String
+      Rails.logger.warn('User is not welcome')
       redirect_to unknown_user_path, alert: I18n.t('sessions.omniauth.unknown')
-    elsif @user.nil? || @user.archived?
+    elsif @user.nil?
+      Rails.logger.error('User is not welcome')
+      Bugsnag.notify('user is not known ! how come ?')
       redirect_to root_url,
                   alert: I18n.t('sessions.omniauth.failure', kind: 'Google')
+    elsif @user.archived?
+      Rails.logger.warn('RIP player is trying to connect')
+      redirect_to root_url,
+                  alert: I18n.t('sessions.omniauth.archived_player')
     else
       @current_user = @user
       session['current_user_id'] = @current_user.id
@@ -32,7 +39,7 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    redirect_to root_url, notice:  I18n.t('sessions.signed_out')
+    redirect_to root_url, notice: I18n.t('sessions.signed_out')
   end
 
   def oauth_failure
@@ -46,10 +53,15 @@ class SessionsController < ApplicationController
   end
 
   def auth_hash
-    raise "Missing parameters" if request.nil?
-    raise "Missing parameters" if request.env.nil?
-    raise "OmniAuth error. Parameters not defined." if request.env['omniauth.auth'].nil?
+    raise 'Missing parameters' if request.nil?
+    raise 'Missing parameters' if request.env.nil?
+    if request.env['omniauth.auth'].nil?
+      raise 'OmniAuth error. Parameters not defined.'
+    end
     request.env['omniauth.auth']
+  rescue Exception => e
+    Rails.logger.warn("Omniauth missing parameter error : #{e}")
+    Bugsnag.notify("Omniauth missing parameter error : #{e}")
   end
 
   private

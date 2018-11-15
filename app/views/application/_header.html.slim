@@ -30,23 +30,24 @@
                   = link_to t("kazoo.header_name") , 'http://buonomo.github.io/kazoo/', target: '_blank'
                 li
                   = link_to t("kazoo.options") , 'http://buonomo.github.io/createCollections/', target: '_blank'
-        li.dropdown
-          a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
-            = t("layout.courses_and_shows")
-            span.caret
-          ul.dropdown-menu
-            - if policy(Performance).index?
-              li= link_to performances_path do
-                = t("performances.events_management")
-                = image_tag("transp.png")
-                = fa_icon("image")
-            - if policy(Theater).index?
-              li= link_to t("theaters.premises_management"), theaters_path
-              li.divider role="separator"
-            - if policy(Course).index?
-              li= link_to t("courses.header"), courses_path
-            - if policy(Coach).index?
-              li= link_to t("coaches.header"), coaches_path
+        -if policy(PollOpinion).index?
+          li.dropdown
+            a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+              = t("layout.courses_and_shows")
+              span.caret
+            ul.dropdown-menu
+              - if policy(Performance).index?
+                li= link_to performances_path do
+                  = t("performances.events_management")
+                  = image_tag("transp.png")
+                  = fa_icon("image")
+              - if policy(Theater).index?
+                li= link_to t("theaters.premises_management"), theaters_path
+                li.divider role="separator"
+              - if policy(Course).index?
+                li= link_to t("courses.header"), courses_path
+              - if policy(Coach).index?
+                li= link_to t("coaches.header"), coaches_path
         - if policy(current_user).index?
           = link_to users_path do
             span
@@ -54,5 +55,6 @@
               = image_tag("transp.png")
               span.badge
                 = User.active.count
-        = render partial: "application/account_dropdown"
+        - if policy(current_user).index?
+          = render partial: "application/account_dropdown"
         = link_to fa_icon("sign-out lg"), sign_out_path, method: :delete
