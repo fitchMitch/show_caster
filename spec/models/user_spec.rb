@@ -69,6 +69,70 @@ RSpec.describe User, type: :model do
     it { should_not allow_value('gog.o@lelefr').for(:email) }
   end
 
+  describe '.from_omniauth' do
+    let!(:user) { create(:user) }
+    let(:f) { { info: { email: 'g' }, credentials: { expires_at: 'g' } } }
+    let(:f1) { { info: { email: 'g' }, credentials: { expires_at: nil } } }
+    let(:f2) { { info: { email: nil }, credentials: { expires_at: 'g' } } }
+    let(:access_token) { Hash.new }
+    # let(:access_token) { double('access_token') }
+    # let(:access_token_f1) { double('access_token1') }
+    # let(:access_token_f2) { double('access_token2') }
+    context 'when user is retrieved' do
+      before :each do
+        access_token = f1
+        allow(User).to receive(:retrieve) { user }
+        allow(GoogleCalendarService).to receive(
+          :token_user_information
+        ) { user.attributes }
+      end
+      it 'should not retrieve any user' do
+        access_token = f1
+        expect(User.from_omniauth(access_token)).to be_nil
+      end
+      it 'should not retrieve any user' do
+        access_token = f2
+        expect(User.from_omniauth(access_token)).to be_nil
+      end
+      it 'should not retrieve any user' do
+        access_token = f
+        expect(User.from_omniauth(access_token).id).to eq(user.id)
+      end
+    end
+    context 'when user is NOT retrieved' do
+      before do
+        allow(User).to receive(:retrieve) { nil }
+      end
+      it 'should not retrieve any user' do
+        expect(User.from_omniauth(access_token)).to be_nil
+      end
+    end
+  end
+
+  describe '.retrieve' do
+    let!(:user) { create(:user) }
+    let!(:user_clone) do
+      create(:user, firstname: user.firstname, lastname: user.lastname)
+    end
+    let!(:data) { { email: user.email } }
+    let!(:data_no_user) do
+      { email: 'x', first_name: user.firstname, last_name: user.lastname }
+    end
+    let!(:data_no_user_no_name) do
+      { email: 'x', first_name: user.firstname }
+    end
+    it 'should render a user when his email is ok' do
+      expect(User.retrieve(data).id).to eq user.id
+    end
+    it 'should render a user when his account gives ' \
+        'a correct firstname and lastame' do
+      expect(User.retrieve(data_no_user).id).to eq user.id
+    end
+    it 'should return nil when no lastame is given' do
+      expect(User.retrieve(data_no_user_no_name)).to be_nil
+    end
+  end
+
   describe '#is_commontator' do
     it 'should always be true' do
       expect(subject.is_commontator).to be(true)
