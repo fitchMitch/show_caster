@@ -42,12 +42,6 @@ class EventsController < ApplicationController
 
   def set_type
     params[:type].downcase
-    # case params[:type]
-    # when 'Performance'
-    #   'performance'
-    # when 'Course'
-    #   'course'
-    # end
   end
 
   def events_url(obj)

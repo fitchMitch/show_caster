@@ -7,3 +7,4 @@ fr:
       failure: Impossible de s'authentifier avec %{kind}".
       success: Beau succès d'étape avec votre compte %{kind}.
       unknown: Vous, vous avez besoin d'un Sésame !
+      archived_player: Sauf erreur, vous ne faites plus partie des Sésames
