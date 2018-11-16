@@ -35,15 +35,15 @@ module PollsHelper
       I18n.t('polls.responses_sent')
     ]
     heading_poll_opinion = [
-      fa_icon("question-circle lg"),
+      image_tag('icons/png/010-opinion.png', size: 25),
       "#{ I18n.t('polls.opinion_question')}"
     ] + common_part
     heading_poll_date = [
-      fa_icon("calendar lg"),
+      image_tag('icons/png/023-calendar.png', size: 25),
       "#{ I18n.t('polls.calendar_question')}"
     ] + common_part
     heading_opinion = heading_poll_opinion.join("#{ image_tag("transp.png")}").html_safe
-    heading_date= heading_poll_date.join("#{ image_tag("transp.png")}").html_safe
+    heading_date = heading_poll_date.join("#{ image_tag("transp.png")}").html_safe
     question = "<strong>#{poll.question}</strong>".html_safe
     case poll.type
       when 'PollOpinion'
@@ -58,9 +58,9 @@ module PollsHelper
 
   def link_to_edit(poll)
     if poll.is_a? PollOpinion
-      link_to fa_icon("edit lg"), edit_poll_opinion_path(poll)
+      link_to fa_icon("edit 2x"), edit_poll_opinion_path(poll)
     elsif poll.is_a? PollDate
-      link_to fa_icon("edit lg"), edit_poll_date_path(poll)
+      link_to fa_icon("edit 2x"), edit_poll_date_path(poll)
     end
   end
 

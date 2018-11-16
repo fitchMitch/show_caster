@@ -1,9 +1,4 @@
 module VotesHelper
-  def updown_icons
-    "#{fa_icon('thumbs-up 2x')}#{image_tag('transp.png')}" \
-    "#{fa_icon('thumbs-down 2x')}".html_safe
-  end
-
   def vote_date_header(answer_vote)
     render partial: 'vote_dates/date_panel',
            locals: { display_date: answer_vote[:answer].date_answer }

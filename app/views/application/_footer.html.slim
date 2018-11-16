@@ -1,9 +1,10 @@
 footer#footer
   .container
-    .row.footer-line
-      .col-xs-6
+    .row
+      .col-xs-2
         = image_tag("Logo_h_150.PNG", height: 80)
-      /  = I18n.t("theater_company")
-      .col-xs-6.text-right
+      .col-xs-10.text-right.space-up-25
         small
+          .icon-copyright
+            | Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
           | Etienne WEIL, Copyright &copy; #{Date.today.year}
