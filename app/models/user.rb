@@ -56,7 +56,13 @@ class User < ApplicationRecord
   # =====================
 
   # scope :found_by, -> (user) { where('user_id = ?', user_id) }
-  scope :active, -> { where(status: [:invited, :googled, :registered])}
+  scope :active, -> {
+    where(
+      status: [:invited, :googled, :registered]
+    ).where.not(
+      role: :other
+    )
+  }
   scope :active_count, -> { active.count }
   # =====================
 

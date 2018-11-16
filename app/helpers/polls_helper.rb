@@ -35,11 +35,11 @@ module PollsHelper
       I18n.t('polls.responses_sent')
     ]
     heading_poll_opinion = [
-      fa_icon("question-circle lg"),
+      image_tag('icons/png/010-opinion.png', size: 25),
       "#{ I18n.t('polls.opinion_question')}"
     ] + common_part
     heading_poll_date = [
-      fa_icon("calendar lg"),
+      image_tag('icons/png/023-calendar.png', size: 25),
       "#{ I18n.t('polls.calendar_question')}"
     ] + common_part
     heading_opinion = heading_poll_opinion.join("#{ image_tag("transp.png")}").html_safe

@@ -8,7 +8,12 @@
   hr
   .row
     .col-sm-4
-      - unless @user.pictures.empty?
+      - if @user.pictures.empty?
+        .image-container
+          .image-part
+            = image_tag("icons/png/characters/#{extract_characters_icons(1).first}",
+            size: 350 )
+      - else @user.pictures.empty?
         .image-container
           .image-part
             = image_tag(@user.pictures.first.photo(:square), width:350)
