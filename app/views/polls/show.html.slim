@@ -1,7 +1,7 @@
 .container
   .page-header
     span.room-right-15
-      = link_to polls_path, class: 'btn btn-default' do
+      = link_to polls_path, class: 'btn btn-info' do
         span.glyphicon.glyphicon-list-alt
           = " #{t("back")}"
     - if @poll.present? && policy(@poll).edit?

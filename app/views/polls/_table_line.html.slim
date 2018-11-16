@@ -12,7 +12,7 @@
           = image_tag('icons/png/003-vote.png', size: 55)
         end
 
-    .col-md-2.hidden-xs.toply
+    .col-md-2.hidden-xs
       - if policy(poll).edit?
         = image_tag('transp.png')
         = link_to_edit(poll)
@@ -35,7 +35,7 @@
         .row
           .col-md-5= t("created_at")
           .col-md-5= poll_date poll.created_at
-      .col-md-2
+      .col-md-2.text-right
         = t("polls.questioned_by")
         br
         = poll.owner.first_and_l unless poll.owner.nil?

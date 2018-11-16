@@ -1,8 +1,8 @@
 .container
   .page-header
-    = link_to polls_path, class: 'btn btn-default' do
+    = link_to polls_path, class: 'btn btn-info' do
       span.glyphicon.glyphicon-list-alt
         = " #{t("back")}"
-    h2= t('polls.new_date')
+    h2= image_tag('icons/png/023-calendar.png', size: 60)  + image_tag('transp.png') + t('polls.new_date')
 
   = render 'form'
