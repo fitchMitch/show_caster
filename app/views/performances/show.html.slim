@@ -2,8 +2,7 @@
   .page-header
     span.room-right-15
       = link_to performances_path, class: 'btn btn-info' do
-        span.glyphicon.glyphicon-list-alt
-          = " #{t("back")}"
+        = back_sign
     - if @event.present? && policy(@event).edit?
       = link_to edit_performance_path(@event), class: 'btn btn-primary' do
         span.glyphicon.glyphicon-pencil

@@ -2,8 +2,7 @@
   .page-header
     span.room-right-15
       = link_to polls_path, class: 'btn btn-info' do
-        span.glyphicon.glyphicon-list-alt
-          = " #{t("back")}"
+        = back_sign
     = link_to @poll, class: 'btn btn-default' do
       span.glyphicon.glyphicon-eye-open
         = " #{t('polls.see')}"

@@ -34,4 +34,8 @@ module ApplicationHelper
     picto = "icons/png/#{image_name}"
     image_tag(picto, size: 60) + image_tag('transp.png') + I18n.t(i18n_text)
   end
+  
+  def back_sign
+    fa_icon('arrow-circle-left', text: t('back'))
+  end
 end

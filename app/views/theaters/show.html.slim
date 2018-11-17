@@ -2,8 +2,7 @@
   .page-header
     span.room-right-15
       = link_to theaters_path, class: 'btn btn-info' do
-        span.glyphicon.glyphicon-list-alt
-          = " #{t("back")}"
+        = back_sign
     = link_to edit_theater_path(@theater), class: 'btn btn-primary' do
       span.glyphicon.glyphicon-pencil
         = " #{t("edit")}"

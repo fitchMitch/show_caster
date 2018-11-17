@@ -2,8 +2,7 @@
   .page-header
     span.room-right-5
       = link_to users_path, class: 'btn btn-info room-right-25' do
-          span.glyphicon.glyphicon-list-alt
-            = " #{ t("back")} "
+        = back_sign
     = link_to @user, class: 'btn btn-primary ' do
       span.glyphicon.glyphicon-info-sign
       = " #{ t("show")} "

@@ -1,9 +1,7 @@
 .container
   .page-header
     = link_to theaters_path, class: 'btn btn-info' do
-      span.glyphicon.glyphicon-list-alt
-        = " #{ t("back")}"
-    h2
-      = t("theaters.new")
+      = back_sign
+    h2= t("theaters.new")
 
   = render 'form'
