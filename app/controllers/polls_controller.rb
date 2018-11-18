@@ -1,4 +1,14 @@
 class PollsController < ApplicationController
+  def new
+    poll_class = set_type.classify.constantize
+    authorize poll_class
+    @poll = poll_class.new(
+      expiration_date: Date.today.weeks_since(2),
+      owner_id: current_user.id
+    )
+    2.times { @poll.answers.build }
+  end
+
   def index
     authorize Poll
     poll_with_voted_opinions = PollOpinion.with_my_opinion_votes(current_user)
