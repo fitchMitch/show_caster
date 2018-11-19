@@ -49,6 +49,14 @@ class Poll < ApplicationRecord
     total - PollDate.count_my_date_votes(current_user).count
   end
 
+  def self.polls_with_my_votes(user)
+    [
+      PollOpinion.with_my_opinion_votes(user).distinct,
+      PollSecretBallot.with_my_opinion_votes(user).distinct,
+      PollDate.with_my_date_votes(user).distinct
+    ].inject([]) { |poll, sum| sum + poll }
+  end
+
   def votes_count
     Vote.where(poll_id: id).group(:user).count.keys.size
   end
