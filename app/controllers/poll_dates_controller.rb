@@ -24,7 +24,7 @@ class PollDatesController < PollsController
                     date_answer
                     poll_id
                     _destroy
-                  ]
-                )
+                    ]
+                  )
   end
 end
