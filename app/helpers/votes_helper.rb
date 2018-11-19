@@ -4,24 +4,28 @@ module VotesHelper
            locals: { display_date: answer_vote[:answer].date_answer }
   end
 
-  def new_vote_path(poll)
-    case poll.type
-    when nil
-      Rails.logger.fatal('poll without type !')
-      nil
-    when 'PollOpinion'
-      link_to new_poll_opinion_vote_opinion_path(poll) do
-        updown_icons
-      end
-    when 'PollDate'
-      link_to new_poll_date_vote_date_path(poll) do
-        updown_icons
-      end
-    else
-      Rails.logger.debug('poll whith unknown type')
-      nil
-    end
+  def updown_icons
+    raise 'updown_icons'
   end
+
+  # def new_vote_path(poll)
+  #   case poll.type
+  #   when nil
+  #     Rails.logger.fatal('poll without type !')
+  #     nil
+  #   when 'PollOpinion'
+  #     link_to new_poll_opinion_vote_opinion_path(poll) do
+  #       updown_icons
+  #     end
+  #   when 'PollDate'
+  #     link_to new_poll_date_vote_date_path(poll) do
+  #       updown_icons
+  #     end
+  #   else
+  #     Rails.logger.debug('poll whith unknown type')
+  #     nil
+  #   end
+  # end
 
   def others_votes_list(answer, user)
     votes = VoteDate.where('poll_id = ?', answer.poll_id)
