@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :poll do
-    question          { "Poll : #{FFaker::Lorem::sentence(1)} ?"}
+    question          { "Poll : #{FFaker::Lorem.sentence(1)} ?" }
     expiration_date   { Date.today + (1..15).to_a.sample.days }
     owner
     transient do
@@ -17,6 +17,19 @@ FactoryBot.define do
           :answer_opinion,
           evaluator.answers_count,
           poll_opinion: poll_opinion
+        )
+      end
+    end
+  end
+  factory :poll_secret_ballot, parent: :poll, class: 'PollSecretBallot' do
+    type { 'PollSecretBallot' }
+
+    factory :secret_ballot_with_answers do
+      after(:create) do |poll_secret_ballot, evaluator|
+        create_list(
+          :answer_opinion,
+          evaluator.answers_count,
+          poll_secret_ballot: poll_secret_ballot
         )
       end
     end

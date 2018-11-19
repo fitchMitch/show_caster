@@ -13,6 +13,11 @@ class Answer < ApplicationRecord
              class_name: 'PollOpinion',
              optional: true,
              touch: true
+  belongs_to :poll_secret_ballot,
+             foreign_key: 'poll_id',
+             class_name: 'PollSecretBallot',
+             optional: true,
+             touch: true
   belongs_to :poll_date,
              foreign_key: 'poll_id',
              class_name: 'PollDate',
