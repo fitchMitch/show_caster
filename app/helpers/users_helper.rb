@@ -31,19 +31,19 @@ module UsersHelper
     label_hash = {
       invited: {
         klass: 'warning',
-        text: I18n.t('users.state.invited')
+        text: t('users.state.invited')
       },
       googled: {
         klass: 'info',
-        text: I18n.t('users.state.processing')
+        text: t('users.state.processing')
       },
       archived: {
         klass: 'default',
-        text: I18n.t('users.state.rip')
+        text: t('users.state.rip')
       },
       setup: {
         klass: 'danger',
-        text: I18n.t(
+        text: t(
           'users.state.to_invite', firstname: user.firstname
         ),
         link: 'to_user'

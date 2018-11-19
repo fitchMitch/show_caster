@@ -43,15 +43,15 @@ module EventsHelper
   end
 
   def event_edit_page_title(event)
-    I18n.t("#{get_dictionnary(event)}.edit_page_title")
+    t("#{get_dictionnary(event)}.edit_page_title")
   end
 
   def event_new_page_title(event)
-    I18n.t("#{get_dictionnary(event)}.new_page_title")
+    t("#{get_dictionnary(event)}.new_page_title")
   end
 
   def passed_label(events)
-    I18n.t("#{get_dictionnary(events.first)}.passed_events_title").html_safe
+    t("#{get_dictionnary(events.first)}.passed_events_title").html_safe
   end
 
   def players_on_stage(event)
