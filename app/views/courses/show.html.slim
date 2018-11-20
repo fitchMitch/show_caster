@@ -2,9 +2,8 @@
 .container
   .page-header
     span.room-right-15
-      = link_to courses_path, class: 'btn btn-default' do
-        span.glyphicon.glyphicon-list-alt
-          = " #{t("back")}"
+      = link_to courses_path, class: 'btn btn-info' do
+        = back_sign
     - if @event.present? && policy(@event).edit?
       = link_to edit_course_path(@event), class: 'btn btn-primary' do
         span.glyphicon.glyphicon-pencil

@@ -5,12 +5,19 @@
       .row.action-line
         .col-md-3
           = link_to new_poll_date_path, class: 'btn btn-primary' do
-            span.glyphicon.glyphicon-calendar
-              = " #{ t('polls.new_date')}"
+            = image_tag('icons/png/023-calendar.png', size: 25)
+            = image_tag('transp.png')
+            = " #{ t('polls.new_date')}"
         .col-md-3
           = link_to new_poll_opinion_path, class: 'btn btn-primary' do
-            span.glyphicon.glyphicon-question-sign
-              = " #{ t('polls.new_opinion')}"
+            = image_tag('icons/png/010-opinion.png', size: 25)
+            = image_tag('transp.png')
+            = " #{ t('polls.new_opinion')}"
+        .col-md-3
+          = link_to new_poll_secret_ballot_path, class: 'btn btn-primary' do
+            = image_tag('icons/png/033-woman.png', size: 25)
+            = image_tag('transp.png')
+            = " #{ t('secret_polls.new')}"
 
     h2= t('polls.list')
     ul.nav.nav-tabs role="tablist"
@@ -27,10 +34,14 @@
     .row.strong
       .col-md-6.hidden-xs
         strong= t('polls.question')
+        br
+        .blue-bar-250
       .col-md-3.hidden-xs
-        strong= t('polls.answers')
-      .col-md-2.hidden-xs
         strong= t('polls.expiration_date')
+        br
+        .blue-bar-150
+
+
     .space-up-10
     .row.tab-content
       = render partial:'dispatching_polls'

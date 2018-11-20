@@ -14,7 +14,7 @@
             = image_tag("transp.png")
             = I18n.t('performances.google_agenda_ok')
 
-    h2= t('courses.list')
+    h2= title_with_image('029-masks.png', 'courses.list')
     ul.nav.nav-tabs role="tablist"
       li.active role="presentation"
         a aria-controls='nexting' data-toggle='tab' href='#nexting' role='tab'
@@ -26,12 +26,20 @@
     .row.strong.space-up-10
       .col-md-3.room-left-15
         strong= t('courses.date_title')
+        br
+        	.blue-bar-200
       .col-md-1.room-left-15.hidden-xs
         strong=  t('performances.dur')
+        br
+        	.blue-bar-100
       .col-md-2.room-left-15
         strong= t('courses.coach')
+        br
+        	.blue-bar-100
       .col-md-3.room-left-15.hidden-xs
         strong= t('performances.note')
+        br
+        	.blue-bar-200
       .col-md-2.room-left-15.hidden-xs
     .space-up-10
     .row.tab-content

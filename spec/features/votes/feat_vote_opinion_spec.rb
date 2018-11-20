@@ -22,7 +22,7 @@ RSpec.feature 'vote opinion feature', type: :feature do
       expect(page.body).to have_selector('i.fa.fa-bell')
     end
   end
-  describe 'after voting' do
+  describe 'as admin after voting' do
     before :each do
       log_in admin
       visit poll_opinion_path(poll)

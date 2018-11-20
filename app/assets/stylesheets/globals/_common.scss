@@ -17,6 +17,7 @@
   border-bottom: 1px solid #eeeeee;
 }
 
+
 .space5{ display: inline-block; width:5px; height:1px; }
 .space10{ display: inline-block; width:10px; height:1px; }
 .space15{ display: inline-block; width:15px; height:1px; }
@@ -55,7 +56,21 @@
 .room-around-10{ padding:10px; }
 .room-around-15{ padding:15px; }
 
-a:link.undecorated-link{ text-decoration: none; }
+.orange-bar-100{ display: block; height:3px; background-color: $sesame-orange; width: 100px; }
+.orange-bar-150{ display: block; height:3px; background-color: $sesame-orange; width: 150px; }
+.orange-bar-200{ display: block; height:3px; background-color: $sesame-orange; width: 200px; }
+.orange-bar-250{ display: block; height:3px; background-color: $sesame-orange; width: 250px; }
+
+.yellow-bar-100{ display: block; height:3px; background-color: $sesame-yellow; width: 100px; }
+.yellow-bar-150{ display: block; height:3px; background-color: $sesame-yellow; width: 150px; }
+.yellow-bar-200{ display: block; height:3px; background-color: $sesame-yellow; width: 200px; }
+.yellow-bar-250{ display: block; height:3px; background-color: $sesame-yellow; width: 250px; }
+
+.blue-bar-100{ display: block; height:3px; background-color: $sesame-blue; width: 100px; }
+.blue-bar-150{ display: block; height:3px; background-color: $sesame-blue; width: 150px; }
+.blue-bar-200{ display: block; height:3px; background-color: $sesame-blue; width: 200px; }
+.blue-bar-250{ display: block; height:3px; background-color: $sesame-blue; width: 250px; }
+yellowk.undecorated-link{ text-decoration: none; }
 hr.thin-hr{ margin-top: 3px; margin-bottom: 3px;}
 
 .show_me{ display: inline }

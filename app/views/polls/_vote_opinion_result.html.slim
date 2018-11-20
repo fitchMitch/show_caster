@@ -1,0 +1,12 @@
+h4 Ont voté pour :
+- poll_opinion.answers_sorted_by_vote_count.each_with_index do |answer, index|
+  p
+    strong= answer.answer_label
+  p.user-badge-line
+    - if poll_opinion.type == 'PollOpinion'
+      - VoteOpinion.who_voted_for(poll_opinion, answer).each do |person_id|
+        = badge_user_from_id person_id
+        = image_tag("transp.png")
+    - elsif poll_opinion.type == 'PollSecretBallot'
+      = badge_vote_result(index, VoteOpinion.count_votes_for(poll_opinion, answer)).html_safe
+  hr

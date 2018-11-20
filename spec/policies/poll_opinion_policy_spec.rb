@@ -1,7 +1,7 @@
 require 'rails_helper'
 RSpec.describe PollOpinionPolicy do
   subject { PollOpinionPolicy.new(user, poll)}
-  let!(:poll) { poll = FactoryBot.create(:poll_opinion) }
+  let!(:poll) { FactoryBot.create(:poll_opinion) }
 
   context "As a visitor" do
     let!(:user) { nil }

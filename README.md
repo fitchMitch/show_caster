@@ -23,7 +23,7 @@ synched with the company's Google Agenda. Possibility to upload and crop **photo
 * Rspec (>70% coverage)
 * Seed for dev and production
 
-##Contributing
+## Contributing
 * Fork it
 * Create your feature branch (git checkout -b my-new-feature)
 * Commit your changes (git commit -am 'Add some feature')

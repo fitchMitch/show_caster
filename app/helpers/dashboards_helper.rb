@@ -1,6 +1,6 @@
 module DashboardsHelper
   def translate(key)
-    I18n.t("dashboards.#{key}")
+    t("dashboards.#{key}")
   end
 
   def show_perf(reci)

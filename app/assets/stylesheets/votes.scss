@@ -67,3 +67,48 @@ td.date-choice:nth-child(2n+0){
   padding-left: 5px;
   padding-right: 5px;
 }
+.badging{
+  display: inline-block;
+  border-radius: 50%;
+  border: 3px white dotted;
+  width: 40px;
+  height: 40px;
+  line-height: 35px;
+  vertical-align: middle;
+  text-align: center;
+}
+.first{
+  background-color: $sesame-blue;
+  color: $sesame-yellow;
+  font-weight: 800;
+  font-size: 1.2em;
+}
+.second{
+  background-color: $sesame-blue;
+  color: $sesame-orange;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+.third{
+  background-color: $sesame-orange;
+  color: white;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+.fourth{
+  background-color: $sesame-yellow;
+  color: white;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+.fifth{
+  background-color: $sesame-yellow;
+  color: grey;
+  font-weight: 400;
+  font-size: 1.2em;
+}
+.other{
+  background-color: white;
+  font-weight: 400;
+  font-size: 1.0em;
+}

@@ -1,9 +1,8 @@
 .container
   .page-header
     span.room-right-15
-      = link_to performances_path, class: 'btn btn-default' do
-        span.glyphicon.glyphicon-list-alt
-          = " #{t("back")}"
+      = link_to performances_path, class: 'btn btn-info' do
+        = back_sign
     = link_to @event, class: 'btn btn-primary' do
       span.glyphicon.glyphicon-eye-open
         = " #{t('performances.see')}"
