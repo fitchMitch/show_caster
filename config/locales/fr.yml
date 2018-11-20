@@ -88,6 +88,11 @@ fr:
         update: "Modifier le sondage"
         edit: "Editer le sondage"
         new: "Ajouter un sondage"
+      poll_secret_ballot:
+        create: "Créer un scrutin à bulletin secret"
+        update: "Modifier le scrutin"
+        edit: "Editer le scrutin"
+        new: "Ajouter un scrutin à bulletin secret"
       poll_opinion:
         create: "Créer un sondage d'opinion"
         update: "Modifier le sondage d'opinion"

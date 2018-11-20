@@ -1,7 +1,6 @@
 .container
   .page-header
-    h2= t("dashboards.statistics")
-
+    h2= title_with_image('008-graphic-chart.png', 'dashboards.statistics')
   .row
     .col-sm-2.col-xs-2.center
       strong
@@ -16,6 +15,5 @@
     .col-sm-1.col-xs-2.center
       strong
         = "MC #{translate('a_year')}"
-  hr
   - @res.each do |rec|
     = render "frequency", rec: rec

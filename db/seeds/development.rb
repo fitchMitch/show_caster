@@ -28,7 +28,7 @@ User.create!(
 )
 18.times do |n|
   uid =                   (105205260860063499768 + n + 1).to_s
-  firstname =              FFaker::NameFR.unique.first_name
+  firstname =              FFaker::NameFR.first_name
   lastname =               FFaker::NameFR.unique.last_name
   email =                  FFaker::Internet.free_email
   role =                   (0..3).to_a.sample
@@ -160,6 +160,15 @@ performances.each do |event|
     )
   end
 end
+# PollSecretBallot
+question = "Acceptons nous #{FFaker::NameFR.first_name} dans la troupe ?"
+expiration_date = Date.today + (randy(20) + 10).days
+secret_ballot = PollSecretBallot.create!(
+  question:           question,
+  expiration_date:    expiration_date,
+  type:               'PollSecretBallot'
+)
+secret_ballots = [secret_ballot]
 
 # PollOpinions
 2.times do |n|
@@ -186,7 +195,7 @@ end
 poll_dates = Poll.date_polls
 
 # PollAnswers
-poll_opinions.each do |poll|
+(poll_opinions + secret_ballots).each do |poll|
   (randy(2) + 2).times do
     answer_label = FFaker::Lorem.sentence(1)
     Answer.create!(
@@ -203,6 +212,34 @@ poll_dates.each do |poll|
       date_answer: date_answer,
       poll_id: poll.id
     )
+  end
+end
+# Votes
+#for opinions
+(poll_opinions + secret_ballots).each do |poll|
+  poll.answers.each do |answer|
+    users.sample(1 + randy(4)).each do |user|
+      VoteOpinion.create!(
+        user_id: user.id,
+        poll_id: poll.id,
+        answer_id: answer.id,
+        vote_label: 'yess'
+      )
+    end
+  end
+end
+#and for dates
+date_options = Vote.vote_labels.keys
+(poll_dates).each do |poll|
+  poll.answers.each do |answer|
+    users.sample(1 + randy(2)).each do |user|
+      VoteDate.create!(
+        user_id: user.id,
+        poll_id: poll.id,
+        answer_id: answer.id,
+        vote_label: date_options.sample
+      )
+    end
   end
 end
 

@@ -1,11 +1,7 @@
 .container
   .page-header
     span.room-right-5
-      = link_to coaches_path, class: 'btn btn-default room-right-25' do
-          span.glyphicon.glyphicon-list-alt
-            = " #{ t("back")} "
-
-    h2
-      = t("edit")
-
+      = link_to coaches_path, class: 'btn btn-info room-right-25' do
+        = back_sign
+    h2= t("edit")
   = render 'form'

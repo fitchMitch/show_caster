@@ -29,8 +29,18 @@ Rails.application.routes.draw do
   resources :coaches
 
   # Polls
-  resources :polls, only: %i[index]
+  resources :polls, only: %i[index new]
+
   resources :poll_opinions, controller: :poll_opinions, type: 'PollOpinion' do
+    # Votes
+    resources :vote_opinions,
+              controller: :vote_opinions,
+              type: 'VoteOpinion',
+              shallow: true #  [:index, :new, :create] are nested
+  end
+  resources :poll_secret_ballots,
+            controller: :poll_secret_ballots,
+            type: 'PollSecretBallot' do
     # Votes
     resources :vote_opinions,
               controller: :vote_opinions,

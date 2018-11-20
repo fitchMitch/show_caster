@@ -1,14 +1,7 @@
-- if poll_opinion.expiration_date < Time.zone.now
-  //= panel_question(poll_opinion)
-  h4 Ont voté pour :
-  - poll_opinion.answers.each do |answer|
-    p
-      strong= answer.answer_label
-    p.user-badge-line
-      - VoteOpinion.who_voted_for(poll_opinion, answer).each do |person_id|
-        = badge_user_from_id person_id
-        = image_tag("transp.png")
-    p= image_tag("transp.png")
+- if poll_opinion.answers.count.zero? && poll_opinion.expiration_date < Time.zone.now
+  h4= t('votes.no_votes')
+- elsif poll_opinion.expiration_date < Time.zone.now
+  = render partial: 'vote_opinion_result', locals: { poll_opinion: poll_opinion}
 - else
   = simple_form_for [vote.poll_opinion, vote] do |f|
     = f.error_notification

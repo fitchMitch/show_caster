@@ -1,16 +1,19 @@
 class PollsController < ApplicationController
+  def new
+    poll_class = set_type.classify.constantize
+    authorize poll_class
+    @poll = poll_class.new(
+      expiration_date: Date.today.weeks_since(2),
+      owner_id: current_user.id
+    )
+    2.times { @poll.answers.build }
+  end
+
   def index
     authorize Poll
-    poll_with_voted_opinions = PollOpinion.with_my_opinion_votes(current_user)
-                                          .distinct
-    poll_with_voted_dates = PollDate.with_my_date_votes(current_user)
-                                    .distinct
-
-    @all_polls = {
-      voted: poll_with_voted_opinions + poll_with_voted_dates,
-      expired: Poll.passed_ordered.expired
-    }
-    @all_polls[:expecting_answer] = Poll.active - @all_polls[:voted]
+    @voted_polls = Poll.polls_with_my_votes(current_user)
+    @expired_polls = Poll.passed_ordered.expired
+    @expecting_answer_polls = Poll.active - @voted_polls
   end
 
   def edit; end
@@ -46,8 +49,18 @@ class PollsController < ApplicationController
     redirect_to polls_url, notice: I18n.t('polls.destroyed')
   end
 
+  # protected
+
   def set_type
     type = params.fetch(:type, nil)
-    (['PollOpinion', 'PollDate'].include? type) ? type.underscore : nil
+    accepted_classes = %w[PollOpinion PollDate PollSecretBallot]
+    (accepted_classes.include? type) ? type.underscore : nil
+  end
+
+  private
+
+  def set_poll
+    @poll = set_type.classify.constantize.find(params[:id])
+    authorize @poll
   end
 end

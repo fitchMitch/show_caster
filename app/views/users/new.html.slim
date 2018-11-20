@@ -1,8 +1,7 @@
 .container
   .page-header
-    = link_to users_path, class: 'btn btn-default' do
-      span.glyphicon.glyphicon-list-alt
-        = " #{ t("back")}"
+    = link_to users_path, class: 'btn btn-info' do
+      = back_sign
     h2
       = t ("users.invitation")
 

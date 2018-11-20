@@ -13,6 +13,11 @@ class Answer < ApplicationRecord
              class_name: 'PollOpinion',
              optional: true,
              touch: true
+  belongs_to :poll_secret_ballot,
+             foreign_key: 'poll_id',
+             class_name: 'PollSecretBallot',
+             optional: true,
+             touch: true
   belongs_to :poll_date,
              foreign_key: 'poll_id',
              class_name: 'PollDate',
@@ -25,6 +30,7 @@ class Answer < ApplicationRecord
   # =====================
   # scope :found_by, -> (user) { where('user_id = ?', user_id) }
   default_scope -> { order('date_answer asc') }
+
 
   # Validations
   # =====================

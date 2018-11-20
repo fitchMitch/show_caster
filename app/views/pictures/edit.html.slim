@@ -1,9 +1,8 @@
 .container
   .page-header
     span.room-right-5
-      = link_to @imageable, class: 'btn btn-default room-right-25' do
-          span.glyphicon.glyphicon-list-alt
-            = " #{ t("back")} "
+      = link_to @imageable, class: 'btn btn-info room-right-25' do
+        = back_sign
 
     h2
       = t("pictures.edit_picture")

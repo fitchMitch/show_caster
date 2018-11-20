@@ -13,6 +13,9 @@ RSpec.describe Answer, type: :model do
     it { should validate_presence_of :answer_label }
     it { should validate_length_of(:answer_label).is_at_least(3) }
     it { should validate_length_of(:answer_label).is_at_most(100) }
+    it { should belong_to(:poll_opinion) }
+    it { should belong_to(:poll_secret_ballot) }
+    it { should belong_to(:poll_date) }
   end
 
   context 'Persistance (opinion)' do
@@ -28,7 +31,9 @@ RSpec.describe Answer, type: :model do
     it { should belong_to(:poll_opinion) }
     it 'should be verified : factory validation' do
       expect(answ.answer_label).to eq(valid_attributes[:answer_label])
-      expect(answ.date_answer.strftime('%Y-%m-%d')).to eq(valid_attributes[:date_answer].to_s)
+      expect(answ.date_answer.strftime('%Y-%m-%d')).to eq(
+        valid_attributes[:date_answer].to_s
+      )
     end
   end
 
@@ -45,7 +50,9 @@ RSpec.describe Answer, type: :model do
     it { should belong_to(:poll_opinion) }
     it 'should be verified : factory validation' do
       expect(answ.answer_label).to eq(valid_attributes[:answer_label])
-      expect(answ.date_answer.strftime('%Y-%m-%d')).to eq(valid_attributes[:date_answer].to_s)
+      expect(answ.date_answer.strftime('%Y-%m-%d')).to eq(
+        valid_attributes[:date_answer].to_s
+      )
     end
   end
 
@@ -55,6 +62,24 @@ RSpec.describe Answer, type: :model do
       expect(answer).not_to be_valid
     end
   end
+
+  # describe '#order_by_vote_count' do
+  #   let(:poll) { create(:poll_opinion_with_answers) }
+  #   let(:vote_opinion) do
+  #     create(
+  #       :poll_opinion_with_answers,
+  #       poll_id: poll.id,
+  #       answer_id: poll.answers.second.id,
+  #       user_id: poll.owner.id
+  #     )
+  #   end
+  #   it 'should range the second answer first' do
+  #     res = Answer.order_by_vote_count(poll)
+  #     byebug
+  #     expect(res.first.id).to eq(poll.answers.second.id)
+  #   end
+  #
+  # end
 
   describe '#no_date_in_the_past' do
     let(:answer_in_the_future) do

@@ -35,6 +35,7 @@ class Poll < ApplicationRecord
   default_scope -> { order('expiration_date ASC') }
   scope :opinion_polls, -> { where(type: 'PollOpinion') }
   scope :date_polls, -> { where(type: 'PollDate') }
+  scope :secret_ballot_polls, -> { where(type: 'PollSecretBallot') }
   scope :passed_ordered, -> { unscoped.order('expiration_date DESC') }
   scope :expired, -> { where('expiration_date < ?', Time.zone.now) }
   scope :active, -> { where('expiration_date >= ?', Time.zone.now) }
@@ -47,6 +48,31 @@ class Poll < ApplicationRecord
 
     total += PollDate.active.count
     total - PollDate.count_my_date_votes(current_user).count
+  end
+
+  def self.polls_with_my_votes(user)
+    [
+      PollOpinion.with_my_opinion_votes(user).distinct,
+      PollSecretBallot.with_my_opinion_votes(user).distinct,
+      PollDate.with_my_date_votes(user).distinct
+    ].inject([]) { |poll, sum| sum + poll }
+  end
+
+  def answer_id_sorted_by_vote_count
+    Vote.where(poll_id: id)
+        .group('answer_id')
+        .count('votes.id')
+        .sort_by(&:last)
+        .reverse
+  end
+
+  def answers_sorted_by_vote_count
+    Answer.unscope(:order)
+          .where(poll_id: id)
+          .joins(:votes)
+          .select('answers.*, count(votes.id) as ccount')
+          .group('answers.id')
+          .order('count(votes.id) DESC')
   end
 
   def votes_count

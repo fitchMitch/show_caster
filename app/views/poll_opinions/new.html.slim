@@ -1,8 +1,6 @@
 .container
   .page-header
-    = link_to polls_path, class: 'btn btn-default' do
-      span.glyphicon.glyphicon-list-alt
-        = " #{t("back")}"
-    h2= t('polls.new_opinion')
-
+    = link_to polls_path, class: 'btn btn-info' do
+      = back_sign
+    h2= title_with_image('010-opinion.png', 'polls.new_opinion')
   = render 'form'

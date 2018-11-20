@@ -28,6 +28,8 @@ RSpec.describe PollsHelper, type: :helper do
   describe '#answers_list' do
     let!(:poll_date) { create(:poll_date_with_answers) }
     let!(:poll_opinion) { create(:poll_opinion_with_answers) }
+    let!(:poll_secret_ballot) { create(:secret_ballot_with_answers) }
+    let!(:no_poll) { create(:user) }
     it 'shall give a PollOpinion tag' do
       expect(helper.answers_list(poll_opinion)).to include(
         poll_opinion.answers.first.answer_label
@@ -38,11 +40,21 @@ RSpec.describe PollsHelper, type: :helper do
         helper.poll_datetime(poll_date.answers.first.date_answer)
       )
     end
+    it 'shall give a SecretBallot tag' do
+      expect(helper.answers_list(poll_secret_ballot)).to include(
+        poll_secret_ballot.answers.first.answer_label
+      )
+    end
+    it 'shall give a SecretBallot tag' do
+      expect(helper.answers_list(no_poll)).to be(nil)
+    end
   end
 
   describe '#panel_question' do
     let!(:poll_date) { create(:poll_date_with_answers) }
     let!(:poll_opinion) { create(:poll_opinion_with_answers) }
+    let!(:poll_secret_ballot) { create(:secret_ballot_with_answers) }
+    let!(:no_poll) { create(:user) }
     it 'shall give a panel question to poll date' do
       expect(helper.panel_question(poll_date)).to include(
         poll_date.question
@@ -54,6 +66,15 @@ RSpec.describe PollsHelper, type: :helper do
         poll_opinion.question
       )
       expect(helper.panel_question(poll_opinion)).to include('warning')
+    end
+    it 'shall give a panel question to poll opinion' do
+      expect(helper.panel_question(poll_secret_ballot)).to include(
+        poll_secret_ballot.question
+      )
+      expect(helper.panel_question(poll_secret_ballot)).to include('danger')
+    end
+    it 'shall give nil when no poll is submitted' do
+      expect(helper.panel_question(no_poll)).to be(nil)
     end
   end
 end
