@@ -72,7 +72,7 @@ end
 
 RSpec.describe PollOpinion, type: :model do
   it { should have_many(:answers) }
-  it { should have_many(:vote_dates) }
+  it { should have_many(:vote_opinions) }
   context 'with valid attributes' do
     let(:valid_attributes) do
       {
@@ -197,5 +197,5 @@ end
 
 RSpec.describe PollSecretBallot, type: :model do
   it { should have_many(:answers) }
-  it { should have_many(:vote_dates) }
+  it { should have_many(:vote_opinions) }
 end

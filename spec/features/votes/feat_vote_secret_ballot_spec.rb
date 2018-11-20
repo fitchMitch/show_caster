@@ -19,7 +19,7 @@ RSpec.feature 'vote opinion feature', type: :feature do
 
   describe 'as admin after voting' do
     before :each do
-      log_in admin
+      log_in admin_com
       visit poll_opinion_path(poll_secret)
       selector = "#vote_opinion_answer_id_#{poll_secret.answers.first.id}"
       find(:css, selector).click
