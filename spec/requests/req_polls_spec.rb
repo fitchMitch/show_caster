@@ -66,5 +66,5 @@ RSpec.describe 'Polls', type: :request do
   #       expect(subject.send(:set_poll).id).to eq(poll_opinion.id)
   #     end
   #   end
-  # end
+  end
 end
