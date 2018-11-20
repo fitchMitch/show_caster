@@ -86,3 +86,18 @@ hr.thin-hr{ margin-top: 3px; margin-bottom: 3px;}
   color: $sesame-orange;
   font-size: 0.9em;
 }
+
+li.company{
+  background-color: $sesame-blue;
+  a {
+    color: $sesame-yellow ;
+    font-weight: 600;
+  }
+  a:hoover {
+    color: $sesame-blue ;
+  }
+}
+
+a.text-muted{
+  color: #AAA !important;
+}
