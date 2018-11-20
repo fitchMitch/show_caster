@@ -31,6 +31,7 @@ class Answer < ApplicationRecord
   # scope :found_by, -> (user) { where('user_id = ?', user_id) }
   default_scope -> { order('date_answer asc') }
 
+
   # Validations
   # =====================
   validates_associated :poll_opinion,

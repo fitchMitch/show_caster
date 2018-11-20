@@ -1,0 +1,26 @@
+.container
+  /! Nav tabs
+  .page-header
+    - if policy(Poll).new?
+      .row.action-line
+        .col-md-3
+          = link_to new_poll_date_path, class: 'btn btn-primary' do
+            = image_tag('icons/png/023-calendar.png', size: 25)
+            = image_tag('transp.png')
+            = " #{ t('polls.new_date')}"
+        .col-md-3
+          = link_to new_poll_opinion_path, class: 'btn btn-primary' do
+            = image_tag('icons/png/010-opinion.png', size: 25)
+            = image_tag('transp.png')
+            = " #{ t('polls.new_opinion')}"
+      .row.action-line
+        .col-md-3
+          = link_to new_poll_date_path, class: 'btn btn-primary' do
+            = image_tag('icons/png/023-calendar.png', size: 25)
+            = image_tag('transp.png')
+            = " #{ t('polls.new_date')}"
+        .col-md-3
+          = link_to new_poll_opinion_path, class: 'btn btn-primary' do
+            = image_tag('icons/png/010-opinion.png', size: 25)
+            = image_tag('transp.png')
+            = " #{ t('polls.new_opinion')}"

@@ -1,12 +1,12 @@
 module PollsHelper
   def poll_date(this_date)
     condition = (this_date.is_a? Date) || (this_date.is_a? Time)
-    condition ? l(this_date, format: "%a %d %b") : this_date
+    condition ? I18n.l(this_date, format: '%a %d %b') : this_date
   end
 
   def poll_datetime(this_date)
     condition = (this_date.is_a? Date) || (this_date.is_a? Time)
-    condition ? l(this_date, format: "%a %d %b | %H:%M") : this_date
+    condition ? I18n.l(this_date, format: '%a %d %b | %H:%M') : this_date
   end
 
   def answers_list(poll)

@@ -1,0 +1,6 @@
+.container
+  .page-header
+    = link_to polls_path, class: 'btn btn-info' do
+      = back_sign
+    h2= title_with_image('033-woman.png', 'secret_polls.new')
+  = render 'form'

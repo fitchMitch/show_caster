@@ -17,6 +17,7 @@ fr:
     new_date: Nouveau sondage de date
     no_expiration_date: Non fournie
     opinion_question: Question d'opinion
+    secret_ballot_question: Scrutin à bulletin secret
     plus_answers: Plus de réponses
     question: Question
     question_hint: Oh Puissants Sésames ! Que penserez vous mon humble proposition ?
@@ -30,7 +31,8 @@ fr:
     update_success: Mise à jour ok
     updated: Ce sondage a été mis à
     voted: J'ai déjà répondu
-
+  secret_polls:
+    new: Nouveau scrutin à bulletin secret
     mails:
       new_poll:
         subject: Hey ! %{firstname} a lancé un nouveau sondage sur les sésames.fr !

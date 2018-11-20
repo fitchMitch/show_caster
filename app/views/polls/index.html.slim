@@ -13,6 +13,11 @@
             = image_tag('icons/png/010-opinion.png', size: 25)
             = image_tag('transp.png')
             = " #{ t('polls.new_opinion')}"
+        .col-md-3
+          = link_to new_poll_secret_ballot_path, class: 'btn btn-primary' do
+            = image_tag('icons/png/033-woman.png', size: 25)
+            = image_tag('transp.png')
+            = " #{ t('secret_polls.new')}"
 
     h2= t('polls.list')
     ul.nav.nav-tabs role="tablist"

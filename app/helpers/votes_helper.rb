@@ -1,4 +1,7 @@
 module VotesHelper
+
+  BADGE_CLASSES = %w[first second third fourth fifth other]
+
   def vote_date_header(answer_vote)
     render partial: 'vote_dates/date_panel',
            locals: { display_date: answer_vote[:answer].date_answer }
@@ -52,5 +55,10 @@ module VotesHelper
       # TODO not tested at all
       new_poll_opinion_vote_opinion_path(vote)
     end
+  end
+
+  def badge_vote_result(rank, number)
+    rank = [rank, BADGE_CLASSES.count - 1].min
+    "<span class='badging #{BADGE_CLASSES[rank]}'>#{number}</span>"
   end
 end

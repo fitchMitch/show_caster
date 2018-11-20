@@ -60,6 +60,7 @@ RSpec.describe Poll, type: :model do
     end
   end
 
+
   describe '#votes_destroy' do
     let!(:vote_opinion) { create(:vote_opinion) }
     let(:poll) { vote_opinion.poll }
@@ -70,6 +71,8 @@ RSpec.describe Poll, type: :model do
 end
 
 RSpec.describe PollOpinion, type: :model do
+  it { should have_many(:answers) }
+  it { should have_many(:vote_dates) }
   context 'with valid attributes' do
     let(:valid_attributes) do
       {
@@ -89,6 +92,80 @@ RSpec.describe PollOpinion, type: :model do
         )
         expect(poll.type).to eq(valid_attributes[:type])
       end
+    end
+  end
+
+  describe '#answer_id_sorted_by_vote_count' do
+    let(:user2) { create(:user) }
+    let!(:poll_opinion) { create(:poll_opinion_with_answers) }
+    let!(:vote_opinion) do
+      create(
+        :vote_opinion,
+        user_id: poll_opinion.owner.id,
+        answer_id: poll_opinion.answers.second.id,
+        poll_id: poll_opinion.id
+      )
+    end
+    let!(:vote_opinion2) do
+      create(
+        :vote_opinion,
+        user_id: user2.id,
+        answer_id: poll_opinion.answers.third.id,
+        poll_id: poll_opinion.id
+      )
+    end
+    let!(:vote_opinion3) do
+      create(
+        :vote_opinion,
+        user_id: user2.id,
+        answer_id: poll_opinion.answers.third.id,
+        poll_id: poll_opinion.id
+      )
+    end
+    it 'should let the second answer rank first' do
+      second_item_id = poll_opinion.answers.second.id
+      third_item_id = poll_opinion.answers.third.id
+      expect(poll_opinion.answer_id_sorted_by_vote_count).to eq(
+        [
+          [third_item_id, 2],
+          [second_item_id, 1]
+        ]
+      )
+    end
+  end
+  describe '#answers_sorted_by_vote_count' do
+    let(:user2) { create(:user) }
+    let!(:poll_opinion) { create(:poll_opinion_with_answers) }
+    let!(:vote_opinion) do
+      create(
+        :vote_opinion,
+        user_id: poll_opinion.owner.id,
+        answer_id: poll_opinion.answers.second.id,
+        poll_id: poll_opinion.id
+      )
+    end
+    let!(:vote_opinion2) do
+      create(
+        :vote_opinion,
+        user_id: user2.id,
+        answer_id: poll_opinion.answers.third.id,
+        poll_id: poll_opinion.id
+      )
+    end
+    let!(:vote_opinion3) do
+      create(
+        :vote_opinion,
+        user_id: user2.id,
+        answer_id: poll_opinion.answers.third.id,
+        poll_id: poll_opinion.id
+      )
+    end
+    it 'should let the second answer rank first' do
+      second_item_id = poll_opinion.answers.second
+      third_item_id = poll_opinion.answers.third
+      expect(poll_opinion.answers_sorted_by_vote_count.to_a).to eq(
+        [third_item_id, second_item_id]
+      )
     end
   end
 end
@@ -116,4 +193,9 @@ RSpec.describe PollDate, type: :model do
       end
     end
   end
+end
+
+RSpec.describe PollSecretBallot, type: :model do
+  it { should have_many(:answers) }
+  it { should have_many(:vote_dates) }
 end
