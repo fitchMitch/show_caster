@@ -35,6 +35,4 @@ class CoursePolicy < EventPolicy
     c1 = future_event?(@record)
     c0 && c1
   end
-
-
 end

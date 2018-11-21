@@ -1,5 +1,6 @@
 module UsersHelper
-  require 'nokogiri'
+  #require 'nokogiri'
+  include IconsHelper
 
   # Returns the Gravatar for the given user.
   # def gravatar_for(user, options = { size: 60 })
@@ -91,19 +92,9 @@ module UsersHelper
               style: in_dallas
   end
 
-  def characters_icon_list
-    path = 'app/assets/images/icons/png/characters/*.png'
-    images_full_path = Dir[Rails.root.join(path)]
-    images_full_path.map! { |file| file.split('/').last }
-  end
-
-  def extract_characters_icons(number)
-    characters_icon_list.sample(number)
-  end
-
   def display_avatar_list
     res = ''
-    extract_characters_icons(User.active.count).each do |file|
+    extract_icons(User.active.count, 'characters').each do |file|
       res += image_tag("icons/png/characters/#{file}", size: 35).html_safe
     end
     res
