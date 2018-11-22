@@ -63,6 +63,7 @@ FactoryBot.define do
     role                    { 2 } # Default is admin
     status                  { 3 } # Default is registered
     bio                     { "Sa bio : #{FFaker::Lorem.sentence(3)}" }
+    committee
 
     trait :player do
       role                 { 0 }

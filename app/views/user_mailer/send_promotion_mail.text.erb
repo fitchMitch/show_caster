@@ -1,7 +1,13 @@
 Hello <%= @user.firstname  %> !
 ===============================
-L'administrateur vient de changer ton statut sur le site. Tu es à présent <%= @role %>
+L'administrateur vient de changer ton statut sur le site.
+<% unless @role.nil? %>
+  Tu as les droits de : '<%= @role.capitalize %>'
+<% end %>
+<% unless @committee.nil? %>
+  Tu fais partie de la commission : "<%= @committee %>"
+<% end %>
 
-Rendez-vous : <%= link_to('ici même', @url) %> et sur le site, où tu peux faire plus de choses
+Rendez-vous : <%= link_to('ici même', @url) %> et sur le site, pour voir de quoi il retourne
 
 A plus, peluche

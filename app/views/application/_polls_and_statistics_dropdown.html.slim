@@ -1,0 +1,16 @@
+-if policy(PollOpinion).index?
+  li.dropdown
+    a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+      = "#{red_bell_notice(current_user)} ".html_safe
+      = t("layout.polls_and_stats")
+      span.caret
+    ul.dropdown-menu
+      li
+        = link_to polls_path do
+          = "#{red_bell_notice(current_user)} ".html_safe
+          = t("polls.header")
+        li.divider role="separator"
+      - if policy(Dashboard).index?
+        li
+          = link_to t("dashboards.statistics"), dashboard_path
+      

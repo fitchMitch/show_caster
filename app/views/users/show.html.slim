@@ -11,7 +11,7 @@
       - if @user.pictures.empty?
         .image-container
           .image-part
-            = image_tag("icons/png/characters/#{extract_characters_icons(1).first}",
+            = image_tag("icons/png/characters/#{extract_icons(1, 'characters').first}",
             size: 350 )
       - else @user.pictures.empty?
         .image-container
@@ -32,7 +32,15 @@
       .row.form-std-height
         .col-sm-4.right.hidden-sm.hidden-xs= t("users.role")
         .col-sm-8
-          .label.label-info= @user.role_i18n
+          = @user.role_i18n
+      - unless @user.committee_id.nil?
+        .row.form-std-height
+          .col-sm-4.right.hidden-sm.hidden-xs= t("users.committee")
+          .col-sm-8
+            .label.label-info= @user.committee.name
+            br
+              small
+                i= @user.committee.mission
       .row.form-std-height
         .col-sm-4.right.hidden-sm.hidden-xs= t("users.address")
         .col-sm-8= @user.address if @user.address.present?

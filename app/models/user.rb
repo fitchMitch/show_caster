@@ -53,6 +53,7 @@ class User < ApplicationRecord
   has_many :vote_opinions
   has_many :vote_dates
   has_many :polls, foreign_key: :owner_id
+  belongs_to :committee
   # =====================
 
   # scope :found_by, -> (user) { where('user_id = ?', user_id) }
@@ -131,8 +132,8 @@ class User < ApplicationRecord
     UserMailer.welcome_mail(self).deliver_now
   end
 
-  def send_promotion_mail
-    UserMailer.send_promotion_mail(self).deliver_now
+  def send_promotion_mail(changes)
+    UserMailer.send_promotion_mail(self, changes).deliver_now
   end
 
   def restricted_statuses
@@ -148,20 +149,50 @@ class User < ApplicationRecord
   end
 
   def inform_promoted_person(current_user, old_user)
-    # No mail when
-    exclusion_cases = current_user == self ||
-                      (role == 'player' && old_user.status != 'archived') ||
-                      (role == 'admin_com' && old_user.role == 'admin')
-    send_promotion_mail unless exclusion_cases
-    # messaging
-    promotion_message(exclusion_cases)
-  end
+    return 'users.updated' if current_user == self || status == 'archived'
 
-  def promotion_message(exclusion)
-    exclusion ? 'users.promoted_muted' : 'users.promoted'
+    committee_changed = committee_id != old_user.committee_id
+    muted_promotion = promotions_to_mute(old_user)
+    role_changed = old_user.role != role
+
+    if muted_promotion
+      send_promotion_mail(committee: committee.name) if committee_changed
+    elsif role_changed && !committee_changed
+      send_promotion_mail(role: status)
+    elsif role_changed && committee_changed
+      send_promotion_mail(
+        committee: committee.name,
+        role: role
+      )
+    elsif committee_changed
+      send_promotion_mail(committee: committee.name)
+    elsif old_user.status == 'archived'
+      send_promotion_mail(
+        committee: committee.name,
+        role: role
+      )
+    end
+
+    # messaging
+    flash_promotion_with((role_changed && !muted_promotion) || committee_changed)
   end
 
   protected
+
+  def promotions_to_mute(old_user)
+    show_promotion = old_user.status == 'archived' || more_power(old_user)
+    !show_promotion
+  end
+
+  def flash_promotion_with(changes)
+    changes ? 'users.promoted' : 'users.promoted_muted'
+  end
+
+  def more_power(o_user)
+    return true if o_user.role == 'other'
+    User.roles[role] >= User.roles[o_user.role]
+  end
+
 
   def format_fields
     self.lastname = lastname.upcase if lastname.present?

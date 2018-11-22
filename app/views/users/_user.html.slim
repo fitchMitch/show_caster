@@ -1,11 +1,16 @@
 .row.user-list class= "#{user.firstname} #{user.lastname}"
-  .col-md-3
+  .col-md-2
     - if user.photo_url.present?
       = image_tag(user.photo_url, size: "35x35")
       = image_tag("transp.png")
     = link_to_user(user, current_user)
   .col-md-2
-    = status_label(user)
+    small
+      = status_label(user)
+  .col-md-2
+    small
+      - unless user.committee_id.nil?
+        = user.committee.name
   .col-md-2
     strong
       = user.try(:cell_phone_nr)

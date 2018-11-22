@@ -1,0 +1,10 @@
+-if policy(Committee).index?
+  li.dropdown
+    a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+      = t("layout.admin")
+      span.caret
+    ul.dropdown-menu
+      - if policy(Committee).index?
+        li= link_to t('layout.committes'),committees_path
+      - if policy(User).new?
+        li= link_to t("user.invitations"), new_user_path

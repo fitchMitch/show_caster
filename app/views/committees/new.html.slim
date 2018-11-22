@@ -1,0 +1,7 @@
+.container
+  .page-header
+    = link_to committees_path, class: 'btn btn-info' do
+      = back_sign
+    h2= t("committees.new")
+
+  = render 'form'
