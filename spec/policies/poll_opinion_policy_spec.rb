@@ -23,8 +23,8 @@ RSpec.describe PollOpinionPolicy do
     it { is_expected.to      forbid_action(:destroy) }
   end
 
-  context "As an admin" do
-    let!(:user) { FactoryBot.create(:user, :admin,:registered) }
+  context "As an admin_com" do
+    let!(:user) { FactoryBot.create(:user,:admin_com,:registered) }
 
     subject { PollOpinionPolicy.new(user, poll)}
     it { is_expected.to     permit_action(:index) }
@@ -34,8 +34,8 @@ RSpec.describe PollOpinionPolicy do
     it { is_expected.to     permit_action(:destroy) }
   end
 
-  context "As an admin_com" do
-    let!(:user) { FactoryBot.create(:user,:admin_com,:registered) }
+  context "As an admin" do
+    let!(:user) { FactoryBot.create(:user, :admin,:registered) }
 
     subject { PollOpinionPolicy.new(user, poll)}
     it { is_expected.to     permit_action(:index) }

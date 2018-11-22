@@ -23,8 +23,8 @@ RSpec.describe PerformancePolicy do
     it { is_expected.to      forbid_action(:destroy) }
   end
 
-  context "As an admin" do
-    let!(:user) { FactoryBot.create(:user, :admin,:registered) }
+  context "As an admin_com" do
+    let!(:user) { FactoryBot.create(:user,:admin_com,:registered) }
 
     subject { PerformancePolicy.new(user, performance)}
     it { is_expected.to     permit_action(:index) }
@@ -33,9 +33,9 @@ RSpec.describe PerformancePolicy do
     it { is_expected.to     permit_action(:update) }
     it { is_expected.to     permit_action(:destroy) }
   end
-
-  context "As an admin_com" do
-    let!(:user) { FactoryBot.create(:user,:admin_com,:registered) }
+  
+  context "As an admin" do
+    let!(:user) { FactoryBot.create(:user, :admin,:registered) }
 
     subject { PerformancePolicy.new(user, performance)}
     it { is_expected.to     permit_action(:index) }
