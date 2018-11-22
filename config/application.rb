@@ -9,7 +9,7 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
 # require "action_cable/engine"
-require "sprockets/railtie"
+# require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -43,5 +43,7 @@ module ShowCaster
     config.time_zone = 'Paris'
     config.active_record.default_timezone = :local
     config.beginning_of_week = :monday
+
+    config.autoload_paths += %W(#{config.root}/lib)
   end
 end

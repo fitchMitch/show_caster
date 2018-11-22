@@ -6,11 +6,14 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: I18n.t('users.welcome_mail.subject'))
   end
 
-  def send_promotion_mail(user)
+  def send_promotion_mail(user, changes)
     # This mails informs the users of his new role.
     @user = user
     @url  = get_user_s_url(@user)
-    @role = user.role_i18n.downcase
+    @role = changes.fetch(:role, nil)
+    @role = @user.role_i18n.downcase unless @role.nil?
+    @committee = changes.fetch(:committee, nil)
+
     mail(to: @user.email, subject: I18n.t('users.promote_mail.subject'))
   end
 

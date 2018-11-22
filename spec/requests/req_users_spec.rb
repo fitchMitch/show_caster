@@ -110,6 +110,9 @@ RSpec.describe 'Users', type: :request do
     let!(:admin) { create(:user, :admin, :registered) }
     let(:current_user) { create(:user, :admin, :registered) }
     let(:old_user) { create(:user, :admin, :registered) }
+    let(:valid_updates) do
+      { role: 'admin', status: :registered, committee_id: user.committee_id }
+    end
     let!(:url) { "/users/#{user.id}/promote" }
     before :each do
       request_log_in admin
@@ -119,27 +122,28 @@ RSpec.describe 'Users', type: :request do
         allow_any_instance_of(User).to receive(:update) { false }
       end
       it 'should redirect to show' do
-        patch url, { params: { user: { role: 'admin', status: :registered } } }
+        patch url, { params: { user: valid_updates } }
         expect(response).to render_template(:show)
       end
       it 'should redirect to show' do
-        patch url, { params: { user: { role: 'admin', status: :registered } } }
-        expect(flash[:alert]).to include(I18n.t('users.promoted_failed', name: user.full_name))
+        patch url, { params: { user: valid_updates } }
+        expect(flash[:alert]).to include(
+          I18n.t('users.promoted_failed', name: user.full_name)
+        )
       end
     end
     context 'user\'s update status is ok' do
-      let!(:message) { double('message') }
       before :each do
-        allow(user).to receive(:inform_promoted_person) { message }
+        allow_any_instance_of(User).to receive(
+          :inform_promoted_person
+        ) { 'users.updated' }
+        patch url, { params: { user: valid_updates } }
       end
       it 'should redirect to user\'s page when ok' do
-        # expect(user).to receive(:inform_promoted_person).with(current_user, old_user)
-        patch url, { params: { user: { role: 'admin', status: :registered } } }
         expect(response).to redirect_to user_path(user)
       end
       it 'should redirect to user\'s page when ok' do
-        patch url, { params: { user: { role: 'admin', status: :registered } } }
-        expect(flash[:notice]).to include(user.full_name)
+        expect(flash[:notice]).to include(I18n.t('users.updated'))
       end
     end
   end

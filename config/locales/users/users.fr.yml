@@ -10,6 +10,7 @@ fr:
     bio_failed: La bio n'a pas été prise en compte :(
     bio_submit: Valider ta fable
     bio_successfull: C'est dans la boîte !
+    committee: Commission
     cell_phone_nr: Numéro de portable
     connected_at: il y a environ %{time}
     create_success_message: Et voilà, c'est terminé !
@@ -30,7 +31,7 @@ fr:
     last_connexion: Dernière connexion
     list: Liste des membres
     minimum_length_caveat: 10 caractères au minimum
-    never_connected: Encore jamais connecté
+    never_connected: Encore jamais connecté(e)
     new_member_title: Quelques renseignements supplémentaires
     not_updated: Oups ! La correction n'est pas passée
     not_logged_in: Vous devez être identifié pour accéder à cette page
@@ -40,8 +41,8 @@ fr:
     promoted_failed: "%{name} n'a pas pu changer de statut"
     photograph: Photographie
     photograph_comment: Cette photo sera reprise sur le site web, dans son format carré.
-    role: Rôle
-    roles_status: Rôles et statuts
+    role: Rôle sur le site
+    roles_status: Rôles, statuts et commission
     status: Statut
     setup: "%{full_name} est enregistré. Il faut l'inviter à présent."
     show_new_member_title: Voir quelques trucs
