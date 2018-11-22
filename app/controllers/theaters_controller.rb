@@ -1,5 +1,5 @@
 class TheatersController < ApplicationController
-  before_action :set_theater, only: [:show, :edit, :update, :destroy]
+  before_action :set_theater, only: %i[show edit update destroy]
 
   # respond_to :html, :json, :js
 
@@ -58,6 +58,6 @@ class TheatersController < ApplicationController
             :location,
             :manager,
             :manager_phone
-                )
+          )
   end
 end

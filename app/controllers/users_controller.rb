@@ -45,9 +45,11 @@ class UsersController < ApplicationController
 
   def promote
     old_user = @user.dup
+
     user_updates = {
       role: params[:user][:role],
-      status: params[:user][:status]
+      status: params[:user][:status],
+      committee_id: params[:user][:committee_id]
     }
     if @user && @user.update(user_updates)
       message = @user.inform_promoted_person(current_user, old_user)
@@ -95,7 +97,8 @@ class UsersController < ApplicationController
             :address,
             :cell_phone_nr,
             :status,
-            :bio
+            :bio,
+            :committee_id
           )
   end
 end

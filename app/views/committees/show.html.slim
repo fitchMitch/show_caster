@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @committee.name
+p
+  strong Mission:
+  = @committee.mission
+
+=> link_to 'Edit', edit_committee_path(@committee)
+'|
+=< link_to 'Back', committees_path

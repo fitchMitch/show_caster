@@ -69,6 +69,7 @@ RSpec.feature 'promotion feature', type: :feature do
   feature 'PROMOTE - status' do
     let!(:admin) { create(:user, :admin, :registered) }
     background :each do
+      reset_email
       log_in admin
     end
     scenario 'with setup status, it proposes archived status' do
@@ -82,7 +83,7 @@ RSpec.feature 'promotion feature', type: :feature do
     scenario 'with RIP status, it proposes setup status' do
       rip_player = create(:user, :player, :archived)
       visit user_path(rip_player)
-      page.find('.users_promote').find("option[value='setup']").select_option
+      page.find('#user_status').find("option[value='setup']").select_option
       click_button(I18n.t('users.promote'))
       visit users_path
       expect(page.body).to have_selector('h2', text: I18n.t('users.list'))

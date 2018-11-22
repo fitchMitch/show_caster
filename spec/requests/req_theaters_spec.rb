@@ -34,7 +34,7 @@ RSpec.describe "Theaters", type: :request do
 
         it "redirects to the created theater" do
           post '/theaters', params: { theater: valid_attributes }
-          t = Theater.find_by(theater_name: valid_attributes[:theater_name])
+          # t = Theater.find_by(theater_name: valid_attributes[:theater_name])
           expect(response).to redirect_to theaters_path
         end
       end

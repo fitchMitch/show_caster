@@ -157,14 +157,15 @@ RSpec.describe User, type: :model do
     let(:p_mail) { double('p_mail') }
     let(:deliver_now) { double('dlvr_now') }
     let(:a_mail) { double('a_mail') }
+    let(:changes) { double('changes') }
     before do
-      allow(UserMailer).to receive(:send_promotion_mail).with(user) do
+      allow(UserMailer).to receive(:send_promotion_mail).with(user, changes) do
         p_mail
       end
       allow(p_mail).to receive(:deliver_now) { a_mail }
     end
     it 'should deliver mail' do
-      expect(user.send_promotion_mail).to eq a_mail
+      expect(user.send_promotion_mail(changes)).to eq a_mail
     end
   end
 
@@ -220,48 +221,153 @@ RSpec.describe User, type: :model do
 
   describe '#inform_promoted_person' do
     let(:user) { build(:user, :registered, :player) }
-    let(:player) { build(:user, :registered, :player) }
+    let(:committee) { create(:committee) }
+    let(:player) { build(:user, :registered, :player, committee_id: user.committee_id) }
+    let(:player2) { build(:user, :registered, :player, committee_id: committee.id) }
     let(:admin_com) { build(:user, :registered, :admin_com) }
     let(:admin) { build(:user, :registered, :admin) }
-    let(:other_admin) { build(:user, :registered, :admin) }
-    let(:old_user) { admin_com.admin! }
-    let(:something) { double("something") }
-    before :each do
-      allow(admin).to receive(:send_promotion_mail) { something }
-      allow(user).to receive(:send_promotion_mail) { something }
-      allow(player).to receive(:promotion_message) { something }
-      allow(admin_com).to receive(:promotion_message) { something }
-      allow(admin).to receive(:promotion_message) { something }
-      allow(user).to receive(:promotion_message) { something }
+    let(:current_user) { build(:user, :registered, :admin) }
+    context 'when current_user curates himself' do
+      it 'should return nothing' do
+        expect(user.inform_promoted_person(user, admin)).to eq('users.updated')
+      end
+      it 'it should not send any mail' do
+        expect(user).not_to receive(:send_promotion_mail)
+        user.inform_promoted_person(user, admin)
+      end
     end
-    it 'should not send any email to current_user' do
-      expect(user).to receive(:promotion_message)
-      expect(user.inform_promoted_person(user, old_user)).to be(something)
+
+    context 'when promotion is to be announced ' do
+      before do
+        allow_any_instance_of(User).to receive(:promotions_to_mute) { false }
+      end
+      context 'and when there is a committee change and a role change' do
+        it 'it shall be told to the user' do
+          allow(admin_com).to receive(:send_promotion_mail).with(
+            committee: admin_com.committee.name,
+            role: admin_com.role
+          ) { nil }
+          expect(
+            admin_com.inform_promoted_person(current_user, player)
+          ).to eq('users.promoted')
+        end
+        it 'it shall send a promotion mail with committee name' do
+          expect(admin_com).to receive(:send_promotion_mail).with(
+            committee: admin_com.committee.name,
+            role: admin_com.role
+          ) { nil }
+          admin_com.inform_promoted_person(current_user, player)
+        end
+      end
+      context 'and when there is committee change, but unchanged roles' do
+        it 'it shall be told to the user' do
+          allow(player2).to receive(:send_promotion_mail).with(
+            committee: player2.committee.name
+          ) { nil }
+          expect(
+            player2.inform_promoted_person(current_user, player)
+          ).to eq('users.promoted')
+        end
+        it 'it shall send a promotion mail with committee name' do
+          expect(player2).to receive(:send_promotion_mail).with(
+            committee: player2.committee.name
+          ) { nil }
+          player2.inform_promoted_person(current_user, player)
+        end
+      end
     end
-    it 'should not send any email to players' do
-      expect(player).to receive(:promotion_message)
-      expect(player.inform_promoted_person(admin, other_admin)).to be(something)
-    end
-    it 'should not send any email to an ' \
-    ' administrator becoming admin_com' do
-      expect(admin_com).to receive(:promotion_message)
-      expect(admin_com.inform_promoted_person(other_admin, admin)).to be(something)
-    end
-    it 'should send an email otherwise' do
-      expect(admin).to receive(:promotion_message)
-      expect(admin).to receive(:send_promotion_mail)
-      admin.inform_promoted_person(other_admin, player)
+
+    context 'when promotion is to be muted ' do
+      before do
+        allow_any_instance_of(User).to receive(:promotions_to_mute) { true }
+      end
+      context 'and when there is a committee change' do
+        it 'it shall be told to the user' do
+          allow(user).to receive(:send_promotion_mail).with(
+            committee: user.committee.name
+          ) { nil }
+          expect(
+            user.inform_promoted_person(current_user, player2)
+          ).to eq('users.promoted')
+        end
+        it 'it shall send a promotion mail with committee name' do
+          expect(user).to receive(:send_promotion_mail).with(
+            committee: user.committee.name
+          ) { nil }
+          user.inform_promoted_person(current_user, player2)
+        end
+      end
+      context 'and when there is NO committee change' do
+        it 'it shall be told to the user' do
+          expect(
+            user.inform_promoted_person(current_user, player)
+          ).to eq('users.promoted_muted')
+        end
+        it 'it shall send a promotion mail with committee name' do
+          expect(user).not_to receive(:send_promotion_mail) { nil }
+          user.inform_promoted_person(current_user, player)
+        end
+      end
     end
   end
 
-  describe '#promotion_message' do
+  describe '#promotions_to_mute' do
+    let(:admin) { build(:user, :registered, :admin) }
+    let(:user_com) { build(:user, :registered, :admin_com) }
     let(:player) { build(:user, :registered, :player) }
-    let(:user) { build(:user, :registered, :admin_com) }
-    it 'should return a message indicating there will be no message for players' do
-      expect(player.promotion_message(true)).to eq('users.promoted_muted')
+    context 'it shall be muted' do
+      let(:old_user) { build(:user, :registered, :admin) }
+      it 'when downgrading' do
+        expect(
+          user_com.send(:promotions_to_mute, old_user)
+        ).to be true
+      end
+    end
+    context 'it shall not be muted ' do
+      let(:old_user) { build(:user, :archived, :admin) }
+      it ' when previously archived' do
+        expect(
+          user_com.send(:promotions_to_mute, old_user)
+        ).to be false
+      end
+    end
+    context 'when it shall not be muted' do
+      let(:old_user) { build(:user, :registered, :player) }
+      it 'should return true to mute' do
+        expect(
+          user_com.send(:promotions_to_mute, old_user)
+        ).to be false
+      end
+    end
+  end
+
+  describe '#flash_promotion_with' do
+    let(:player) { build(:user, :registered, :player) }
+    it 'should announce no message for \'promoted\' player' do
+      expect(
+        player.send(:flash_promotion_with, false)
+      ).to eq('users.promoted_muted')
     end
     it 'should return a message announcing the promotion email' do
-      expect(user.promotion_message(false)).to eq('users.promoted')
+      expect(
+        player.send(:flash_promotion_with, true)
+      ).to eq('users.promoted')
+    end
+  end
+
+  describe '#more_power' do
+    let(:user) { create(:user, :admin_com) }
+    context 'when stronger ' do
+      let(:o_user) { create(:user, :player) }
+      it 'user is stronger' do
+        expect(user.send(:more_power, o_user)).to be true
+      end
+    end
+    context 'when weaker ' do
+      let(:o_user) { create(:user, :admin) }
+      it 'user is stronger' do
+        expect(user.send(:more_power, o_user)).to be false
+      end
     end
   end
 end

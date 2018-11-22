@@ -58,6 +58,11 @@ fr:
         update: "Valider"
         edit: "Editer"
         new: "Créer un joueur/joueuse"
+      committee:
+        create: "Valider la commission"
+        update: "Modifier"
+        edit: "Editer"
+        new: "Créer une commission"
       event:
         create: "Valider la création"
         update: "Modifier"

@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   resources :users do
     resources :pictures, module: :users
     member do
-      patch '/promote', to: 'users#promote'
-      patch '/bio'   ,  to: 'users#bio'
-      patch '/invite',  to: 'users#invite'
+      patch '/promote',     to: 'users#promote'
+      patch '/bio'   ,      to: 'users#bio'
+      patch '/invite',      to: 'users#invite'
     end
   end
 
@@ -54,11 +54,8 @@ Rails.application.routes.draw do
               type: 'VoteDate'
   end
 
-  # Answers
-  resources :answers
-
-  # Theaters
-  resources :theaters
+  # Answers, Committes, Theaters
+  resources :answers, :theaters, :committees
 
   # Dashboard
   get  '/dashboard'   => 'dashboards#index'

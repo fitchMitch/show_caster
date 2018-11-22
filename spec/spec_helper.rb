@@ -9,9 +9,9 @@ end
 require "pundit/rspec"
 require 'pundit/matchers'
 require "paperclip/matchers"
+
 RSpec.configure do |config|
-
-
+  # $LOAD_PATH << '../lib'
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`
     # and `failure_message` of custom matchers include text for helper methods

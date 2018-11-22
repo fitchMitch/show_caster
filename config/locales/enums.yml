@@ -4,7 +4,7 @@ fr:
       role:
         player: Joueur
         admin: Administrateur
-        admin_com: Resp. comm
+        admin_com: Editeur
         other: Autre
       status:
         setup: Pré-inscrit

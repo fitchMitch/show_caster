@@ -1,0 +1,19 @@
+.container
+  .page-header
+    - if policy(Committee).new?
+      .page-header
+        = link_to new_committee_path, class: 'btn btn-primary' do
+          span.glyphicon.glyphicon-plus
+          = " #{ t("committees.new")}"
+    h2= title_with_image("seasons/#{@season}/#{@image}", 'committees.list')
+
+  .table-responsive
+    table.table.table-striped.table-bordered.table-hover
+      thead
+        tr
+          th
+            = t("committees.name")
+          th
+            = t("committees.mission")
+      tbody
+        = render @committees

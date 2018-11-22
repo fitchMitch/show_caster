@@ -25,18 +25,6 @@ RSpec.describe PollSecretBallotPolicy do
     it { is_expected.to      forbid_action(:destroy) }
   end
 
-  context "As an admin" do
-    let!(:user) { FactoryBot.create(:user, :admin,:registered) }
-
-    subject { PollSecretBallotPolicy.new(user, poll)}
-    it { is_expected.to     permit_action(:new) }
-    it { is_expected.to     permit_action(:index) }
-    it { is_expected.to     permit_action(:show) }
-    it { is_expected.to     permit_action(:edit) }
-    it { is_expected.to     permit_action(:update) }
-    it { is_expected.to     permit_action(:destroy) }
-  end
-
   context "As an admin_com" do
     let!(:user) { FactoryBot.create(:user,:admin_com,:registered) }
 
@@ -47,5 +35,17 @@ RSpec.describe PollSecretBallotPolicy do
     it { is_expected.to     forbid_action(:edit) }
     it { is_expected.to     forbid_action(:update) }
     it { is_expected.to     forbid_action(:destroy) }
+  end
+  
+  context "As an admin" do
+    let!(:user) { FactoryBot.create(:user, :admin,:registered) }
+
+    subject { PollSecretBallotPolicy.new(user, poll)}
+    it { is_expected.to     permit_action(:new) }
+    it { is_expected.to     permit_action(:index) }
+    it { is_expected.to     permit_action(:show) }
+    it { is_expected.to     permit_action(:edit) }
+    it { is_expected.to     permit_action(:update) }
+    it { is_expected.to     permit_action(:destroy) }
   end
 end

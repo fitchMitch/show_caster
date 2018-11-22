@@ -15,6 +15,24 @@ def n_out_of_m?(n, m)
 end
 
 # -----------------
+# Committees
+# -----------------
+%w[
+  défaut
+  babe
+  spectacle
+  communication
+  administratif
+  financier
+  dev
+].each do |name|
+  Committee.create!(
+    name: name
+  )
+end
+committees = Committee.all
+
+# -----------------
 # Users
 # -----------------
 User.create!(
@@ -24,6 +42,7 @@ User.create!(
   role:                   2,
   cell_phone_nr:          FFaker::PhoneNumberFR.mobile_phone_number,
   address:                '18, rue de Cotte Paris 12e',
+  committee:              committees.last
   # uid:                    105205260860063499768
 )
 18.times do |n|
@@ -35,6 +54,7 @@ User.create!(
   is_registered =          n_out_of_m?(8, 11)
   cell_phone_nr =          nil
   address =                nil
+  committee =              committees.sample
   if is_registered
     cell_phone_nr =        FFaker::PhoneNumberFR.mobile_phone_number
     address =              FFaker::AddressFR.unique.full_address
@@ -45,7 +65,6 @@ User.create!(
     status =              4 if status == 3
   end
 
-
   User.create!(
     email:                email,
     firstname:            firstname,
@@ -53,12 +72,14 @@ User.create!(
     status:               status,
     cell_phone_nr:        cell_phone_nr,
     address:              address,
-    role:                 role
+    role:                 role,
+    committee_id:         committee.id
   )
 end
 users = User.all
+# -----------------
 #Coaches
-# Coach
+# -----------------
 Coach.create!(
   firstname: 'Aline',
   lastname: 'PETIT',
@@ -82,7 +103,9 @@ Coach.create!(
 end
 coaches = Coach.all
 
+# -----------------
 # Theaters
+# -----------------
 Theater.create!(
   theater_name:       'Kibelé',
   location:    '12, rue de l\'échiquier, 75010 PARIS',
@@ -103,7 +126,9 @@ Theater.create!(
 )
 theaters = Theater.all
 
+# -----------------
 # Events
+# -----------------
 16.times do |n|
   name = "Le #{FFaker::Name.name} étoilé "
   event_date = today + (-200..200).to_a.sample * 3600 * 24
@@ -150,7 +175,9 @@ performances = Performance.all
 end
 performances = Performance.all
 
+# -----------------
 # Actors
+# -----------------
 performances.each do |event|
   6.times do |n|
     Actor.create(
@@ -182,7 +209,9 @@ secret_ballots = [secret_ballot]
 end
 poll_opinions = Poll.opinion_polls
 
+# -----------------
 # PollDates
+# -----------------
 2.times do |n|
   question = "Quand fait on le #{FFaker::Lorem.sentence(1)} ?"
   expiration_date = Date.today + (randy(20) + 10).days
@@ -214,7 +243,9 @@ poll_dates.each do |poll|
     )
   end
 end
+# -----------------
 # Votes
+# -----------------
 #for opinions
 (poll_opinions + secret_ballots).each do |poll|
   poll.answers.each do |answer|
@@ -243,7 +274,9 @@ date_options = Vote.vote_labels.keys
   end
 end
 
+# -----------------
 # Threads and comments
+# -----------------
 poll_opinions.each do |poll|
   Commontator::Thread.create!(
     # PollOpinion, ça passe ! Mais les sondages créés dans l'UI sont "Poll"
@@ -261,3 +294,4 @@ Commontator::Thread.where(commontable_type: 'Poll').each do |thread|
     )
   end
 end
+# -----------------
