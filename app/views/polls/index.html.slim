@@ -20,7 +20,7 @@
             = " #{ t('secret_polls.new')}"
 
     h2= t('polls.list')
-    ul.nav.nav-tabs role="tablist"
+    ul.nav.nav-tabs.nav-pills role="tablist"
       li.active role="presentation"
         a aria-controls='expecting_answer' data-toggle='tab' href='#expecting_answer' role='tab'
           = t("polls.tab_expiration_date")
@@ -29,6 +29,8 @@
           = t("polls.voted")
       li role="presentation"
         a aria-controls='expired' data-toggle='tab' href='#expired' role='tab'
+          = image_tag('icons/png/027-competition.png', size: 30)
+          = image_tag('transp.png', size:5)
           = t("polls.expired").html_safe
     .space-up-10
     .row.strong
@@ -40,8 +42,6 @@
         strong= t('polls.expiration_date')
         br
         .blue-bar-150
-
-
     .space-up-10
     .row.tab-content
       = render partial:'dispatching_polls'

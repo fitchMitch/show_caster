@@ -1,11 +1,13 @@
 fr:
   admin: Administrateur
   admin_com: Resp. communication
+
   account_details: Mes détails
 
   back: Retour
 
   company_name_short: Sésames
+  committee: Commission
   confirm : Wesh ! C'est sûr ?
   creation_date: Date de création
   created_at: Créé le
@@ -27,12 +29,14 @@ fr:
 
   lastname: Nom
 
+  his_number: son 06
+
   other: Autre
 
   player: Joueur
   profile: Mon compte
 
-  role: rôle
+  role: rôle sur le site
 
   show: Voir
   sure_question: C'est sûr ?
