@@ -3,6 +3,28 @@
     = t("layout.users", theater_company: "Sésames")
   h2= display_avatar_list.html_safe unless User.active.count.zero?
   h2= t("users.list")
+  .row.strong
+    .col-md-2.col-sm-3.col-xs-6
+      strong= t('player')
+      br
+      .blue-bar-100
+    .col-md-2.hidden-sm.hidden-xs
+      strong= t('role')
+      br
+      .blue-bar-100
+    .col-md-2.col-xs-3.hidden-xs
+      strong=  t('mission')
+      br
+      .blue-bar-100
+    .col-md-2.col-sm-3.col-xs-6
+      strong=  t('users.his_number')
+      br
+      .blue-bar-100
+    .col-md-4.hidden-xs.hidden-sm
+      strong= t('users.address')
+      br
+      .blue-bar-200
+  .space-up-10
 
   p
     = render(@users)
