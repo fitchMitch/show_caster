@@ -1,9 +1,6 @@
 .container
   .row
     .col-md-6.poll-frame= panel_question(poll)
-
-    / .col-md-4
-    /  = panel answers_list(poll), heading: 'Réponses', context: :info
     .col-md-3
       span.label.label-primary= poll_date poll.expiration_date
       br

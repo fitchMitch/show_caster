@@ -1,6 +1,11 @@
 #expecting_answer.tab-pane.fade.in.active role="tabpanel"
-  - @expecting_answer_polls.each do |poll|
-    = render 'table_line', poll: poll
+  - if @expecting_answer_polls.count.zero?
+    .container
+      p Aucun sondage pour l'instant... Revoir mes votes ? Ou bien aller voir les résultats ?
+      p Ou encore consulter les commentaires dans les sondages ? 
+  -else
+    - @expecting_answer_polls.each do |poll|
+      = render 'table_line', poll: poll
 #voted.tab-pane.fade role="tabpanel"
   - @voted_polls.each do |poll|
     = render 'table_line', poll: poll
