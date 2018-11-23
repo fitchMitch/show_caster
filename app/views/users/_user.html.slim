@@ -1,5 +1,5 @@
 .row.user-list class= "#{user.firstname} #{user.lastname}"
-  .col-md-2.col-sm-3.col-xs-6
+  .col-md-3.col-sm-3.col-xs-6
     - if user.photo_url.present?
       = image_tag(user.photo_url, size: "35x35")
       = image_tag("transp.png")
@@ -14,8 +14,9 @@
   .col-md-2.col-sm-3.col-xs-6
     strong
       = user.try(:cell_phone_nr)
-  .col-md-4.hidden-xs.hidden-sm
-    small= user.try(:address)
+  .col-md-3.hidden-xs.hidden-sm
+    small
+      .dwarf= user.try(:address)
 .row
   .col-xs-12
 hr.thin-hr

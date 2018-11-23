@@ -6,7 +6,7 @@ class CommitteePolicy < ApplicationPolicy
   end
 
   def new?
-    admin?
+    admin? && registered?
   end
 
   def index?
@@ -30,6 +30,6 @@ class CommitteePolicy < ApplicationPolicy
   end
 
   def destroy?
-    admin?
+    admin? && registered?
   end
 end

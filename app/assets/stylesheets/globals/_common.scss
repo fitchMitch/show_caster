@@ -66,12 +66,20 @@
 .yellow-bar-200{ display: block; height:3px; background-color: $sesame-yellow; width: 200px; }
 .yellow-bar-250{ display: block; height:3px; background-color: $sesame-yellow; width: 250px; }
 
+.blue-bar-25{ display: block; height:3px; background-color: $sesame-blue; width: 25px; }
+.blue-bar-50{ display: block; height:3px; background-color: $sesame-blue; width: 50px; }
 .blue-bar-100{ display: block; height:3px; background-color: $sesame-blue; width: 100px; }
 .blue-bar-150{ display: block; height:3px; background-color: $sesame-blue; width: 150px; }
 .blue-bar-200{ display: block; height:3px; background-color: $sesame-blue; width: 200px; }
 .blue-bar-250{ display: block; height:3px; background-color: $sesame-blue; width: 250px; }
 yellowk.undecorated-link{ text-decoration: none; }
 hr.thin-hr{ margin-top: 3px; margin-bottom: 3px;}
+.dwarf{
+  display: inline-block;
+  line-height: 1.21em;
+  font-size: 1em;
+  vertical-align: middle;
+}
 
 .show_me{ display: inline }
 .hide_me{ display: none }
