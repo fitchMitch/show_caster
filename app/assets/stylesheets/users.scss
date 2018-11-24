@@ -66,3 +66,19 @@ p.bio:first-of-type:first-letter {
   -webkit-border-bottom-left-radius: 50%;
   border-bottom-left-radius: 50%;
 }
+#chars_left{
+  font-size: 0.8em;
+  display: inline-block;
+  text-align:right;
+  width:200px;
+  position:relative;
+  top:-20px;
+}
+.alert-chars-too-many{
+  font-weight: 600;
+  color: red;
+}
+.ok-chars{
+  font-weight: 300;
+  color: green;
+}
