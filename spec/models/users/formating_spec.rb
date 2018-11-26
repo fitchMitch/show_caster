@@ -35,9 +35,16 @@ RSpec.describe Answer, type: :model do
     end
 
     describe '#first_and_l' do
-      let(:user) { build(:user, firstname: 'Gala', lastname: 'Louxor') }
-      subject { user.first_and_l }
-      it { is_expected.to eq 'Gala L' }
+      let!(:user) { create(:user, firstname: 'Gala', lastname: 'Louxor') }
+      context 'with a single Gala' do
+        subject { user.first_and_l }
+        it { is_expected.to eq 'Gala' }
+      end
+      context 'with two Gala' do
+        let!(:user2) { create(:user, firstname: 'Gala', lastname: 'Arachne') }
+        subject { user.first_and_l }
+        it { is_expected.to eq 'Gala L' }
+      end
     end
 
     describe '#last_connexion' do

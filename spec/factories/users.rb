@@ -62,6 +62,7 @@ FactoryBot.define do
     email
     role                    { 2 } # Default is admin
     status                  { 3 } # Default is registered
+    uid
     bio                     { "Sa bio : #{FFaker::Lorem.sentence(3)}" }
     committee
 

@@ -2,6 +2,7 @@ class FrontPageService
   def next_performances(n = 5)
     Event.performances
          .future_events
+         .public_events
          .limit(n)
          .includes(:actors)
   end
