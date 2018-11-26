@@ -8,7 +8,6 @@ RSpec.describe 'GoogleCalendarService', type: :service do
     let(:calendar) { double('calendar') }
     let!(:company_calendar_id) { double('company_calendar_id') }
     before :each do
-      byebug
       mock_valid_auth_hash(user)
       Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
       allow_any_instance_of(
