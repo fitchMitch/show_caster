@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 20181126122644) do
     t.string   "type",            default: "Performance"
     t.integer  "courseable_id"
     t.string   "courseable_type"
-    t.boolean  "private_event"
+    t.boolean  "private_event",   default: false
     t.index ["courseable_type", "courseable_id"], name: "index_events_on_courseable_type_and_courseable_id", using: :btree
     t.index ["theater_id"], name: "index_events_on_theater_id", using: :btree
     t.index ["type"], name: "index_events_on_type", using: :btree
