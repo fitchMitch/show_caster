@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181120202042) do
+ActiveRecord::Schema.define(version: 20181126122644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20181120202042) do
     t.string   "type",            default: "Performance"
     t.integer  "courseable_id"
     t.string   "courseable_type"
+    t.boolean  "private_event"
     t.index ["courseable_type", "courseable_id"], name: "index_events_on_courseable_type_and_courseable_id", using: :btree
     t.index ["theater_id"], name: "index_events_on_theater_id", using: :btree
     t.index ["type"], name: "index_events_on_type", using: :btree
