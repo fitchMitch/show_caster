@@ -59,6 +59,7 @@ class PerformancesController < EventsController
         :uid,
         :fk,
         :provider,
+        :private_event,
         actors_attributes: %i[
           id
           user_id
