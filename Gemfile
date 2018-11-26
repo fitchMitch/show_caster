@@ -41,7 +41,7 @@ gem 'commontator',                                          '~> 5.1.0'
 gem 'gibbon',                                               '~> 3.2'
 gem 'google-api-client',                                    '~> 0.11'
 gem 'omniauth-google-oauth2',                               '~> 0.5'
-# https://docs.bugsnag.com/platforms/ruby/rails/ 
+# https://docs.bugsnag.com/platforms/ruby/rails/
 gem 'bugsnag',                                              '~> 6.8'
 # middleware
 # -----------------------
@@ -83,7 +83,7 @@ end
 
 group :test do
   gem 'simplecov', require: false
-  # gem 'vcr'
+  gem 'vcr'
   gem 'webmock',                                                '~> 3.4'
   gem 'capybara',                                               '~> 3.0'
   gem 'launchy',                                                '~> 2.4'

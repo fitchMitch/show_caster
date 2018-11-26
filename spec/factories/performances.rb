@@ -38,6 +38,33 @@ FactoryBot.define do
         create_list(:actor, evaluator.actors_count, performance: performance)
       end
     end
+    factory :performance_with_actors_standard do
+      transient do
+        actors_count { 5 }
+        mc_count { 1 }
+        dj_count { 1 }
+      end
+      after(:create) do |performance, evaluator|
+        create_list(
+          :actor,
+          evaluator.actors_count,
+          stage_role: 'player',
+          performance: performance
+        )
+        create_list(
+          :actor,
+          evaluator.mc_count,
+          stage_role: 'mc',
+          performance: performance
+        )
+        create_list(
+          :actor,
+          evaluator.dj_count,
+          stage_role: 'dj',
+          performance: performance
+        )
+      end
+    end
 
     factory :performance_with_picture do
       transient do

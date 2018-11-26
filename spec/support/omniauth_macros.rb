@@ -22,7 +22,7 @@ module OmniauthMacros
         "expires"=>true
       }
     }
-    OmniAuth.config.mock_auth[:google_oauth2] =  OmniAuth::AuthHash.new(opts)
+    OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new(opts)
   end
 
   def mock_invalid_auth_hash

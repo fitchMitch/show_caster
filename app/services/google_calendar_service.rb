@@ -29,10 +29,6 @@ class GoogleCalendarService
     @calendar.list_calendar_lists
   end
 
-  def company_calendar_id
-    ENV['GOOGLE_CALENDAR_ID']
-  end
-
   def add_to_google_calendar(event)
     event = make_a_google_event(event.google_event_params)
     @calendar.insert_event company_calendar_id,
@@ -142,5 +138,11 @@ class GoogleCalendarService
     from_token[:status] = :googled if user.setup? || user.invited?
     from_token[:last_sign_in_at] = Time.zone.now
     from_token
+  end
+
+  private
+
+  def company_calendar_id
+    ENV['GOOGLE_CALENDAR_ID']
   end
 end
