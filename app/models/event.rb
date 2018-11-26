@@ -27,7 +27,8 @@ class Event < ApplicationRecord
   # Scopes
   scope :future_events, -> { where('event_date >= ?', Time.zone.now).order(event_date: :asc) }
   scope :passed_events, -> { where('event_date < ?', Time.zone.now).order(event_date: :desc) }
-  scope :courses, -> { where('type = ?', 'Course') }
-  scope :performances, -> { where('type = ?', 'Performance') }
-
+  scope :courses, -> { where(type: 'Course') }
+  scope :performances, -> { where(type: 'Performance') }
+  scope :private_event, -> { where(private_event: true) }
+  scope :public_event, -> { where(private_event: false) }
 end

@@ -81,7 +81,8 @@ class CoursesController < EventsController
         :type,
         :provider,
         :courseable_type,
-        :courseable_id
+        :courseable_id,
+        :private_event
       )
   end
 end

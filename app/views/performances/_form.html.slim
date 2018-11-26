@@ -15,14 +15,22 @@
               value_method: :id,
               include_blank: false,
               label: t('performances.theater')
-            = f.input :duration,
-              include_blank: false,
-              collection: Event::DURATIONS,
-              label: t("performances.duration")
           .col-md-4
             br
             = link_to(fa_icon('add', text: t("theaters.add")),
                       new_theater_path, class: 'btn btn-default')
+
+        .row
+          .col-md-8
+            = f.input :duration,
+              include_blank: false,
+              collection: Event::DURATIONS,
+              label: t("performances.duration")
+          .col-md-4.inline
+            br
+            = f.input :private_event,
+                      label: ' Masquer le show ? ',
+                      as: :boolean
         .row
           .col-md-12.form-inline
             = f.input :event_date,
