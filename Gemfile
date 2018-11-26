@@ -21,7 +21,7 @@ gem 'slim-rails',                                           '~> 3.1'
 # -----------------------
 gem 'jquery-rails',                                         '~> 4.3'
 gem 'bootstrap-sass',                                       '~> 3.3'
-#bootstrap helper for navbar for example~>
+#bootstrap 3 helper for navbar for example~>
 gem 'bh',                                                   '~> 1.3'
 gem 'sassc-rails',                                          '~> 1.3'
 gem 'uglifier',                                             '>= 1.3.0'
@@ -39,9 +39,9 @@ gem 'commontator',                                          '~> 5.1.0'
 # API ones
 # -----------------------
 gem 'gibbon',                                               '~> 3.2'
-gem 'google-api-client',                                    '~> 0.11'
+gem 'google-api-client',                                    '~> 0.23'
 gem 'omniauth-google-oauth2',                               '~> 0.5'
-# https://docs.bugsnag.com/platforms/ruby/rails/ 
+# https://docs.bugsnag.com/platforms/ruby/rails/
 gem 'bugsnag',                                              '~> 6.8'
 # middleware
 # -----------------------
@@ -83,7 +83,7 @@ end
 
 group :test do
   gem 'simplecov', require: false
-  # gem 'vcr'
+  gem 'vcr'
   gem 'webmock',                                                '~> 3.4'
   gem 'capybara',                                               '~> 3.0'
   gem 'launchy',                                                '~> 2.4'

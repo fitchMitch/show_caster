@@ -19,10 +19,11 @@ module OmniauthMacros
         "token"=> "ya29.GlvfBdlv1aKyb5hTqTgPsI1AZDDamW3RlRZ2eggisR7pYnQKd45aqRiRIqkjCSmwIDdQ6qDr0qks7LS2Kbj2cX2lH-nA3_6YIlNB4mJQ5gxDvMof9bOfcXa9JO9H",
         "refresh_token"=>"1/TSHAZDTWa2ez01-e63fOiBbv6ZUd52qdFzQO5jTN2HE",
         "expires_at"=>1632959394,
-        "expires"=>true
+        "expires"=>true,
+        "secret"=> 'secret'
       }
     }
-    OmniAuth.config.mock_auth[:google_oauth2] =  OmniAuth::AuthHash.new(opts)
+    OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new(opts)
   end
 
   def mock_invalid_auth_hash

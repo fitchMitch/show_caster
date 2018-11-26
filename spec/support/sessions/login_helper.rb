@@ -15,7 +15,7 @@ module Sessions
         'credentials' =>  {
           'token' => 'ya29.GlukBbAsVH4LTKRytn0EKgsR8omN_nwO22DM56nS9skMrXbV9ZaI8SkPfIbdpwex4trWyPBZJr1W0I8V2D0IqLMDGzZiOKwRMYM68kyIpTFpbJx4ISGsLsAJxa1W',
           'refresh_token' => '1/52gjoGWkNN4ae5fP_i4-P9ZsrjXosy_zBmpjWOGhzBQ',
-          'expires_at' => 1524340628,
+          'expires_at' => 1624340628,
           'expires' => true
         }
       }
@@ -28,7 +28,6 @@ module Sessions
 
     def log_in(user)
       request.env['omniauth.auth'] = request_for_google(user)
-      # get '/auth/:provider/callback', params: { provider: "google_oauth2" }
       get :create, params: { provider: 'google_oauth2' }
     end
 
@@ -38,7 +37,7 @@ module Sessions
     end
 
     def log_in_admin
-      admin = FactoryBot.create(:user, :admin, :registered)
+      admin = FactoryBot.build(:user, :admin, :registered)
       log_in(admin)
       admin
     end

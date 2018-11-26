@@ -23,20 +23,19 @@ module Users
     end
 
     def first_and_last_name
-      lastname_upper = lastname.upcase
-      if firstname.nil?
-        lastname_upper
-      else
-        firstname_cap = firstname.capitalize
-        "#{firstname_cap} #{lastname_upper}"
-      end
+      firstname.nil? ? lastname.upcase : "#{firstname.capitalize} " \
+                                         "#{lastname.upcase}"
     end
 
     def first_and_l
+      same_firstnames = User.where(firstname: firstname)
+
       if firstname.nil? || firstname == ''
         lastname.upcase
+      elsif same_firstnames.count >= 2
+        "#{firstname.capitalize} #{lastname[0].upcase}"
       else
-        "#{firstname} #{lastname[0].upcase}"
+        firstname.capitalize
       end
     end
 
