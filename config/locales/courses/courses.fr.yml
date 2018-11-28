@@ -1,20 +1,20 @@
 fr:
   courses:
     coach: Coach
+    coach_list: Liste des joueurs
+    date: Date du cours
     date_title: Date du cours | Intitulé
+    external_coach_list: Liste des coaches
     edit_page_title: Modifier le cours
-    title: Intitulé
+    g_title_course: Cours / Entrainement impro au %{name}
     header: Les cours
     list: Liste des cours
     new_page_title: Nouveau cours
     new_button: Nouveau cours
-    coach_list: Liste des joueurs
-    external_coach_list: Liste des coaches
-    date: Date du cours
-    passed_events_title: Cours appartenant au passé
-    g_title_course: Cours / Entrainement impro au %{name}
+    no_future_course: Pas de cours prévu (?)
+    passed_events_title: Cours du temps passé
+    title: Intitulé
     question:
       autocoached: En auto-coaché ?
     hint:
       comment: Peut-être mettre un lien qui mène au résumé du cours ?
-    passed_events_title: Cours du temps passé

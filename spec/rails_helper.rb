@@ -32,10 +32,10 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-VCR.configure do |c|
-  c.cassette_library_dir = Rails.root.join('spec', 'vcr')
-  c.hook_into :webmock
-end
+# VCR.configure do |c|
+#   c.cassette_library_dir = Rails.root.join('spec', 'vcr')
+#   c.hook_into :webmock
+# end
 
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root }/spec/fixtures"
@@ -51,7 +51,7 @@ RSpec.configure do |config|
   config.include Sessions::LoginHelper, type: :controller
 
   config.include Requests::LoginHelper, type: :service
-  
+
   config.include Requests::LoginHelper, type: :request
   config.include Requests::Loging, type: :request
   config.include AttributesMatcher, type: :request
@@ -69,7 +69,6 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
   end
   config.before(:each) do
-    # FFaker::UniqueGenerator.clear
     FFaker::NameFR.unique.clear
     DatabaseCleaner.strategy = :transaction
   end

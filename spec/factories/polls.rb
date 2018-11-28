@@ -20,7 +20,13 @@ FactoryBot.define do
         )
       end
     end
+    factory :poll_opinion_with_comments do
+      # after(:create) do |poll_opinion, evaluator|
+      #   create(:thread, commontable: poll_opinion, type: 'PollOpinion')
+      # end
+    end
   end
+
   factory :poll_secret_ballot, parent: :poll, class: 'PollSecretBallot' do
     type { 'PollSecretBallot' }
 

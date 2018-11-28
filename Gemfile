@@ -83,7 +83,7 @@ end
 
 group :test do
   gem 'simplecov', require: false
-  gem 'vcr'
+  # gem 'vcr'
   gem 'webmock',                                                '~> 3.4'
   gem 'capybara',                                               '~> 3.0'
   gem 'launchy',                                                '~> 2.4'

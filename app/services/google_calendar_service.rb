@@ -2,7 +2,7 @@ require 'google/api_client/client_secrets'
 require 'google/apis/calendar_v3'
 
 class GoogleCalendarService
-  attr_accessor :cal
+  attr_accessor :calendar
 
   def initialize(current_user)
     configure_client(current_user)
@@ -136,6 +136,7 @@ class GoogleCalendarService
     }
     # Additional attributes
     from_token[:status] = :googled if user.setup? || user.invited?
+    from_token[:former_connexion_at] = user.last_sign_in_at
     from_token[:last_sign_in_at] = Time.zone.now
     from_token
   end

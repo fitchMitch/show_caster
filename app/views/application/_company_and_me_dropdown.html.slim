@@ -11,4 +11,4 @@
           span.badge
             = User.active.count
         li= link_to t('account_details'), edit_user_path(current_user)
-        li= link_to t('layout.wham'), '#', class: 'text-muted'
+        li= link_to t('layout.wham'), about_me_user_path(current_user)

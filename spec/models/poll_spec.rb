@@ -6,6 +6,23 @@ RSpec.describe Poll, type: :model do
   it { should validate_length_of(:question).is_at_least(5) }
   it { should validate_length_of(:question).is_at_most(120) }
 
+  describe 'scope last_results' do
+    let!(:now) { Time.zone.now }
+    let!(:poll_opinion) { create(:poll_opinion, expiration_date: (now - 2.days)) }
+    context 'when one poll has expired and a user not connected for 10 days' do
+      let(:user) { create(:user, last_sign_in_at: now - 10.days) }
+      it 'should count a single result' do
+        expect(Poll.last_results(user).count).to eq(1)
+      end
+    end
+    context 'when one poll has expired and a user not connected for 10 days' do
+      let(:user) { create(:user, last_sign_in_at: now - 1.days) }
+      it 'should count a single result' do
+        expect(Poll.last_results(user).count).to eq(0)
+      end
+    end
+  end
+
   describe 'cascade destroy' do
     let!(:poll_opinion) { create(:poll_opinion_with_answers) }
     it 'should cascasde destroy the answers' do

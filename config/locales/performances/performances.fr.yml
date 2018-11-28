@@ -25,6 +25,8 @@ fr:
     mc_and_djs: MC and DJs
     mere_new_opus: Nouvel opus
     not_updated: Le spectacle n'a pas pu être enregistré
+    no_future_show: Aucun spectacle prévu pour l'instant
+    no_passed_show: Aucun spectacle jusqu'ici (vous devriez protester)
     nowhere: on ne sait pas où
     players: Joueurs
     players_part: Côté joueurs

@@ -10,6 +10,14 @@ module Commontator
     validates_uniqueness_of :commontable_id,
                             scope: :commontable_type,
                             allow_nil: true
+    # scope
+    scope :last_comments, -> (user) {
+      select(:id ).distinct
+                  .joins(:comments)
+                  .where(
+                    'commontator_comments.created_at < ?', user.last_connexion_at
+                  )
+    }
 
     def config
       @config ||= commontable.try(:commontable_config) || Commontator
