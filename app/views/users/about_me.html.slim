@@ -1,48 +1,89 @@
-.container
+#about_me.container
   .row
-    .col-md-6
+    .col-xs-12.center
       h2
-        | Prochainement
-    .col-md-6
-      h2
-        | Dernièrement
+        = image_tag('icons/png/035-diwali.png',size: 60)
+        = image_tag('transp.png')
+        = t('wham.title')
   .row
-    .col-md-6
-      .row
-        .col-md-6
-          strong  Date de mon prochain spectacle :
-        .col-md-6
-          = event_date_link(@next_performance)
-      .row
-        .col-md-6
-          strong  Mon prochain cours :
-        .col-md-6
-          = event_date_link(@next_course)
-    .col-md-6
-      .row
-        .col-md-4
-          strong  Date de mon dernier spectacle
-        .col-md-8
-          = event_date_link(@last_performance)
-      .row
-        .col-md-4
-          strong  Derniers commentaires
-        .col-md-8
-          - @last_comments.each do |comment|
-            =badge_user_for_comment(comment.creator, 35)
-            | dixit à propos de
-            i
-              = comment.thread.commontable.question
-            br
-            = comment.body.truncate(30)
-            hr
-      .row
-        .col-md-4
-          strong  Derniers résultats de sondage
-        .col-md-8
-          - @last_poll_results.each do |poll|
-            bold=poll.question
-            br
-            | Voir le résultat 
-            =link_to 'ici', poll
-            hr
+    .col-sm-7
+      .petal.petal-up.petal-left.shine_1
+        .oim-title
+          = image_tag(random_current_season_image, size:35).html_safe
+          = image_tag('transp.png')
+          = t('wham.lastly')
+        .row
+          .col-sm-4
+            p
+              strong= t('wham.lastly')
+          .col-sm-8
+            strong
+              = event_date_link(@last_performance)
+      - unless @last_comments.empty?
+        .petal.petal-down.petal-left.shine_2
+          .oim-title= t('wham.last_comments_title')
+          .row
+            .col-sm-2
+              strong= t('wham.last_comments')
+            .col-sm-10
+              - @last_comments.each do |comment|
+                .row
+                  .col-sm-2
+                    = badge_user_for_comment(comment.creator, 40)
+                    br
+                    | a dit
+                  .col-sm-1
+                  .col-sm-9
+                    p.about-me.question
+                      = comment.thread.commontable.question.truncate(45)
+                    = comment.body.truncate(50)
+                    hr
+    .col-sm-5
+      .petal.petal-up.petal-right.shine_3
+        .oim-title
+          =t('wham.next')
+          =image_tag('transp.png')
+          =image_tag(random_next_season_image, size:35).html_safe
+        .row
+          .col-sm-6
+            p
+              strong= t('wham.next_performance')
+          .col-sm-6
+            p
+              strong
+                = event_date_link(@next_performance)
+            - if @next_performance.is_a?(Performance)
+              p Ce sera avec
+              p
+                - @next_performance.actors.each do |actor|
+                  = actor.user.first_and_l
+                  = " | "
+        .row
+          .col-sm-6
+            p
+              strong= t('wham.next_course')
+          .col-sm-6
+            p
+              strong
+                = event_date_link(@next_course)
+      - unless @last_poll_results.empty?
+        .petal.petal-down.petal-right.shine_4
+          .oim-title= t('wham.poll_results')
+          .row
+            .col-sm-1
+              strong
+            .col-sm-11
+              - @last_poll_results.each do |poll|
+                bold=poll.question
+                br
+                = t('wham.see_results')
+                =image_tag('transp.png')
+                strong
+                  =link_to 'ici', poll
+                hr
+      - if Poll.expecting_my_vote(@current_user) > 0
+        .petal.petal-down.shine_5.brownify
+          h3
+            = "Sondage !!!"
+            = image_tag('transp.png')
+            = link_to red_bell_notice(@current_user, 1), polls_path

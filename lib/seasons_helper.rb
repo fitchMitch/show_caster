@@ -1,5 +1,6 @@
 module SeasonsHelper
-  def what_season_today
+  @@seasons = %w[spring summer fall winter]
+  def current_season
     now = Date.today
     current_year = now.year
 
@@ -25,5 +26,9 @@ module SeasonsHelper
 
   def season_start(current_year, month)
     Date.new(current_year, month, 21)
+  end
+
+  def next_season
+    @@seasons.rotate[@@seasons.index(current_season)]
   end
 end

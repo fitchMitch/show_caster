@@ -1,8 +1,8 @@
 class CommitteesController < ApplicationController
   extend SeasonsHelper
   extend IconsHelper
-  @@which_season ||= what_season_today
-  @@season_image ||= extract_icons(1, "seasons/#{@@which_season}").first
+  @@which_season ||= current_season
+  @@season_image ||= extract_icons(1, "png/seasons/#{@@which_season}").first
   before_action :get_season_vars
   before_action :set_committee, only: %i[show edit update destroy]
 

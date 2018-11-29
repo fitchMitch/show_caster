@@ -71,13 +71,43 @@ RSpec.describe UsersHelper, type: :helper do
     end
     it 'should return a link with a date when a course' do
       expect(helper.event_date_link(course)).to eq(
-        link_to course.event_date, courses_path
+        link_to "Dans #{time_ago_in_words(course.event_date)}", courses_path
       )
     end
     it 'should return a link with a date when a performance' do
       expect(helper.event_date_link(performance)).to eq(
-        link_to performance.event_date, performance_path(performance)
+        link_to "Dans #{time_ago_in_words(course.event_date)}",
+                performance_path(performance
+        )
       )
+    end
+  end
+
+  describe '#random_next_season_image' do
+    context 'this is winter time !' do
+      before do
+        allow(Date).to receive(:today) { Date.new(2018, 12, 29) }
+      end
+      it 'it returns an image' do
+        expect(helper.random_next_season_image.split('.').last).to eq('png')
+      end
+      it 'it returns a spring image' do
+        expect(helper.random_next_season_image).to include('spring')
+      end
+    end
+  end
+
+  describe '#random_current_season_image' do
+    context 'this is winter time !' do
+      before do
+        allow(Date).to receive(:today) { Date.new(2018, 12, 29) }
+      end
+      it 'it returns an image' do
+        expect(helper.random_current_season_image.split('.').last).to eq('png')
+      end
+      it 'it returns a winter image' do
+        expect(helper.random_current_season_image).to include('winter')
+      end
     end
   end
 end

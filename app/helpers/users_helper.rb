@@ -1,6 +1,7 @@
 module UsersHelper
   #require 'nokogiri'
   include IconsHelper
+  include SeasonsHelper
   include LoggingHelper
 
   # Returns the Gravatar for the given user.
@@ -95,7 +96,7 @@ module UsersHelper
 
   def display_avatar_list
     res = ''
-    extract_icons(User.active.count, 'characters').each do |file|
+    extract_icons(User.active.count, 'png/characters').each do |file|
       res += image_tag("icons/png/characters/#{file}", size: 35).html_safe
     end
     res
@@ -115,5 +116,17 @@ module UsersHelper
   rescue ArgumentError => e
     warn_logging(e)
     Bugsnag.notify(e)
+  end
+
+  def random_next_season_image
+    season_path = "png/seasons/#{next_season}"
+    image = extract_icons(1, season_path).first
+    "icons/#{season_path}/#{image}"
+  end
+  
+  def random_current_season_image
+    season_path = "png/seasons/#{current_season}"
+    image = extract_icons(1, season_path).first
+    "icons/#{season_path}/#{image}"
   end
 end

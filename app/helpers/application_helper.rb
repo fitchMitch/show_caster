@@ -25,8 +25,10 @@ module ApplicationHelper
     end
   end
 
-  def red_bell_notice(current_user)
-    bell = "<span class='bell'>#{fa_icon('bell')}</span>"
+  def red_bell_notice(current_user, size=1)
+    icon = "bell #{size}x"
+    ficon = fa_icon(icon)
+    bell = "<span class='bell'>#{ficon}</span>"
     Poll.expecting_my_vote(current_user) > 0 ? bell.html_safe : ''
   end
 
@@ -34,7 +36,7 @@ module ApplicationHelper
     picto = "icons/png/#{image_name}"
     image_tag(picto, size: 60) + image_tag('transp.png') + I18n.t(i18n_text)
   end
-  
+
   def back_sign
     fa_icon('arrow-circle-left', text: t('back'))
   end

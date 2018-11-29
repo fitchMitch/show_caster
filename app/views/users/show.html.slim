@@ -11,7 +11,7 @@
       - if @user.pictures.empty?
         .image-container
           .image-part
-            = image_tag("icons/png/characters/#{extract_icons(1, 'characters').first}",
+            = image_tag("icons/png/characters/#{extract_icons(1, 'png/characters').first}",
             size: 350 )
       - else @user.pictures.empty?
         .image-container
