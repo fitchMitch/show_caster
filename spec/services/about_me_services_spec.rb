@@ -69,7 +69,7 @@ RSpec.describe 'AboutMeService', type: :service do
     let!(:poll_opinion_thread) { create(:poll_opinion_thread) }
     let!(:user) { poll_opinion_thread.comments.first.creator }
     it 'should list last comments of threads' do
-      user.last_connexion_at = Time.zone.now + 2.hours
+      user.former_connexion_at = Time.zone.now - 2.years
       subject = about_service.last_comments(user)
       expect(subject.is_a?(Array)).to be true
       expect(subject.first.is_a?(Commontator::Comment)).to be(true)

@@ -2,7 +2,7 @@ require 'rails_helper'
 # require 'icons_helper'
 RSpec.describe IconsHelper do
   describe '.extract_icons' do
-    let(:a_path) { 'characters' }
+    let(:a_path) { 'png/characters' }
     let(:number) { (1..3).to_a.sample }
     it 'should return an Array with a number of items' do
       res = CommitteesController.extract_icons(number, a_path)

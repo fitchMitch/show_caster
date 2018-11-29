@@ -15,7 +15,7 @@ module Commontator
       select(:id ).distinct
                   .joins(:comments)
                   .where(
-                    'commontator_comments.created_at < ?', user.last_connexion_at
+                    'commontator_comments.created_at > ?', user.last_connexion_at
                   )
     }
 

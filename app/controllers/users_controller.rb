@@ -88,7 +88,6 @@ class UsersController < ApplicationController
     @next_course = my_own.next_course
     @last_comments = my_own.last_comments(current_user)
     @last_poll_results = my_own.last_poll_results(current_user)
-    # @new_polls = my_own.new_polls(current_user)
   end
 
   private
