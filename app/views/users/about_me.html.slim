@@ -1,0 +1,48 @@
+.container
+  .row
+    .col-md-6
+      h2
+        | Prochainement
+    .col-md-6
+      h2
+        | Dernièrement
+  .row
+    .col-md-6
+      .row
+        .col-md-6
+          strong  Date de mon prochain spectacle :
+        .col-md-6
+          = event_date_link(@next_performance)
+      .row
+        .col-md-6
+          strong  Mon prochain cours :
+        .col-md-6
+          = event_date_link(@next_course)
+    .col-md-6
+      .row
+        .col-md-4
+          strong  Date de mon dernier spectacle
+        .col-md-8
+          = event_date_link(@last_performance)
+      .row
+        .col-md-4
+          strong  Derniers commentaires
+        .col-md-8
+          - @last_comments.each do |comment|
+            =badge_user_for_comment(comment.creator, 35)
+            | dixit à propos de
+            i
+              = comment.thread.commontable.question
+            br
+            = comment.body.truncate(30)
+            hr
+      .row
+        .col-md-4
+          strong  Derniers résultats de sondage
+        .col-md-8
+          - @last_poll_results.each do |poll|
+            bold=poll.question
+            br
+            | Voir le résultat 
+            =link_to 'ici', poll
+            hr

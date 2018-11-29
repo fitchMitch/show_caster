@@ -34,6 +34,17 @@ class Performance < Event
             }
 
   # Scopes
+  # scope :found_by, -> (user) { where('user_id = ?', user_id) }
+  scope :next_shows, -> (user_id) {
+    joins(:actors).where('actors.user_id = ?', user_id)
+                  .where('events.event_date > ?', Time.zone.now)
+                  .order('events.event_date ASC')
+  }
+  scope :previous_shows, -> (user_id) {
+    joins(:actors).where('actors.user_id = ?', user_id)
+                  .where('events.event_date < ?', Time.zone.now)
+                  .order('events.event_date DESC')
+  }
 
   # ------------------------
   # --    PUBLIC      ---

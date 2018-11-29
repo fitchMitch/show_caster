@@ -18,6 +18,11 @@ module Commontator
                             )
 
     protected
+    scope :last_comments, -> (id) {
+      joins(:thread)
+      .where('commontator_threads.id = ?', id)
+      .order('commontator_comments.created_at DESC')
+    }
 
     cattr_accessor :acts_as_votable_initialized
 

@@ -39,6 +39,9 @@ class Poll < ApplicationRecord
   scope :passed_ordered, -> { unscoped.order('expiration_date DESC') }
   scope :expired, -> { where('expiration_date < ?', Time.zone.now) }
   scope :active, -> { where('expiration_date >= ?', Time.zone.now) }
+  scope :last_results, -> (user) {
+    expired.where('expiration_date > ?', user.last_connexion_at)
+  }
   # ------------------------
   # --    PUBLIC      ---
   # ------------------------
@@ -76,7 +79,11 @@ class Poll < ApplicationRecord
   end
 
   def votes_count
-    Vote.where(poll_id: id).group(:user).count.keys.size
+    Vote.where(poll_id: id)
+        .group(:user)
+        .count
+        .keys
+        .size
   end
 
   def poll_creation_mail

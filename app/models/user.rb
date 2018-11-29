@@ -32,13 +32,8 @@ class User < ApplicationRecord
   belongs_to :committee
   # =====================
 
-  # scope :found_by, -> (user) { where('user_id = ?', user_id) }
   scope :active, -> {
-    where(
-      status: [:invited, :googled, :registered]
-    ).where.not(
-      role: :other
-    )
+    where(status: %i[invited googled registered]).where.not(role: :other)
   }
   scope :active_count, -> { active.count }
   # =====================
@@ -92,6 +87,12 @@ class User < ApplicationRecord
 
   def self.company_mails
     User.active.pluck(:email)
+  end
+
+  def last_connexion_at
+    return former_connexion_at unless former_connexion_at.nil?
+
+    last_sign_in_at.nil? ? (Time.zone.now - 100.years) : last_sign_in_at
   end
 
   def full_name

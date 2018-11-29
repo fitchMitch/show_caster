@@ -1,6 +1,7 @@
 module UsersHelper
   #require 'nokogiri'
   include IconsHelper
+  include LoggingHelper
 
   # Returns the Gravatar for the given user.
   # def gravatar_for(user, options = { size: 60 })
@@ -98,5 +99,21 @@ module UsersHelper
       res += image_tag("icons/png/characters/#{file}", size: 35).html_safe
     end
     res
+  end
+
+  def event_date_link(obj)
+    return obj unless obj.respond_to?(:event_date)
+
+    wording_for_future = "Dans #{time_ago_in_words(obj.event_date)}"
+    if obj.type == 'Course'
+      link_to wording_for_future, courses_path
+    elsif obj.type == 'Performance'
+      link_to wording_for_future, performance_path(obj)
+    else
+      raise ArgumentError
+    end
+  rescue ArgumentError => e
+    warn_logging(e)
+    Bugsnag.notify(e)
   end
 end

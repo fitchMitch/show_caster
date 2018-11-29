@@ -19,6 +19,11 @@ class Course < Event
               greater_than_or_equal_to: 15
             }
   # Scopes
+  scope :next_courses, -> {
+    where('event_date > ?', Time.zone.now).order('event_date ASC')
+  }
+
+  # METHODS
   def google_event_params
     theater_name = theater.theater_name
     {

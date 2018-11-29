@@ -63,24 +63,6 @@ RSpec.describe Answer, type: :model do
     end
   end
 
-  # describe '#order_by_vote_count' do
-  #   let(:poll) { create(:poll_opinion_with_answers) }
-  #   let(:vote_opinion) do
-  #     create(
-  #       :poll_opinion_with_answers,
-  #       poll_id: poll.id,
-  #       answer_id: poll.answers.second.id,
-  #       user_id: poll.owner.id
-  #     )
-  #   end
-  #   it 'should range the second answer first' do
-  #     res = Answer.order_by_vote_count(poll)
-  #     byebug
-  #     expect(res.first.id).to eq(poll.answers.second.id)
-  #   end
-  #
-  # end
-
   describe '#no_date_in_the_past' do
     let(:answer_in_the_future) do
       build(

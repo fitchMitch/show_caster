@@ -5,8 +5,9 @@ Rails.application.routes.draw do
     resources :pictures, module: :users
     member do
       patch '/promote',     to: 'users#promote'
-      patch '/bio'   ,      to: 'users#bio'
+      patch '/bio',         to: 'users#bio'
       patch '/invite',      to: 'users#invite'
+      get '/about_me',      to: 'users#about_me'
     end
   end
 
@@ -20,8 +21,9 @@ Rails.application.routes.draw do
   # Events
   resources :courses, controller: :courses, type: 'Course'
 
-  resources :performances, controller: :performances, type: 'Performance'
-  resources :performances do
+  resources :performances,
+            controller: :performances,
+            type: 'Performance' do
     resources :pictures, module: :events
   end
 

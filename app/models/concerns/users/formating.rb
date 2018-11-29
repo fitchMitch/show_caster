@@ -40,10 +40,10 @@ module Users
     end
 
     def last_connexion
-      if last_sign_in_at.nil?
+      if last_connexion_at.nil?
         I18n.t("users.never_connected")
       else
-        I18n.t("users.connected_at", time: time_ago_in_words(last_sign_in_at))
+        I18n.t("users.connected_at", time: time_ago_in_words(last_connexion_at))
       end
     end
 

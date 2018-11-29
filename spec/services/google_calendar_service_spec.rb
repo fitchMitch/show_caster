@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'vcr'
+# require 'vcr'
 RSpec.describe 'GoogleCalendarService', type: :service do
   let!(:user) { create(:user, :registered, :admin) }
 
@@ -26,9 +26,9 @@ RSpec.describe 'GoogleCalendarService', type: :service do
       end
       it 'existing_event should have the same id' do
         skip 'for a short time'
-        VCR.use_cassette('whatever cassette name you want') do
+        # VCR.use_cassette('whatever cassette name you want') do
           expect(GoogleCalendarService.new(user).existing_event?(id)).to be true
-        end
+        # end
       end
     end
 

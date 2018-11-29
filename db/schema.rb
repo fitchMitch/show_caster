@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181126122644) do
+ActiveRecord::Schema.define(version: 20181128194824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,25 +143,26 @@ ActiveRecord::Schema.define(version: 20181126122644) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "firstname",                   null: false
-    t.string   "lastname",                    null: false
+    t.string   "firstname",                       null: false
+    t.string   "lastname",                        null: false
     t.string   "email"
     t.datetime "last_sign_in_at"
-    t.integer  "status",          default: 0
+    t.integer  "status",              default: 0
     t.string   "provider"
     t.string   "uid"
     t.string   "address"
     t.string   "cell_phone_nr"
     t.string   "photo_url"
-    t.integer  "role",            default: 0
+    t.integer  "role",                default: 0
     t.string   "token"
     t.string   "refresh_token"
     t.datetime "expires_at"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "color"
     t.text     "bio"
     t.integer  "committee_id"
+    t.datetime "former_connexion_at"
     t.index ["committee_id"], name: "index_users_on_committee_id", using: :btree
     t.index ["email"], name: "index_users_on_email", using: :btree
     t.index ["uid"], name: "index_users_on_uid", using: :btree

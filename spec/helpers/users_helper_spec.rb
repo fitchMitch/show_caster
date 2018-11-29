@@ -61,4 +61,23 @@ RSpec.describe UsersHelper, type: :helper do
     #   )
     # end
   end
+
+  describe '#event_date_link' do
+    let(:a_string) { 'a string' }
+    let(:course) { create(:course) }
+    let(:performance) { create(:performance) }
+    it 'should let a string go through' do
+      expect(helper.event_date_link(a_string)).to eq(a_string)
+    end
+    it 'should return a link with a date when a course' do
+      expect(helper.event_date_link(course)).to eq(
+        link_to course.event_date, courses_path
+      )
+    end
+    it 'should return a link with a date when a performance' do
+      expect(helper.event_date_link(performance)).to eq(
+        link_to performance.event_date, performance_path(performance)
+      )
+    end
+  end
 end
