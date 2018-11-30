@@ -1,0 +1,12 @@
+.petal.petal-up.petal-left.shine_1
+  .oim-title
+    = image_tag(random_current_season_image, size:35).html_safe
+    = image_tag('transp.png')
+    = t('wham.lastly')
+  .row
+    .col-sm-4
+      p
+        strong= t('wham.lastly')
+    .col-sm-8
+      strong
+        = event_date_link(@last_performance)

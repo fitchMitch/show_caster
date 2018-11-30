@@ -1,0 +1,27 @@
+.petal.petal-up.petal-right.shine_3
+  .oim-title
+    =t('wham.next')
+    =image_tag('transp.png')
+    =image_tag(random_next_season_image, size:35).html_safe
+  .row
+    .col-sm-6
+      p
+        strong= t('wham.next_performance')
+    .col-sm-6
+      p
+        strong
+          = event_date_link(@next_performance)
+      - if @next_performance.is_a?(Performance)
+        p Ce sera avec
+        p
+          - @next_performance.actors.each do |actor|
+            = actor.user.first_and_l
+            = " | "
+  .row
+    .col-sm-6
+      p
+        strong= t('wham.next_course')
+    .col-sm-6
+      p
+        strong
+          = event_date_link(@next_course)
