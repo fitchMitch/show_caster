@@ -1,10 +1,11 @@
 fr:
   wham:
-    title: Alors, depuis la dernière fois...
+    title: Et depuis la dernière fois...
     lastly: Dernièrement
     last_show: Mon dernier spectacle
     last_comments_title: Ca discute
     last_comments: Derniers commentaires
+    missing_poll_answers: Sondages en souffrance !
     next: Prochainement
     next_performance: 'Mon prochain spectacle :'
     next_course: 'Mon prochain cours :'

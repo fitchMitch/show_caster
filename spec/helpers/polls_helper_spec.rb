@@ -77,4 +77,20 @@ RSpec.describe PollsHelper, type: :helper do
       expect(helper.panel_question(no_poll)).to be(nil)
     end
   end
+
+  describe '#link_to_show_poll' do
+    let(:poll_opinion) { create(:poll_opinion) }
+    let(:poll_date) { create(:poll_date) }
+    let(:a_proc) { Proc.new { 'something' } }
+    it 'should return a show link' do
+      expect(helper.link_to_show_poll(poll_opinion, &a_proc)).to eq(
+        "<a href=\"/poll_opinions/#{poll_opinion.id}\">something</a>"
+      )
+    end
+    it 'should return a show link' do
+      expect(helper.link_to_show_poll(poll_date, &a_proc)).to eq(
+        "<a href=\"/poll_dates/#{poll_date.id}\">something</a>"
+      )
+    end
+  end
 end
