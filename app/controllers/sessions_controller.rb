@@ -49,7 +49,13 @@ class SessionsController < ApplicationController
   protected
 
   def destination(user)
-    user.registered? ? users_path : edit_user_path(user)
+    if user.registered? && user.has_a_picture? && !user.bio.blank?
+      about_me_user_path(user)
+    elsif user.registered?
+      user_path(user)
+    else
+      edit_user_path(user)
+    end
   end
 
   def auth_hash

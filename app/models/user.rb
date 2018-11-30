@@ -89,6 +89,10 @@ class User < ApplicationRecord
     User.active.pluck(:email)
   end
 
+  def has_a_picture?
+    !Picture.where(imageable_id: id).where(imageable_type: 'User').empty?
+  end
+
   def last_connexion_at
     return former_connexion_at unless former_connexion_at.nil?
 

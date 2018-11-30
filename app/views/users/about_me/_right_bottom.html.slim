@@ -1,0 +1,21 @@
+- unless @last_poll_results.empty?
+  .petal.petal-down.petal-right.shine_4
+    .oim-title= t('wham.poll_results')
+    .row
+      .col-sm-1
+        strong
+      .col-sm-11
+        - @last_poll_results.each do |poll|
+          bold=poll.question
+          br
+          = t('wham.see_results')
+          =image_tag('transp.png')
+          strong
+            =link_to 'ici', poll
+          hr
+- if Poll.expecting_my_vote(@current_user) > 0
+  .petal.petal-down.shine_5.brownify
+    h3
+      = "Sondage !!!"
+      = image_tag('transp.png')
+      = link_to red_bell_notice(@current_user, 1), polls_path

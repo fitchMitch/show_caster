@@ -37,7 +37,7 @@ module Sessions
     end
 
     def log_in_admin
-      admin = FactoryBot.build(:user, :admin, :registered)
+      admin = FactoryBot.create(:user, :admin, :registered)
       log_in(admin)
       admin
     end

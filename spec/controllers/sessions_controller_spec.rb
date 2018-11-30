@@ -5,14 +5,7 @@ RSpec.describe SessionsController, type: :controller do
     before :each do
       get :destroy
     end
-    # ----------------------------------------
-    describe 'GET #index' do
-      # it 'returns http success, even not logged' do
-      #   get :index
-      #   # expect(response).to have_http_status(204)
-      #   expect(response).to redirect_to(root_path)
-      # end
-    end
+
     # ----------------------------------------
     describe 'GET #create' do
       before :each do
@@ -29,9 +22,9 @@ RSpec.describe SessionsController, type: :controller do
       it 'returns http success' do
         expect(response).to have_http_status(302)
       end
-      it 'it sets the last login time to less than 6 secs ago' do
+      it 'it sets the last login time to less than 1 secs ago' do
         time_diff = Time.zone.now.to_i - @user.last_sign_in_at.to_i
-        expect(time_diff).to be < 6
+        expect(time_diff).to be < 1
       end
     end
     # ----------------------------------------
@@ -56,6 +49,49 @@ RSpec.describe SessionsController, type: :controller do
       end
       it 'shall not reach users index page' do
         expect(response).not_to redirect_to users_path
+      end
+    end
+  end
+
+  describe '#destination' do
+    context 'user is registered, has a bio and a picture' do
+      let!(:picture_user) { create(:picture_user) }
+      let!(:user) { build(:user, :registered, id: picture_user.imageable_id) }
+      before :each do
+        log_in_admin
+      end
+      it 'landing page : about_me !' do
+        expect(
+          controller.send(:destination, user)
+        ).to eq "/users/#{user.id}/about_me"
+      end
+    end
+
+    context 'user is registered, has a NO bio and a picture' do
+      let(:picture_user) { create(:picture_user) }
+      let(:user) do
+        build(:user, :registered, bio: nil, id: picture_user.imageable_id)
+      end
+      before :each do
+        log_in_admin
+      end
+      it 'landing page : user_s page !' do
+        expect(controller.send(:destination, user)).to eq "/users/#{user.id}"
+      end
+    end
+
+    context 'user is NOT registered' do
+      let(:picture_user) { create(:picture_user) }
+      let(:user) do
+        build(:user, :setup, bio: nil, id: picture_user.imageable_id)
+      end
+      before :each do
+        log_in_admin
+      end
+      it 'landing page : details_about me !' do
+        expect(
+          controller.send(:destination, user)
+        ).to eq "/users/#{user.id}/edit"
       end
     end
   end

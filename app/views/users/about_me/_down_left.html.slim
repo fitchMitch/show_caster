@@ -1,0 +1,24 @@
+.row
+  .col-xs-12.center
+    h2
+      = image_tag('icons/png/035-diwali.png',size: 60)
+      = image_tag('transp.png')
+      = t('wham.title')
+.petal.petal-down.petal-left.shine_2
+  .oim-title= t('wham.last_comments_title')
+  .row
+    .col-sm-2
+      strong= t('wham.last_comments')
+    .col-sm-10
+      - @last_comments.each do |comment|
+        .row
+          .col-sm-2
+            = badge_user_for_comment(comment.creator, 40)
+            br
+            | a dit
+          .col-sm-1
+          .col-sm-9
+            p.about-me.question
+              = comment.thread.commontable.question.truncate(45)
+            = comment.body.truncate(50)
+            hr
