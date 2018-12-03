@@ -33,19 +33,14 @@ RSpec.feature 'vote opinion feature', type: :feature do
     it 'should be a success' do
       expect(page.body).to have_content(I18n.t('votes.save_success'))
     end
-    it 'empty the poll\'s page' do
-      skip 'due to javascript Driver missing'
-      # it 'empty the poll\'s page', js: true do
-      visit poll_opinion_path(poll)
-      expect(page.body).not_to have_content(poll.question)
+    it 'empty the poll\'s page', js: true do
+      visit polls_path
+      expect(page.find('#expecting_answer')).not_to have_content(poll.question)
+      click_link(I18n.t('polls.voted'))
+      expect(page.find('#voted')).to have_content(poll.question)
     end
     it 'make the red alert disappear' do
       expect(page.body).not_to have_selector('i.fa.fa-bell')
-    end
-    it 'poll should be available in the other tab' do
-      skip 'due to javascript Driver missing'
-      click_link(I18n.t('polls.voted'))
-      expect(page.body).to have_content(poll.question)
     end
   end
 end

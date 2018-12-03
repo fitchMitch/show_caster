@@ -19,8 +19,8 @@ RSpec.describe 'AboutMeService', type: :service do
     end
     it 'should return empty when show\'s in the passed' do
       user2_id = performance2.actors.first.user_id
-      expect(about_service.next_show(user2_id)).to eq(
-        I18n.t('performances.no_future_show')
+      expect(about_service.next_show(user2_id)).to include(
+        "Aucun spectacle prévu"
       )
     end
   end
