@@ -104,8 +104,8 @@ module UsersHelper
 
   def event_date_link(obj)
     return obj unless obj.respond_to?(:event_date)
-
-    wording_for_future = "Dans #{time_ago_in_words(obj.event_date)}"
+    start = obj.event_date > Time.zone.now ? 'Dans' : 'Il y a'
+    wording_for_future = "#{start} #{time_ago_in_words(obj.event_date)}"
     if obj.type == 'Course'
       link_to wording_for_future, courses_path
     elsif obj.type == 'Performance'
@@ -123,7 +123,7 @@ module UsersHelper
     image = extract_icons(1, season_path).first
     "icons/#{season_path}/#{image}"
   end
-  
+
   def random_current_season_image
     season_path = "png/seasons/#{current_season}"
     image = extract_icons(1, season_path).first
