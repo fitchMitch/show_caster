@@ -134,10 +134,12 @@ theaters = Theater.all
   event_date = today + (-200..200).to_a.sample * 3600 * 24
   duration = Event::DURATIONS.sample[1]
   note = FFaker::Lorem.paragraph(1)
+  private_event = n_out_of_m?(1, 5) ? false : true
   Performance.create!(
     theater:             theaters.sample,
     title:                'Les Mentals moisis par les Sésames',
     user:                 users.sample,
+    private_event:        private_event,
     note:                 note,
     duration:             duration,
     event_date:           event_date,

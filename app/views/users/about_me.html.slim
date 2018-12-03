@@ -2,9 +2,9 @@
 
   .row
     .col-sm-7
-      = render partial: 'users/about_me/up_left'
+      = render partial: 'users/about_me/top_left'
       - unless @last_comments.empty?
-        = render partial: 'users/about_me/down_left'
+        = render partial: 'users/about_me/bottom_left'
     .col-sm-5
-      = render partial: 'users/about_me/right_top'
-      = render partial: 'users/about_me/right_bottom'
+      = render partial: 'users/about_me/top_right'
+      = render partial: 'users/about_me/bottom_right'

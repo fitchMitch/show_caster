@@ -80,4 +80,14 @@ module PollsHelper
       link_to fa_icon('edit 2x'), edit_poll_date_path(poll)
     end
   end
+
+  def link_to_show_poll(poll, &block)
+    return unless block_given?
+
+    if poll.is_a? PollOpinion
+      link_to poll_opinion_path(poll), &block
+    elsif poll.is_a? PollDate
+      link_to poll_date_path(poll), &block
+    end
+  end
 end

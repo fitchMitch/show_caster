@@ -15,7 +15,7 @@
           hr
 - if Poll.expecting_my_vote(@current_user) > 0
   .petal.petal-down.shine_5.brownify
-    h3
-      = "Sondage !!!"
+    h4
+      = t('wham.missing_poll_answers')
       = image_tag('transp.png')
       = link_to red_bell_notice(@current_user, 1), polls_path

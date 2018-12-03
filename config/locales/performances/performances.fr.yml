@@ -25,7 +25,8 @@ fr:
     mc_and_djs: MC and DJs
     mere_new_opus: Nouvel opus
     not_updated: Le spectacle n'a pas pu être enregistré
-    no_future_show: "Aucun spectacle prévu pour l'instant : la possiblité d'un complot ? L'Organisation derrière ce logiciel est contrainte au silence"
+    no_future_show: Aucun spectacle prévu pour l'instant
+    no_future_comment: "Aucun spectacle prévu pour l'instant ... Un complot ? Pas exactement ... Disons simplement qu'ils ne veulent pas que tu joues. Mais, chhutt ..."
     no_passed_show: Aucun spectacle à ce jour...
     nowhere: on ne sait pas où
     players: Joueurs
@@ -34,6 +35,7 @@ fr:
     plus_actors: d'acteurs
     see: Voir la fiche spectacle
     show_in: Spectacle au %{name}
+    show_privacy: Communication
     title: Titre
     title_show: Intitulé
     g_title:

@@ -26,7 +26,7 @@ fr:
     save_success: Sondage enregistré et diffusé !
     save_fails: Ce sondage ne s'est pas enregistré !
     see: Voir
-    tab_expiration_date: En attente de ma réponse
+    awaiting_me: En attente de ma réponse
     update: Mise à jour du sondage
     update_success: Mise à jour ok
     updated: Ce sondage a été mis à
