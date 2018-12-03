@@ -2,28 +2,38 @@
 //  = fa_icon('calendar 2x')
 //  = image_tag("transp.png")
 //  = poll_date.question
-Table.center
-  tr
-    - @answers_votes.each do |answer_vote|
-      td.date-choice
-        = vote_date_header(answer_vote)
-        = simple_form_for [poll, vote] do |f|
-          = f.input :vote_label,
-            label: "<small>#{ t("votes.choose")}</small>".html_safe,
-            selected: answer_vote[:vote].try(:vote_label) || "",
-            include_blank: true
-          = f.input :poll_id,
-            input_html: { value: poll.id },
-            as: :hidden
-          = f.input :answer_id,
-            input_html: { value: answer_vote[:answer].id || ""},
-            as: :hidden
-    tr
-      - @answers_votes.each do |answer_vote|
-        td.date-choice
-          - User.active.order('firstname').each do |user|
-            = render partial: "vote_dates/others_vote_dates",
-                     locals: { content: others_votes_list(answer_vote[:answer],user),
-                               user: user }
-            br
-          = vote_date_header(answer_vote)
+.row.space-up-25
+  .col-md-8
+    Table.center
+      tr
+        - @answers_votes.each do |answer_vote|
+          td.date-choice
+            = vote_date_header(answer_vote)
+            = simple_form_for [poll, vote] do |f|
+              = f.input :vote_label,
+                label: "<small>#{ t("votes.choose")}</small>".html_safe,
+                selected: answer_vote[:vote].try(:vote_label) || "",
+                include_blank: true
+              = f.input :poll_id,
+                input_html: { value: poll.id },
+                as: :hidden
+              = f.input :answer_id,
+                input_html: { value: answer_vote[:answer].id || ""},
+                as: :hidden
+        tr
+          - @answers_votes.each do |answer_vote|
+            td.date-choice
+              - User.active.order('firstname').each do |user|
+                = render partial: "vote_dates/others_vote_dates",
+                         locals: { content: others_votes_list(answer_vote[:answer],user),
+                                   user: user }
+                br
+              = vote_date_header(answer_vote)
+  - unless @answers_votes.size > 5
+    .col-md-4.text-muted
+      = commontator_thread(@commontable)
+- if @answers_votes.size > 5
+  .row.center
+    .col-md-3
+    .col-md-6= commontator_thread(@commontable)
+    .col-md-3

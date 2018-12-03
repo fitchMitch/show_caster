@@ -57,20 +57,20 @@ fr:
         subscribe: S'abonner
         unsubscribe: Se désabonner
       errors:
-        already_subscribed: "Vosu avez déjà soucrit à cette discussion."
+        already_subscribed: "Vous avez déjà soucrit à cette discussion."
         not_subscribed: "Vous n'êtes pas inscrit à cette discussion."
     thread:
       actions:
-        show_all: "Montrer les commentaires"
-        filter: "Filtrer les commentaires"
-        close: "Clore la discussion"
-        confirm_close: "C'est sûr ?"
-        reopen: "Réouvrir la discussion"
-        show: "Montrer les commentaires"
-        hide: "Cacher les commentaires"
+        show_all: Montrer les commentaires
+        filter: Filtrer les commentaires
+        close: Clore la discussion
+        confirm_close: C'est sûr ?
+        reopen: Réouvrir la discussion
+        show: Montrer les commentaires
+        hide: Masquer
       errors:
-        already_closed: "Cette discussion a déjà été close."
-        not_closed: "Cette discussion n'est pas close"
+        already_closed: Cette discussion a déjà été close.
+        not_closed: Cette discussion n'est pas close
       status:
         cannot_post: "De nouveaux commentaires ne peuven pas être envoyés pour l'instant."
         closed: "Commentaires (clos par %{closer_name})"
