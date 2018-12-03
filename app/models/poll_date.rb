@@ -1,4 +1,5 @@
 class PollDate < Poll
+  acts_as_commontable dependent: :destroy
   #-----------
   # Includes
   #-----------

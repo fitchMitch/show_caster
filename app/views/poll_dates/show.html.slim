@@ -22,5 +22,4 @@
               = t("polls.questioned_by")
               br
               = @poll.owner.first_and_l unless @poll.owner.nil?
-    .row.space-up-25
-      = render partial: '/vote_dates/form', locals: { poll: @poll, vote: @vote_date }
+    = render partial: '/vote_dates/form', locals: { poll: @poll, vote: @vote_date }

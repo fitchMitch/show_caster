@@ -11,6 +11,8 @@ class PollDatesController < PollsController
       vote = votes.any? ? votes.first : nil
       @answers_votes << { answer: answer, vote: vote }
     end
+    @commontable = @poll
+    commontator_thread_show(@commontable)
   end
 
   private
