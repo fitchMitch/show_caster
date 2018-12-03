@@ -35,6 +35,7 @@ fr:
     plus_actors: d'acteurs
     see: Voir la fiche spectacle
     show_in: Spectacle au %{name}
+    show_privacy: Communication
     title: Titre
     title_show: Intitulé
     g_title:
