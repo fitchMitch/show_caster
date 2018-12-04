@@ -61,4 +61,12 @@ module VotesHelper
     rank = [rank, BADGE_CLASSES.count - 1].min
     "<span class='badging #{BADGE_CLASSES[rank]}'>#{number}</span>"
   end
+
+  def winner_line(answer_vote, winners)
+    if winners.include? answer_vote[:answer].id
+      image_tag('icons/png/009-medal.png', size: 25)
+    else
+      image_tag('transp.png')
+    end
+  end
 end

@@ -14,4 +14,23 @@ RSpec.describe VotesHelper, type: :helper do
       ).to include(votop.user.first_and_l)
     end
   end
+
+  describe '#winner_line' do
+    let!(:winners) { [2] }
+    let(:answer_vote) { { answer: object } }
+    context 'when a winner' do
+      let(:object) { double('object', id: 2) }
+      it 'shall give an image to the winner line' do
+        expect(
+          helper.winner_line(answer_vote, winners)
+        ).to include('009-medal')
+      end
+    end
+    context 'when not a winner' do
+      let(:object) { double('object', id: 1) }
+      it 'shall give an image to the winner line' do
+        expect(helper.winner_line(answer_vote, winners)).to include('transp')
+      end
+    end
+  end
 end

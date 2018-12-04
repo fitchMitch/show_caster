@@ -37,4 +37,29 @@ class PollDate < Poll
           .count
           .keys
   }
+
+  def fill_answers_votes(user)
+    answers_votes = []
+    answers.each do |answer|
+      votes = VoteDate.where(poll_id: id)
+                      .where(answer_id: answer.id)
+                      .where(user_id: user.id)
+      vote = votes.any? ? votes.first : nil
+      answers_votes << { answer: answer, vote: vote }
+    end
+    answers_votes
+  end
+
+  def self.best_hash_values(hash)
+    hash.select { |_k, val| val == hash.values.max }
+  end
+
+  def best_dates_answer
+    PollDate.best_hash_values(
+      VoteDate.where(poll_id: id)
+      .where(vote_label: 'yess')
+      .group(:answer_id)
+      .count
+    )
+  end
 end

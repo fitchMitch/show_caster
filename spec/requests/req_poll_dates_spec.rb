@@ -17,12 +17,12 @@ RSpec.describe 'PollDates', type: :request do
   let!(:admin) { create(:user, :admin, :registered) }
 
   context '/ As logged as admin,' do
+    let!(:poll) { create(:poll_date) }
     before do
       request_log_in(admin)
     end
 
     describe 'DELETE #destroy' do
-      let!(:poll) { create(:poll_date) }
       let(:url) { "/poll_dates/#{poll.to_param}" }
 
       it 'deletes Poll' do
