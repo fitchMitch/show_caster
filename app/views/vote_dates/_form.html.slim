@@ -8,6 +8,7 @@
       tr
         - @answers_votes.each do |answer_vote|
           td.date-choice
+            = winner_line(answer_vote, @winners)
             = vote_date_header(answer_vote)
             = simple_form_for [poll, vote] do |f|
               = f.input :vote_label,

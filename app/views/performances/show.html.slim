@@ -16,9 +16,9 @@
       .blue-sesame-title
         =@event.title
     - if @event.private_event
-      dt.space-up-10= ('performances.show_privacy')
+      dt.space-up-10= t('performances.show_privacy')
       dd.space-up-10
-        | Spectacle privé
+        strong Spectacle privé
 
     dt= t('performances.dur')
     dd= time_ago_in_words (@event.duration * 60).seconds.from_now
