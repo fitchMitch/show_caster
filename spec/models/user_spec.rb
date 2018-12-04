@@ -125,8 +125,8 @@ RSpec.describe User, type: :model do
         'a correct firstname and lastame' do
       expect(User.retrieve(data_no_user).id).to eq user.id
     end
-    it 'should return nil when no lastame is given' do
-      expect(User.retrieve(data_no_user_no_name)).to be_nil
+    it 'should return nil when no lastname is given' do
+      expect(User.retrieve(data_no_user_no_name)).to be(nil)
     end
   end
 
