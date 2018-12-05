@@ -36,6 +36,7 @@ gem 'cocoon',                                               '~> 1.2'
 gem 'papercrop',                                            '~> 0.3'
 gem 'rails-assets-jcrop', source: 'https://rails-assets.org'
 gem 'commontator',                                          '~> 5.1.0'
+gem 'kaminari',                                             '~> 1.1'
 # API ones
 # -----------------------
 gem 'gibbon',                                               '~> 3.2'
