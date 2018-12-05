@@ -9,8 +9,8 @@ class PerformancesController < EventsController
 
   def index
     authorize(Performance)
-    @future_events = Event.future_events.performances
-    @passed_events = Event.passed_events.performances
+    @future_events = Event.future_events.performances.page params[:page]
+    @passed_events = Event.passed_events.performances.page params[:page]
   end
 
   def create

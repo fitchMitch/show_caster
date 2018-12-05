@@ -19,8 +19,8 @@ class CoursesController < EventsController
 
   def index
     authorize(Course)
-    @future_events = Event.courses.future_events
-    @passed_events = Event.courses.passed_events
+    @future_events = Event.courses.future_events.page params[:page]
+    @passed_events = Event.courses.passed_events.page params[:page]
   end
 
   def create
