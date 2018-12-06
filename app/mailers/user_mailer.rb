@@ -12,7 +12,8 @@ class UserMailer < ApplicationMailer
     @url  = get_user_s_url(@user)
     @role = changes.fetch(:role, nil)
     @role = @user.role_i18n.downcase unless @role.nil?
-    @committee = changes.fetch(:committee, nil)
+    # @committee = changes.fetch(:committee, nil)
+    # TODO
 
     mail(to: @user.email, subject: I18n.t('users.promote_mail.subject'))
   end

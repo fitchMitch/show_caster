@@ -15,22 +15,22 @@ def n_out_of_m?(n, m)
 end
 
 # -----------------
-# Committees
+# Users
 # -----------------
-%w[
-  défaut
-  babe
-  spectacle
-  communication
-  administratif
-  financier
-  dev
-].each do |name|
-  Committee.create!(
-    name: name
-  )
-end
-committees = Committee.all
+# %w[
+#   défaut
+#   babe
+#   spectacle
+#   communication
+#   administratif
+#   financier
+#   dev
+# ].each do |name|
+#   User.create!(
+#     name: name
+#   )
+# end
+# committees = User.all
 
 # -----------------
 # Users
@@ -41,8 +41,8 @@ User.create!(
   email:                 'weil.etienne@hotmail.fr',
   role:                   2,
   cell_phone_nr:          FFaker::PhoneNumberFR.mobile_phone_number,
-  address:                '18, rue de Cotte Paris 12e',
-  committee:              committees.last
+  address:                '18, rue de Cotte Paris 12e'
+  # committee:              committees.last
   # uid:                    105205260860063499768
 )
 18.times do |n|

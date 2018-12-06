@@ -50,7 +50,7 @@ class UsersController < ApplicationController
     user_updates = {
       role: params[:user][:role],
       status: params[:user][:status],
-      committee_id: params[:user][:committee_id]
+      committee_list: params[:user][:committee_list]
     }
     if @user && @user.update(user_updates)
       message = @user.inform_promoted_person(current_user, old_user)
@@ -108,7 +108,7 @@ class UsersController < ApplicationController
             :cell_phone_nr,
             :status,
             :bio,
-            :committee_id
+            :committee_list
           )
   end
 end

@@ -57,7 +57,7 @@ Rails.application.routes.draw do
   end
 
   # Answers, Committes, Theaters
-  resources :answers, :theaters, :committees
+  resources :answers, :theaters
 
   # Dashboard
   get  '/dashboard'   => 'dashboards#index'
