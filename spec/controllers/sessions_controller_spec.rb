@@ -26,6 +26,9 @@ RSpec.describe SessionsController, type: :controller do
         time_diff = Time.zone.now.to_i - @user.last_sign_in_at.to_i
         expect(time_diff).to be < 1
       end
+      it 'sets the cache for committees settings' do
+        expect(Setting.committees).not_to be(nil)
+      end
     end
     # ----------------------------------------
     describe 'GET #destroy' do

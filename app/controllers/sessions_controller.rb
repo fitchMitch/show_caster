@@ -32,6 +32,7 @@ class SessionsController < ApplicationController
     else
       @current_user = @user
       session['current_user_id'] = @current_user.id
+      Setting.committees ||= ''
       redirect_to destination(@user),
                   notice: I18n.t('sessions.omniauth.success', kind: 'Google')
     end

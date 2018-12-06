@@ -1,0 +1,15 @@
+.container
+  .page-header
+    h2= title_with_image('026-wrench.png', 'settings.list')
+    hr
+    - @settings.each_key do |key|
+      .row
+        .col-xs-2
+        .col-xs-2
+          strong= t(key)
+        .col-xs-4
+          = @settings[key.to_sym]
+        .col-xs-2
+          = link_to edit_setting_path(key) do
+            = fa_icon('edit lg')
+      hr

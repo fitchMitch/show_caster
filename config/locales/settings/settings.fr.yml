@@ -1,0 +1,6 @@
+fr:
+  settings:
+    list: Liste des paramètres
+    created_ok: La valeur a bien été enregistrée
+    created_nok: Aucun changement ...
+    hint: '<strong>Attention</strong>: Séparer les groupes de mots par des virgules'

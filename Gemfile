@@ -37,6 +37,9 @@ gem 'papercrop',                                            '~> 0.3'
 gem 'rails-assets-jcrop', source: 'https://rails-assets.org'
 gem 'commontator',                                          '~> 5.1.0'
 gem 'kaminari',                                             '~> 1.1'
+gem 'acts-as-taggable-on',                                  '~> 6.0'
+gem 'rails-settings-cached',                                '~> 0.6'
+# gem 'rails-settings-cached', source: 'https://rubygems.org'
 # API ones
 # -----------------------
 gem 'gibbon',                                               '~> 3.2'
