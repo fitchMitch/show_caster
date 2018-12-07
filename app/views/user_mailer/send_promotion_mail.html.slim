@@ -4,10 +4,10 @@ p
 ul
   - unless @role.nil?
     li= "Tu as les droits de : '#{@role}'. "
-  - unless @committee_plus.empty?
-    li= "Tu fais partie de la ou des commissions :  \"#{@committee_plus.join(',')}\" "
-  - unless @committee_minus.empty?
-    li= "Tu ne fais plus partie de la ou des commissions :  \"#{@committee_minus.join(',')}\", hélas "
+  - unless @committee_plus.nil?
+    li= "Tu fais partie de la ou des commissions :  \"#{@committee_plus}\" "
+  - unless @committee_minus.nil?
+    li= "Tu ne fais plus partie de la ou des commissions :  \"#{@committee_minus}\", hélas "
 
 p
   | Rendez-vous

@@ -4,10 +4,13 @@ module SeasonsHelper
     now = Date.today
     current_year = now.year
 
-    spring_start = season_start(current_year, 3)
-    summer_start = season_start(current_year, 6)
-    fall_start = season_start(current_year, 9)
-    winter_start = season_start(current_year, 12)
+    (spring_start,
+      summer_start,
+      fall_start,
+      winter_start
+    ) = [3, 6, 9, 12].map do |month|
+      season_start(current_year, month)
+    end
 
     if (now.beginning_of_year..spring_start - 1.day).cover?(now)
       'winter'

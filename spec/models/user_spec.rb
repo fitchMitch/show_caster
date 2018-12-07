@@ -196,22 +196,20 @@ RSpec.describe User, type: :model do
   end
 
   describe '#get_committee_changes' do
-    let(:first_tag_list) { ['show', 'communication', 'psychokiller'] }
+    let(:first_tag_list) { ['show', 'communication', 'psychokiller'] } # old_user
     let(:second_tag_list) { ['kiss', 'communication', 'psychokiller', 'management'] }
     let(:user) { build(:user) }
-    let(:old_user) { build(:user) }
     before :each do
-      allow(old_user).to receive(:committee_list) { first_tag_list }
       allow(user).to receive(:committee_list) { second_tag_list }
     end
     it 'it should show the gained committees' do
-      expect(user.get_committee_changes(old_user)[:gained_committies]).to eq(['kiss', 'management'])
+      expect(user.get_committee_changes(first_tag_list)[:gained_committees]).to eq(['kiss', 'management'])
     end
     it 'it should show lost committees' do
-      expect(user.get_committee_changes(old_user)[:lost_committies]).to eq(['show'])
+      expect(user.get_committee_changes(first_tag_list)[:lost_committees]).to eq(['show'])
     end
     it 'it should set the changed boolean to true' do
-      expect(user.get_committee_changes(old_user)[:changed]).to be(true)
+      expect(user.get_committee_changes(first_tag_list)[:changed]).to be(true)
     end
   end
 
@@ -224,15 +222,15 @@ RSpec.describe User, type: :model do
     let(:current_user) { build(:user, :registered, :admin) }
     let(:committee_changes) do
       {
-        lost_committies: ['lost'],
-        gained_committies: ['gained'],
+        lost_committees: ['lost'],
+        gained_committees: ['gained'],
         changed: true
       }
     end
     let(:committee_no_change) do
       {
-        lost_committies: [],
-        gained_committies: [],
+        lost_committees: [],
+        gained_committees: [],
         changed: false
       }
     end

@@ -1,13 +1,14 @@
 require 'rails_helper'
-# require 'icons_helper'
+require 'icons_helper'
 RSpec.describe SeasonsHelper do
+  let(:dummy_class) { Class.new { include SeasonsHelper } }
   describe '.current_season' do
     context 'this is spring time !' do
       before do
         allow(Date).to receive(:today) { Date.new(2018, 3, 29) }
       end
       it 'should return spring' do
-        expect(UsersController.current_season).to eq('spring')
+        expect(dummy_class.new.current_season).to eq('spring')
       end
     end
     context 'this is winter time !' do
@@ -15,7 +16,7 @@ RSpec.describe SeasonsHelper do
         allow(Date).to receive(:today) { Date.new(2018, 12, 29) }
       end
       it 'should return winter' do
-        expect(UsersController.current_season).to eq('winter')
+        expect(dummy_class.new.current_season).to eq('winter')
       end
     end
   end
@@ -26,7 +27,7 @@ RSpec.describe SeasonsHelper do
         allow(Date).to receive(:today) { Date.new(2018, 3, 29) }
       end
       it 'it returns spring' do
-        expect(UsersController.next_season).to eq('summer')
+        expect(dummy_class.new.next_season).to eq('summer')
       end
     end
     context 'this is winter time !' do
@@ -34,7 +35,7 @@ RSpec.describe SeasonsHelper do
         allow(Date).to receive(:today) { Date.new(2018, 12, 29) }
       end
       it 'it returns winter' do
-        expect(UsersController.next_season).to eq('spring')
+        expect(dummy_class.new.next_season).to eq('spring')
       end
     end
   end

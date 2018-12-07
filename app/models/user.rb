@@ -136,12 +136,12 @@ class User < ApplicationRecord
   end
 
   def get_committee_changes(old_user_committees)
-    lost_committies = old_user_committees - committee_list
-    gained_committies = committee_list - old_user_committees
+    lost_committees = old_user_committees - committee_list
+    gained_committees = committee_list - old_user_committees
     {
-      lost_committies: lost_committies,
-      gained_committies: gained_committies,
-      changed: !(lost_committies.empty? && gained_committies.empty?)
+      lost_committees: lost_committees,
+      gained_committees: gained_committees,
+      changed: !(lost_committees.empty? && gained_committees.empty?)
     }
   end
 

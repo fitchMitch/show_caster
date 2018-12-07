@@ -111,7 +111,7 @@ RSpec.describe 'Users', type: :request do
     let(:current_user) { create(:user, :admin, :registered) }
     let(:old_user) { create(:user, :admin, :registered) }
     let(:valid_updates) do
-      { role: 'admin', status: :registered, committee_id: user.committee_id }
+      { role: 'admin', status: :registered }
     end
     let!(:url) { "/users/#{user.id}/promote" }
     before :each do
