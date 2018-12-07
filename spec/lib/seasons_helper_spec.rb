@@ -7,7 +7,7 @@ RSpec.describe SeasonsHelper do
         allow(Date).to receive(:today) { Date.new(2018, 3, 29) }
       end
       it 'should return spring' do
-        expect(CommitteesController.current_season).to eq('spring')
+        expect(UsersController.current_season).to eq('spring')
       end
     end
     context 'this is winter time !' do
@@ -15,7 +15,7 @@ RSpec.describe SeasonsHelper do
         allow(Date).to receive(:today) { Date.new(2018, 12, 29) }
       end
       it 'should return winter' do
-        expect(CommitteesController.current_season).to eq('winter')
+        expect(UsersController.current_season).to eq('winter')
       end
     end
   end
@@ -26,7 +26,7 @@ RSpec.describe SeasonsHelper do
         allow(Date).to receive(:today) { Date.new(2018, 3, 29) }
       end
       it 'it returns spring' do
-        expect(CommitteesController.next_season).to eq('summer')
+        expect(UsersController.next_season).to eq('summer')
       end
     end
     context 'this is winter time !' do
@@ -34,7 +34,7 @@ RSpec.describe SeasonsHelper do
         allow(Date).to receive(:today) { Date.new(2018, 12, 29) }
       end
       it 'it returns winter' do
-        expect(CommitteesController.next_season).to eq('spring')
+        expect(UsersController.next_season).to eq('spring')
       end
     end
   end
