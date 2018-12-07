@@ -5,6 +5,8 @@ class CreateTheater < ActiveRecord::Migration[5.0]
       t.string :location
       t.string :manager
       t.string :manager_phone
+
+      t.timestamps
     end
   end
 end
