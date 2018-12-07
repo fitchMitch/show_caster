@@ -29,6 +29,7 @@ gem 'modernizr-rails',                                      '~> 2.7'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem 'meta-tags', require: 'meta_tags'
+gem "select2-rails",                                        '~> 4.0'
 gem 'font-awesome-rails',                                   '~> 4.7'
 gem 'simple_form',                                          '~> 4.0'
 gem 'enum_help',                                            '~> 0.0'

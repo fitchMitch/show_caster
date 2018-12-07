@@ -189,9 +189,7 @@ ActiveRecord::Schema.define(version: 20181206103720) do
     t.datetime "updated_at",                      null: false
     t.string   "color"
     t.text     "bio"
-    t.integer  "committee_id"
     t.datetime "former_connexion_at"
-    t.index ["committee_id"], name: "index_users_on_committee_id", using: :btree
     t.index ["email"], name: "index_users_on_email", using: :btree
     t.index ["uid"], name: "index_users_on_uid", using: :btree
   end

@@ -110,4 +110,19 @@ RSpec.describe UsersHelper, type: :helper do
       end
     end
   end
+
+  describe '#committee_tag_display' do
+    let(:user) { build(:user) }
+    subject { helper.committee_tag_display(user) }
+    before do
+      allow(user).to receive(:committee_list) { ['tag1', 'tag2'] }
+    end
+    it 'it should deliver 2 badges' do
+      expect(subject).to include('label')
+      expect(subject).to include('label-success')
+      expect(subject).to include('img')
+      expect(subject).to include('tag1')
+      expect(subject).to include('tag2')
+    end
+  end
 end

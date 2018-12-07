@@ -1,10 +1,14 @@
 h3= "Hello #{@user.firstname } !"
 p
-  | L'administrateur vient de changer ton statut sur le site.
+  | L'administrateur vient de changer ton statut sur le site. Et si on résume :
+ul
   - unless @role.nil?
-    = "Tu as les droits de : '#{@role.capitalize}'. "
-  -unless @committee.nil?
-    = "Tu fais partie de la commission : \"#{@committee}\""
+    li= "Tu as les droits de : '#{@role}'. "
+  - unless @committee_plus.empty?
+    li= "Tu fais partie de la ou des commissions :  \"#{@committee_plus.join(',')}\" "
+  - unless @committee_minus.empty?
+    li= "Tu ne fais plus partie de la ou des commissions :  \"#{@committee_minus.join(',')}\", hélas "
+
 p
   | Rendez-vous
   = " "

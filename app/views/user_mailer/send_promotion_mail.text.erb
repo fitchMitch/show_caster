@@ -2,10 +2,13 @@ Hello <%= @user.firstname  %> !
 ===============================
 L'administrateur vient de changer ton statut sur le site.
 <% unless @role.nil? %>
-  Tu as les droits de : '<%= @role.capitalize %>'
+  Tu as les droits de : '<%= @role %>'
 <% end %>
-<% unless @committee.nil? %>
-  Tu fais partie de la commission : "<%= @committee %>"
+<% unless @committee_plus.nil? %>
+  Tu fais partie de la commission : "<%= @committee_plus %> "
+<% end %>
+<% unless @committee_minus.nil? %>
+  Tu ne fais plus partie de la commission : "<%= @committee_minus %>, hélas "
 <% end %>
 
 Rendez-vous : <%= link_to('ici même', @url) %> et sur le site, pour voir de quoi il retourne
