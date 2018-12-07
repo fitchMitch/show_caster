@@ -29,6 +29,7 @@ gem 'modernizr-rails',                                      '~> 2.7'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem 'meta-tags', require: 'meta_tags'
+gem "select2-rails",                                        '~> 4.0'
 gem 'font-awesome-rails',                                   '~> 4.7'
 gem 'simple_form',                                          '~> 4.0'
 gem 'enum_help',                                            '~> 0.0'
@@ -37,6 +38,9 @@ gem 'papercrop',                                            '~> 0.3'
 gem 'rails-assets-jcrop', source: 'https://rails-assets.org'
 gem 'commontator',                                          '~> 5.1.0'
 gem 'kaminari',                                             '~> 1.1'
+gem 'acts-as-taggable-on',                                  '~> 6.0'
+gem 'rails-settings-cached',                                '~> 0.6'
+# gem 'rails-settings-cached', source: 'https://rubygems.org'
 # API ones
 # -----------------------
 gem 'gibbon',                                               '~> 3.2'

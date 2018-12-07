@@ -9,8 +9,7 @@
       = status_label(user)
   .col-md-2.col-xs-3.hidden-xs
     small
-      - unless user.committee_id.nil?
-        = user.committee.name
+      = committee_tag_display(user)
   .col-md-2.col-sm-3.col-xs-6
     strong
       = user.try(:cell_phone_nr)

@@ -129,4 +129,14 @@ module UsersHelper
     image = extract_icons(1, season_path).first
     "icons/#{season_path}/#{image}"
   end
+
+  def committee_tag_display(user)
+    return if user.committee_list.empty?
+
+    res = []
+    user.committee_list.each do |tag|
+      res << content_tag(:span, tag, class: ['label', 'label-success'])
+    end
+    res.join(image_tag('transp.png')).html_safe
+  end
 end

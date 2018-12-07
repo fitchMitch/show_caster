@@ -1,5 +1,10 @@
 max_char = 250
 message = 'En attente ...'
+
+# create_option = (item) ->
+#   option = new Option(item.name, item.id, true, false)
+#   $element.append(option)
+
 $('#user_bio').on 'keyup', ->
   common = "caractères - #{max_char} car max"
   car_count = @value.length
@@ -23,4 +28,20 @@ if $("#about_me").length > 0
   $(".shine_2").show(random_time(1500,1000))
   $(".shine_3").show(random_time(2000,1500))
   $(".shine_5").show(random_time(2500,2000))
+
+if $("#user_committee_list").length > 0
+  $element = $("#user_committee_list").select2
+    tags: true,
+    tokenSeparators: [','],
+    width: 400,
+    label: true
+  # $request = $.ajax
+  #   url: '/committees'
+  #
+  # $request.then( (data) ->
+  #   create_option d for d in data
+  #   $element.trigger('change')
+  # )
+
+
 return

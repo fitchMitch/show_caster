@@ -11,7 +11,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def new?
-    admin?
+    admin? && registered?
   end
 
   def index?

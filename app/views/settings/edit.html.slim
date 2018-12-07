@@ -1,0 +1,17 @@
+.container
+  .page-header
+    h2= title_with_image('026-wrench.png', 'settings.list')
+    hr
+    = form_for(@setting, url: setting_path(@setting.var), method: 'patch' ) do |f|
+      .form-inputs
+        .row
+          .col-sm-3.right
+            = label_tag(:value, t(@setting.var))
+          .col-sm-6
+            = f.text_area :value, cols: 70, lines: 4
+            - if @setting.var == 'committees'
+              p.space-up-5
+                i
+                  small= t('settings.hint').html_safe
+      .form-actions.center.space-up-15
+        = f.submit t("submit"), class: 'btn btn-primary'

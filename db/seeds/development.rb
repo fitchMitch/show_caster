@@ -11,38 +11,33 @@ def randy(n)
 end
 
 def n_out_of_m?(n, m)
-  randy(m) < n
+  randy(m) <= n
 end
 
 # -----------------
 # Committees
 # -----------------
-%w[
-  défaut
-  babe
-  spectacle
-  communication
-  administratif
-  financier
-  dev
-].each do |name|
-  Committee.create!(
-    name: name
-  )
-end
-committees = Committee.all
+committees = [
+  'spectacle',
+  'communication',
+  'cours',
+  'administratif',
+  'financier',
+  'vie de la troupe'
+]
 
 # -----------------
 # Users
 # -----------------
+
 User.create!(
   firstname:             'Etienne',
   lastname:              'WEIL',
   email:                 'weil.etienne@hotmail.fr',
   role:                   2,
   cell_phone_nr:          FFaker::PhoneNumberFR.mobile_phone_number,
-  address:                '18, rue de Cotte Paris 12e',
-  committee:              committees.last
+  address:                '18, rue de Cotte Paris 12e'
+  # committee:              committees.last
   # uid:                    105205260860063499768
 )
 18.times do |n|
@@ -54,7 +49,7 @@ User.create!(
   is_registered =          n_out_of_m?(8, 11)
   cell_phone_nr =          nil
   address =                nil
-  committee =              committees.sample
+  # committee =              committees.sample
   if is_registered
     cell_phone_nr =        FFaker::PhoneNumberFR.mobile_phone_number
     address =              FFaker::AddressFR.unique.full_address
@@ -72,11 +67,17 @@ User.create!(
     status:               status,
     cell_phone_nr:        cell_phone_nr,
     address:              address,
-    role:                 role,
-    committee_id:         committee.id
+    role:                 role
   )
 end
 users = User.all
+# adding committees to the Users
+# -----------------
+users.each do |user|
+  user.committee_list.add(committees.sample) if n_out_of_m?(4, 5)
+  user.committee_list.add(committees.sample) if n_out_of_m?(1, 5)
+  user.save
+end
 # -----------------
 #Coaches
 # -----------------

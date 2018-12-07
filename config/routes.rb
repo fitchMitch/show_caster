@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   mount Commontator::Engine => '/commontator'
   # Users and Sessions
+  resources :settings, only: %i[index edit update]
+
   resources :users do
     resources :pictures, module: :users
     member do
@@ -57,7 +59,7 @@ Rails.application.routes.draw do
   end
 
   # Answers, Committes, Theaters
-  resources :answers, :theaters, :committees
+  resources :answers, :theaters
 
   # Dashboard
   get  '/dashboard'   => 'dashboards#index'

@@ -30,7 +30,12 @@ class UsersController < ApplicationController
     render target
   end
 
-  def show; end
+  def show
+    @committee_full_list = Setting.committees
+                                  .split(',')
+                                  .map(&:strip)
+                                  .join(',')
+  end
 
   def update
     phone_exists = user_params[:cell_phone_nr].blank?
@@ -46,14 +51,15 @@ class UsersController < ApplicationController
 
   def promote
     old_user = @user.dup
+    old_user_committees = @user.committee_list
 
     user_updates = {
       role: params[:user][:role],
       status: params[:user][:status],
-      committee_id: params[:user][:committee_id]
+      committee_list: params[:user][:committee_list]
     }
     if @user && @user.update(user_updates)
-      message = @user.inform_promoted_person(current_user, old_user)
+      message = @user.inform_promoted_person(current_user, old_user, old_user_committees)
       redirect_to @user, notice: I18n.t(message, name: @user.full_name)
     else
       flash[:alert] = I18n.t('users.promoted_failed', name: @user.full_name)
@@ -91,6 +97,13 @@ class UsersController < ApplicationController
     @last_poll_results = my_own.last_poll_results(current_user)
   end
 
+  # def committee_counts
+  #   @results = User.committee_counts
+  #   respond_to do |format|
+  #     format.json { render json: @results.as_json(only: [:name, :id]) }
+  #   end
+  # end
+
   private
 
   def set_user
@@ -108,7 +121,7 @@ class UsersController < ApplicationController
             :cell_phone_nr,
             :status,
             :bio,
-            :committee_id
+            committee_lists: []
           )
   end
 end

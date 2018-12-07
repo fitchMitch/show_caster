@@ -12,7 +12,7 @@
         .image-container
           .image-part
             = image_tag("icons/png/characters/#{extract_icons(1, 'png/characters').first}",
-            size: 350 )
+                        size: 350 )
       - else @user.pictures.empty?
         .image-container
           .image-part
@@ -22,40 +22,7 @@
             small= t("users.photograph_comment")
         p.bio= @user.bio unless @user.try(:bio).nil?
     .col-sm-8
-      .row
-        .col-sm-4.right.hidden-sm.hidden-xs Photo Google
-        .col-sm-8
-          - if @user.photo_url.present?
-            = image_tag(@user.photo_url, size: "150x150")
-          - else
-            = image_tag('Zoidberg.png', size: "150x150")
-      .row.form-std-height
-        .col-sm-4.right.hidden-sm.hidden-xs= t("users.role")
-        .col-sm-8
-          = @user.role_i18n
-      - unless @user.committee_id.nil?
-        .row.form-std-height
-          .col-sm-4.right.hidden-sm.hidden-xs= t("users.committee")
-          .col-sm-8
-            .label.label-info= @user.committee.name
-            br
-              small
-                i= @user.committee.mission
-      .row.form-std-height
-        .col-sm-4.right.hidden-sm.hidden-xs= t("users.address")
-        .col-sm-8= @user.address if @user.address.present?
-      .row.form-std-height
-        .col-sm-4.right.hidden-sm.hidden-xs= t("users.email")
-        .col-sm-8= @user.email
-      - if policy(@user).show_last_connexion?
-        .row.form-std-height
-          .col-sm-4.right.hidden-sm.hidden-xs= t("users.last_connexion")
-          .col-sm-8= @user.last_connexion
-      .row.form-std-height
-        .col-sm-4.right.hidden-sm.hidden-xs= t("users.cell_phone_nr")
-        .col-sm-8
-          .phone-big
-            .label.label-info= @user.cell_phone_nr
+      = render 'vertical_attributes'
       .row.form-std-height
         .col-sm-4.right
         .col-sm-8

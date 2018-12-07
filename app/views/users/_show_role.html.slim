@@ -22,10 +22,10 @@
                include_blank: false
           .row
             .col-xs-12
-              = f.input :committee_id,
-                collection: Committee.all.sort,
-                label: t("users.committee"),
-                include_blank: false
+              = f.input :committee_list,
+                        collection: User.commitee_names_list,
+                        label: "#{t('committees')} ",
+                        input_html: { value: user.committee_list, multiple: 'multiple', data: { placeholder: "Tags" } }
           .row
             .col-lg-12
               .buttons

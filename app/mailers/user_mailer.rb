@@ -11,8 +11,10 @@ class UserMailer < ApplicationMailer
     @user = user
     @url  = get_user_s_url(@user)
     @role = changes.fetch(:role, nil)
-    @role = @user.role_i18n.downcase unless @role.nil?
-    @committee = changes.fetch(:committee, nil)
+    @role = @user.role_i18n.downcase.capitalize unless @role.nil?
+
+    @committee_plus = to_sentence(changes.fetch(:gained_committees, nil))
+    @committee_minus = to_sentence(changes.fetch(:lost_committees, nil))
 
     mail(to: @user.email, subject: I18n.t('users.promote_mail.subject'))
   end
@@ -21,6 +23,11 @@ class UserMailer < ApplicationMailer
 
   def get_user_s_url(user)
     "http://#{get_site}/users/#{user.id}"
+  end
+
+  def to_sentence(list)
+    list.map!(&:capitalize) unless list.nil?
+    list.nil? || list.empty? ? nil : list.join(', ')
   end
 
   def login_url

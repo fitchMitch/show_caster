@@ -1,6 +1,8 @@
 
+
 class User < ApplicationRecord
   acts_as_commontator
+  acts_as_taggable_on :committees
   # includes
   include Users::Formating
   include Users::Validating
@@ -129,29 +131,37 @@ class User < ApplicationRecord
     color.split(';').second
   end
 
-  def inform_promoted_person(current_user, old_user)
+  def self.commitee_names_list
+    User.committee_counts.pluck(:name)
+  end
+
+  def get_committee_changes(old_user_committees)
+    lost_committees = old_user_committees - committee_list
+    gained_committees = committee_list - old_user_committees
+    {
+      lost_committees: lost_committees,
+      gained_committees: gained_committees,
+      changed: !(lost_committees.empty? && gained_committees.empty?)
+    }
+  end
+
+  def inform_promoted_person(current_user, old_user, old_user_committees)
     return 'users.updated' if current_user == self || status == 'archived'
 
-    committee_changed = committee_id != old_user.committee_id
+    committy_changes = get_committee_changes(old_user_committees)
+    committee_changed = committy_changes[:changed]
+
     muted_promotion = promotions_to_mute(old_user)
     role_changed = old_user.role != role
 
     if muted_promotion
-      send_promotion_mail(committee: committee.name) if committee_changed
+      send_promotion_mail(committy_changes) if committee_changed
     elsif role_changed && !committee_changed
       send_promotion_mail(role: status)
-    elsif role_changed && committee_changed
-      send_promotion_mail(
-        committee: committee.name,
-        role: role
-      )
+    elsif (role_changed && committee_changed) ||  old_user.status == 'archived'
+      send_promotion_mail(committy_changes.merge(role: role))
     elsif committee_changed
-      send_promotion_mail(committee: committee.name)
-    elsif old_user.status == 'archived'
-      send_promotion_mail(
-        committee: committee.name,
-        role: role
-      )
+      send_promotion_mail(committy_changes)
     end
 
     # messaging
@@ -171,8 +181,10 @@ class User < ApplicationRecord
 
   def more_power(o_user)
     return true if o_user.role == 'other'
+
     User.roles[role] >= User.roles[o_user.role]
   end
+
 
 
   def format_fields

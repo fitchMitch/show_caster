@@ -16,4 +16,5 @@
 //= require cocoon
 //= require jquery.jcrop
 //= require papercrop
+//= require select2-full
 //= require_tree .

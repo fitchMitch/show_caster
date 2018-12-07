@@ -1,27 +1,3 @@
-# == Schema Information
-#
-# Table name: users
-#
-#  id              :integer          not null, primary key
-#  firstname       :string           not null
-#  lastname        :string           not null
-#  email           :string
-#  last_sign_in_at :datetime
-#  status          :integer          default('setup')
-#  provider        :string
-#  uid             :string
-#  address         :string
-#  cell_phone_nr   :string
-#  photo_url       :string
-#  role            :integer          default('player')
-#  token           :string
-#  refresh_token   :string
-#  expires_at      :datetime
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  color           :string
-#  bio             :text
-#
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
@@ -219,21 +195,52 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#get_committee_changes' do
+    let(:first_tag_list) { ['show', 'communication', 'psychokiller'] } # old_user
+    let(:second_tag_list) { ['kiss', 'communication', 'psychokiller', 'management'] }
+    let(:user) { build(:user) }
+    before :each do
+      allow(user).to receive(:committee_list) { second_tag_list }
+    end
+    it 'it should show the gained committees' do
+      expect(user.get_committee_changes(first_tag_list)[:gained_committees]).to eq(['kiss', 'management'])
+    end
+    it 'it should show lost committees' do
+      expect(user.get_committee_changes(first_tag_list)[:lost_committees]).to eq(['show'])
+    end
+    it 'it should set the changed boolean to true' do
+      expect(user.get_committee_changes(first_tag_list)[:changed]).to be(true)
+    end
+  end
+
   describe '#inform_promoted_person' do
     let(:user) { build(:user, :registered, :player) }
-    let(:committee) { create(:committee) }
-    let(:player) { build(:user, :registered, :player, committee_id: user.committee_id) }
-    let(:player2) { build(:user, :registered, :player, committee_id: committee.id) }
+    let(:player) { build(:user, :registered, :player) }
+    let(:player2) { build(:user, :registered, :player) }
     let(:admin_com) { build(:user, :registered, :admin_com) }
     let(:admin) { build(:user, :registered, :admin) }
     let(:current_user) { build(:user, :registered, :admin) }
+    let(:committee_changes) do
+      {
+        lost_committees: ['lost'],
+        gained_committees: ['gained'],
+        changed: true
+      }
+    end
+    let(:committee_no_change) do
+      {
+        lost_committees: [],
+        gained_committees: [],
+        changed: false
+      }
+    end
     context 'when current_user curates himself' do
       it 'should return nothing' do
-        expect(user.inform_promoted_person(user, admin)).to eq('users.updated')
+        expect(user.inform_promoted_person(user, admin, [])).to eq('users.updated')
       end
       it 'it should not send any mail' do
         expect(user).not_to receive(:send_promotion_mail)
-        user.inform_promoted_person(user, admin)
+        user.inform_promoted_person(user, admin, [])
       end
     end
 
@@ -242,37 +249,45 @@ RSpec.describe User, type: :model do
         allow_any_instance_of(User).to receive(:promotions_to_mute) { false }
       end
       context 'and when there is a committee change and a role change' do
+        before :each do
+          allow(
+            admin_com
+          ).to receive(:get_committee_changes) { committee_changes }
+        end
         it 'it shall be told to the user' do
           allow(admin_com).to receive(:send_promotion_mail).with(
-            committee: admin_com.committee.name,
-            role: admin_com.role
+            committee_changes.merge(role: admin_com.role)
           ) { nil }
           expect(
-            admin_com.inform_promoted_person(current_user, player)
+            admin_com.inform_promoted_person(current_user, player, [])
           ).to eq('users.promoted')
         end
         it 'it shall send a promotion mail with committee name' do
           expect(admin_com).to receive(:send_promotion_mail).with(
-            committee: admin_com.committee.name,
-            role: admin_com.role
+            committee_changes.merge(role: admin_com.role)
           ) { nil }
-          admin_com.inform_promoted_person(current_user, player)
+          admin_com.inform_promoted_person(current_user, player, [])
         end
       end
       context 'and when there is committee change, but unchanged roles' do
+        before :each do
+          allow(
+            player2
+          ).to receive(:get_committee_changes) { committee_changes }
+        end
         it 'it shall be told to the user' do
           allow(player2).to receive(:send_promotion_mail).with(
-            committee: player2.committee.name
+            committee_changes
           ) { nil }
           expect(
-            player2.inform_promoted_person(current_user, player)
+            player2.inform_promoted_person(current_user, player, [])
           ).to eq('users.promoted')
         end
         it 'it shall send a promotion mail with committee name' do
           expect(player2).to receive(:send_promotion_mail).with(
-            committee: player2.committee.name
+            committee_changes
           ) { nil }
-          player2.inform_promoted_person(current_user, player)
+          player2.inform_promoted_person(current_user, player, [])
         end
       end
     end
@@ -282,30 +297,40 @@ RSpec.describe User, type: :model do
         allow_any_instance_of(User).to receive(:promotions_to_mute) { true }
       end
       context 'and when there is a committee change' do
+        before :each do
+          allow(
+            user
+          ).to receive(:get_committee_changes) { committee_changes }
+        end
         it 'it shall be told to the user' do
           allow(user).to receive(:send_promotion_mail).with(
-            committee: user.committee.name
+            committee_changes
           ) { nil }
           expect(
-            user.inform_promoted_person(current_user, player2)
+            user.inform_promoted_person(current_user, player2, [])
           ).to eq('users.promoted')
         end
         it 'it shall send a promotion mail with committee name' do
           expect(user).to receive(:send_promotion_mail).with(
-            committee: user.committee.name
+            committee_changes
           ) { nil }
-          user.inform_promoted_person(current_user, player2)
+          user.inform_promoted_person(current_user, player2, [])
         end
       end
       context 'and when there is NO committee change' do
+        before :each do
+          allow(
+            user
+          ).to receive(:get_committee_changes) { committee_no_change }
+        end
         it 'it shall be told to the user' do
           expect(
-            user.inform_promoted_person(current_user, player)
+            user.inform_promoted_person(current_user, player, [])
           ).to eq('users.promoted_muted')
         end
         it 'it shall send a promotion mail with committee name' do
           expect(user).not_to receive(:send_promotion_mail) { nil }
-          user.inform_promoted_person(current_user, player)
+          user.inform_promoted_person(current_user, player, [])
         end
       end
     end
