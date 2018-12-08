@@ -79,6 +79,7 @@ module UsersHelper
     if user.pictures && user.pictures.first && user.pictures.first.photo
       user.pictures.first.photo(:square)
     else
+      #TODO set as class_variable
       user.photo_url || image_url('Zoidberg.png')
     end
   end
@@ -95,9 +96,14 @@ module UsersHelper
   end
 
   def display_avatar_list
+    user_count = User.active.count
+    return image_tag(random_character_avatar, size: 35).html_safe if (user_count == 1)
+
     res = ''
-    extract_icons(User.active.count, 'png/characters').each do |file|
-      res += image_tag("icons/png/characters/#{file}", size: 35).html_safe
+    avatar_path = 'png/characters'
+    #TODO set as class_variable
+    extract_icons(user_count, avatar_path).each do |file|
+      res += image_tag(get_png_image_path(avatar_path, file), size: 35).html_safe
     end
     res
   end
@@ -119,15 +125,17 @@ module UsersHelper
   end
 
   def random_next_season_image
-    season_path = "png/seasons/#{next_season}"
-    image = extract_icons(1, season_path).first
-    "icons/#{season_path}/#{image}"
+    path = "png/seasons/#{next_season}"
+    get_random_png_icon(path)
   end
 
   def random_current_season_image
-    season_path = "png/seasons/#{current_season}"
-    image = extract_icons(1, season_path).first
-    "icons/#{season_path}/#{image}"
+    path = "png/seasons/#{current_season}"
+    get_random_png_icon(path)
+  end
+
+  def random_character_avatar
+    get_random_png_icon('png/characters')
   end
 
   def committee_tag_display(user)
