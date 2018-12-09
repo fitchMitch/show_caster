@@ -1,0 +1,1 @@
+class ExercicePolicy < OpenPolicy; end

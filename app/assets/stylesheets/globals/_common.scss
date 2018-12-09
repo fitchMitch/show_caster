@@ -72,8 +72,17 @@
 .blue-bar-150{ display: block; height:3px; background-color: $sesame-blue; width: 150px; }
 .blue-bar-200{ display: block; height:3px; background-color: $sesame-blue; width: 200px; }
 .blue-bar-250{ display: block; height:3px; background-color: $sesame-blue; width: 250px; }
-yellowk.undecorated-link{ text-decoration: none; }
-hr.thin-hr{ margin-top: 2px; margin-bottom: 2px; border-top: dashed 1px}
+.undecorated-link{ text-decoration: none; }
+hr.thin-hr{
+  margin-top: 2px;
+  margin-bottom: 2px;
+  border-top: dashed 1px;
+}
+hr.thin-hr-spaced{
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border-top: dashed 1px;
+}
 .dwarf{
   display: inline-block;
   line-height: 1.21em;

@@ -1,0 +1,26 @@
+.row
+  .col-lg-2.col-md-3.col-sm-4.col-xs-5
+    p.exercice-title
+      strong= exercice.title
+    p.exercice-under-title
+      .row
+        .col-xs-8
+          small
+            |# joueurs :
+        .col-xs-3
+          small
+            strong= exercice.max_people_i18n
+      .row
+        .col-xs-8
+          small
+            | Niveau d'énergie :
+        .col-xs-3
+          small
+            strong= exercice.energy_level_i18n
+  .col-lg-4.col-md-4.col-sm-4.col-xs-6= exercice.instructions.truncate(250)
+  .col-lg-2.col-md-2.hidden-sm.hidden-xs= exercice.category_i18n
+  .col-lg-3.col-md-2.col-sm-4.hidden-xs= skill_tag_display(exercice)
+  - if policy(exercice).edit?
+    .col-lg-1.col-md-1.hidden-sm.hidden-xs
+      = link_to fa_icon("edit", text: t("edit")), edit_exercice_path(exercice)
+hr.thin-hr

@@ -1,0 +1,22 @@
+.container
+  .page-header
+    span.room-right-15
+      = link_to exercices_path, class: 'btn btn-info' do
+        = back_sign
+    = link_to edit_exercice_path(@exercice), class: 'btn btn-primary' do
+      span.glyphicon.glyphicon-pencil
+        = " #{t("edit")}"
+    h1
+      = @exercice.exercice_name
+
+
+  dl.dl-horizontal
+    dt
+      = "#{t("exercices.location")} : "
+    dd= @exercice.location
+    dt
+      = "#{t("exercices.manager")} : "
+    dd= @exercice.manager
+    dt
+      = "#{t("exercices.manager_phone")} : "
+    dd= @exercice.manager_phone

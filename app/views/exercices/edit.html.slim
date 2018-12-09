@@ -1,0 +1,10 @@
+.container
+  .page-header
+    span.room-right-5
+      = link_to exercices_path, class: 'btn btn-info room-right-25' do
+        = back_sign
+
+    h2
+      = t("exercices.edit_exercice")
+
+  = render 'form'

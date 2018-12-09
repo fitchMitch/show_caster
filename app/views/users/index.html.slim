@@ -3,7 +3,7 @@
     = t("layout.users", theater_company: "Sésames")
   h2= display_avatar_list.html_safe unless User.active.count.zero?
   h2= t("users.list")
-  .row.strong
+  .row
     .col-md-3.col-sm-3.col-xs-6
       strong= t('player')
       br
