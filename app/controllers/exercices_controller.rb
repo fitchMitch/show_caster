@@ -20,7 +20,11 @@ class ExercicesController < ApplicationController
   def edit; end
 
   def create
-    @exercice = Exercice.new(exercice_params)
+    @exercice = Exercice.new(
+      exercice_params.merge(
+        skill_list: params[:exercice][:skill_list]
+      )
+    )
     authorize @exercice
     if @exercice.save
       redirect_to exercices_path, notice: I18n.t('exercices.save_success')

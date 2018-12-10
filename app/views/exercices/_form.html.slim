@@ -3,21 +3,25 @@
 
   .form-inputs
     .row
-      .col-sm-6.col-lg-3
+      .col-lg-3.col-sm-6
         = f.input :title, label: t("exercices.title")
-      .col-sm-6.col-lg-3
+      .col-lg-3.col-sm-6
         = f.input :category, label: t("exercices.category")
-      .col-sm-6.col-lg-3
+      .col-lg-3.col-sm-6
         = f.input :energy_level, label: t("exercices.energy_level")
-      .col-sm-6.col-lg-3
+      .col-lg-3.col-sm-6
         = f.input :max_people, label: t("exercices.max_people")
+    .row
       .col-sm-12.col-lg-6
         =f.input :instructions, label: t('exercices.instructions')
       .col-sm-12.col-lg-6
+        strong= t('skills')
+        br
         = f.input :skill_list,
                   collection: Exercice.skill_names_list,
-                  label: "#{t('skills')} ",
+                  label: false,
                   input_html: { value: @exercice.skill_list, multiple: 'multiple', data: { placeholder: "Tags" } }
+    .row
       .col-xs-12.col-lg-6
         =f.input :focus, label: t('exercices.focus')
       .col-xs-12.col-lg-6
