@@ -24,3 +24,23 @@ fr:
         yess: "Yes !"
         maybe: "Peut-être"
         missing_information: "J'attends une info"
+    exercice:
+      category:
+        space_sizing: Prise en compte de l'espace
+        connexion: Connexion aux autres
+        time_sizing: Mesure du temps
+        body_expression: Expression du corps
+        imagination: Créativité
+        story_telling: Raconter une histoire
+        just_listening: Ecoute
+        confidence: Confiance en soi
+      energy_level:
+        low: Bas
+        standard: Moyen
+        high: Fort
+      max_people:
+        everyone: 16
+        one: 1
+        two: 2
+        four: 4
+        six: 6

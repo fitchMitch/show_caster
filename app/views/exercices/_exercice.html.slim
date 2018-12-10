@@ -1,0 +1,32 @@
+.row.exercice-desc
+  .col-lg-2.col-md-3.col-sm-4.col-xs-5
+    p.exercice-title
+      = link_to exercice_path(exercice) do
+        strong
+          = exercice.title
+      end
+    p.exercice-under-title
+      .row
+        .col-xs-8
+          small
+            |# joueurs :
+        .col-xs-3
+          small
+            strong= exercice.max_people_i18n
+      .row
+        .col-xs-8
+          small
+            | Niveau d'énergie :
+        .col-xs-3
+          small
+            strong= exercice.energy_level_i18n
+  .col-lg-4.col-md-4.col-sm-4.col-xs-6= exercice.instructions.truncate(250)
+  .col-lg-2.col-md-2.hidden-sm.hidden-xs= exercice.category_i18n
+  .col-lg-3.col-md-2.col-sm-4.hidden-xs= skill_tag_display(exercice)
+  - if policy(exercice).edit?
+    .col-lg-1.col-md-1.hidden-sm.hidden-xs
+      = link_to fa_icon("edit 2x"), edit_exercice_path(exercice)
+      - if policy(exercice).destroy?
+        = image_tag('transp.png')
+        = link_to(fa_icon("trash 2x"), exercice, class:'destroy', id: 'destroy', data: { confirm: t('sure_question')}, method: :delete)
+hr.thin-hr

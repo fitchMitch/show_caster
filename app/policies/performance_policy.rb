@@ -1,2 +1,1 @@
-class PerformancePolicy < EventPolicy
-end
+class PerformancePolicy < EventPolicy; end

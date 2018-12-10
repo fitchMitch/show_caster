@@ -29,8 +29,8 @@ Rails.application.routes.draw do
     resources :pictures, module: :events
   end
 
-  # Coaches
-  resources :coaches
+  # Answers, Committes, Theaters, Coaches, Exercices
+  resources :answers, :theaters, :coaches, :exercices
 
   # Polls
   resources :polls, only: %i[index new]
@@ -58,8 +58,6 @@ Rails.application.routes.draw do
               type: 'VoteDate'
   end
 
-  # Answers, Committes, Theaters
-  resources :answers, :theaters
 
   # Dashboard
   get  '/dashboard'   => 'dashboards#index'

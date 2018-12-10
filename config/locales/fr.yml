@@ -7,7 +7,7 @@ fr:
   back: Retour
 
   company_name_short: Sésames
-  committees: Commissions 
+  committees: Commissions
   confirm : Wesh ! C'est sûr ?
   creation_date: Date de création
   created_at: Créé le
@@ -39,6 +39,7 @@ fr:
   role: Rôle sur le site
 
   show: Voir
+  skills: Tags
   sure_question: C'est sûr ?
   submit: Valider
 
@@ -87,6 +88,11 @@ fr:
         update: "Modifier le cours"
         edit: "Editer le cours"
         new: "Ajouter un cours"
+      exercice:
+        create: "Créer un exercice"
+        update: "Modifier l'exercice"
+        edit: "Editer l'exercice"
+        new: "Ajouter un exercice"
       performance:
         create: "Créer un spectacle"
         update: "Modifier le spectacle"

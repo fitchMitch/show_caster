@@ -1,0 +1,7 @@
+.container
+  .page-header
+    = link_to exercices_path, class: 'btn btn-info' do
+      = back_sign
+    h2= title_with_image('005-abstract.png', 'exercices.new')
+
+  = render 'form'

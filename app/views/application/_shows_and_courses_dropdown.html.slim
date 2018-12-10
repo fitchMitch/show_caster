@@ -16,8 +16,10 @@
         li= link_to t("courses.header"), courses_path
       - if policy(Coach).index?
         li= link_to t("coaches.header"), coaches_path
-        li.divider role="separator"
-        li
-          = link_to t("kazoo.header_name") , 'http://buonomo.github.io/kazoo/', target: '_blank'
-        li
-          = link_to t("kazoo.options") , 'http://buonomo.github.io/createCollections/', target: '_blank'
+      -if policy(Exercice).index?
+        li= link_to t("exercices.header"), exercices_path
+      li.divider role="separator"
+      li
+        = link_to t("kazoo.header_name") , 'http://buonomo.github.io/kazoo/', target: '_blank'
+      li
+        = link_to t("kazoo.options") , 'http://buonomo.github.io/createCollections/', target: '_blank'

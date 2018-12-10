@@ -1,0 +1,24 @@
+fr:
+  exercices:
+    actions: Actions
+    add: Ajouter un exercice
+    category: Catégorie
+    destroyed:  L'exercice est supprimé
+    instructions: Consigne
+    edit_exercice: Modifier l'exercice
+    fail_to_destroy: Impossible de supprimer l'exercice ... Super étrange !
+    focus: Faire attention à
+    energy_level: Niveau d'énergie
+    header: Exercices d'entrainement
+    list: Liste des exercices
+    max_people: Nombre de joueurs maximum
+    max_people_short: Nbr max.
+    new: Nouvel exercice
+    promess: Permet d'atteindre
+    show_title: Exercice
+    save_success: L'exercice a bien été ajouté
+    save_fails: La sauvegarde a échoué...
+    title: Intitulé
+    tags: Tags
+    update_success: La modification a bien été faite
+    updated: "Mise à jour : ok"

@@ -32,6 +32,7 @@ fr:
     players: Joueurs
     players_part: Côté joueurs
     progress: Avancement
+    private_event: show privé
     plus_actors: d'acteurs
     see: Voir la fiche spectacle
     show_in: Spectacle au %{name}
