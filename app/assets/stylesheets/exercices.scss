@@ -1,3 +1,12 @@
 p.exercice-under-title{
   line-height: 0.8em;
 }
+.exercice-show-caption{
+  font-weight: 800;
+  font-stretch: expanded;
+  display: block;
+  color: $sesame-blue;
+}
+.left-side-emphasis{
+  border-left: 3px $sesame-blue solid;
+}

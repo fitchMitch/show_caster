@@ -5,6 +5,11 @@
       br
       span.label.label-success
         = event.theater.theater_name
+      - if event.private_event
+        br
+        small
+          = fa_icon('star sm', text: t('performances.private_event'))
+          == " #{fa_icon('star sm')}"
     .col-md-2.room-left-15
       strong
         - if policy(event).show?

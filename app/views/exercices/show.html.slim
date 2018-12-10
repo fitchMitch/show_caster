@@ -6,17 +6,61 @@
     = link_to edit_exercice_path(@exercice), class: 'btn btn-primary' do
       span.glyphicon.glyphicon-pencil
         = " #{t("edit")}"
-    h1
-      = @exercice.exercice_name
+    .row
+      .col-lg-6
+        h2= @exercice.title
+      .col-lg-6.right
+        p.exercice-under-title
+          .row
+            .col-xs-8
+              small
+                |# joueurs :
+            .col-xs-3
+              small
+                strong=@exercice.max_people_i18n
+          .row
+            .col-xs-8
+              small
+                | Niveau d'énergie :
+            .col-xs-3
+              small
+                strong= @exercice.energy_level_i18n
 
+  .row
+    .col-lg-3.col-md-3.col-sm-4.col-xs-4
+      span.exercice-show-caption= t('exercices.category')
+    .col-lg-6.col-md-6.col-sm-4.col-xs-8
+      span.exercice-show-caption= t('exercices.instructions')
+    .col-lg-3.col-md-3.col-sm-4.hidden-xs
+      span.exercice-show-caption= t('exercices.promess')
 
-  dl.dl-horizontal
-    dt
-      = "#{t("exercices.location")} : "
-    dd= @exercice.location
-    dt
-      = "#{t("exercices.manager")} : "
-    dd= @exercice.manager
-    dt
-      = "#{t("exercices.manager_phone")} : "
-    dd= @exercice.manager_phone
+  .row.space-up-15
+    .col-lg-3.col-md-3.col-sm-4.col-xs-4.left-side-emphasis
+      p
+        strong= @exercice.category_i18n
+    .col-lg-6.col-md-6.col-sm-4.col-xs-8.left-side-emphasis
+      = @exercice.instructions
+    .col-lg-3.col-md-3.col-sm-4.hidden-xs
+      = @exercice.promess
+
+  .row.space-up-15
+    .col-lg-3.col-md-3.col-sm-5.col-xs-4
+      span.exercice-show-caption= t('exercices.focus')
+    .col-lg-6.col-md-6.col-sm-5.col-xs-8
+      span.exercice-show-caption= t('exercices.tags')
+    - if policy(@exercice).edit?
+      .col-lg-3.col-md-3.col-sm-2.hidden-xs
+        span.exercice-show-caption= t('exercices.actions')
+
+  .row.space-up-15
+    .col-lg-3.col-md-3.col-sm-5.col-xs-4
+      = @exercice.focus
+    .col-lg-6.col-md-6.col-sm-5.col-xs-8
+      = skill_tag_display(@exercice)
+    - if policy(@exercice).edit?
+      .col-lg-3.col-md-3.col-sm-2.hidden-xs
+        - if policy(@exercice).destroy?
+          = link_to fa_icon("edit 2x"), edit_exercice_path(@exercice)
+        - if policy(@exercice).destroy?
+          = image_tag('transp.png')
+          = link_to(fa_icon("trash 2x"), @exercice, class:'destroy', id: 'destroy', data: { confirm: t('sure_question')}, method: :delete)
