@@ -47,8 +47,12 @@ class ExercicesController < ApplicationController
   end
 
   def destroy
-    @exercice.destroy
-    redirect_to exercices_url, notice: I18n.t('exercices.destroyed')
+    if @exercice.destroy
+      redirect_to exercices_url, notice: I18n.t('exercices.destroyed')
+    else
+      redirect_to exercice_path(@exercice),
+                  alert: I18n.t('exercices.fail_to_destroy')
+    end
   end
 
   private

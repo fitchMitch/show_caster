@@ -298,3 +298,28 @@ Commontator::Thread.where(commontable_type: 'Poll').each do |thread|
   end
 end
 # -----------------
+# Exercices
+# -----------------
+18.times do |n|
+  title =        FFaker::Lorem.sentence(1).truncate(40)
+  instructions = FFaker::Lorem.paragraph(3)
+  category =     Exercice.categories.keys.sample
+  skills =       %w(body_language emotion being_true long_tag_expression).sample(randy(3))
+  focus =        FFaker::Lorem.paragraph(1)
+  promess =      FFaker::Lorem.paragraph(1)
+  energy_level = Exercice.energy_levels.keys.sample
+  max_people =   Exercice.max_people.keys.sample
+
+  Exercice.create!(
+    title:         title,
+    instructions:  instructions,
+    category:      category ,
+    focus:         focus,
+    promess:       promess,
+    energy_level:  energy_level,
+    max_people:    max_people
+  )
+  Exercice.last.tap do |exercice|
+    exercice.skill_list.add(skills.map(&:inspect).join(', '))
+  end.save
+end

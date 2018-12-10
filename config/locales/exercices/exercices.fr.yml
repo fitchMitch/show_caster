@@ -6,6 +6,7 @@ fr:
     destroyed:  L'exercice est supprimé
     instructions: Consigne
     edit_exercice: Modifier l'exercice
+    fail_to_destroy: Impossible de supprimer l'exercice ... Super étrange !
     focus: Faire attention à
     energy_level: Niveau d'énergie
     header: Exercices d'entrainement

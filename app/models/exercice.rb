@@ -36,10 +36,7 @@ class Exercice < ApplicationRecord
               minimum: 5
             }
 
-  public
-
   def self.skill_names_list
     Exercice.skill_counts.pluck(:name)
   end
-
 end
