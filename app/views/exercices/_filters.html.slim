@@ -1,0 +1,12 @@
+= search_form_for @q , class: 'form-inline' do |f|
+
+  = f.label 'Mots clefs :'
+  = image_tag('transp.png')
+  = f.search_field :title_or_instructions_cont
+  = f.label 'Niveau d\'énergie:'
+  = f.select :energy_level_eq,
+             Exercice.energy_levels.to_a.map{ |e| e[0] = Exercice.energy_levels_i18n[e[0].to_sym] ; e},
+             {include_blank: true}
+  = image_tag('transp.png')
+
+  = f.submit  'Recherche',  class: 'btn btn-primary'
