@@ -11,25 +11,6 @@ module VotesHelper
     raise 'updown_icons'
   end
 
-  # def new_vote_path(poll)
-  #   case poll.type
-  #   when nil
-  #     Rails.logger.fatal('poll without type !')
-  #     nil
-  #   when 'PollOpinion'
-  #     link_to new_poll_opinion_vote_opinion_path(poll) do
-  #       updown_icons
-  #     end
-  #   when 'PollDate'
-  #     link_to new_poll_date_vote_date_path(poll) do
-  #       updown_icons
-  #     end
-  #   else
-  #     Rails.logger.debug('poll whith unknown type')
-  #     nil
-  #   end
-  # end
-
   def others_votes_list(answer, user)
     votes = VoteDate.where('poll_id = ?', answer.poll_id)
                     .where('answer_id = ?', answer.id)
@@ -42,7 +23,7 @@ module VotesHelper
                 badge_user_from_id(user.id)
               when 'noway'
                 "<strike>#{user.first_and_l}</strike>"
-              when 'maybe'
+              else # maybe
                 "<span class='maybe-vote'>#{user.first_and_l} ?</span>"
               end
     output.html_safe

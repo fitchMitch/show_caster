@@ -6,6 +6,7 @@ fr:
     new_date: Voter pour des dates
     new_opinion: Voter
     no_votes: Aucun vote pour ce sondage :/
+    non_null: Il faut choisir entre les 3 possibilités offertes
     save_success: C'est dans l'urne !
     save_fails: Oh zut ! C'est tombé à coté !
     vote_label: Mon vote
