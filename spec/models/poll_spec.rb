@@ -1,3 +1,4 @@
+
 require 'rails_helper'
 
 RSpec.describe Poll, type: :model do
@@ -32,17 +33,45 @@ RSpec.describe Poll, type: :model do
 
   describe '.expecting_my_vote' do
     let(:user) { create(:user, :registered) }
-    let!(:vote_opinion) { create(:vote_opinion, user_id: user.id) }
-    let!(:vote_date) { create(:vote_date, user_id: user.id) }
-    let!(:vote_date2) do
-      create(
-        :vote_date,
-        poll_id: vote_date.poll_id,
-        user_id: user.id
-      )
+    subject(:awaiting_votes) { Poll.expecting_my_vote(user) }
+    context 'when poll is not expired' do
+      before do
+        create(:poll_opinion, expiration_date: Time.zone.now + 2.days)
+        create(:poll_date, expiration_date: Time.zone.now + 20.days)
+      end
+      it { expect(awaiting_votes).to eq(2) }
     end
-    it 'should count awaiting votes' do
-      expect(Poll.expecting_my_vote(user)).to eq(2)
+    context 'when poll is expired' do
+      before do
+        create(:poll_opinion, expiration_date: Time.zone.now - 2.days)
+      end
+      it { expect(awaiting_votes).to eq(0) }
+    end
+    context 'when having one of two polls answered ' do
+      before do
+        #the following creates tow polls where one is answered
+        create(:vote_date, user_id: user.id)
+      end
+      it { expect(awaiting_votes).to eq(1) }
+    end
+    context 'when having two of five polls answered ' do
+      before do
+        #the following twice creates polls where one is answered
+        create(:vote_date, user_id: user.id)
+        create(:vote_opinion, user_id: user.id)
+        create(:poll_secret_ballot)
+      end
+      it { expect(awaiting_votes).to eq(3) }
+    end
+    context 'when having two of five polls answered ' do
+      before do
+        #the following twice creates polls where one is answered
+        v1 = create(:vote_date, user_id: user.id)
+        v2 = create(:vote_date, user_id: user.id)
+        v2.poll_id = v1.poll_id
+        v2.save
+      end
+      it { expect(awaiting_votes).to eq(3) }
     end
   end
 

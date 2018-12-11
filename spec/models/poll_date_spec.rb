@@ -20,17 +20,18 @@ RSpec.describe PollDate, type: :model do
   end
 
   describe 'scope: count_my_date_votes' do
-    let!(:vote_1) { create(:vote_date) }
-    let(:user1) { build(:user, id: vote_1.user_id) }
-    let(:poll_date_id) { vote_1.poll_id }
-    let!(:vote_2) do
-      create(
-        :vote_date,
-        poll_id: poll_date_id,
-        user_id: user1.id
-      )
+    # The following creates two poll dates, 1 vote
+    let!(:vote1) { create(:vote_date) }
+    let!(:user1) { build(:user, id: vote1.user_id) }
+
+    before do
+      vote2 = create(:vote_date, user_id: user1.id)
+      vote2.poll_id = vote1.poll_date.id
+      vote2.save
     end
-    it 'shall count the polls, not the votes' do
+    it { expect(PollDate.count).to eq(4) }
+    it { expect(VoteDate.count).to eq(2) }
+    it 'shall count the votes grouped by polls' do
       expect(PollDate.count_my_date_votes(user1).count).to eq(1)
     end
   end
