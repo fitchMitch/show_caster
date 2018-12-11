@@ -57,9 +57,9 @@ class PollDate < Poll
   def best_dates_answer
     PollDate.best_hash_values(
       VoteDate.where(poll_id: id)
-      .where(vote_label: 'yess')
-      .group(:answer_id)
-      .count
+              .where(vote_label: 'yess')
+              .group(:answer_id)
+              .count
     )
   end
 end
