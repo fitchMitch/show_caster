@@ -16,6 +16,10 @@ class VoteDatesController < VotesController
   end
 
   def create
+    if vote_params[:vote_label] == ''
+      flash[:alert] = I18n.t('votes.non_null')
+      redirect_to poll_date_path(vote_params[:poll_id]) and return
+    end
     @vote = current_user.vote_dates.build(vote_params)
     authorize @vote
     @vote.clean_votes
