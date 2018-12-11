@@ -18,7 +18,7 @@ RSpec.feature 'vote opinion feature', type: :feature do
     it { expect(page.body).to have_selector('i.fa.fa-bell') }
   end
 # -----------------------------
-  describe 'before voting' do
+  describe 'before voting' do 
     before :each do
       log_in admin
       visit new_poll_opinion_path
