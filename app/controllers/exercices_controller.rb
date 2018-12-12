@@ -9,7 +9,7 @@ class ExercicesController < ApplicationController
     @exercices = @q.result(distinct: true)
                    .page(params[:page])
                    .per(15)
-                   
+
   end
 
   def show; end

@@ -23,7 +23,7 @@
           .row
             .col-xs-12
               = f.input :committee_list,
-                        collection: User.commitee_names_list,
+                        collection: User.committee_names_list,
                         label: "#{t('committees')} ",
                         input_html: { value: user.committee_list, multiple: 'multiple', data: { placeholder: "Tags" } }
           .row
