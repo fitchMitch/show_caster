@@ -1,6 +1,6 @@
 .container
   .page-header
-    - if policy(Theater).new?
+    - if policy(Exercice).new?
       = link_to new_exercice_path, class: 'btn btn-primary' do
         span.glyphicon.glyphicon-plus
         = " #{ t("exercices.new")}"
