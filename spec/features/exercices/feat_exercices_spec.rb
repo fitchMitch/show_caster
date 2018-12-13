@@ -16,7 +16,7 @@ RSpec.feature Exercice do
         expect(page.body).to have_selector('h2', text: I18n.t('exercices.list'))
       end
       it 'should propose an add button' do
-        visit new_exercice_path
+        click_link I18n.t("exercices.new")
         expect(page.body).to have_selector('h2', text: I18n.t('exercices.new'))
       end
       it 'should lead to a new exercice page' do
