@@ -1,10 +1,9 @@
 .container
   .page-header
     - if policy(Theater).new?
-      .page-header
-        = link_to new_theater_path, class: 'btn btn-primary' do
-          span.glyphicon.glyphicon-plus
-          = " #{ t("theaters.new")}"
+      = link_to new_theater_path, class: 'btn btn-primary' do
+        span.glyphicon.glyphicon-plus
+        = " #{ t("theaters.new")}"
     h2= title_with_image('032-stage.png', 'theaters.list')
 
   .table-responsive

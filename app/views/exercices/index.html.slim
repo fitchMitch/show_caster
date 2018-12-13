@@ -1,11 +1,12 @@
 .container
   .page-header
     - if policy(Theater).new?
-      .page-header
-        = link_to new_exercice_path, class: 'btn btn-primary' do
-          span.glyphicon.glyphicon-plus
-          = " #{ t("exercices.new")}"
-    h2= title_with_image('005-abstract.png', 'exercices.list')
+      = link_to new_exercice_path, class: 'btn btn-primary' do
+        span.glyphicon.glyphicon-plus
+        = " #{ t("exercices.new")}"
+  .row
+    .col-xs-12.right= render 'filters'
+  h2= title_with_image('005-abstract.png', 'exercices.list') + exercices_count(@exercices).html_safe
   .row
     = paginate @exercices
   .row.header

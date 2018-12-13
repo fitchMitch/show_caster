@@ -131,7 +131,7 @@ class User < ApplicationRecord
     color.split(';').second
   end
 
-  def self.commitee_names_list
+  def self.committee_names_list
     User.committee_counts.pluck(:name)
   end
 
