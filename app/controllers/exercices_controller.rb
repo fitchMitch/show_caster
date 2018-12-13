@@ -5,11 +5,9 @@ class ExercicesController < ApplicationController
 
   def index
     authorize Exercice
-    @q = Exercice.ransack(params[:q])
-    @exercices = @q.result(distinct: true)
-                   .page(params[:page])
-                   .per(15)
-
+    @exercices = Exercice.all
+                         .page(params[:page])
+                         .per(15)
   end
 
   def show; end
