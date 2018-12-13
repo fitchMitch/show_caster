@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/fitchMitch/show_caster.svg?branch=master)](https://travis-ci.org/fitchMitch/show_caster)
 
 It is a private Theater Company social network and a tool to organize shows and trainings.
-Each **show** of a gets programmed with its set of **actors**, and **concert hall**. Each one is
+Each **show** gets programmed with its set of **actors**, and **concert hall**. Each one is
 synched with the company's Google Agenda. Possibility to upload and crop **photographs** taken during the shows.
 **Splash page** for audience displaying basic information about the **players** and the future shows; it registers emails with the Company's MailChimp account.
 
