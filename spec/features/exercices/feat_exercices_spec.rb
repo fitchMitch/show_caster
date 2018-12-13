@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature  'Exercice' do
+RSpec.feature Exercice do
   feature 'as a registered admin' do
     given!(:admin) { create(:user, :admin, :registered, lastname: 'ADMIN') }
     feature 'visiting INDEX' do
