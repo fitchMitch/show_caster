@@ -19,10 +19,10 @@ RSpec.describe Answer, type: :model do
         right_second = numbers_inside2[1].chomp.to_i
         right_third = numbers_inside2[2].chomp.to_i
 
-        expect([left_first, 70, 339].sort[1]).not_to eq(left_first)
+        expect([left_first, 70, 340].sort[1]).not_to eq(left_first)
         expect([left_second, 36, 76].sort[1]).to eq(left_second)
         expect([left_third, 76, 95].sort[1]).to eq(left_third)
-        expect([right_first, 70, 339].sort[1]).not_to eq(right_first)
+        expect([right_first, 70, 340].sort[1]).not_to eq(right_first)
         expect([right_second, 66, 100].sort[1]).to eq(right_second)
         expect([right_third, 32, 50].sort[1]).to eq(right_third)
       end

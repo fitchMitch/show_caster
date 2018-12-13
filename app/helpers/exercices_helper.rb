@@ -12,8 +12,4 @@ module ExercicesHelper
     end
     res.join(image_tag('transp.png')).html_safe
   end
-
-  def exercices_count(exercices)
-    " <span class='badge'>#{exercices.count}</span>"
-  end
 end

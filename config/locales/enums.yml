@@ -26,7 +26,7 @@ fr:
         missing_information: "J'attends une info"
     exercice:
       category:
-        space_sizing: Prendre l'espace
+        space_sizing: Prise en compte de l'espace
         connexion: Connexion aux autres
         time_sizing: Mesure du temps
         body_expression: Expression du corps

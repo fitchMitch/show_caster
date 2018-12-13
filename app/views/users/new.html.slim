@@ -2,5 +2,7 @@
   .page-header
     = link_to users_path, class: 'btn btn-info' do
       = back_sign
-    h2= title_with_image('015-writing-tool.png', 'users.invitations')
+    h2
+      = t ("users.invitation")
+
   = render 'form'
