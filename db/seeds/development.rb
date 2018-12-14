@@ -300,9 +300,9 @@ end
 # -----------------
 # Exercices
 # -----------------
-18.times do |n|
+50.times do |n|
   title =        FFaker::Lorem.sentence(1).truncate(40)
-  instructions = FFaker::Lorem.paragraph(3)
+  instructions = FFaker::Lorem.paragraph(2 + randy(3))
   category =     Exercice.categories.keys.sample
   skills =       %w(body_language emotion being_true long_tag_expression).sample(randy(3))
   focus =        FFaker::Lorem.paragraph(1)
@@ -320,6 +320,6 @@ end
     max_people:    max_people
   )
   Exercice.last.tap do |exercice|
-    exercice.skill_list.add(skills.map(&:inspect).join(', '))
+    exercice.skill_list.add(skills.join(', '), parse: true)
   end.save
 end

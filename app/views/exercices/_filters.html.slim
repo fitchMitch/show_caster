@@ -1,17 +1,17 @@
-= search_form_for @q , class: 'form-inline, exercice-search' do |f|
+= search_form_for @q , class: 'form-inline, exercice-search', remote: true  do |f|
   .row.search-line
     .col-lg-3.col-md-12.col-sm-6.col-xs-12
-      = f.label 'Mots clefs :', class:'query-small'
+      = f.label t('exercices.key_words'), class:'query-small'
       = image_tag('transp.png')
       = f.search_field :title_or_instructions_cont, class:'input-sm'
     .col-lg-3.col-md-4.col-sm-6.col-xs-12
-      = f.label 'Catégorie', class:'query-small'
+      = f.label t('exercices.category'), class:'query-small'
       = image_tag('transp.png')
       = f.select :category_eq,
                 Exercice.categories.to_a.map{ |e| e[0] = Exercice.categories_i18n[e[0].to_sym] ; e},
                 {include_blank: true}
     .col-lg-3.col-md-4.col-sm-6.col-xs-12
-      = f.label ' Niveau d\'énergie ', class:'query-small'
+      = f.label t('exercices.energy_level'), class:'query-small'
       = image_tag('transp.png')
       = f.select :energy_level_eq,
                 Exercice.energy_levels.to_a.map{ |e| e[0] = Exercice.energy_levels_i18n[e[0].to_sym] ; e},

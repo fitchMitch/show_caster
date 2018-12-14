@@ -14,6 +14,6 @@ module ExercicesHelper
   end
 
   def exercices_count(exercices)
-    " <span class='badge'>#{exercices.count}</span>"
+    " <span class='badge exercice-count'>#{exercices.count}</span>"
   end
 end
