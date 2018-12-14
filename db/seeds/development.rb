@@ -138,7 +138,7 @@ theaters = Theater.all
   private_event = n_out_of_m?(1, 5) ? false : true
   Performance.create!(
     theater:             theaters.sample,
-    title:                'Les Mentals moisis par les Sésames',
+    title:                "Les Mentals moisis par #{I18n.t('company_name_long')}",
     user:                 users.sample,
     private_event:        private_event,
     note:                 note,

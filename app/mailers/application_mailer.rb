@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'no-reply@les-sesames.fr'
+  default from: "#{I18n.t('company_name_long')} <no-reply@les-sesames.fr>"
   layout 'mailer'
 
   def get_site
