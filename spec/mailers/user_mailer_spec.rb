@@ -4,7 +4,7 @@ RSpec.describe UserMailer, type: :mailer do
   describe 'User Mailer new_player_notice_mail' do
     let!(:admin) { create(:user, :admin, :registered) }
     let!(:player) { create(:user, :player, :setup) }
-    let(:w_mail) { UserMailer.welcome_mail(player).deliver_now }
+    let(:w_mail) { UserMailer.welcome_mail(player).deliver_later }
     let(:url) { "http://localhost:3000/users/#{player.id}" }
     let(:to) { player.email }
 
@@ -35,7 +35,7 @@ RSpec.describe UserMailer, type: :mailer do
         role: 'admin'
       }
     end
-    let(:w_mail) { UserMailer.send_promotion_mail(player, changes).deliver_now }
+    let(:w_mail) { UserMailer.send_promotion_mail(player, changes).deliver_later }
     let(:url) { "http://localhost:3000/users/#{player.id}" }
     let(:to) { player.email }
 
