@@ -84,14 +84,14 @@ RSpec.describe Poll, type: :model do
 
   describe '#poll_creation_mail' do
     let(:creation_mail) { double('creation_mail') }
-    let(:deliver_later) { double('deliver_later') }
+    let(:deliver_now) { double('deliver_now') }
     let(:a_mail) { double('a_mail') }
     subject { Poll.new }
     before do
       allow(PollMailer).to receive(:poll_creation_mail).with(subject) do
         creation_mail
       end
-      allow(creation_mail).to receive(:deliver_later) { a_mail }
+      allow(creation_mail).to receive(:deliver_now) { a_mail }
     end
     it 'should deliver mail' do
       expect(subject.poll_creation_mail).to eq a_mail

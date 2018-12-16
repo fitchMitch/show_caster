@@ -112,11 +112,11 @@ class User < ApplicationRecord
   end
 
   def welcome_mail
-    UserMailer.welcome_mail(self).deliver_later
+    UserMailer.welcome_mail(self).deliver_now
   end
 
   def send_promotion_mail(changes)
-    UserMailer.send_promotion_mail(self, changes).deliver_later
+    UserMailer.send_promotion_mail(self, changes).deliver_now
   end
 
   def restricted_statuses

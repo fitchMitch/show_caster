@@ -89,7 +89,7 @@ class Poll < ApplicationRecord
   end
 
   def poll_creation_mail
-    PollMailer.poll_creation_mail(self).deliver_later
+    PollMailer.poll_creation_mail(self).deliver_now
   end
 
   def comments_count
