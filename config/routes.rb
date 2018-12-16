@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
   mount Commontator::Engine => '/commontator'
+  mount Sidekiq::Web => '/sidekiq'
   # Users and Sessions
   resources :settings, only: %i[index edit update]
 

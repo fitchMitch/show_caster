@@ -45,5 +45,7 @@ module ShowCaster
     config.beginning_of_week = :monday
 
     config.autoload_paths += %W(#{config.root}/lib)
+
+    config.active_job.queue_adapter = Rails.env.production? ? :sidekiq : :async
   end
 end
