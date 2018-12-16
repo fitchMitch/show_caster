@@ -110,6 +110,6 @@ end
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :production do
-  gem 'lograge',    '~> 0.10'
+  gem 'lograge',   '~> 0.10'
   gem 'passenger', '5.1.12', require: 'phusion_passenger/rack_handler'
 end
