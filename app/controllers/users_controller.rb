@@ -31,7 +31,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    AsyncMailJob.perform_later
+    # AsyncMailJob.perform_later
     @committee_full_list = Setting.committees
                                   .split(',')
                                   .map(&:strip)
