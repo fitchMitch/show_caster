@@ -13,7 +13,7 @@ RSpec.feature 'promotion feature', type: :feature do
       end
 
       it 'should send to the user a promote mail' do
-        expect(last_email_address).to eq(player.email)
+        expect(last_email_address).to eq(player.prefered_email)
       end
       it 'welcome mail should have the subject' do
         expect(last_email.subject).to eq(I18n.t('users.promote_mail.subject'))
@@ -88,7 +88,7 @@ RSpec.feature 'promotion feature', type: :feature do
       visit users_path
       expect(page.body).to have_selector('h2', text: I18n.t('users.list'))
       expect(page.body).to have_selector('.btn.btn-danger')
-      expect(last_email_address).to eq(rip_player.email)
+      expect(last_email_address).to eq(rip_player.prefered_email)
     end
   end
 end

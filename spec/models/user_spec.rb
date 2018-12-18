@@ -395,4 +395,16 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#prefered_email' do
+    subject { user.prefered_email}
+    context 'when there is no alternate email' do
+      let(:user) { build(:user, alternate_email: nil) }
+      it { expect(subject).to eq user.email }
+    end
+    context 'when there is an alternate email' do
+      let(:user) { build(:user, alternate_email: 'test@test.fr') }
+      it { expect(subject).to eq user.alternate_email }
+    end
+  end
 end
