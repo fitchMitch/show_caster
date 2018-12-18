@@ -14,12 +14,18 @@
       .col-sm-4.right.hidden-sm.hidden-xs= t("users.committee")
       .col-sm-8
         = committee_tag_display(@user)
+  .row.form-std-height
+    .col-sm-4.right.hidden-sm.hidden-xs= t("users.email")
+    .col-sm-8= @user.email
+  - unless @user.alternate_email.nil?
+    .row.form-std-height
+      .col-sm-4.right.hidden-sm.hidden-xs= t("users.alternate_email")
+      .col-sm-8
+        = @user.alternate_email
 .row.form-std-height
   .col-sm-4.right.hidden-sm.hidden-xs= t("users.address")
   .col-sm-8= @user.address if @user.address.present?
-.row.form-std-height
-  .col-sm-4.right.hidden-sm.hidden-xs= t("users.email")
-  .col-sm-8= @user.email
+
 - if policy(@user).show_last_connexion?
   .row.form-std-height
     .col-sm-4.right.hidden-sm.hidden-xs= t("users.last_connexion")

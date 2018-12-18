@@ -88,7 +88,7 @@ class User < ApplicationRecord
   end
 
   def self.company_mails
-    User.active.pluck(:email)
+    User.active.map(&:prefered_email)
   end
 
   def has_a_picture?
@@ -166,6 +166,10 @@ class User < ApplicationRecord
 
     # messaging
     flash_promotion_with((role_changed && !muted_promotion) || committee_changed)
+  end
+
+  def prefered_email
+    alternate_email.nil? ? email : alternate_email
   end
 
   protected

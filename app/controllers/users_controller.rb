@@ -122,6 +122,7 @@ class UsersController < ApplicationController
             :cell_phone_nr,
             :status,
             :bio,
+            :alternate_email,
             committee_lists: []
           )
   end

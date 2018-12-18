@@ -36,7 +36,7 @@ User.create!(
   email:                 'weil.etienne@hotmail.fr',
   role:                   2,
   cell_phone_nr:          FFaker::PhoneNumberFR.mobile_phone_number,
-  address:                '18, rue de Cotte Paris 12e'
+  address:                '29, rue St Jean, Paris 75014'
   # committee:              committees.last
   # uid:                    105205260860063499768
 )
@@ -49,6 +49,7 @@ User.create!(
   is_registered =          n_out_of_m?(8, 11)
   cell_phone_nr =          nil
   address =                nil
+  alternate_email =        FFaker::Internet.email if n_out_of_m?(2, 5)
   # committee =              committees.sample
   if is_registered
     cell_phone_nr =        FFaker::PhoneNumberFR.mobile_phone_number

@@ -15,7 +15,7 @@ RSpec.feature 'Users', type: :feature do
     end
 
     it 'should send to the user a promote mail ' do
-      expect(last_email_address).to eq(player.email)
+      expect(last_email_address).to eq(player.prefered_email)
     end
     it 'welcome mail should have the subject ' do
       expect(last_email.subject).to eq(I18n.t('users.welcome_mail.subject'))
