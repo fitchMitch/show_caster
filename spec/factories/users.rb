@@ -64,6 +64,7 @@ FactoryBot.define do
     status                  { 3 } # Default is registered
     uid
     bio                     { "Sa bio : #{FFaker::Lorem.sentence(7).truncate(250)}" }
+    alternate_email         { FFaker::Internet.email }
 
     trait :player do
       role                 { 0 }

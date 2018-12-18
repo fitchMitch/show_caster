@@ -5,7 +5,7 @@ RSpec.describe UserMailer, type: :mailer do
     let!(:admin) { create(:user, :admin, :registered) }
     let!(:player) { create(:user, :player, :setup) }
     let(:url) { "http://localhost:3000/users/#{player.id}" }
-    let(:to) { player.email }
+    let(:to) { player.prefered_email }
     let(:w_mail) { UserMailer.welcome_mail(player).deliver_now }
     before do
       allow(UserMailer.welcome_mail).to receive(:deliver_now) {  }
@@ -28,7 +28,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
     let(:w_mail) { UserMailer.send_promotion_mail(player, changes).deliver_now }
     let(:url) { "http://localhost:3000/users/#{player.id}" }
-    let(:to) { player.email }
+    let(:to) { player.prefered_email }
 
     it 'should have a correct from' do
       expect(w_mail.from).to eq(['no-reply@les-sesames.fr'])
