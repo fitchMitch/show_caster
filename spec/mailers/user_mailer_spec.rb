@@ -6,9 +6,9 @@ RSpec.describe UserMailer, type: :mailer do
     let!(:player) { create(:user, :player, :setup) }
     let(:url) { "http://localhost:3000/users/#{player.id}" }
     let(:to) { player.prefered_email }
-    let(:w_mail) { UserMailer.welcome_mail(player).deliver_now }
+    let(:w_mail) { UserMailer.welcome_mail(player).deliver_later }
     before do
-      allow(UserMailer.welcome_mail).to receive(:deliver_now) {  }
+      allow(UserMailer.welcome_mail).to receive(:deliver_later) {  }
     end
     it { expect(w_mail.from).to eq(['no-reply@les-sesames.fr']) }
     it { expect(w_mail.to.first).to eq(to) }
@@ -26,7 +26,7 @@ RSpec.describe UserMailer, type: :mailer do
         role: 'admin'
       }
     end
-    let(:w_mail) { UserMailer.send_promotion_mail(player, changes).deliver_now }
+    let(:w_mail) { UserMailer.send_promotion_mail(player, changes).deliver_later }
     let(:url) { "http://localhost:3000/users/#{player.id}" }
     let(:to) { player.prefered_email }
 
