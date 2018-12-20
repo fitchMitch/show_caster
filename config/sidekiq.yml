@@ -1,7 +1,6 @@
 ---
-:verbose: true
+:verbose: false
 :concurrency: 4
-:SHOW_CASTER_DATABASE_PASSWORD: <%= ENV['SHOW_CASTER_DATABASE_PASSWORD'] %>
 :pidfile: tmp/pids/sidekiq.pid
 :queues:
   - [critical, 2]
