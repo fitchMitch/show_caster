@@ -91,6 +91,7 @@ class User < ApplicationRecord
     User.active.map(&:prefered_email)
   end
 
+
   def has_a_picture?
     !Picture.where(imageable_id: id).where(imageable_type: 'User').empty?
   end

@@ -34,5 +34,7 @@ fr:
   secret_polls:
     new: Nouveau scrutin à bulletin secret
     mails:
+      reminder:
+        subject: Sondage ! Dernier rappel !
       new_poll:
         subject: Hey ! %{firstname} a lancé un nouveau sondage sur les sésames.fr !

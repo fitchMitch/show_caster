@@ -1,0 +1,12 @@
+<%="Han ! Plus que #{"Poll.days_threshold_for_mail_alert"} jours !"%>
+===============================
+<%= @initiater%> aimerait avoir ton avis.
+
+Voici le lien pour <%=" #{link_to('se loguer', @url_login)} ".html_safe %>
+et celui pour <%= link_to('Voter', @url) %>
+
+-----------
+Date limite pour répondre : <%=   I18n.l( @final_call, format:"%a %d %b")%>
+-----------
+
+Les Sésames vous saluent en coup de vent

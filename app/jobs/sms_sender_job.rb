@@ -1,4 +1,4 @@
-class AsyncMailJob < ApplicationJob
+class SmsSenderJob < ApplicationJob
   include LoggingHelper
   queue_as :default
 

@@ -1,10 +1,13 @@
 class Poll < ApplicationRecord
+  @@days_threshold_for_mail_alert = 5
+  @@days_threshold_for_SMS_alert = 2
   #-----------
   # Includes
   #-----------
   #-----------
   # Callbacks
   #-----------
+
 
   # Relationships
   #-----------
@@ -45,6 +48,12 @@ class Poll < ApplicationRecord
   # ------------------------
   # --    PUBLIC      ---
   # ------------------------
+  def self.days_threshold_for_mail_alert
+    @@days_threshold_for_mail_alert
+  end
+  def self.days_threshold_for_SMS_alert
+    @@days_threshold_for_SMS_alert
+  end
   def self.expecting_my_vote(current_user)
     # the following  includes Secret Ballots
     total =  PollOpinion.active.count
@@ -88,8 +97,13 @@ class Poll < ApplicationRecord
         .size
   end
 
-  def poll_creation_mail
-    PollMailer.poll_creation_mail(self).deliver_later
+  def missing_voter_ids
+    players_ids = User.active.pluck(:id)
+    if type == 'PollDate'
+      players_ids - vote_dates.pluck(:user_id).uniq
+    else
+      players_ids - vote_opinions.pluck(:user_id).uniq
+    end
   end
 
   def comments_count
