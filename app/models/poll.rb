@@ -1,5 +1,6 @@
 class Poll < ApplicationRecord
-  @@days_threshold_for_mail_alert = 5
+  @@days_threshold_for_first_mail_alert = 5
+  @@days_threshold_for_second_mail_alert = 2
   @@days_threshold_for_SMS_alert = 2
   #-----------
   # Includes
@@ -7,8 +8,6 @@ class Poll < ApplicationRecord
   #-----------
   # Callbacks
   #-----------
-
-
   # Relationships
   #-----------
   has_many :poll_opinions,
@@ -24,7 +23,6 @@ class Poll < ApplicationRecord
   accepts_nested_attributes_for :answers,
                                 reject_if: :all_blank,
                                 allow_destroy: true
-
   # Validations
   #-----------
   validates :question,
@@ -32,7 +30,6 @@ class Poll < ApplicationRecord
             length: { minimum: 5, maximum: 120 }
   validates :expiration_date,
             presence: true
-
   # Scope
   #-----------
   default_scope -> { order('expiration_date ASC') }
@@ -48,12 +45,18 @@ class Poll < ApplicationRecord
   # ------------------------
   # --    PUBLIC      ---
   # ------------------------
-  def self.days_threshold_for_mail_alert
-    @@days_threshold_for_mail_alert
+  def self.days_threshold_for_first_mail_alert
+    @@days_threshold_for_first_mail_alert
   end
-  def self.days_threshold_for_SMS_alert
+
+  def self.days_threshold_for_second_mail_alert
+    @@days_threshold_for_second_mail_alert
+  end
+
+  def self.days_threshold_for_sms_alert
     @@days_threshold_for_SMS_alert
   end
+
   def self.expecting_my_vote(current_user)
     # the following  includes Secret Ballots
     total =  PollOpinion.active.count
@@ -97,7 +100,7 @@ class Poll < ApplicationRecord
         .size
   end
 
-  def missing_voter_ids
+  def missing_voters_ids
     players_ids = User.active.pluck(:id)
     if type == 'PollDate'
       players_ids - vote_dates.pluck(:user_id).uniq

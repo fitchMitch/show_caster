@@ -2,15 +2,15 @@ require 'rails_helper'
 # require 'vcr'
 RSpec.describe GoogleCalendarService, type: :service do
   let!(:user) { create(:user, :registered, :admin) }
+  let(:id) { double('id') }
+  # let(:calendar) { double('calendar') }
+  let(:client_service) { double(Google::APIClient::ClientSecrets) }
+  let(:google_api_calendar_service) { double(Google::Apis::CalendarV3::CalendarService) }
+  let(:signet_object) { double(Signet::OAuth2::Client) }
+  let!(:company_calendar_id) { double('company_calendar_id') }
 
   describe '#existing_event?' do
     subject { GoogleCalendarService.new(user) }
-    let(:id) { double('id') }
-    # let(:calendar) { double('calendar') }
-    let(:client_service) { double(Google::APIClient::ClientSecrets) }
-    let(:google_api_calendar_service) { double(Google::Apis::CalendarV3::CalendarService) }
-    let(:signet_object) { double(Signet::OAuth2::Client) }
-    let!(:company_calendar_id) { double('company_calendar_id') }
     before :each do
       mock_valid_auth_hash(user)
       Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]

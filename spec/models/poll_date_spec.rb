@@ -87,11 +87,11 @@ RSpec.describe PollDate, type: :model do
     end
   end
 
-  describe '#missing_voter_ids' do
+  describe '#missing_voters_ids' do
     #this adds 2 polls and 3 users
     let!(:vote_date1) { create(:vote_date, vote_label: 'yess') }
     let(:poll) { vote_date1.poll_date }
-    subject { poll.missing_voters }
+    subject { poll.missing_voters_ids }
 
     it { expect(subject.count).to eq(2) }
     it { expect(subject.first.is_a? Integer).to be true }

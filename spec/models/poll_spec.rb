@@ -1,4 +1,3 @@
-
 require 'rails_helper'
 
 RSpec.describe Poll, type: :model do
@@ -82,19 +81,47 @@ RSpec.describe Poll, type: :model do
     end
   end
 
-  describe '#poll_creation_mail' do
-    let(:creation_mail) { double('creation_mail') }
-    let(:deliver_later) { double('deliver_later') }
-    let(:a_mail) { double('a_mail') }
-    subject { Poll.new }
-    before do
-      allow(PollMailer).to receive(:poll_creation_mail).with(subject) do
-        creation_mail
-      end
-      allow(creation_mail).to receive(:deliver_later) { a_mail }
+  # describe '#poll_creation_mail' do
+  #   let(:creation_mail) { double('creation_mail') }
+  #   let(:deliver_later) { double('deliver_later') }
+  #   let(:a_mail) { double('a_mail') }
+  #   subject { Poll.new }
+  #   before do
+  #     allow(PollMailer).to receive(:poll_creation_mail).with(subject) do
+  #       creation_mail
+  #     end
+  #     allow(creation_mail).to receive(:deliver_later) { a_mail }
+  #   end
+  #   it 'should deliver mail' do
+  #     expect(subject.poll_creation_mail).to eq a_mail
+  #   end
+  # end
+
+  describe '#missing_voters_ids' do
+    let(:user_active) { double('user_active') }
+    let!(:user) { create(:user) }
+    let(:poll) { vote_opinion.poll }
+    let(:poll_d) { vote_date.poll }
+    before :each do
+      allow(User).to receive(:active) { user_active }
+      allow(user_active).to receive(:pluck) { [100, 200, 300, user.id] }
     end
-    it 'should deliver mail' do
-      expect(subject.poll_creation_mail).to eq a_mail
+    context 'when poll\'s type is PollOpinion' do
+      subject { poll.missing_voters_ids }
+      let(:vote_opinion) { create(:vote_opinion, user_id: user.id) }
+      it { expect(subject).to eq [100, 200, 300] }
+    end
+    context 'when poll\'s type is PollDate' do
+      subject { poll_d.missing_voters_ids }
+      let(:vote_date) { create(:vote_date, user_id: user.id) }
+      let(:vote_date2) do
+        create(
+          :vote_date,
+          poll_id: vote_date2.poll_id,
+          user_id: user.id
+        )
+      end
+      it { expect(subject).to eq [100, 200, 300] }
     end
   end
 

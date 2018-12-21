@@ -115,13 +115,13 @@ RSpec.describe User, type: :model do
   describe '#welcome_mail' do
     let(:user) { create(:user, :registered) }
     let(:w_mail) { double('w_mail') }
-    let(:deliver_later) { double('dlvr_now') }
+    let(:deliver_now) { double('dlvr_now') }
     let(:a_mail) { double('a_mail') }
     before do
       allow(UserMailer).to receive(:welcome_mail).with(user) do
         w_mail
       end
-      allow(w_mail).to receive(:deliver_later) { a_mail }
+      allow(w_mail).to receive(:deliver_now) { a_mail }
     end
     it 'should deliver mail' do
       expect(user.welcome_mail).to eq a_mail
@@ -131,14 +131,14 @@ RSpec.describe User, type: :model do
   describe '#send_promotion_mail' do
     let(:user) { create(:user, :registered) }
     let(:p_mail) { double('p_mail') }
-    let(:deliver_later) { double('dlvr_now') }
+    let(:deliver_now) { double('dlvr_now') }
     let(:a_mail) { double('a_mail') }
     let(:changes) { double('changes') }
     before do
       allow(UserMailer).to receive(:send_promotion_mail).with(user, changes) do
         p_mail
       end
-      allow(p_mail).to receive(:deliver_later) { a_mail }
+      allow(p_mail).to receive(:deliver_now) { a_mail }
     end
     it 'should deliver mail' do
       expect(user.send_promotion_mail(changes)).to eq a_mail

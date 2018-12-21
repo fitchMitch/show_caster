@@ -6,7 +6,7 @@ RSpec.describe UserMailer, type: :mailer do
     let!(:player) { create(:user, :player, :setup) }
     let(:url) { "http://localhost:3000/users/#{player.id}" }
     let(:to) { player.prefered_email }
-    let(:w_mail) { UserMailer.welcome_mail(player).deliver_later }
+    let(:w_mail) { UserMailer.welcome_mail(player)}
     before do
       allow(UserMailer.welcome_mail).to receive(:deliver_later) {  }
     end
@@ -26,22 +26,13 @@ RSpec.describe UserMailer, type: :mailer do
         role: 'admin'
       }
     end
-    let(:w_mail) { UserMailer.send_promotion_mail(player, changes).deliver_later }
+    let(:w_mail) { UserMailer.send_promotion_mail(player, changes) }
     let(:url) { "http://localhost:3000/users/#{player.id}" }
     let(:to) { player.prefered_email }
 
-    it 'should have a correct from' do
-      expect(w_mail.from).to eq(['no-reply@les-sesames.fr'])
-    end
-
-    it 'should have a correct to' do
-      expect(w_mail.to.first).to eq(to)
-    end
-
-    it 'should have a correct subject' do
-      expect(w_mail.subject).to eq(I18n.t('users.promote_mail.subject'))
-    end
-
+    it { expect(w_mail.from).to eq(['no-reply@les-sesames.fr']) }
+    it { expect(w_mail.to.first).to eq(to) }
+    it { expect(w_mail.subject).to eq(I18n.t('users.promote_mail.subject')) }
     it 'should have a correct body' do
       expect(w_mail.body.encoded.to_s).to include(
         'L\'administrateur vient de changer ton statut sur le site'
@@ -51,31 +42,24 @@ RSpec.describe UserMailer, type: :mailer do
       expect(w_mail.body.encoded.to_s).to include(player.role_i18n)
     end
   end
+
   describe '#to_sentence' do
     subject { UserMailer.new.send(:to_sentence, list) }
     context 'when submitted nil' do
       let(:list) { nil }
-      it 'should render nil' do
-        expect(subject).to be(nil)
-      end
+      it { expect(subject).to be(nil) }
     end
     context 'when submitted an empty list' do
       let(:list) { [] }
-      it 'should render nil' do
-        expect(subject).to be(nil)
-      end
+      it { expect(subject).to be(nil) }
     end
     context 'when submitted a list with several elements' do
       let(:list) { ['el1', 'el2'] }
-      it 'should render nil' do
-        expect(subject).to eq('El1, El2')
-      end
+      it { expect(subject).to eq('El1, El2') }
     end
     context 'when submitted a list with one element' do
       let(:list) { ['el1'] }
-      it 'should render nil' do
-        expect(subject).to eq('El1')
-      end
+      it { expect(subject).to eq('El1') }
     end
   end
 end
