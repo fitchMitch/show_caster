@@ -100,15 +100,6 @@ class Poll < ApplicationRecord
         .size
   end
 
-  def missing_voters_ids
-    players_ids = User.active.pluck(:id)
-    if type == 'PollDate'
-      players_ids - vote_dates.pluck(:user_id).uniq
-    else
-      players_ids - vote_opinions.pluck(:user_id).uniq
-    end
-  end
-
   def comments_count
     poll_thread = Commontator::Thread.where(commontable_id: id).take
     return 0 if poll_thread.nil?

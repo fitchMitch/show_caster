@@ -3,10 +3,9 @@ class ReminderMailJob < ApplicationJob
   queue_as :mailers
 
   def perform(poll_id)
-    poll = Poll.find(poll_id)
-    PollMailer.poll_reminder_mail(poll)
-  # rescue StandardError => e
-  #   Bugsnag.notify(e)
-  #   warn_logging('ReminderJob failure') { puts e }
+    NotificationService.poll_reminder_mailing(poll_id)
+  rescue StandardError => e
+    Bugsnag.notify(e)
+    Rails.logger.error("Message ReminderMailJob mail: #{e}")
   end
 end

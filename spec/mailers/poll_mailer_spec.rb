@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe PollMailer, type: :mailer do
-  let!(:poll) { create(:poll) }
+  let!(:poll) { create(:poll_date) }
   describe '#poll_creation_mail' do
     subject { described_class.poll_creation_mail(poll) }
     before do
@@ -36,6 +36,31 @@ RSpec.describe PollMailer, type: :mailer do
         allow(poll).to receive(
           :missing_voters_ids
         ).and_raise(StandardError.new 'message')
+        # allow(subject).to receive(:deliver_later) {  }
+      end
+      it 'should notify Bugsnag' do
+        skip 'until I know how to deal with raising errors'
+        described_class.poll_reminder_mail(poll)
+        expect(Bugsnag).to receive(:notify)
+      end
+    end
+  end
+
+  describe '#poll_end_reminder_mail' do
+    context 'with everything ok' do
+      subject(:mailing) { described_class.poll_end_reminder_mail(poll) }
+      before do
+        allow(described_class.poll_end_reminder_mail).to receive(:deliver_later) {  }
+      end
+      it { expect(mailing.from).to eq(['no-reply@les-sesames.fr']) }
+      it { expect(mailing.to).to eq([poll.owner.prefered_email]) }
+      it { expect(mailing.subject).to eq(I18n.t('polls.mails.reminder.end_subject')) }
+      it { expect(mailing.body.encoded.to_s).to include('Tu peux penser ') }
+    end
+
+    context 'with some problem' do
+      before do
+        # raise(StandardError.new('message'))
         # allow(subject).to receive(:deliver_later) {  }
       end
       it 'should notify Bugsnag' do

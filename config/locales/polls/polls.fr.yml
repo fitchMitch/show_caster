@@ -34,6 +34,7 @@ fr:
     mails:
       reminder:
         subject: Sondage ! Dernier rappel !
+        end_subject: Hi ! Askip, ton sondage est terminé !
       new_poll:
         subject: Hey ! %{firstname} a lancé un nouveau sondage sur les sésames.fr !
   secret_polls:
