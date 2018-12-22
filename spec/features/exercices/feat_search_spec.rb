@@ -67,7 +67,7 @@ RSpec.feature Exercice do
         'q[title_or_instructions_cont]', with: 'test'
       )
       page.execute_script("$('form').submit()")
-      sleep 0.15
+      sleep 0.25
     end
 
     it 'should find records according to situations' do
@@ -82,14 +82,14 @@ RSpec.feature Exercice do
         I18n.t('enums.exercice.energy_level.low'), from: 'q[energy_level_eq]'
       )
       page.execute_script("$('form').submit()")
-      sleep 0.15
+      sleep 0.25
       #because of 'test' in the input field
       expect(page.body).to have_selector('.exo-category', count: 0)
       fill_in(
         'q[title_or_instructions_cont]', with: ''
       )
       page.execute_script("$('form').submit()")
-      sleep 0.15
+      sleep 0.25
       expect(page.body).to have_selector('.exo-category', count: 1)
     end
   end

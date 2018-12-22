@@ -42,4 +42,8 @@ class PollOpinion < Poll
     active.joins(:vote_opinions)
           .where('user_id = ?', user.id)
   }
+
+  def missing_voters_ids
+    User.active.pluck(:id) - vote_opinions.pluck(:user_id).uniq
+  end
 end

@@ -3,7 +3,10 @@ class UserMailer < ApplicationMailer
     # This mails informs the user he's been invited to be a member
     @user = user
     @url = login_url
-    mail(to: @user.prefered_email, subject: I18n.t('users.welcome_mail.subject'))
+    mail(
+      to: @user.prefered_email,
+      subject: I18n.t('users.welcome_mail.subject')
+    )
   end
 
   def send_promotion_mail(user, changes)

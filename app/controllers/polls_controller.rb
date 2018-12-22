@@ -24,7 +24,7 @@ class PollsController < ApplicationController
     @poll.expiration_date = @poll.expiration_date.end_of_day
     authorize @poll
     if @poll.save
-      @poll.poll_creation_mail
+      NotificationService.poll_creation(@poll)
       redirect_to polls_path, notice: I18n.t('polls.save_success')
     else
       flash[:alert] = I18n.t('polls.save_fails')

@@ -1,0 +1,22 @@
+h3 Oh la la !
+
+h4
+  ="Han ! Plus que #{"Poll.days_threshold_for_mail_alert"} jours !"
+p
+  ="#{ @initiater} "
+  | aimerait avoir ton avis.
+p
+  | Voici le lien pour
+  =" #{link_to('se loguer', @url_login)} ".html_safe
+  | et celui pour
+  =" #{link_to('Voter', @url)}".html_safe
+p
+  | -----------
+  br
+  | Date limite pour répondre :
+  strong
+    = " #{I18n.l( @final_call, format:"%a %d %b")}"
+  br
+  | -----------
+
+  | Les Sésames vous saluent en coup de vent

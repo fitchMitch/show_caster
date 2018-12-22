@@ -82,6 +82,7 @@ RSpec.configure do |config|
   config.include AttributesMatcher, type: :request
 
   config.include AttributesMatcher, type: :feature
+  config.include ActiveJob::TestHelper, type: :feature
   config.include Selectors, type: :feature
   config.include Features::SessionHelpers, type: :feature
   config.include MailerMacros, type: :feature

@@ -31,7 +31,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    # AsyncMailJob.perform_later
     @committee_full_list = Setting.committees
                                   .split(',')
                                   .map(&:strip)
@@ -97,13 +96,6 @@ class UsersController < ApplicationController
     @last_comments = my_own.last_comments(current_user)
     @last_poll_results = my_own.last_poll_results(current_user)
   end
-
-  # def committee_counts
-  #   @results = User.committee_counts
-  #   respond_to do |format|
-  #     format.json { render json: @results.as_json(only: [:name, :id]) }
-  #   end
-  # end
 
   private
 

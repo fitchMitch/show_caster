@@ -62,4 +62,8 @@ class PollDate < Poll
               .count
     )
   end
+
+  def missing_voters_ids
+    User.active.pluck(:id) - vote_dates.pluck(:user_id).uniq
+  end
 end
