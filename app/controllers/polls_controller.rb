@@ -33,9 +33,10 @@ class PollsController < ApplicationController
   end
 
   def update
-    flash[:notice] = I18n.t('polls.updated')
     @poll.expiration_date = @poll.expiration_date.end_of_day
     if @poll.update(poll_params)
+      # flash[:notice] = I18n.t('polls.updated')
+      NotificationService.poll_notifications_update(@poll)
       redirect_to polls_path, notice: I18n.t('polls.update_success')
     else
       flash[:alert] = I18n.t('polls.save_fails')
@@ -46,6 +47,7 @@ class PollsController < ApplicationController
   def destroy
     @poll.votes_destroy
     @poll.destroy
+    NotificationService.destroy_all_notifications(@poll)
     redirect_to polls_url, notice: I18n.t('polls.destroyed')
   end
 
