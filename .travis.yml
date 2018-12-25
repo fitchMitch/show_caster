@@ -1,19 +1,18 @@
 language: ruby
 before_script:
-  - bundle exec sidekiq -d -r ./spec/dummy_app/app.rb -L /tmp/sidekiq.log
-  - sleep 1
+- psql -c 'create database show_caster_test;' -U postgres
+- psql -c "CREATE USER sesame WITH PASSWORD 'bar';"
+- psql -c "ALTER ROLE sesame WITH SUPERUSER;"
 rvm:
- - 2.2.7
-# safelist
+- 2.2.7
 branches:
   only:
-    - master
+  - master
 services:
-  - postgresql
-  - redis-server
-before_script:
-  - psql -c 'create database show_caster_test;' -U postgres
-  - psql -c "CREATE USER sesame WITH PASSWORD 'bar';"
-  - psql -c "ALTER ROLE sesame WITH SUPERUSER;"
+- postgresql
+- redis-server
 addons:
   chrome: stable
+env:
+  matrix:
+  - secure: V+zoNrHUxb45T1G2Ki8cLG/d9O6qZQH745G+6s5kt8xbXBtGbg3psbSzwcYSlgzJ2o8pQPDCo5y6+8FRhDysNvRweaRIq7vwVIP6P2fmNYtlGTsgbcNtbiRme0/ZNIOA0mu8GsRY5b2y9CMrWzlgl8JV/aXwskjqIdOSqpzTeXqA6U2V0xx+5bEICMpyDuuTtCNcNoCyo7A3sMEL9O0VIpRhkJlCoh0g7J08NYGTk/oqPv7IMKgOlIJo6wy9VmRzjzJGTu6h4wtWgYAY/WQ9RVKKGsJyTEYSjx1/+S+eSEAMDNibCbHTsZ4pvrAaJhhmuaPglGQTYq6WRr7DzFBwvMyJoNoDPk2psZSxKzFqOTTupEytJ4WNezBPgyCoguyrYtN5wFYevJLJM45gQZOwSTusOpoLXqguiUiyBC/aR2eyjkiJKFdFvr9R2uL65gdjEtuhgAgMqxswTSY1LQEYHz46XkVJAjJEdNdOxsLbcCBFCnoEFh/zmxkLfFzyoDqGKHv5qpW7RuhyuIcM9HIsC30XFZ7DFrG4D+SMYFNrNc62P9hcZa64UkpWQGMEhCSPHWlucL6YoKUPNOxPCwsLLfBOXRVETBoOiyKZdEHSiJN/DwNhP1sv/nV7jKWOSJo0sE6Lytl1yXQnqkze1sjbri87qeGMeKcXJ/eaj5Tb9ik=
