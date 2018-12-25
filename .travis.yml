@@ -10,7 +10,7 @@ branches:
   - master
 services:
 - postgresql
-- redis-server --requirepass <%=
+- redis-server
 addons:
   chrome: stable
 env:
