@@ -1,13 +1,13 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
   mount Commontator::Engine => '/commontator'
-  mount Sidekiq::Web => '/sidekiq'
   # Users and Sessions
   resources :settings, only: %i[index edit update]
 
   resources :users do
     resources :pictures, module: :users
     member do
+      mount Sidekiq::Web => '/sidekiq'
       patch '/promote',     to: 'users#promote'
       patch '/bio',         to: 'users#bio'
       patch '/invite',      to: 'users#invite'
