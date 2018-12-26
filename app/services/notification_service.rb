@@ -7,8 +7,9 @@ class NotificationService
   def self.poll_creation(poll)
     PollMailer.poll_creation_mail(poll).deliver_now
 
-    poll_end_delay, reminder_delay = NotificationService.get_delays(poll)
-    return nil if self.short_notice(reminder_delay)
+    seconds_till_poll_expiration,
+    seconds_before_reminding_poll = NotificationService.get_delays(poll)
+    return nil if self.short_notice(seconds_before_reminding_poll)
 
     NotificationService.set_future_mail_notifications(poll)
   end
@@ -25,11 +26,16 @@ class NotificationService
   end
 
   def self.set_future_mail_notifications(poll)
-    poll_end_delay, reminder_delay = NotificationService.get_delays(poll)
+    seconds_till_poll_expiration,
+    seconds_before_reminding_poll = NotificationService.get_delays(poll)
     # for some player to remember they should answer poll's question
-    ReminderMailJob.set(wait: reminder_delay.seconds).perform_later(poll.id)
+    ReminderMailJob.set(
+      wait: seconds_before_reminding_poll.seconds
+    ).perform_later(poll.id)
     # for some poll's owner to remember they should announce the end of the poll
-    ReminderPollEndJob.set(wait: poll_end_delay.seconds).perform_later(poll.id)
+    ReminderPollEndJob.set(
+      wait: seconds_till_poll_expiration.seconds
+    ).perform_later(poll.id)
   end
   # ========= Jobs are now set =====================
 
@@ -123,10 +129,10 @@ class NotificationService
   end
 
   def self.get_delays(poll)
-    poll_end_delay = poll.expiration_date - Time.zone.now
+    seconds_till_poll_expiration = poll.expiration_date - Time.zone.now
     day_gap = Poll.days_threshold_for_first_mail_alert.days
-    reminder_delay = poll_end_delay - day_gap.to_i
+    seconds_before_reminding_poll = seconds_till_poll_expiration - day_gap.to_i
 
-    [poll_end_delay, reminder_delay]
+    [seconds_till_poll_expiration, seconds_before_reminding_poll]
   end
 end
