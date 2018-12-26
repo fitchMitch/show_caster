@@ -1,10 +1,11 @@
 - User.active.order(:firstname).each do |user|
   - unless user.try(:pictures).empty?
-    .col-md-4.col-sm-6.col-xs-12
-      .player-frame
-        .player-image
-          = image_tag(user.pictures.first.photo.url(:square), width: 260)
-        .player-bio
-          p
-            i =user.full_name
-          p.bio= user.bio unless user.try(:bio).nil?
+    div
+      .col-md-4.col-sm-6.col-xs-12.space-up-20
+        .player-frame
+          .player-image
+            = image_tag(user.pictures.first.photo.url(:square), width: 260, class: %w[one two three four].sample)
+          .player-bio
+            p
+              i =user.full_name
+            p.bio= user.bio unless user.try(:bio).nil?

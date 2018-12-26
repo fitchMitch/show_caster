@@ -41,6 +41,25 @@ class NotificationService
 
 
   # ========= Jobs launch the following services =====================
+  # @item={
+  # "class"=>"ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
+  # "wrapped"=>"ReminderPollEndJob",
+  # "queue"=>"mailers",
+  # "args"=>
+  #   [
+  #     {
+  #       "job_class"=>"ReminderPollEndJob",
+  #       "job_id"=>"2db0c540-6bf3-49b2-b496-db22733b80bf",
+  #       "provider_job_id"=>nil,
+  #       "queue_name"=>"mailers",
+  #       "priority"=>nil,
+  #       "arguments"=>[39],
+  #       "locale"=>"fr"
+  #     }
+  #   ],
+  # "retry"=>true,
+  # "jid"=>"a9decad10eb3374c7d74276a",
+  # "created_at"=>1545506938.8081102}
   def self.destroy_all_notifications(poll)
     scheduled_jobs = Sidekiq::ScheduledSet.new
     scheduled_jobs.each do |job|
@@ -48,25 +67,9 @@ class NotificationService
         job.delete if job['args'].first['arguments'] == [poll.id]
       end
     end
-    # @item={
-    # "class"=>"ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-    # "wrapped"=>"ReminderPollEndJob",
-    # "queue"=>"mailers",
-    # "args"=>
-    #   [
-    #     {
-    #       "job_class"=>"ReminderPollEndJob",
-    #       "job_id"=>"2db0c540-6bf3-49b2-b496-db22733b80bf",
-    #       "provider_job_id"=>nil,
-    #       "queue_name"=>"mailers",
-    #       "priority"=>nil,
-    #       "arguments"=>[39],
-    #       "locale"=>"fr"
-    #     }
-    #   ],
-    # "retry"=>true,
-    # "jid"=>"a9decad10eb3374c7d74276a",
-    # "created_at"=>1545506938.8081102}
+  rescue StandardError => e
+    Bugsnag.notify(e)
+    warn_logging('destroy_all_notifications failure') { puts e }
   end
 
   def self.poll_reminder_mailing(poll_id)
@@ -98,7 +101,6 @@ class NotificationService
     delay < NotificationService.too_short_notice_days.to_i
   end
 
-  def self.analyse_poll_changes(poll)
     # Sample
     # {
     #   "expiration_date"=>[
@@ -123,6 +125,7 @@ class NotificationService
     #     {}
     #   ]
     # }
+  def self.analyse_poll_changes(poll)
     answer_changes = []
     poll.answers.each { |answer| answer_changes << answer.previous_changes }
     poll.previous_changes.merge('answer_changes' => answer_changes)
