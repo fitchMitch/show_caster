@@ -29,7 +29,7 @@ RSpec.feature Exercice do
       log_in admin
       visit exercices_path
       select(I18n.t('enums.exercice.category.imagination'), from: 'q[category_eq]')
-      sleep 0.1
+      sleep 0.25
     end
     it 'should find two records ' do
       expect(page.body).to have_selector('.exo-category', count: 2)

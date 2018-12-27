@@ -20,15 +20,18 @@ class PollMailer < ApplicationMailer
     @url = get_polls_url
     @url_login = url_login
     @final_call = poll.expiration_date
-    warn_logging('A Reminder ! to')
-    warn_logging(recipients.join(','))
     mail(
       to: recipients.join(','),
-      subject: I18n.t('polls.mails.reminder.subject')
+      subject: I18n.t('polls.mails.reminder.subject'),
+      template_path: 'poll_mailer',
+      template_name: 'poll_reminder_mail'
     )
   rescue StandardError => e
     Bugsnag.notify(e)
-    warn_logging('poll_reminder_mail failure') { puts e }
+    warn_logging('poll_reminder_mail failure') do
+      puts e
+      puts "Recipients: #{recipients.join(',')}"
+    end
   end
 
   def poll_end_reminder_mail(poll)
@@ -36,8 +39,10 @@ class PollMailer < ApplicationMailer
     @url_login = url_login
     @poll = poll
     mail(
-      to: [poll.owner.prefered_email],
-      subject: I18n.t('polls.mails.reminder.end_subject')
+      to: poll.owner.prefered_email,
+      subject: I18n.t('polls.mails.reminder.end_subject'),
+      template_path: 'poll_mailer',
+      template_name: 'poll_end_reminder_mail'
     )
   rescue StandardError => e
     Bugsnag.notify(e)
