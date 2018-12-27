@@ -70,7 +70,7 @@ class NotificationService
     PollMailer.poll_reminder_mail(poll)
   rescue StandardError => e
     Bugsnag.notify(e)
-    warn_logging('poll_reminder_mailing failure') { puts e }
+    error_logging('poll_reminder_mailing failure') { puts e }
   end
 
   def self.poll_end_reminder_mailing(poll_id)
@@ -80,7 +80,7 @@ class NotificationService
     PollMailer.poll_end_reminder_mail(poll)
   rescue StandardError => e
     Bugsnag.notify(e)
-    warn_logging('poll_end_reminder_mailing failure') { puts e }
+    error_logging('poll_end_reminder_mailing failure') { puts e }
   end
 
   # ============ These are just helpers =======================
