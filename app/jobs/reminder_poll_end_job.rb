@@ -6,6 +6,6 @@ class ReminderPollEndJob < ApplicationJob
     NotificationService.poll_end_reminder_mailing(poll_id)
   rescue StandardError => e
     Bugsnag.notify(e)
-    Rails.logger.error("Message ReminderPollEndJob mail: #{e}")
+    error_logging('Message ReminderPollEndJob mail') { puts e }
   end
 end

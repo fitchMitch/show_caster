@@ -120,7 +120,7 @@ module UsersHelper
       raise ArgumentError
     end
   rescue ArgumentError => e
-    warn_logging(e)
+    warn_logging { puts e }
     Bugsnag.notify(e)
   end
 

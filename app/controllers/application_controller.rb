@@ -19,7 +19,6 @@ class ApplicationController < ActionController::Base
   rescue Exception => e
     Rails.logger.error(e)
     Bugsnag.notify(e)
-    nil # TODO check if necessary
   end
 
   def user_signed_in?
@@ -52,10 +51,8 @@ class ApplicationController < ActionController::Base
   end
 
   def add_user_info_to_bugsnag(report)
-    report.user = {
-      email: current_user.email,
-      name: current_user.full_name,
-      id: current_user.id
-    }
+    report.add_tab(
+      :user_info, name: "#{current_user.full_name} (id: #{current_user.id})"
+    )
   end
 end
