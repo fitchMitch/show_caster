@@ -83,12 +83,14 @@ RSpec.describe NotificationService, type: :service do
       let!(:poll_opinion) { create(:poll_opinion) }
       let!(:poll_id) { poll_opinion.id }
       let(:a_mail) { double('a_mail') }
+      let(:a_delivered_mail) { double('a_delivered_mail') }
       before do
         allow(PollMailer).to receive(
           :poll_reminder_mail
         ).with(poll_opinion) { a_mail }
+        allow(a_mail).to receive(:deliver_later) { a_delivered_mail }
       end
-      it { expect(mailing).to eq a_mail }
+      it { expect(mailing).to eq a_delivered_mail }
     end
   end
 

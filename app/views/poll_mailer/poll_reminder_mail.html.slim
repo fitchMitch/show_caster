@@ -1,12 +1,14 @@
-h3 Oh la la !
+h3 Han !
 
 h4
-  ="Han ! Plus que #{"Poll.days_threshold_for_mail_alert"} jours !"
+  ="Plus que #{Poll.days_threshold_for_first_mail_alert} jours pour répondre ! Oh la la !"
 p
-  ="#{ @initiater} "
+  ="Et #{ @initiater} "
   | aimerait avoir ton avis.
 p
-  | Voici le lien pour
+  | C'est la panique ? Noooon, car il te suffit d'abaisser ta main.souris vers les liens qui suivent
+p
+  | Voici pour
   =" #{link_to('se loguer', @url_login)} ".html_safe
   | et celui pour
   =" #{link_to('Voter', @url)}".html_safe
@@ -18,5 +20,6 @@ p
     = " #{I18n.l( @final_call, format:"%a %d %b")}"
   br
   | -----------
+  br
 
-  | Les Sésames vous saluent en coup de vent
+  | Les Sésames vous saluent en coup de vent et bien sûr ...

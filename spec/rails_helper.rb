@@ -8,6 +8,9 @@ require 'rspec/rails'
 require 'webmock/rspec'
 require 'capybara/rspec'
 require 'selenium/webdriver'
+# sidekiq
+require 'sidekiq/testing'
+Sidekiq::Testing.fake!  # by default it is fake
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 

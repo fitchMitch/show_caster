@@ -1,6 +1,7 @@
 h3 C'est la fin ...
 
 h4
-  = "Le sondage ''#{@poll.question}' est maintenant #{link_to('échu', @url)}'"
+  = "Le sondage ''#{@poll.question}' est maintenant" \
+    " #{link_to('échu', @url)}'".html_safe
 p
   | Tu peux penser à communiquer son résultat.

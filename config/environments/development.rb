@@ -26,8 +26,8 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-  # Don't care if the mailer can't send.
 
+  # Don't care if the mailer can't send.
   #=======================
   # Mailer configuration
   #=======================
