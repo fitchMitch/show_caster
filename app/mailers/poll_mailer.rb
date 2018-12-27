@@ -12,6 +12,7 @@ class PollMailer < ApplicationMailer
     )
   end
 
+
   def poll_reminder_mail(poll)
     recipients = poll.missing_voters_ids.map do |uid|
       User.find(uid).prefered_email
@@ -20,6 +21,7 @@ class PollMailer < ApplicationMailer
     @url = get_polls_url
     @url_login = url_login
     @final_call = poll.expiration_date
+
     mail(
       to: recipients.join(','),
       subject: I18n.t('polls.mails.reminder.subject'),
@@ -28,11 +30,12 @@ class PollMailer < ApplicationMailer
     )
   rescue StandardError => e
     Bugsnag.notify(e)
-    warn_logging('poll_reminder_mail failure') do
+    error_logging('poll_reminder_mail failure') do
       puts e
       puts "Recipients: #{recipients.join(',')}"
     end
   end
+
 
   def poll_end_reminder_mail(poll)
     @url = get_polls_url
@@ -40,13 +43,11 @@ class PollMailer < ApplicationMailer
     @poll = poll
     mail(
       to: poll.owner.prefered_email,
-      subject: I18n.t('polls.mails.reminder.end_subject'),
-      template_path: 'poll_mailer',
-      template_name: 'poll_end_reminder_mail'
+      subject: I18n.t('polls.mails.reminder.end_subject')
     )
   rescue StandardError => e
     Bugsnag.notify(e)
-    warn_logging('poll_end_reminder_mail failure') { puts e }
+    error_logging('poll_end_reminder_mail failure') { puts e }
   end
 
   private

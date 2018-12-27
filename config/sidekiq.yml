@@ -9,4 +9,4 @@
   - mailers
 
 production:
-  :concurrency: 10
+  :concurrency: 5

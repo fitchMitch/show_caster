@@ -5,7 +5,7 @@ RSpec.describe PollMailer, type: :mailer do
   describe '#poll_creation_mail' do
     subject { described_class.poll_creation_mail(poll) }
     before do
-      allow(described_class.poll_creation_mail).to receive(:deliver_later) {  }
+      allow(described_class.poll_creation_mail).to receive(:deliver_later)
       allow(User).to receive(:company_mails) { ['mail1@addr.fr', 'mail2@addr.fr'] }
     end
     it { expect(subject.from).to eq(['no-reply@les-sesames.fr']) }
@@ -20,7 +20,7 @@ RSpec.describe PollMailer, type: :mailer do
       let(:user2) { build(:user, id: 2) }
       subject { described_class.poll_reminder_mail(poll) }
       before do
-        allow(described_class.poll_reminder_mail).to receive(:deliver_later) {  }
+        allow(described_class.poll_reminder_mail).to receive(:deliver_later)
         allow(poll).to receive(:missing_voters_ids) { [1, 2] }
         allow(User).to receive(:find).with(1) { user1 }
         allow(User).to receive(:find).with(2) { user2 }
@@ -50,7 +50,7 @@ RSpec.describe PollMailer, type: :mailer do
     context 'with everything ok' do
       subject(:mailing) { described_class.poll_end_reminder_mail(poll) }
       before do
-        allow(described_class.poll_end_reminder_mail).to receive(:deliver_later) {  }
+        allow(described_class.poll_end_reminder_mail).to receive(:deliver_later)
       end
       it { expect(mailing.from).to eq(['no-reply@les-sesames.fr']) }
       it { expect(mailing.to).to eq([poll.owner.prefered_email]) }
