@@ -17,4 +17,19 @@ class FrontPageService
     players_firstnames << mc.user.firstname unless mc.nil?
     players_firstnames
   end
+
+  def photo_list(former_shows_count, photo_count)
+    shows = Performance.passed_events.limit(former_shows_count)
+    return if shows.empty?
+
+    res = []
+    shows.each do |show|
+      res += Picture.last_pictures(show, photo_count)
+      if res.size >= photo_count
+        res = res[0..(photo_count - 1)]
+        break
+      end
+    end
+    res
+  end
 end
