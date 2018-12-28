@@ -68,7 +68,7 @@ FactoryBot.define do
 
     factory :performance_with_picture do
       transient do
-        picture_count { 1 }
+        picture_count { 4 }
       end
       after(:create) do |event|
         create(:picture, imageable: event)

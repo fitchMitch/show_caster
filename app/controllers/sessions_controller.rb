@@ -50,7 +50,7 @@ class SessionsController < ApplicationController
   protected
 
   def destination(user)
-    if user.registered? && user.has_a_picture? && !user.bio.blank?
+    if user.registered? && user.has_downloaded_his_picture? && !user.bio.blank?
       about_me_user_path(user)
     elsif user.registered?
       user_path(user)

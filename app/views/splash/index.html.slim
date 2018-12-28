@@ -16,27 +16,27 @@ section.colored.primary#about
         = render partial: 'next_shows'
 
 section.features#features
-    .container
-      .row
-        .inner-column.showing-off
-          h1= "Les joueurs chez #{t('company_name_long')}"
-      .row
-        = render partial: 'bio'
-      .row
-        p.space-up-50
+  .container
+    .row
+      .inner-column.showing-off
+        h1= "Les joueurs chez #{t('company_name_long')}"
+    .row
+      = render partial: 'bio'
+    .row
+      p.space-up-50
 
 section.images#photos
-    .container
-      .row
-        .inner-column.showing-off
-          - unless Performance.last_performance_photos(4).empty?
-            h1 Photos des derniers spectacles
-      .row
-        - Performance.last_performance_photos(4).each do |pic|
-          col.md-3.col-sm-6.col-xs-12
+  .container
+    .row
+      .inner-column.showing-off
+        - unless @photo_list.empty?
+          h1 Photos des derniers spectacles
+    .row
+      - @photo_list.each do |pic|
+        .col-lg-4.col-md-4.col-sm-6.col-xs-12
+          = link_to pic.photo.url, target: '_blank'
             = image_tag  pic.photo.url(:square),
-                         style: 'height:290px;width:auto;',
-                         class: 'space-up-20 photo-galery'
+                         class: 'photo-galery'
 
 p.space-up-250
 p#contact.space-up-25

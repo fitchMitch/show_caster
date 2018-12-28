@@ -92,7 +92,7 @@ class User < ApplicationRecord
   end
 
 
-  def has_a_picture?
+  def has_downloaded_his_picture?
     !Picture.where(imageable_id: id).where(imageable_type: 'User').empty?
   end
 

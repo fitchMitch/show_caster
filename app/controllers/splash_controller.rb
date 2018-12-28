@@ -10,6 +10,7 @@ class SplashController < ApplicationController
     @players_firstnames = front_page_service.players_on_stage(
       @very_next_performance
     ) unless @very_next_performance.nil?
+    @photo_list = front_page_service.photo_list(2,9)
   end
 
   def signup

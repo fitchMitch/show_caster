@@ -76,6 +76,7 @@ body.splash {
   color: white;
   background-color: $sesame-blue;
 
+
   p.info {
     font-size: 1.5em;
   }
@@ -129,6 +130,7 @@ body.splash {
   .colored.primary {
     background: $sesame-blue;
     color: white;
+    background-image: linear-gradient(rgba(30, 20, 80, 0.8), rgba(150, 150, 254, 0.05)), url("sesames_trame_square.png");
 
     p {
       padding: 2em 0;
@@ -187,15 +189,54 @@ body.splash {
   padding: 10px;
   height : 450px;
 
+
   .player-image{
     // width: 260px;
     text-align: center;
     margin: auto;
-    img{
-      border:1px solid $sesame-blue;
-      border-radius: 45px;
-      -webkit-border-radius: 45px;
-      -moz-border-radius: 45px;
+    // img{
+    //   border:1px solid $sesame-blue;
+    //
+    //   //border-bottom: 12px dotted $sesame-yellow;
+    //   border-radius: 45px;
+    //   -webkit-border-radius: 45px;
+    //   -moz-border-radius: 45px;
+    // }
+    img.one{
+      // border:1px solid $sesame-orange;
+      border:2px solid black;
+      // border:1px solid $sesame-yellow;
+      // border-top-left-radius: 60px;
+      border-top-right-radius: 100px 100px;
+      border-bottom-left-radius: 100px 100px;
+      border-bottom-right-radius: 60px;
+    }
+    img.two{
+      border:2px solid $sesame-orange;
+      // border:1px solid black;
+      // border:1px solid $sesame-yellow;
+      border-top-left-radius: 100px 100px;
+      // border-top-right-radius: 60px;
+      border-bottom-left-radius: 60px;
+      border-bottom-right-radius: 100px 100px;
+    }
+    img.three{
+      // border:1px solid $sesame-orange;
+      // border:1px solid black;
+      border:2px solid $sesame-yellow;
+      border-top-left-radius: 100px;
+      border-top-right-radius: 60px;
+      // border-bottom-left-radius: 60px;
+      border-bottom-right-radius: 100px 70px;
+    }
+    img.four{
+      // border:1px solid $sesame-orange;
+      // border:1px solid black;
+      border:2px solid white;
+      border-top-left-radius: 60px;
+      border-top-right-radius: 100px 140px;
+      border-bottom-left-radius: 100px;
+      // border-bottom-right-radius: 60px;
     }
   }
   .player-bio{
@@ -208,13 +249,11 @@ body.splash {
   }
 }
 .photo-galery{
-  margin:5px;
-  img{
-    border:1px solid $sesame-blue;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-  }
+  margin-top:15px;
+  border:1px solid black;
+  height: 100%;
+  width:100%;
+
 }
 #signup_email{
   color: $sesame-hell-blue;
