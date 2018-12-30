@@ -130,7 +130,7 @@ body.splash {
   .colored.primary {
     background: $sesame-blue;
     color: white;
-    background-image: linear-gradient(rgba(30, 20, 80, 0.8), rgba(150, 150, 254, 0.05)), url("images/sesames_trame_square.png");
+    background-image: linear-gradient(rgba(30, 20, 80, 0.8), rgba(150, 150, 254, 0.05)), asset-url("images/sesames_trame_square.png");
 
     p {
       padding: 2em 0;
