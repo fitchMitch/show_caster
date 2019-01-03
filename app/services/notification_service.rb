@@ -86,7 +86,7 @@ class NotificationService
   def self.poll_end_reminder_mailing(poll_id)
     poll = Poll.find(poll_id)
     return nil if poll.nil?
-
+    debug_logging('inside poll_end_reminder_mail and just before sending with PollMailer poll_end_reminder_mail') { puts poll.question }
     PollMailer.poll_end_reminder_mail(poll).deliver_later
   rescue StandardError => e
     Bugsnag.notify(e)
