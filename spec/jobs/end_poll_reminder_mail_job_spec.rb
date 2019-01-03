@@ -1,4 +1,7 @@
 require 'rails_helper'
+# sidekiq
+require 'sidekiq/testing'
+Sidekiq::Testing.fake!  # by default it is fake
 
 RSpec.describe ReminderPollEndJob, type: :job do
   include ActiveJob::TestHelper
