@@ -1,5 +1,5 @@
 class PollMailer < ApplicationMailer
-  include LoggingHelper
+  extend LoggingHelper
 
   def poll_creation_mail(poll)
     @initiater = poll.owner.firstname

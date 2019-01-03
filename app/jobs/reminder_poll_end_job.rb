@@ -1,5 +1,5 @@
 class ReminderPollEndJob < ApplicationJob
-  include LoggingHelper
+  extend LoggingHelper
   queue_as :mailers
 
   def perform(poll_id)
