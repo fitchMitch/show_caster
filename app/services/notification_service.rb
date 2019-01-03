@@ -7,7 +7,7 @@ class NotificationService
   def self.poll_creation(poll)
     PollMailer.poll_creation_mail(poll).deliver_now
 
-    # Both notifications exist unless short notice
+    # Both notifications will be set unless short notice
     seconds_till_poll_expiration,
     seconds_before_reminding_poll = NotificationService.get_delays(poll)
     return nil if self.short_notice(seconds_before_reminding_poll)

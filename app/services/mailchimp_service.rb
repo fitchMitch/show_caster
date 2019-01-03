@@ -1,5 +1,5 @@
 class MailchimpService
-  extend LoggingHelper
+  include LoggingHelper
 
   def setup_complete?
     @message = 'The MAILCHIMP_API_KEY and MAILCHIMP_SPLASH_SIGNUP_LIST_ID \
