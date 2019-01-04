@@ -2,7 +2,7 @@ module UsersHelper
   #require 'nokogiri'
   include IconsHelper
   include SeasonsHelper
-  extend LoggingHelper
+  include LoggingHelper
 
   # Returns the Gravatar for the given user.
   # def gravatar_for(user, options = { size: 60 })

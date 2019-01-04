@@ -1,7 +1,8 @@
 require 'sidekiq/api'
 
 class NotificationService
-  extend LoggingHelper
+  include LoggingHelper
+
   @@too_short_notice_days = 2.days
 
   def self.poll_creation(poll)
@@ -70,7 +71,7 @@ class NotificationService
     end
   rescue StandardError => e
     Bugsnag.notify(e)
-    warn_logging('destroy_all_notifications failure') { puts e }
+    NotificationService.warn_logging("destroy_all_notifications failure: #{e}")
   end
 
   def self.poll_reminder_mailing(poll_id)
@@ -80,18 +81,19 @@ class NotificationService
     PollMailer.poll_reminder_mail(poll).deliver_later
   rescue StandardError => e
     Bugsnag.notify(e)
-    error_logging('poll_reminder_mailing failure') { puts e }
+    NotificationService.error_logging "poll_reminder_mailing failure: #{e}"
     raise e
   end
 
   def self.poll_end_reminder_mailing(poll_id)
     poll = Poll.find(poll_id)
     return nil if poll.nil?
-    debug_logging('inside poll_end_reminder_mail and just before sending with PollMailer poll_end_reminder_mail') { puts poll.question }
+
+    NotificationService.debug_logging "inside poll_end_reminder_mail for: #{poll.question}"
     PollMailer.poll_end_reminder_mail(poll).deliver_later
   rescue StandardError => e
     Bugsnag.notify(e)
-    error_logging('poll_end_reminder_mailing failure') { puts e }
+    NotificationService.error_logging "poll_end_reminder_mailing failure: #{e}"
     raise e
   end
 

@@ -7,7 +7,7 @@ class MailchimpService
                signup to work!'
     complete = !ENV['MAILCHIMP_SPLASH_SIGNUP_LIST_ID'].blank? &&
                !ENV['MAILCHIMP_API_KEY'].blank?
-    warn_logging(@message) unless complete
+    MailchimpService.warn_logging(@message) unless complete
     complete
   end
 
@@ -26,13 +26,11 @@ class MailchimpService
       # When returning glike 401, 403...)
       if e.status_code.to_s[0] == '4'
         @message = I18n.t('splash.enthousiast')
-        info_logging(@message) do
+        MailchimpService.error_logging(@message) do
           Rails.logger.info("MailChimp : #{e.title}")
         end
       else
-        warn_logging("MailChimp : #{e.status_code}") do
-          Rails.logger.warn(e.status_code)
-        end
+        MailchimpService.warn_logging("MailChimp : #{e.status_code}")
         Bugsnag.notify(e)
         @message = I18n.t('splash.error')
       end
