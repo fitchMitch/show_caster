@@ -79,7 +79,7 @@ RSpec.describe NotificationService, type: :service do
       it { expect(mailing).to be(nil) }
     end
 
-    context 'some have not voted this still existing poll' do
+    context 'some have not voted for this still existing poll' do
       let!(:poll_opinion) { create(:poll_opinion) }
       let!(:poll_id) { poll_opinion.id }
       let(:a_mail) { double('a_mail') }
@@ -91,6 +91,58 @@ RSpec.describe NotificationService, type: :service do
         allow(a_mail).to receive(:deliver_later) { a_delivered_mail }
       end
       it { expect(mailing).to eq a_delivered_mail }
+    end
+
+    context 'when something goes wrong' do
+      let(:poll_id) { 123 }
+      before do
+        allow(Poll).to receive(:find).and_raise(StandardError.new('message'))
+        allow_any_instance_of(Class).to receive(:raise).and_return(nil)
+      end
+      it 'does notify Bugsnag' do
+        expect(Bugsnag).to receive(:notify)
+        expect(NotificationService).to receive(:error_logging)
+        mailing
+      end
+    end
+  end
+
+  describe '.poll_end_reminder_mailing' do
+    subject(:mailing) { described_class.poll_end_reminder_mailing(poll_id) }
+
+    context 'when poll no longer exists' do
+      let(:poll_id) { 123 }
+      before do
+        allow(Poll).to receive(:find) { nil }
+      end
+      it { expect(mailing).to be(nil) }
+    end
+
+    context 'some have not voted for this still existing poll' do
+      let!(:poll_opinion) { create(:poll_opinion) }
+      let!(:poll_id) { poll_opinion.id }
+      let(:a_mail) { double('a_mail') }
+      let(:a_delivered_mail) { double('a_delivered_mail') }
+      before do
+        allow(PollMailer).to receive(
+          :poll_end_reminder_mail
+        ).with(poll_opinion) { a_mail }
+        allow(a_mail).to receive(:deliver_later) { a_delivered_mail }
+      end
+      it { expect(mailing).to eq a_delivered_mail }
+    end
+
+    context 'when something goes wrong' do
+      let(:poll_id) { 123 }
+      before do
+        allow(Poll).to receive(:find).and_raise(StandardError.new('message'))
+        allow_any_instance_of(Class).to receive(:raise).and_return(nil)
+      end
+      it 'does notify Bugsnag' do
+        expect(Bugsnag).to receive(:notify)
+        expect(NotificationService).to receive(:error_logging)
+        mailing
+      end
     end
   end
 
@@ -170,15 +222,28 @@ RSpec.describe NotificationService, type: :service do
       # 'jid'=>'a9decad10eb3374c7d74276a',
       # 'created_at'=>1545506938.8081102
       # }
-    before do
-      allow(Sidekiq::ScheduledSet).to receive(:new) { scheduled_jobs }
-      allow(a_scheduled_job).to receive(:delete)
-      allow(scheduled_jobs.first).to receive(:delete)
+    context 'everything is ok' do
+      before do
+        allow(Sidekiq::ScheduledSet).to receive(:new) { scheduled_jobs }
+        allow(a_scheduled_job).to receive(:delete)
+        allow(scheduled_jobs.first).to receive(:delete)
+      end
+      it 'should delete the related notifications' do
+        skip 'missing test due  to double not being a correct object'
+        expect(a_scheduled_job).to receive(:delete) {}
+        described_class.destroy_all_notifications(poll)
+      end
     end
-    it 'should delete the related notifications' do
-      skip 'missing test due  to double not being a correct object'
-      expect(a_scheduled_job).to receive(:delete) {}
-      described_class.destroy_all_notifications(poll)
+    context 'when something goes wrong' do
+      before do
+        allow(Sidekiq::ScheduledSet).to receive(
+          :new
+        ).and_raise(StandardError.new 'message')
+      end
+      it 'does notify Bugsnag' do
+        expect(Bugsnag).to receive(:notify)
+        described_class.destroy_all_notifications(poll)
+      end
     end
   end
 
@@ -186,7 +251,11 @@ RSpec.describe NotificationService, type: :service do
     subject { described_class.analyse_poll_changes(poll) }
     context 'with a question change' do
       let(:poll) { build(:poll_date) }
-      let(:question_change) { { 'question' => ['Question deuxxx', 'Question deux']} }
+      let(:question_change) do
+        {
+          'question' => ['Question deuxxx', 'Question deux']
+        }
+      end
       before do
         allow(poll).to receive(:previous_changes) { question_change }
       end
