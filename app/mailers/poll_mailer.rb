@@ -41,14 +41,13 @@ class PollMailer < ApplicationMailer
     @url = get_polls_url
     @url_login = url_login
     @poll = poll
-    PollMailer.debug_logging('right before sendind an email to the pooll\'s initiater')
     mail(
       to: poll.owner.prefered_email,
       subject: I18n.t('polls.mails.reminder.end_subject')
     )
   rescue StandardError => e
     Bugsnag.notify(e)
-    PollMailer.error_logging('poll_end_reminder_mail failure') { puts e }
+    PollMailer.error_logging("poll_end_reminder_mail failure: #{e}")
   end
 
   private
