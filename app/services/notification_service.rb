@@ -87,10 +87,12 @@ class NotificationService
   def self.poll_end_reminder_mailing(poll_id)
     poll = Poll.find(poll_id)
     return nil if poll.nil?
+
     PollMailer.poll_end_reminder_mail(poll).deliver_later
   rescue StandardError => e
     Bugsnag.notify(e)
-    NotificationService.error_logging("poll_end_reminder_mailing failure: #{e}")
+    Rails.logger.error("poll_end_reminder_mailing failure: #{e}")
+    # NotificationService.error_logging("poll_end_reminder_mailing failure: #{e}")
     raise e
   end
 
