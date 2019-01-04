@@ -30,7 +30,6 @@ class NotificationService
     seconds_till_poll_expiration,
     seconds_before_reminding_poll = NotificationService.get_delays(poll)
     # for some player to remember they should answer poll's question
-
     ReminderMailJob.set(
       wait: seconds_before_reminding_poll.seconds
     ).perform_later(poll.id) unless seconds_before_reminding_poll < 0
@@ -105,30 +104,31 @@ class NotificationService
     delay < NotificationService.too_short_notice_days.to_i
   end
 
-    # Sample
-    # {
-    #   "expiration_date"=>[
-    #     Tue, 01 Jan 2019 00:00:00 CET +01:00,
-    #     Wed, 02 Jan 2019 00:00:00 CET +01:00
-    #   ],
-    #   "question"=>[
-    #     "Question deuxxx",
-    #     "Question deux"
-    #   ],
-    #   "answer_changes"=>[
-    #     {
-    #       "date_answer"=>[
-    #         Wed, 26 Dec 2018 19:00:00 CET +01:00,
-    #         Wed, 26 Dec 2018 18:00:00 CET +01:00
-    #       ],
-    #       "updated_at"=>[
-    #         Mon, 24 Dec 2018 10:26:40 CET +01:00,
-    #         Mon, 24 Dec 2018 10:29:17 CET +01:00
-    #       ]
-    #     },
-    #     {}
-    #   ]
-    # }
+  # Sample
+  # {
+  #   "expiration_date"=>[
+  #     Tue, 01 Jan 2019 00:00:00 CET +01:00,
+  #     Wed, 02 Jan 2019 00:00:00 CET +01:00
+  #   ],
+  #   "question"=>[
+  #     "Question deuxxx",
+  #     "Question deux"
+  #   ],
+  #   "answer_changes"=>[
+  #     {
+  #       "date_answer"=>[
+  #         Wed, 26 Dec 2018 19:00:00 CET +01:00,
+  #         Wed, 26 Dec 2018 18:00:00 CET +01:00
+  #       ],
+  #       "updated_at"=>[
+  #         Mon, 24 Dec 2018 10:26:40 CET +01:00,
+  #         Mon, 24 Dec 2018 10:29:17 CET +01:00
+  #       ]
+  #     },
+  #     {}
+  #   ]
+  # }
+
   def self.analyse_poll_changes(poll)
     answer_changes = []
     poll.answers.each { |answer| answer_changes << answer.previous_changes }

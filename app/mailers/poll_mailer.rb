@@ -41,6 +41,7 @@ class PollMailer < ApplicationMailer
     @url = get_polls_url
     @url_login = url_login
     @poll = poll
+    debug_logging('right before sendind an email to the pooll\'s initiater') { puts Time.zone.now }
     mail(
       to: poll.owner.prefered_email,
       subject: I18n.t('polls.mails.reminder.end_subject')
