@@ -29,7 +29,7 @@ RSpec.feature Exercice do
       log_in admin
       visit exercices_path
       select(I18n.t('enums.exercice.category.imagination'), from: 'q[category_eq]')
-      sleep 0.25
+      sleep 0.55
     end
     it 'should find two records ' do
       expect(page.body).to have_selector('.exo-category', count: 2)
@@ -67,7 +67,7 @@ RSpec.feature Exercice do
         'q[title_or_instructions_cont]', with: 'test'
       )
       page.execute_script("$('form').submit()")
-      sleep 0.25
+      sleep 0.55
     end
 
     it 'should find records according to situations' do
@@ -82,14 +82,14 @@ RSpec.feature Exercice do
         I18n.t('enums.exercice.energy_level.low'), from: 'q[energy_level_eq]'
       )
       page.execute_script("$('form').submit()")
-      sleep 0.25
+      sleep 0.55
       #because of 'test' in the input field
       expect(page.body).to have_selector('.exo-category', count: 0)
       fill_in(
         'q[title_or_instructions_cont]', with: ''
       )
       page.execute_script("$('form').submit()")
-      sleep 0.25
+      sleep 0.55
       expect(page.body).to have_selector('.exo-category', count: 1)
     end
   end

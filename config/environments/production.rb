@@ -61,7 +61,7 @@ Rails.application.configure do
 
   ActionMailer::Base.smtp_settings = {
     address:         ENV['SMTP_SERVER'],
-    port:            '25',
+    port:            587,
     domain:          'les-sesames.fr',
     user_name:       ENV['SMTP_EMAIL'],
     password:        ENV['SMTP_PASSWORD'],
