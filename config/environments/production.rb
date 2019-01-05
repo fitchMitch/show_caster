@@ -62,10 +62,11 @@ Rails.application.configure do
   ActionMailer::Base.smtp_settings = {
     address:         ENV['SMTP_SERVER'],
     port:            '587',
-    authentication: :plain,
-    enable_starttls_auto: true,
+    domain:          'les-sesames.fr',
     user_name:       ENV['SMTP_EMAIL'],
-    password:        ENV['SMTP_PASSWORD']
+    password:        ENV['SMTP_PASSWORD'],
+    authentication:  :plain,
+    enable_starttls_auto: true
   }
   Rails.configuration.action_mailer.smtp_settings = ActionMailer::Base.smtp_settings
   # Ignore bad email addresses and do not raise email delivery errors.
