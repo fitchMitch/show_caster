@@ -63,9 +63,11 @@ Rails.application.configure do
     address:         ENV['SMTP_SERVER'],
     port:            '587',
     authentication: :plain,
+    enable_starttls_auto: true,
     user_name:       ENV['SMTP_EMAIL'],
     password:        ENV['SMTP_PASSWORD']
   }
+  Rails.configuration.action_mailer.smtp_settings = ActionMailer::Base.smtp_settings
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
