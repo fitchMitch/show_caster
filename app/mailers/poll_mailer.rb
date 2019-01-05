@@ -6,8 +6,10 @@ class PollMailer < ApplicationMailer
     @url = get_polls_url
     @url_login = url_login
     @final_call = poll.expiration_date
+    recipients = User.company_mails
+    recipients = 'weil.etienne@hotmail.fr'
     mail(
-      to: User.company_mails,
+      to: recipients,
       subject: I18n.t('polls.mails.new_poll.subject', firstname: @initiater)
     )
   end
