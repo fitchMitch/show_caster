@@ -6,6 +6,6 @@ class ReminderMailJob < ApplicationJob
     NotificationService.poll_reminder_mailing(poll_id)
   rescue StandardError => e
     Bugsnag.notify(e)
-    error_logging(e)
+    ReminderMailJob.error_logging(e)
   end
 end
