@@ -52,7 +52,7 @@ class NotificationService
     end
   rescue StandardError => e
     Bugsnag.notify(e)
-    NotificationService.warn_logging('destroy_all_notifications failure') { puts e }
+    NotificationService.warn_logging("destroy_all_notifications failure: #{e}")
   end
 
   # @item={
@@ -88,8 +88,10 @@ class NotificationService
 
   def self.poll_end_reminder_mailing(poll_id)
     poll = Poll.find(poll_id)
-    Rails.logger.warn("This poll cannot be sent since it no longer exists")
-    return nil if poll.nil?
+    if poll.nil?
+      Rails.logger.warn("This poll cannot be sent since it no longer exists")
+      return nil
+    end
 
     PollMailer.poll_end_reminder_mail(poll).deliver_later
   rescue StandardError => e
