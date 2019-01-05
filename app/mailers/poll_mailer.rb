@@ -36,7 +36,6 @@ class PollMailer < ApplicationMailer
     end
   end
 
-
   def poll_end_reminder_mail(poll)
     @url = get_polls_url
     @url_login = url_login
