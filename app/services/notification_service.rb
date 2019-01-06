@@ -19,7 +19,6 @@ class NotificationService
     Rails.logger.debug("inside poll_notifications_update")
     poll_changes = NotificationService.analyse_poll_changes(poll)
     # Poll changes should be noticed to adminstrators and owner only
-    # TODO with analyse_poll_changes
     # identify which changes there were and which one are important
     NotificationService.destroy_all_notifications(poll)
     return nil if poll_changes.fetch("expiration_date", nil).nil?
