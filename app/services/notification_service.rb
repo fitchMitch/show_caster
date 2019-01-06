@@ -16,6 +16,7 @@ class NotificationService
   end
 
   def self.poll_notifications_update(poll)
+    Rails.logger.debug("inside poll_notifications_update")
     poll_changes = NotificationService.analyse_poll_changes(poll)
     # Poll changes should be noticed to adminstrators and owner only
     # TODO with analyse_poll_changes
@@ -24,6 +25,7 @@ class NotificationService
     return nil if poll_changes.fetch("expiration_date", nil).nil?
 
     NotificationService.set_future_mail_notifications(poll)
+    Rails.logger.debug("Right before NotificationService.set_future_mail_notifications(poll)")
   end
 
   def self.set_future_mail_notifications(poll)
@@ -33,7 +35,8 @@ class NotificationService
     ReminderMailJob.set(
       wait: seconds_before_reminding_poll.seconds
     ).perform_later(poll.id) unless seconds_before_reminding_poll < 0
-    # for some poll's owner to remember they should announce the end of the poll
+    #for some poll's owner to remember they should announce the end of the poll
+
     ReminderPollEndJob.set(
       wait: seconds_till_poll_expiration.seconds
     ).perform_later(poll.id) unless seconds_till_poll_expiration < 0

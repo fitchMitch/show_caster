@@ -4,6 +4,7 @@ class ReminderPollEndJob < ApplicationJob
 
   def perform(poll_id)
     # ReminderPollEndJob.debug_logging('before NotificationService')
+    Rails.logger.debug(" right before ReminderPollEndJob ")
     NotificationService.poll_end_reminder_mailing(poll_id)
     # ReminderPollEndJob.debug_logging('after NotificationService')
   rescue StandardError => e
