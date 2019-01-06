@@ -88,10 +88,12 @@ class NotificationService
 
   def self.poll_end_reminder_mailing(poll_id)
     poll = Poll.find(poll_id)
+    Rails.logger.debug "***** Just before poll's test *****"
     if poll.nil?
       Rails.logger.warn("This poll cannot be sent since it no longer exists")
       return nil
     end
+    Rails.logger.debug "***** Just before PollMailer.poll_end_reminder_mail call *****"
 
     PollMailer.poll_end_reminder_mail(poll).deliver_now
   rescue StandardError => e
