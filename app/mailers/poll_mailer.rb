@@ -41,6 +41,13 @@ class PollMailer < ApplicationMailer
     @url = get_polls_url
     @url_login = url_login
     @poll = poll
+    Rails.logger.debug("smtp parameteres right before mailing")
+    Rails.logger.debug("settings first : ")
+    Rails.logger.debug(ActionMailer::Base.smtp_settings.to_s)
+    Rails.logger.debug(ActionMailer::Base.delivery_method.to_s)
+    Rails.logger.debug("config.action_mailer.delivery_method")
+    Rails.logger.debug(config.action_mailer.delivery_method)
+
     mail(
       to: poll.owner.prefered_email,
       subject: I18n.t('polls.mails.reminder.end_subject')
