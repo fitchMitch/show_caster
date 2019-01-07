@@ -79,7 +79,7 @@ Commontator.configure do |config|
   # If the mailer argument is not nil, then Commontator intends to send an email to
   # the address returned; you can prevent it from being sent by returning a blank String
   # Default: ->(user, mailer) { user.try(:email) || '' }
-  config.user_email_proc = ->(user, mailer) { user.try(:email) || '' }
+  config.user_email_proc = ->(user, mailer) { user.try(:prefered_email) || '' }
 
 
 
@@ -201,7 +201,7 @@ Commontator.configure do |config|
   # Set to nil to disable pagination
   # Any other value requires the will_paginate gem
   # Default: nil (no pagination)
-  config.comments_per_page = nil
+  config.comments_per_page = 15
 
   # thread_subscription
   # Type: Symbol

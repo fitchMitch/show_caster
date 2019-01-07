@@ -24,21 +24,25 @@ class NotificationService
     return nil if poll_changes.fetch("expiration_date", nil).nil?
 
     NotificationService.set_future_mail_notifications(poll)
-    Rails.logger.debug("Right before NotificationService.set_future_mail_notifications(poll)")
+    Rails.logger.debug("Right after NotificationService.set_future_mail_notifications(poll)")
   end
 
   def self.set_future_mail_notifications(poll)
     seconds_till_poll_expiration,
     seconds_before_reminding_poll = NotificationService.get_delays(poll)
+
+    Rails.logger.debug("Been there set_future_mail_notifications")
     # for some player to remember they should answer poll's question
     ReminderMailJob.set(
       wait: seconds_before_reminding_poll.seconds
     ).perform_later(poll.id) unless seconds_before_reminding_poll < 0
     #for some poll's owner to remember they should announce the end of the poll
 
+    Rails.logger.debug("Done that : ReminderMailJob")
     ReminderPollEndJob.set(
       wait: seconds_till_poll_expiration.seconds
     ).perform_later(poll.id) unless seconds_till_poll_expiration < 0
+    Rails.logger.debug("And that : ReminderMailJob")
   end
   # ========= Jobs are now set =====================
 

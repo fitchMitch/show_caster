@@ -4,7 +4,7 @@ class ReminderPollEndJob < ApplicationJob
 
   def perform(poll_id)
     # ReminderPollEndJob.debug_logging('before NotificationService')
-    Rails.logger.debug(" right before ReminderPollEndJob ")
+    Rails.logger.debug("right before ReminderPollEndJob ")
     # NotificationService.poll_end_reminder_mailing(poll_id)
     poll = Poll.find(poll_id)
     Rails.logger.debug "***** Just before poll's test *****"
