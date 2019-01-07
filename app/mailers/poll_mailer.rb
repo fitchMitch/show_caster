@@ -39,13 +39,6 @@ class PollMailer < ApplicationMailer
     @url = get_polls_url
     @url_login = url_login
     @poll = poll
-    Rails.logger.debug("smtp parameteres right before mailing")
-    Rails.logger.debug("settings first : ")
-    Rails.logger.debug(ActionMailer::Base.smtp_settings.to_s)
-    Rails.logger.debug("ActionMailer::Base.delivery_method.to_s")
-    Rails.logger.debug(ActionMailer::Base.delivery_method.to_s)
-    # Rails.logger.debug("config.action_mailer.delivery_method")
-    # Rails.logger.debug(config.action_mailer.delivery_method)
 
     mail(
       to: poll.owner.prefered_email,
@@ -54,7 +47,6 @@ class PollMailer < ApplicationMailer
   rescue StandardError => e
     Bugsnag.notify(e)
     Rails.logger.error("poll_end_reminder_mail failure: #{e}")
-    # PollMailer.error_logging("poll_end_reminder_mail failure: #{e}")
   end
 
   private

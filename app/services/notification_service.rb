@@ -16,7 +16,6 @@ class NotificationService
   end
 
   def self.poll_notifications_update(poll)
-    Rails.logger.debug("inside poll_notifications_update")
     poll_changes = NotificationService.analyse_poll_changes(poll)
     # Poll changes should be noticed to adminstrators and owner only
     # identify which changes there were and which one are important
@@ -24,25 +23,21 @@ class NotificationService
     return nil if poll_changes.fetch("expiration_date", nil).nil?
 
     NotificationService.set_future_mail_notifications(poll)
-    Rails.logger.debug("Right after NotificationService.set_future_mail_notifications(poll)")
   end
 
   def self.set_future_mail_notifications(poll)
     seconds_till_poll_expiration,
     seconds_before_reminding_poll = NotificationService.get_delays(poll)
 
-    Rails.logger.debug("Been there set_future_mail_notifications")
     # for some player to remember they should answer poll's question
     ReminderMailJob.set(
       wait: seconds_before_reminding_poll.seconds
     ).perform_later(poll.id) unless seconds_before_reminding_poll < 0
     #for some poll's owner to remember they should announce the end of the poll
 
-    Rails.logger.debug("Done that : ReminderMailJob")
     ReminderPollEndJob.set(
       wait: seconds_till_poll_expiration.seconds
     ).perform_later(poll.id) unless seconds_till_poll_expiration < 0
-    Rails.logger.debug("And that : ReminderMailJob")
   end
   # ========= Jobs are now set =====================
 
@@ -94,12 +89,9 @@ class NotificationService
 
   def self.poll_end_reminder_mailing(poll_id)
     poll = Poll.find(poll_id)
-    Rails.logger.debug "***** Just before poll's test *****"
     if poll.nil?
-      Rails.logger.warn("This poll cannot be sent since it no longer exists")
       return nil
     end
-    Rails.logger.debug "***** Just before PollMailer.poll_end_reminder_mail call *****"
 
     PollMailer.poll_end_reminder_mail(poll).deliver_now
   rescue StandardError => e

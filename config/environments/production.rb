@@ -60,7 +60,7 @@ Rails.application.configure do
   #~new
   # config.action_mailer.default_url_options = { :host => ‘sitename.com’ }
   config.action_mailer.perform_deliveries = true
-  ActionMailer::Base.delivery_method = :smtp
+  # ActionMailer::Base.delivery_method = :smtp
   #end of ~new
 
   ActionMailer::Base.smtp_settings = {
