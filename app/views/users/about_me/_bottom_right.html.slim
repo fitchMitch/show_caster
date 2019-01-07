@@ -1,4 +1,4 @@
-- unless @last_poll_results.empty?
+- if @last_poll_results.present?
   .petal.petal-down.petal-right.shine_4
     .oim-title= t('wham.poll_results')
     .row

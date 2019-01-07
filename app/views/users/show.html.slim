@@ -19,7 +19,7 @@
           = render partial: 'pictures/link_part', locals: { imageable: @user, picto: @user.pictures.first }
           i
             small= t("users.photograph_comment")
-        p.bio= @user.bio unless @user.try(:bio).nil?
+        p.bio= @user.bio if @user.try(:bio).present?
     .col-sm-8
       = render 'vertical_attributes'
       .row.form-std-height

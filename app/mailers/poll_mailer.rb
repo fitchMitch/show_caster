@@ -24,9 +24,7 @@ class PollMailer < ApplicationMailer
 
     mail(
       to: recipients.join(','),
-      subject: I18n.t('polls.mails.reminder.subject'),
-      template_path: 'poll_mailer',
-      template_name: 'poll_reminder_mail'
+      subject: I18n.t('polls.mails.reminder.subject')
     )
   rescue StandardError => e
     Bugsnag.notify(e)

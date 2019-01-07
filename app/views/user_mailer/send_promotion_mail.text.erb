@@ -1,13 +1,13 @@
 Hello <%= @user.firstname  %> !
 ===============================
 L'administrateur vient de changer ton statut sur le site.
-<% unless @role.nil? %>
+<% if @role.present? %>
   Tu as les droits de : '<%= @role %>'
 <% end %>
-<% unless @committee_plus.nil? %>
+<% if @committee_plus.present? %>
   Tu fais partie de la commission : "<%= @committee_plus %> "
 <% end %>
-<% unless @committee_minus.nil? %>
+<% if @committee_minus.present? %>
   Tu ne fais plus partie de la commission : "<%= @committee_minus %>, hélas "
 <% end %>
 

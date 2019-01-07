@@ -35,5 +35,5 @@
       .col-md-2.text-right
         = t("polls.questioned_by")
         br
-        = poll.owner.first_and_l unless poll.owner.nil?
+        = poll.owner.first_and_l if poll.owner.present?
 hr

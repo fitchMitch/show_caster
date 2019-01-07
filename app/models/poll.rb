@@ -103,12 +103,13 @@ class Poll < ApplicationRecord
   def comments_count
     poll_thread = Commontator::Thread.where(commontable_id: id).take
     return 0 if poll_thread.nil?
+
     poll_thread.comments.count
   end
 
   def votes_destroy
     Vote.where(poll_id: id)
         .delete_all
-    Rails.logger.info("----- success in votes_destroy ---------")
+    Rails.logger.info('----- success in votes_destroy ---------')
   end
 end

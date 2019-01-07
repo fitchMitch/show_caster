@@ -380,18 +380,18 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#more_power' do
+  describe '#has_more_privileges?' do
     let(:user) { create(:user, :admin_com) }
     context 'when stronger ' do
       let(:o_user) { create(:user, :player) }
       it 'user is stronger' do
-        expect(user.send(:more_power, o_user)).to be true
+        expect(user.send(:has_more_privileges?, o_user)).to be true
       end
     end
     context 'when weaker ' do
       let(:o_user) { create(:user, :admin) }
       it 'user is stronger' do
-        expect(user.send(:more_power, o_user)).to be false
+        expect(user.send(:has_more_privileges?, o_user)).to be false
       end
     end
   end

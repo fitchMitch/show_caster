@@ -2,11 +2,11 @@ h3= "Hello #{@user.firstname } !"
 p
   | L'administrateur vient de changer ton statut sur le site. Et si on résume :
 ul
-  - unless @role.nil?
+  - if @role.present?
     li= "Tu as les droits de : '#{@role}'. "
-  - unless @committee_plus.nil?
+  - if @committee_plus.present?
     li= "Tu fais partie de la ou des commissions :  \"#{@committee_plus}\" "
-  - unless @committee_minus.nil?
+  - if @committee_minus.present?
     li= "Tu ne fais plus partie de la ou des commissions :  \"#{@committee_minus}\", hélas "
 
 p

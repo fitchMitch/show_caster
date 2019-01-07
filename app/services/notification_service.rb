@@ -47,7 +47,7 @@ class NotificationService
   def self.destroy_all_notifications(poll)
     scheduled_jobs = Sidekiq::ScheduledSet.new
     scheduled_jobs.each do |job|
-      unless job['args'].empty?
+      if job['args'].present?
         job.delete if job['args'].first['arguments'] == [poll.id]
       end
     end
@@ -89,9 +89,7 @@ class NotificationService
 
   def self.poll_end_reminder_mailing(poll_id)
     poll = Poll.find(poll_id)
-    if poll.nil?
-      return nil
-    end
+    return nil if poll.nil?
 
     PollMailer.poll_end_reminder_mail(poll).deliver_now
   rescue StandardError => e

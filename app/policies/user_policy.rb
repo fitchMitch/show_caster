@@ -63,7 +63,9 @@ class UserPolicy < ApplicationPolicy
 
   private
     def me_or_admin?
-      !@user.nil? && !@record.nil? && ((@record.id == @user.id) || @user.admin?)
+      @user.present? &&
+        @record.present? &&
+        ((@record.id == @user.id) || @user.admin?)
     end
 
     def googled?
@@ -71,6 +73,6 @@ class UserPolicy < ApplicationPolicy
     end
 
     def me_only?
-      !@user.nil? && !@record.nil? && (@record.id == @user.id)
+      @user.present? && @record.present? && (@record.id == @user.id)
     end
 end

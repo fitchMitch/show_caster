@@ -31,13 +31,11 @@ class EventPolicy < ApplicationPolicy
   end
 
   def destroy?
-    c0 = communicator_or_admin?
-    c1 = future_event?(@record)
-    c0 && c1
+    communicator_or_admin? && future_event?(@record)
   end
 
   protected
     def future_event?(record)
-      !record.nil? && record.event_date > Time.zone.now
+      record.present && record.event_date > Time.zone.now
     end
 end

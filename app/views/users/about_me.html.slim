@@ -3,7 +3,7 @@
   .row
     .col-sm-7
       = render partial: 'users/about_me/top_left'
-      - unless @last_comments.empty?
+      - if @last_comments.present?
         = render partial: 'users/about_me/bottom_left'
     .col-sm-5
       = render partial: 'users/about_me/top_right'

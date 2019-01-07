@@ -50,12 +50,12 @@ class Performance < Event
   # --    PUBLIC      ---
   # ------------------------
   def short_label
-    "#{self.theater.theater_name[0, 25]} -" \
-    " #{self.event_date.strftime('%d-%b %Y')} | #{self.title[0, 35]}"
+    "#{theater.theater_name[0, 25]} -" \
+    " #{event_date.strftime('%d-%b %Y')} | #{title[0, 35]}"
   end
 
   def photo_count
-    self.pictures.count
+    pictures.count
   end
 
   def google_event_params

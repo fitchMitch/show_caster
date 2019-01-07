@@ -29,7 +29,7 @@ section.images#photos
   .container
     .row
       .inner-column.showing-off
-        - unless @photo_list.empty?
+        - if @photo_list.present?
           h1 Photos des derniers spectacles
     .row
       - @photo_list.each do |pic|

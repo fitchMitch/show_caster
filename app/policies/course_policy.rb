@@ -31,8 +31,6 @@ class CoursePolicy < EventPolicy
   end
 
   def destroy?
-    c0 = communicator_or_admin?
-    c1 = future_event?(@record)
-    c0 && c1
+    communicator_or_admin? && future_event?(@record)
   end
 end

@@ -5,7 +5,4 @@ class PollOpinionPolicy < PollPolicy
       scope.all
     end
   end
-
-
-
 end

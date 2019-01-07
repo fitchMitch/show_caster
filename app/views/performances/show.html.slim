@@ -62,7 +62,7 @@
           = render partial: 'pictures/form',
                             locals: { imageable: @event, picture: Picture.new, edit: false }
           hr
-      - unless @event.pictures.empty?
+      - if @event.pictures.present?
         dt= fa_icon("image 2x")
         dd
           = render partial: 'pictures/pictures', locals: { imageable: @event, size: :thumb }

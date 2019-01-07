@@ -14,7 +14,7 @@ class TheaterPolicy < ApplicationPolicy
   end
 
   def index?
-    !@user.nil? && @user.registered?
+    @user.present? && @user.registered?
   end
 
   def show?

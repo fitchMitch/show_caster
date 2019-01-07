@@ -45,7 +45,12 @@ class User < ApplicationRecord
 
   validates :email,
     presence: true,
-    length: { maximum: 255 },
+    length: { maximum: 255, minimum: 5 },
+    format: { with: VALID_EMAIL_REGEX },
+    uniqueness: { case_sensitive: false }
+  validates :alternate_email,
+    allow_blank: true,
+    length: { maximum: 255, minimum: 5 },
     format: { with: VALID_EMAIL_REGEX },
     uniqueness: { case_sensitive: false }
 
@@ -66,14 +71,14 @@ class User < ApplicationRecord
     if access_token[:credentials][:expires_at].nil? ||
        access_token[:info][:email].nil?
       Rails.logger.error(access_token.to_s)
-      nil
+      nil #TODO withdraw
     elsif user.update_attributes(update_parameters)
       user
     else
       Rails.logger.error 'OAuth user updating went wrong'
       Rails.logger.error user_update_parameters
       Bugsnag.notify("Oauth and update user faulty : #{from_token}")
-      nil
+      nil #TODO withdraw
     end
   end
 
@@ -91,13 +96,12 @@ class User < ApplicationRecord
     User.active.map(&:prefered_email)
   end
 
-
   def has_downloaded_his_picture?
-    !Picture.where(imageable_id: id).where(imageable_type: 'User').empty?
+    Picture.where(imageable_id: id).where(imageable_type: 'User').present?
   end
 
   def last_connexion_at
-    return former_connexion_at unless former_connexion_at.nil?
+    return former_connexion_at if former_connexion_at.present?
 
     last_sign_in_at.nil? ? (Time.zone.now - 100.years) : last_sign_in_at
   end
@@ -170,13 +174,13 @@ class User < ApplicationRecord
   end
 
   def prefered_email
-    alternate_email.nil? ? email : alternate_email
+    alternate_email.present? ? alternate_email : email
   end
 
   protected
 
   def promotions_to_mute(old_user)
-    show_promotion = old_user.status == 'archived' || more_power(old_user)
+    show_promotion = old_user.status == 'archived' || has_more_privileges?(old_user)
     !show_promotion
   end
 
@@ -184,17 +188,16 @@ class User < ApplicationRecord
     changes ? 'users.promoted' : 'users.promoted_muted'
   end
 
-  def more_power(o_user)
+  def has_more_privileges?(o_user)
     return true if o_user.role == 'other'
 
     User.roles[role] >= User.roles[o_user.role]
   end
 
-
-
   def format_fields
     self.lastname = lastname.upcase if lastname.present?
     self.email = email.downcase if email.present?
+    self.alternate_email = alternate_email.downcase if alternate_email.present?
     self.role ||= 'player'
     self.color ||= pick_color
     self.phone_number_format

@@ -9,7 +9,7 @@
   .col-sm-4.right.hidden-sm.hidden-xs= t("users.role")
   .col-sm-8
     = @user.role_i18n
-  - unless @user.committee_list.empty?
+  - if @user.committee_list.present?
     .row.form-std-height
       .col-sm-4.right.hidden-sm.hidden-xs= t("users.committee")
       .col-sm-8
@@ -17,7 +17,7 @@
   .row.form-std-height
     .col-sm-4.right.hidden-sm.hidden-xs= t("users.email")
     .col-sm-8= @user.email
-  - unless @user.alternate_email.nil?
+  - if @user.alternate_email.present?
     .row.form-std-height
       .col-sm-4.right.hidden-sm.hidden-xs= t("users.alternate_email")
       .col-sm-8

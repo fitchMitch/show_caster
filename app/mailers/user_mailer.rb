@@ -19,7 +19,10 @@ class UserMailer < ApplicationMailer
     @committee_plus = to_sentence(changes.fetch(:gained_committees, nil))
     @committee_minus = to_sentence(changes.fetch(:lost_committees, nil))
 
-    mail(to: @user.prefered_email, subject: I18n.t('users.promote_mail.subject'))
+    mail(
+      to: @user.prefered_email,
+      subject: I18n.t('users.promote_mail.subject')
+    )
   end
 
   private

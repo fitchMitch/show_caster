@@ -62,6 +62,7 @@ class Indicator
   def <=>(other)
     if role == other.role
       return 0 if period_start_time.to_i == other.period_start_time.to_i
+
       other.period_start_time.to_i - period_start_time.to_i > 0 ? 1 : -1
     else
       role < other.role ? -1 : 1

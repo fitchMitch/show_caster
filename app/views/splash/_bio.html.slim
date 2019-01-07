@@ -1,5 +1,5 @@
 - User.active.order(:firstname).each do |user|
-  - unless user.try(:pictures).empty?
+  - if user.try(:pictures).present?
     div
       .col-md-4.col-sm-6.col-xs-12.space-up-20
         .player-frame
@@ -8,4 +8,4 @@
           .player-bio
             p
               i =user.full_name
-            p.bio= user.bio unless user.try(:bio).nil?
+            p.bio= user.bio if user.try(:bio).present?

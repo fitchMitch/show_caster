@@ -31,7 +31,6 @@ class Answer < ApplicationRecord
   # scope :found_by, -> (user) { where('user_id = ?', user_id) }
   default_scope -> { order('date_answer asc') }
 
-
   # Validations
   # =====================
   validates_associated :poll_opinion,
@@ -50,7 +49,8 @@ class Answer < ApplicationRecord
   # --    PUBLIC      ---
   # ------------------------
   def no_date_in_the_past
-    return nil if !date_answer_nil? && date_answer >= Time.zone.now
+    return nil if date_answer.present? && date_answer >= Time.zone.now
+
     errors.add(
       :date_answer,
       I18n.t('answers.in_the_past_error')
