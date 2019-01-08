@@ -88,7 +88,10 @@ class NotificationService
   end
 
   def self.poll_end_reminder_mailing(poll_id)
-    poll = Poll.find(poll_id)
+    Rails.logger.debug("=================================")
+    Rails.logger.debug("before finding poll")
+    Rails.logger.debug("=================================")
+    poll = Poll.find_by(id: poll_id)
     return nil if poll.nil?
 
     Rails.logger.debug("PollMailer.poll_end_reminder_mail(poll).deliver_now")
