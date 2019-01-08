@@ -77,7 +77,7 @@ class NotificationService
   # "created_at"=>1545506938.8081102}
 
   def self.poll_reminder_mailing(poll_id)
-    poll = Poll.find(poll_id)
+    poll = Poll.find_by(id: poll_id)
     return nil if poll.nil? || poll.missing_voters_ids.empty?
 
     PollMailer.poll_reminder_mail(poll).deliver_now
@@ -91,6 +91,7 @@ class NotificationService
     poll = Poll.find(poll_id)
     return nil if poll.nil?
 
+    Rails.logger.debug("PollMailer.poll_end_reminder_mail(poll).deliver_now")
     PollMailer.poll_end_reminder_mail(poll).deliver_now
   rescue StandardError => e
     Bugsnag.notify(e)

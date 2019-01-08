@@ -37,7 +37,9 @@ class PollMailer < ApplicationMailer
     @url = get_polls_url
     @url_login = url_login
     @poll = poll
-
+    Rails.logger.debug("=============================")
+    Rails.logger.debug("mail")
+    Rails.logger.debug("=============================")
     mail(
       to: poll.owner.prefered_email,
       subject: I18n.t('polls.mails.reminder.end_subject')
