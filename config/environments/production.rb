@@ -54,8 +54,7 @@ Rails.application.configure do
   # MAILs
   #---------
   # config.action_mailer.perform_caching = false
-  # config.action_mailer.raise_delivery_errors = true
-  # config.action_mailer.perform_deliveries = true
+
   # config.action_mailer.delivery_method = :smtp
   # host = 'www.les-sesames.fr'
   # config.action_mailer.default_url_options = { host: "http://#{host}" }
@@ -74,8 +73,8 @@ Rails.application.configure do
 
 
   config.action_mailer.perform_caching = false
-
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
   host = 'les-sesames.fr' # Don't use this literally; use your local dev host instead
   config.action_mailer.default_url_options = { host: host }
