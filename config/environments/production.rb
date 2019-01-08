@@ -52,26 +52,41 @@ Rails.application.configure do
   #---------
   # MAILs
   #---------
+  # config.action_mailer.perform_caching = false
+  # config.action_mailer.raise_delivery_errors = true
+  # config.action_mailer.perform_deliveries = true
+  # config.action_mailer.delivery_method = :smtp
+  # host = 'www.les-sesames.fr'
+  # config.action_mailer.default_url_options = { host: "http://#{host}" }
+  #
+  #
+  # ActionMailer::Base.smtp_settings = {
+  #   address:                ENV['SMTP_SERVER'],
+  #   port:                   587,
+  #   domain:                 'les-sesames.fr',
+  #   user_name:              ENV['SMTP_EMAIL'],
+  #   password:               ENV['SMTP_PASSWORD'],
+  #   authentication:         :plain,
+  #   enable_starttls_auto:   true
+  # }
+
+
+
   config.action_mailer.perform_caching = false
-  config.action_mailer.raise_delivery_errors = true
+
+  config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method = :smtp
-  host = 'www.les-sesames.fr'
-  config.action_mailer.default_url_options = { host: "http://#{host}" }
-  #~new
-  # config.action_mailer.default_url_options = { :host => ‘sitename.com’ }
-  config.action_mailer.perform_deliveries = true
-  # ActionMailer::Base.delivery_method = :smtp
-  #end of ~new
+  host = 'les-sesames.fr' # Don't use this literally; use your local dev host instead
+  config.action_mailer.default_url_options = { host: host }
 
   ActionMailer::Base.smtp_settings = {
-    address:                ENV['SMTP_SERVER'],
-    port:                   587,
-    domain:                 'les-sesames.fr',
-    user_name:              ENV['SMTP_EMAIL'],
-    password:               ENV['SMTP_PASSWORD'],
-    authentication:         :plain,
-    enable_starttls_auto:   true
-  }
+    address:         ENV['SMTP_SERVER'],
+    port:            '587',
+    authentication: :plain,
+    user_name:       ENV['SMTP_EMAIL'],
+    password:        ENV['SMTP_PASSWORD'],
+}
+
   # Rails.configuration.action_mailer.smtp_settings = ActionMailer::Base.smtp_settings
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
