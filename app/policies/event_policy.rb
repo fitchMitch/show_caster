@@ -36,6 +36,6 @@ class EventPolicy < ApplicationPolicy
 
   protected
     def future_event?(record)
-      record.present && record.event_date > Time.zone.now
+      record.present? && record.event_date > Time.zone.now
     end
 end

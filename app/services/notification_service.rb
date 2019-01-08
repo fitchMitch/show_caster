@@ -80,7 +80,7 @@ class NotificationService
     poll = Poll.find(poll_id)
     return nil if poll.nil? || poll.missing_voters_ids.empty?
 
-    PollMailer.poll_reminder_mail(poll).deliver_later
+    PollMailer.poll_reminder_mail(poll).deliver_now
   rescue StandardError => e
     Bugsnag.notify(e)
     NotificationService.error_logging("poll_reminder_mailing failure: #{e}")

@@ -6,7 +6,7 @@ class ReminderPollEndJob < ApplicationJob
     poll = Poll.find_by(id: poll_id)
     return nil if poll.nil?
 
-    PollMailer.poll_end_reminder_mail(poll).deliver_now
+    NotificationService.poll_end_reminder_mailing(poll_id)
   rescue StandardError => e
     Bugsnag.notify(e)
     Rails.logger.error("poll_end_reminder_mailing failure: #{e}")
