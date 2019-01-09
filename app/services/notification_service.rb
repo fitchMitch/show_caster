@@ -94,8 +94,10 @@ class NotificationService
     poll = Poll.find_by(id: poll_id)
     return nil if poll.nil?
 
-    Rails.logger.debug("PollMailer.poll_end_reminder_mail(poll).deliver_now")
-    PollMailer.poll_end_reminder_mail(poll).deliver_now
+    mail = PollMailer.poll_end_reminder_mail(poll)
+    Rails.logger.debug '---------deliver_now------------------'
+    mail.deliver_now
+    Rails.logger.debug '---------end of deliver_now ------------------'
   rescue StandardError => e
     Bugsnag.notify(e)
     Rails.logger.error("poll_end_reminder_mailing failure: #{e}")

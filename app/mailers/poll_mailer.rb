@@ -1,5 +1,4 @@
 class PollMailer < ApplicationMailer
-  include LoggingHelper
 
   def poll_creation_mail(poll)
     @initiater = poll.owner.firstname
@@ -29,8 +28,8 @@ class PollMailer < ApplicationMailer
   rescue StandardError => e
     Bugsnag.notify(e)
 
-    PollMailer.error_logging("poll_reminder_mail failure: #{e}")
-    PollMailer.error_logging("Recipients: #{recipients.join(',')}")
+    Rails.logger.error("poll_reminder_mail failure: #{e}")
+    Rails.logger.error("Recipients: #{recipients.join(',')}")
   end
 
   def poll_end_reminder_mail(poll)
