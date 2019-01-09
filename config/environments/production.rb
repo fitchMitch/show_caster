@@ -56,19 +56,20 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_deliveries = true
+  # config.action_mailer.delivery_method = :smtp
   # Don't use this literally; use your local dev host instead
   host = 'les-sesames.fr'
   config.action_mailer.default_url_options = { host: host }
 
-  ActionMailer::Base.delivery_method = :smtp
+  # ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
     address:                ENV['SMTP_SERVER'],
-    port:                   587,
+    port:                   '587',
     domain:                 'les-sesames.fr',
     user_name:              ENV['SMTP_EMAIL'],
     password:               ENV['SMTP_PASSWORD'],
-    authentication:         :plain,
-    enable_starttls_auto:   true }
+    authentication:         :plain
+  }
 
   # Rails.configuration.action_mailer.smtp_settings = ActionMailer::Base.smtp_settings
   # Ignore bad email addresses and do not raise email delivery errors.
