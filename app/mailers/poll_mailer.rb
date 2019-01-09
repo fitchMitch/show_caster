@@ -1,5 +1,4 @@
 class PollMailer < ApplicationMailer
-
   def poll_creation_mail(poll)
     @initiater = poll.owner.firstname
     @url = get_polls_url
