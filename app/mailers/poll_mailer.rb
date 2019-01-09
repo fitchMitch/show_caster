@@ -32,7 +32,7 @@ class PollMailer < ApplicationMailer
   end
 
   def poll_end_reminder_mail(poll)
-    Rails.logger('MAILER REACHED')
+    Rails.logger.debug('MAILER REACHED')
     Rails.logger.debug(@url.to_s)
     @url = get_polls_url
     Rails.logger.debug(url_login.to_s)

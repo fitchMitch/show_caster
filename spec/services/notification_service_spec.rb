@@ -96,7 +96,7 @@ RSpec.describe NotificationService, type: :service do
     context 'when something goes wrong' do
       let(:poll_id) { 123 }
       before do
-        allow(Poll).to receive(:find).and_raise(StandardError.new('message'))
+        allow(Poll).to receive(:find_by).and_raise(StandardError.new('message'))
         allow_any_instance_of(Class).to receive(:raise).and_return(nil)
       end
       it 'does notify Bugsnag' do
@@ -112,7 +112,7 @@ RSpec.describe NotificationService, type: :service do
     context 'when poll no longer exists' do
       let(:poll_id) { 123 }
       before do
-        allow(Poll).to receive(:find) { nil }
+        allow(Poll).to receive(:find_by) { nil }
       end
       it { expect(mailing).to be(nil) }
     end
@@ -126,7 +126,7 @@ RSpec.describe NotificationService, type: :service do
         allow(PollMailer).to receive(
           :poll_end_reminder_mail
         ).with(poll_opinion) { a_mail }
-        allow(a_mail).to receive(:deliver_now) { a_delivered_mail }
+        allow(a_mail).to receive(:deliver_now!) { a_delivered_mail }
       end
       it { expect(mailing).to eq a_delivered_mail }
     end
@@ -134,7 +134,7 @@ RSpec.describe NotificationService, type: :service do
     context 'when something goes wrong' do
       let(:poll_id) { 123 }
       before do
-        allow(Poll).to receive(:find).and_raise(StandardError.new('message'))
+        allow(Poll).to receive(:find_by).and_raise(StandardError.new('message'))
         allow_any_instance_of(Class).to receive(:raise).and_return(nil)
       end
       it 'does notify Bugsnag' do
