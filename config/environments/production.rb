@@ -64,13 +64,13 @@ Rails.application.configure do
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
     address:                ENV['SMTP_SERVER'],
-    port:                   587,
+    port:                   25,
     domain:                 'mail.gandi.net',
     user_name:              ENV['SMTP_EMAIL'],
     password:               ENV['SMTP_PASSWORD'],
     authentication:         :plain
   }
-  config.action_mailer.smtp_settings = ActionMailer::Base.smtp_settings
+  #config.action_mailer.smtp_settings = ActionMailer::Base.smtp_settings
 
   # Rails.configuration.action_mailer.smtp_settings = ActionMailer::Base.smtp_settings
   # Ignore bad email addresses and do not raise email delivery errors.
