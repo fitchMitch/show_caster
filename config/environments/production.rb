@@ -61,10 +61,10 @@ Rails.application.configure do
   host = 'les-sesames.fr'
   config.action_mailer.default_url_options = { host: host }
 
-  # ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
     address:                ENV['SMTP_SERVER'],
-    port:                   '587',
+    port:                   587,
     domain:                 'les-sesames.fr',
     user_name:              ENV['SMTP_EMAIL'],
     password:               ENV['SMTP_PASSWORD'],
