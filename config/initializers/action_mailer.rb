@@ -1,3 +1,3 @@
 class ActionMailer::DeliveryJob
-  queue_as :default
+  queue_as :mailers
 end

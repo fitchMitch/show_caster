@@ -7,6 +7,5 @@ class ReminderMailJob < ApplicationJob
   rescue StandardError => e
     Bugsnag.notify(e)
     ReminderMailJob.error_logging(e)
-    raise e
   end
 end

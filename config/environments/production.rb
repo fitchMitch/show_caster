@@ -70,6 +70,7 @@ Rails.application.configure do
     password:               ENV['SMTP_PASSWORD'],
     authentication:         :plain
   }
+  config.action_mailer.smtp_settings = ActionMailer::Base.smtp_settings
 
   # Rails.configuration.action_mailer.smtp_settings = ActionMailer::Base.smtp_settings
   # Ignore bad email addresses and do not raise email delivery errors.

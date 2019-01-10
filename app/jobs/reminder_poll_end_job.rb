@@ -14,7 +14,6 @@ class ReminderPollEndJob < ApplicationJob
   rescue StandardError => e
     Bugsnag.notify(e)
     Rails.logger.error("ReminderPollEnd JOB is raising a error: #{e}")
-    raise e
   end
 
   private
