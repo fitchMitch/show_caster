@@ -25,40 +25,9 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-
-  # Don't care if the mailer can't send.
   #=======================
   # Mailer configuration
   #=======================
-  # config.action_mailer.perform_caching = false
-  #
-  # # Don't care if the mailer can't send.
-  # # config.action_mailer.raise_delivery_errors = false
-  #
-  # # Letter opener gem
-  # config.action_mailer.perform_deliveries = true
-  # # config.action_mailer.delivery_method = :letter_opener
-  #
-  # config.action_mailer.raise_delivery_errors = true
-  # # Don't use this literally; use your local dev host instead
-  # host = 'localhost:3000'
-  # config.action_mailer.default_url_options = { host: host }
-  #
-  # ActionMailer::Base.delivery_method = :smtp
-  # ActionMailer::Base.smtp_settings = {
-  #   address:         ENV['SMTP_SERVER'],
-  #   port:            '587',
-  #   authentication: :plain,
-  #   user_name:       ENV['SMTP_EMAIL'],
-  #   password:        ENV['SMTP_PASSWORD']
-  # }
-
-
-
-  #=======================
-  # Mailer configuration
-  #=======================
-
   # Don't care if the mailer can't send.
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.perform_caching = false
@@ -75,11 +44,11 @@ Rails.application.configure do
 
   ActionMailer::Base.smtp_settings = {
     address:         ENV['SMTP_SERVER'],
-    port:            '587',
+    port:            25,
     authentication: :plain,
     user_name:       ENV['SMTP_EMAIL'],
     password:        ENV['SMTP_PASSWORD']
-}
+  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

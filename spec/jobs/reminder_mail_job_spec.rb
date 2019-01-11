@@ -20,7 +20,7 @@ RSpec.describe ReminderMailJob, type: :job do
   end
 
   it 'executes perform' do
-    expect(NotificationService).to receive(:poll_reminder_mailing).with(123)
+    expect(NotificationFilter).to receive(:poll_reminder_mailing).with(123)
     perform_enqueued_jobs { job }
   end
 

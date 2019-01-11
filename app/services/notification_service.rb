@@ -1,15 +1,13 @@
 require 'sidekiq/api'
 
-class NotificationService
-  @@too_short_notice_days = 2.days
-
+class NotificationService < Notification
   def self.poll_creation(poll)
     PollMailer.poll_creation_mail(poll).deliver_now
 
     # Both notifications will be set unless short notice
     seconds_till_poll_expiration,
     seconds_before_reminding_poll = NotificationService.get_delays(poll)
-    return nil if self.short_notice(seconds_before_reminding_poll)
+    return nil if Notification.short_notice(seconds_before_reminding_poll)
 
     NotificationService.set_future_mail_notifications(poll)
   end
@@ -23,6 +21,20 @@ class NotificationService
 
     NotificationService.set_future_mail_notifications(poll)
   end
+
+  def self.destroy_all_notifications(poll)
+    scheduled_jobs = Sidekiq::ScheduledSet.new
+    scheduled_jobs.each do |job|
+      if job['args'].present?
+        job.delete if job['args'].first['arguments'] == [poll.id]
+      end
+    end
+  rescue StandardError => e
+    # Bugsnag.notify(e)
+    Rails.logger.warn("destroy_all_notifications failure: #{e}")
+  end
+
+  private
 
   def self.set_future_mail_notifications(poll)
     seconds_till_poll_expiration,
@@ -40,74 +52,20 @@ class NotificationService
   end
   # ========= Jobs are now set =====================
 
-
-  # ========= Jobs launch the following services =====================
-
-  def self.destroy_all_notifications(poll)
-    scheduled_jobs = Sidekiq::ScheduledSet.new
-    scheduled_jobs.each do |job|
-      if job['args'].present?
-        job.delete if job['args'].first['arguments'] == [poll.id]
-      end
-    end
-  rescue StandardError => e
-    # Bugsnag.notify(e)
-    Rails.logger.warn("destroy_all_notifications failure: #{e}")
+  def self.analyse_poll_changes(poll)
+    answer_changes = []
+    poll.answers.each { |answer| answer_changes << answer.previous_changes }
+    poll.previous_changes.merge('answer_changes' => answer_changes)
   end
 
-  # @item={
-  # "class"=>"ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper",
-  # "wrapped"=>"ReminderPollEndJob",
-  # "queue"=>"mailers",
-  # "args"=>
-  #   [
-  #     {
-  #       "job_class"=>"ReminderPollEndJob",
-  #       "job_id"=>"2db0c540-6bf3-49b2-b496-db22733b80bf",
-  #       "provider_job_id"=>nil,
-  #       "queue_name"=>"mailers",
-  #       "priority"=>nil,
-  #       "arguments"=>[39],
-  #       "locale"=>"fr"
-  #     }
-  #   ],
-  # "retry"=>true,
-  # "jid"=>"a9decad10eb3374c7d74276a",
-  # "created_at"=>1545506938.8081102}
+  def self.get_delays(poll)
+    seconds_till_poll_expiration = poll.expiration_date - Time.zone.now
+    day_gap = Poll.days_threshold_for_first_mail_alert.days
+    seconds_before_reminding_poll = seconds_till_poll_expiration - day_gap.to_i
 
-  def self.poll_reminder_mailing(poll_id)
-    poll = Poll.find_by(id: poll_id)
-    return nil if poll.nil? || poll.missing_voters_ids.empty?
-
-    PollMailer.poll_reminder_mail(poll).deliver_now
-  rescue StandardError => e
-    Bugsnag.notify(e)
-    Rails.logger.error("poll_reminder_mailing failure: #{e}")
-    raise e
+    [seconds_till_poll_expiration, seconds_before_reminding_poll]
   end
-
-  def self.poll_end_reminder_mailing(poll_id)
-    poll = Poll.find_by(id: poll_id)
-    return nil if poll.nil?
-
-    Rails.logger.debug poll.question
-    Rails.logger.debug '---------deliver_now------------------'
-    PollMailer.poll_end_reminder_mail(poll).deliver_now!
-  rescue StandardError => e
-    # Bugsnag.notify(e)
-    Rails.logger.error("poll_end_reminder_mailing failure: #{e}")
-    raise e
-  end
-
-  # ============ These are just helpers =======================
-  def self.too_short_notice_days
-    @@too_short_notice_days
-  end
-
-  def self.short_notice(delay)
-    delay < NotificationService.too_short_notice_days.to_i
-  end
-
+end
   # Sample
   # {
   #   "expiration_date"=>[
@@ -132,18 +90,3 @@ class NotificationService
   #     {}
   #   ]
   # }
-
-  def self.analyse_poll_changes(poll)
-    answer_changes = []
-    poll.answers.each { |answer| answer_changes << answer.previous_changes }
-    poll.previous_changes.merge('answer_changes' => answer_changes)
-  end
-
-  def self.get_delays(poll)
-    seconds_till_poll_expiration = poll.expiration_date - Time.zone.now
-    day_gap = Poll.days_threshold_for_first_mail_alert.days
-    seconds_before_reminding_poll = seconds_till_poll_expiration - day_gap.to_i
-
-    [seconds_till_poll_expiration, seconds_before_reminding_poll]
-  end
-end

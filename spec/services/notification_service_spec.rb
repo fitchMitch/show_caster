@@ -59,91 +59,6 @@ RSpec.describe NotificationService, type: :service do
     end
   end
 
-  describe '.poll_reminder_mailing' do
-    subject(:mailing) { described_class.poll_reminder_mailing(poll_id) }
-
-    context 'when poll no longer exists' do
-      let(:poll_id) { 123 }
-      before do
-        allow(Poll).to receive(:find) { nil }
-      end
-      it { expect(mailing).to be(nil) }
-    end
-
-    context 'when everyone has voted' do
-      let!(:poll) { create(:poll_date) }
-      let(:poll_id) { poll.id }
-      before do
-        allow_any_instance_of(PollDate).to receive(:missing_voters_ids) { [] }
-      end
-      it { expect(mailing).to be(nil) }
-    end
-
-    context 'some have not voted for this still existing poll' do
-      let!(:poll_opinion) { create(:poll_opinion) }
-      let!(:poll_id) { poll_opinion.id }
-      let(:a_mail) { double('a_mail') }
-      let(:a_delivered_mail) { double('a_delivered_mail') }
-      before do
-        allow(PollMailer).to receive(
-          :poll_reminder_mail
-        ).with(poll_opinion) { a_mail }
-        allow(a_mail).to receive(:deliver_now) { a_delivered_mail }
-      end
-      it { expect(mailing).to eq a_delivered_mail }
-    end
-
-    context 'when something goes wrong' do
-      let(:poll_id) { 123 }
-      before do
-        allow(Poll).to receive(:find_by).and_raise(StandardError.new('message'))
-        allow_any_instance_of(Class).to receive(:raise).and_return(nil)
-      end
-      it 'does notify Bugsnag' do
-        expect(Bugsnag).to receive(:notify)
-        mailing
-      end
-    end
-  end
-
-  describe '.poll_end_reminder_mailing' do
-    subject(:mailing) { described_class.poll_end_reminder_mailing(poll_id) }
-
-    context 'when poll no longer exists' do
-      let(:poll_id) { 123 }
-      before do
-        allow(Poll).to receive(:find_by) { nil }
-      end
-      it { expect(mailing).to be(nil) }
-    end
-
-    context 'some have not voted for this still existing poll' do
-      let!(:poll_opinion) { create(:poll_opinion) }
-      let!(:poll_id) { poll_opinion.id }
-      let(:a_mail) { double('a_mail') }
-      let(:a_delivered_mail) { double('a_delivered_mail') }
-      before do
-        allow(PollMailer).to receive(
-          :poll_end_reminder_mail
-        ).with(poll_opinion) { a_mail }
-        allow(a_mail).to receive(:deliver_now!) { a_delivered_mail }
-      end
-      it { expect(mailing).to eq a_delivered_mail }
-    end
-
-    context 'when something goes wrong' do
-      let(:poll_id) { 123 }
-      before do
-        allow(Poll).to receive(:find_by).and_raise(StandardError.new('message'))
-        allow_any_instance_of(Class).to receive(:raise).and_return(nil)
-      end
-      it 'does notify Bugsnag' do
-        expect(Bugsnag).to receive(:notify)
-        mailing
-      end
-    end
-  end
-
   describe '.poll_notifications_update' do
     subject { described_class.poll_notifications_update(poll_date) }
     context 'when expiration_date does not change' do
@@ -174,24 +89,6 @@ RSpec.describe NotificationService, type: :service do
         ).with(poll_date)
         subject
       end
-    end
-  end
-
-  describe '.set_future_mail_notifications' do
-    subject { described_class.set_future_mail_notifications(poll) }
-    let!(:poll) { build(:poll_date) }
-
-    let(:mailjob) { double('mailjob') }
-    let(:mailendjob) { double('mailendjob') }
-    before :each do
-      allow(mailjob).to receive(:perform_later)
-      allow(mailendjob).to receive(:perform_later)
-      allow(described_class).to receive(:get_delays) { [2, 1] }
-    end
-    it { expect(ReminderMailJob).to receive(:set).with({ wait: 1 }) { mailjob } }
-    it { expect(ReminderPollEndJob).to receive(:set).with({ wait: 2 }) { mailendjob } }
-    after :each do
-      subject
     end
   end
 
@@ -238,10 +135,28 @@ RSpec.describe NotificationService, type: :service do
           :new
         ).and_raise(StandardError.new 'message')
       end
-      it 'does notify Bugsnag' do
-        expect(Bugsnag).to receive(:notify)
-        described_class.destroy_all_notifications(poll)
-      end
+      # it 'does notify Bugsnag' do
+      #   expect(Bugsnag).to receive(:notify)
+      #   described_class.destroy_all_notifications(poll)
+      # end
+    end
+  end
+
+  describe '.set_future_mail_notifications' do
+    subject { described_class.set_future_mail_notifications(poll) }
+    let!(:poll) { build(:poll_date) }
+
+    let(:mailjob) { double('mailjob') }
+    let(:mailendjob) { double('mailendjob') }
+    before :each do
+      allow(mailjob).to receive(:perform_later)
+      allow(mailendjob).to receive(:perform_later)
+      allow(described_class).to receive(:get_delays) { [2, 1] }
+    end
+    it { expect(ReminderMailJob).to receive(:set).with({ wait: 1 }) { mailjob } }
+    it { expect(ReminderPollEndJob).to receive(:set).with({ wait: 2 }) { mailendjob } }
+    after :each do
+      subject
     end
   end
 

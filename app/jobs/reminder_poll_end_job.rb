@@ -10,7 +10,7 @@ class ReminderPollEndJob < ApplicationJob
     return nil if is_invalid_poll?(poll)
 
     Rails.logger.debug('NotificationService.poll_end_reminder_mailing')
-    NotificationService.poll_end_reminder_mailing(poll_id)
+    NotificationFilter.poll_end_reminder_mailing(poll_id)
   rescue StandardError => e
     # Bugsnag.notify(e)
     Rails.logger.error("ReminderPollEnd JOB is raising a error: #{e}")
