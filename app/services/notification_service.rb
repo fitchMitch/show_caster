@@ -1,53 +1,46 @@
-require 'sidekiq/api'
-
 class NotificationService < Notification
   def self.poll_creation(poll)
     PollMailer.poll_creation_mail(poll).deliver_now
-
-    # Both notifications will be set unless short notice
-    seconds_till_poll_expiration,
-    seconds_before_reminding_poll = NotificationService.get_delays(poll)
-    return nil if Notification.short_notice(seconds_before_reminding_poll)
-
-    NotificationService.set_future_mail_notifications(poll)
+    self.set_future_mail_notifications(poll)
   end
 
   def self.poll_notifications_update(poll)
-    poll_changes = NotificationService.analyse_poll_changes(poll)
     # Poll changes should be noticed to adminstrators and owner only
     # identify which changes there were and which one are important
-    NotificationService.destroy_all_notifications(poll)
-    return nil if poll_changes.fetch("expiration_date", nil).nil?
+    poll_changes = self.analyse_poll_changes(poll)
+    return nil if poll_changes.fetch('expiration_date', nil).nil?
 
-    NotificationService.set_future_mail_notifications(poll)
+    self.destroy_all_notifications(poll)
+    self.set_future_mail_notifications(poll)
   end
 
   def self.destroy_all_notifications(poll)
-    scheduled_jobs = Sidekiq::ScheduledSet.new
-    scheduled_jobs.each do |job|
-      if job['args'].present?
-        job.delete if job['args'].first['arguments'] == [poll.id]
-      end
+    Delayed::Job.all.each do |job|
+      job.destroy if job_corresponds_to_poll?(job, poll)
     end
   rescue StandardError => e
-    # Bugsnag.notify(e)
+    Bugsnag.notify(e)
     Rails.logger.warn("destroy_all_notifications failure: #{e}")
   end
 
   private
 
   def self.set_future_mail_notifications(poll)
+    # Both notifications will be set unless short notice
     seconds_till_poll_expiration,
-    seconds_before_reminding_poll = NotificationService.get_delays(poll)
+    seconds_before_reminding_poll = self.get_delays(poll)
+    return nil if Notification.short_notice(seconds_before_reminding_poll)
 
     # for some player to remember they should answer poll's question
-    ReminderMailJob.set(
-      wait: seconds_before_reminding_poll.seconds
+    ReminderMailJob.delay(
+      run_at: seconds_before_reminding_poll.seconds.from_now,
+      queue: 'mailers'
     ).perform_later(poll.id) unless seconds_before_reminding_poll < 0
     #for some poll's owner to remember they should announce the end of the poll
 
-    ReminderPollEndJob.set(
-      wait: seconds_till_poll_expiration.seconds
+    ReminderPollEndJob.delay(
+      run_at: seconds_till_poll_expiration.seconds.from_now,
+      queue: 'mailers'
     ).perform_later(poll.id) unless seconds_till_poll_expiration < 0
   end
   # ========= Jobs are now set =====================
@@ -65,6 +58,10 @@ class NotificationService < Notification
 
     [seconds_till_poll_expiration, seconds_before_reminding_poll]
   end
+end
+
+def job_corresponds_to_poll?(job, poll)
+  job.payload_object.args.first == poll.id
 end
   # Sample
   # {

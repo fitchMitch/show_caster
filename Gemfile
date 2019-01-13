@@ -51,7 +51,11 @@ gem 'omniauth-google-oauth2',                               '~> 0.5'
 gem 'bugsnag',                                              '~> 6.8'
 # middleware
 # -----------------------
-gem 'sidekiq',                                              '~> 5.2'
+# Side workers from Delay jobs
+gem 'daemons',                                              '~> 1.2.0'
+gem 'delayed_job_active_record',                            '~> 4.1.3'
+gem 'delayed-web',                                          '~> 0.4.5'
+# gem 'delayed_paperclip'
 # -----------------------
 gem 'pundit',                                               '~> 1.1'
 gem 'paperclip',                                            '~> 6.0.0'

@@ -18,6 +18,7 @@ Bundler.require(*Rails.groups)
 
 module ShowCaster
   class Application < Rails::Application
+    config.assets.precompile << 'delayed/web/application.css'
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -48,7 +49,6 @@ module ShowCaster
 
     config.autoload_paths += %W(#{config.root}/lib)
 
-    # config.active_job.queue_adapter = Rails.env.production? ? :sidekiq : :async
-    config.active_job.queue_adapter = :sidekiq
+    config.active_job.queue_adapter = :delayed_job
   end
 end

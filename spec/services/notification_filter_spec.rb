@@ -86,23 +86,3 @@ RSpec.describe NotificationFilter, type: :service do
     # end
   end
 end
-
-# {
-# 'class'=>'ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper',
-# 'wrapped'=>'ReminderPollEndJob',
-# 'queue'=>'mailers',
-# 'args'=> [
-#   {
-#     'job_class'=>'ReminderPollEndJob',
-#     'job_id'=>'2db0c540-6bf3-49b2-b496-db22733b80bf',
-#     'provider_job_id'=>nil,
-#     'queue_name'=>'mailers',
-#     'priority'=>nil,
-#     'arguments'=>[poll.id],
-#     'locale'=>'fr'
-#   }
-# ],
-# 'retry'=>true,
-# 'jid'=>'a9decad10eb3374c7d74276a',
-# 'created_at'=>1545506938.8081102
-# }

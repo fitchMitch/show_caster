@@ -1,17 +1,17 @@
 fr:
   pictures:
+    descro: Description
+    destroy_success: Suppression effectuée
+    descro_hint: Titre des images
+    edit_and_crop: Editer et rogner
+    edit_picture: Modifier cette photo
+    event_choice: Spectacle_associé
     pictures: Photos
     list: Liste des photos
     new: Ajouter une photo
-    event_choice: Spectacle_associé
+    note_hint: Accompagne les images en sous-titre
     note: Note
     photo: Photo
-    descro: Description
-    edit_picture: Modifier cette photo
     save_success: Cooool
     save_failure: Damn ! Impossible de capter l'image, wesh !
     update_success: Mise à jour ok
-    destroy_success: Suppression effectuée
-    edit_and_crop: Editer et rogner
-    descro_hint: Titre des images
-    note_hint: Accompagne les images en sous-titre
