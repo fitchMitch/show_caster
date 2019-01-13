@@ -2,62 +2,79 @@ require 'rails_helper'
 
 RSpec.describe NotificationService, type: :service do
   describe '.poll_creation,' do
-    let(:poll_to_deliver) { double('poll_to_deliver')}
+    let(:poll) { create(:poll, expiration_date: Time.zone.now + 8.days) }
+    let(:poll_to_deliver) { double('poll_to_deliver') }
     let(:delivered) { double('delivered') }
     subject { described_class.poll_creation(poll) }
+
     before :each do
       allow(PollMailer).to receive(:poll_creation_mail) { poll_to_deliver }
       allow(poll_to_deliver).to receive(:deliver_now) { delivered }
     end
-    context 'when expiration date is far away' do
-      let(:poll) { create(:poll, expiration_date: Time.zone.now + 8.days) }
-      let(:to_be_performed) { double('to_be_performed') }
-      let(:performed_later) { double('performed_later') }
-      let(:end_to_be_performed) { double('end_to_be_performed') }
-      let(:end_performed_later) { double('end_performed_later') }
-
-      describe 'it first' do
-        before do
-          allow(ReminderMailJob).to receive(:set) { to_be_performed }
-          allow(to_be_performed).to receive(:perform_later) { performed_later }
-          allow(ReminderPollEndJob).to receive(:set) { end_to_be_performed }
-          allow(end_to_be_performed).to receive(:perform_later) { end_performed_later }
-          allow(NotificationService).to receive(:short_notice) { false }
-        end
-        it 'should should not hit any delay threshold' do
-          day_gap = Poll.days_threshold_for_first_mail_alert.days
-          delay = poll.expiration_date - Time.zone.now - day_gap.to_i
-          expect(delay).to be > 2.days.to_i
-        end
-        it 'should set a player reminder' do
-          expect(ReminderMailJob).to receive(:set) { to_be_performed }
-          subject
-        end
-      end
-
-      describe 'it then' do
-        before do
-          allow(ReminderMailJob).to receive(:set) { to_be_performed }
-          allow(to_be_performed).to receive(:perform_later) { performed_later }
-          allow(ReminderPollEndJob).to receive(:set) { end_to_be_performed }
-          allow(end_to_be_performed).to receive(:perform_later) { end_performed_later }
-          allow(NotificationService).to receive(:short_notice) { false }
-        end
-        it 'should set an "owner" reminder' do
-          expect(subject).to eq end_performed_later
-        end
-      end
+    after :each do
+      subject
     end
-    context 'with short notice' do
-      let(:poll) { create(:poll, expiration_date: Time.zone.now + 5.days) }
-      before do
-        allow(NotificationService).to receive(:short_notice) { true }
-      end
-      it 'should not return because of too short notice' do
-        expect(subject).to be(nil)
-      end
-    end
+    it { expect(poll_to_deliver).to receive(:deliver_now) }
+    it { expect(described_class).to receive(:set_future_mail_notifications) }
   end
+
+  # describe '.poll_creation' do
+  #   let(:poll_to_deliver) { double('poll_to_deliver') }
+  #   let(:delivered) { double('delivered') }
+  #   subject { described_class.poll_creation(poll) }
+  #   before :each do
+  #     allow(PollMailer).to receive(:poll_creation_mail) { poll_to_deliver }
+  #     allow(poll_to_deliver).to receive(:deliver_now) { delivered }
+  #   end
+  #   context 'when expiration date is far away' do
+  #     let(:poll) { create(:poll, expiration_date: Time.zone.now + 8.days) }
+  #     let(:to_be_performed) { double('to_be_performed') }
+  #     let(:performed_later) { double('performed_later') }
+  #     let(:end_to_be_performed) { double('end_to_be_performed') }
+  #     let(:end_performed_later) { double('end_performed_later') }
+  #
+  #     describe 'it first' do
+  #       before do
+  #         allow(ReminderMailJob).to receive(:set) { to_be_performed }
+  #         allow(to_be_performed).to receive(:perform_later) { performed_later }
+  #         allow(ReminderPollEndJob).to receive(:set) { end_to_be_performed }
+  #         allow(end_to_be_performed).to receive(:perform_later) { end_performed_later }
+  #         allow(NotificationService).to receive(:short_notice) { false }
+  #       end
+  #       it 'should should not hit any delay threshold' do
+  #         day_gap = Poll.days_threshold_for_first_mail_alert.days
+  #         delay = poll.expiration_date - Time.zone.now - day_gap.to_i
+  #         expect(delay).to be > 2.days.to_i
+  #       end
+  #       it 'should set a player reminder' do
+  #         expect(ReminderMailJob).to receive(:set) { to_be_performed }
+  #         subject
+  #       end
+  #     end
+  #
+  #     describe 'it then' do
+  #       before do
+  #         allow(ReminderMailJob).to receive(:set) { to_be_performed }
+  #         allow(to_be_performed).to receive(:perform_later) { performed_later }
+  #         allow(ReminderPollEndJob).to receive(:set) { end_to_be_performed }
+  #         allow(end_to_be_performed).to receive(:perform_later) { end_performed_later }
+  #         allow(NotificationService).to receive(:short_notice) { false }
+  #       end
+  #       it 'should set an "owner" reminder' do
+  #         expect(subject).to eq end_performed_later
+  #       end
+  #     end
+  #   end
+  #   context 'with short notice' do
+  #     let(:poll) { create(:poll, expiration_date: Time.zone.now + 5.days) }
+  #     before do
+  #       allow(NotificationService).to receive(:short_notice) { true }
+  #     end
+  #     it 'should not return because of too short notice' do
+  #       expect(subject).to be(nil)
+  #     end
+  #   end
+  # end
 
   describe '.poll_notifications_update' do
     subject { described_class.poll_notifications_update(poll_date) }
@@ -98,65 +115,75 @@ RSpec.describe NotificationService, type: :service do
     let(:scheduled_jobs) { [a_scheduled_job] }
     let(:arguments_array) { double('arguments_array', { 'arguments' => [poll_id]  }) }
     let(:a_scheduled_job) { double('a_scheduled_job', { 'args' => [arguments_array] }) }
-      # {
-      # 'class'=>'ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper',
-      # 'wrapped'=>'ReminderPollEndJob',
-      # 'queue'=>'mailers',
-      # 'args'=> [
-      #   {
-      #     'job_class'=>'ReminderPollEndJob',
-      #     'job_id'=>'2db0c540-6bf3-49b2-b496-db22733b80bf',
-      #     'provider_job_id'=>nil,
-      #     'queue_name'=>'mailers',
-      #     'priority'=>nil,
-      #     'arguments'=>[poll.id],
-      #     'locale'=>'fr'
-      #   }
-      # ],
-      # 'retry'=>true,
-      # 'jid'=>'a9decad10eb3374c7d74276a',
-      # 'created_at'=>1545506938.8081102
-      # }
+
     context 'everything is ok' do
       before do
-        allow(Sidekiq::ScheduledSet).to receive(:new) { scheduled_jobs }
-        allow(a_scheduled_job).to receive(:delete)
-        allow(scheduled_jobs.first).to receive(:delete)
+        allow(Delayed::Job).to receive(:all) { scheduled_jobs }
+        allow_any_instance_of(
+          Class
+        ).to receive(:job_corresponds_to_poll?) { true }
       end
       it 'should delete the related notifications' do
-        skip 'missing test due  to double not being a correct object'
-        expect(a_scheduled_job).to receive(:delete) {}
+        expect(a_scheduled_job).to receive(:destroy)
         described_class.destroy_all_notifications(poll)
       end
     end
     context 'when something goes wrong' do
       before do
-        allow(Sidekiq::ScheduledSet).to receive(
-          :new
+        allow(Delayed::Job).to receive(
+          :all
         ).and_raise(StandardError.new 'message')
       end
-      # it 'does notify Bugsnag' do
-      #   expect(Bugsnag).to receive(:notify)
-      #   described_class.destroy_all_notifications(poll)
-      # end
+      it 'does notify Bugsnag' do
+        expect(Bugsnag).to receive(:notify)
+        described_class.destroy_all_notifications(poll)
+      end
     end
   end
 
   describe '.set_future_mail_notifications' do
     subject { described_class.set_future_mail_notifications(poll) }
     let!(:poll) { build(:poll_date) }
+    let!(:t) { Time.zone.now }
 
     let(:mailjob) { double('mailjob') }
     let(:mailendjob) { double('mailendjob') }
-    before :each do
-      allow(mailjob).to receive(:perform_later)
-      allow(mailendjob).to receive(:perform_later)
-      allow(described_class).to receive(:get_delays) { [2, 1] }
+    let(:ten_seconds) { double('ten_seconds') }
+    context 'with an expiration_date set far far away' do
+      before :each do
+        allow(mailjob).to receive(:perform_later)
+        allow(mailendjob).to receive(:perform_later)
+        allow(described_class).to receive(:get_delays) { [20, 10] }
+        allow(Notification).to receive(:short_notice) { false }
+        allow(10.seconds).to receive(:from_now) { t + 10 }
+        allow(20.seconds).to receive(:from_now) { t + 20 }
+      end
+      it 'sets a reminder for players not to forget to vote' do
+        expect(ReminderMailJob).to receive(:delay).with(
+          { run_at: a_value_within(0.01).of(10.seconds.from_now), queue: 'mailers' }
+        ) { mailjob }
+        expect(mailjob).to receive(:perform_later).with(poll.id)
+      end
+      it 'sets a reminder for the poll owner to' \
+        'communicate the result of the poll' do
+        expect(ReminderPollEndJob).to receive(:delay).with(
+          { run_at: a_value_within(1).of(20.seconds.from_now), queue: 'mailers' }
+        ) { mailendjob }
+        expect(mailendjob).to receive(:perform_later).with(poll.id)
+      end
+      after(:each) do
+        subject
+      end
     end
-    it { expect(ReminderMailJob).to receive(:set).with({ wait: 1 }) { mailjob } }
-    it { expect(ReminderPollEndJob).to receive(:set).with({ wait: 2 }) { mailendjob } }
-    after :each do
-      subject
+
+    context 'with short notice' do
+      before :each do
+        allow(mailjob).to receive(:perform_later)
+        allow(mailendjob).to receive(:perform_later)
+        allow(described_class).to receive(:get_delays) { [2, 1] }
+        allow(described_class).to receive(:short_notice) { true }
+      end
+      it { expect(subject).to be(nil) }
     end
   end
 
@@ -215,24 +242,25 @@ RSpec.describe NotificationService, type: :service do
       it { expect(subject[0]).to be < Poll.days_threshold_for_first_mail_alert.days.to_i }
     end
   end
-end
 
-# {
-# 'class'=>'ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper',
-# 'wrapped'=>'ReminderPollEndJob',
-# 'queue'=>'mailers',
-# 'args'=> [
-#   {
-#     'job_class'=>'ReminderPollEndJob',
-#     'job_id'=>'2db0c540-6bf3-49b2-b496-db22733b80bf',
-#     'provider_job_id'=>nil,
-#     'queue_name'=>'mailers',
-#     'priority'=>nil,
-#     'arguments'=>[poll.id],
-#     'locale'=>'fr'
-#   }
-# ],
-# 'retry'=>true,
-# 'jid'=>'a9decad10eb3374c7d74276a',
-# 'created_at'=>1545506938.8081102
-# }
+  describe '#job_corresponds_to_poll?' do
+    let(:job) { double('a_job') }
+    let(:poll) { build(:poll, id: 13) }
+    let(:a_payload) { double('a_payload') }
+    subject { described_class.send(:job_corresponds_to_poll?, job, poll) }
+    context 'when similar' do
+      before do
+        allow(job).to receive(:payload_object) { a_payload }
+        allow(a_payload).to receive(:args) { [13] }
+      end
+      it { expect(subject).to be(true) }
+    end
+    context 'when different' do
+      before do
+        allow(job).to receive(:payload_object) { a_payload }
+        allow(a_payload).to receive(:args) { [14] }
+      end
+      it { expect(subject).to be(false) }
+    end
+  end
+end

@@ -7,4 +7,8 @@ class ReminderMailJob < ApplicationJob
     Bugsnag.notify(e)
     Rails.logger.error("ReminderMailJob error : #{e}")
   end
+
+  def error(job, exception)
+    Rails.logger.error("Error !  #{exception} on #{job.name}")
+  end
 end

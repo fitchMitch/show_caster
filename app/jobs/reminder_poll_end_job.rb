@@ -16,6 +16,10 @@ class ReminderPollEndJob < ApplicationJob
     Rails.logger.error("ReminderPollEnd JOB is raising a error: #{e}")
   end
 
+  def error(job, exception)
+    Rails.logger.error("Error !  #{exception} on #{job.name}")
+  end
+
   private
 
   def is_invalid_poll?(poll)
