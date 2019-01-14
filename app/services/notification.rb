@@ -7,7 +7,7 @@ class Notification
     @@too_short_notice_days
   end
 
-  def self.short_notice(delay)
+  def self.short_notice?(delay)
     delay < self.too_short_notice_days.to_i
   end
 end

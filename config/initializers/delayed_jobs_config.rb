@@ -2,6 +2,7 @@ Delayed::Worker.queue_attributes = {
   high_priority: { priority: -10 },
   mailers: { priority: 20 }
 }
+
 # config/initializers/delayed_job_config.rb
 Delayed::Worker.destroy_failed_jobs = false
 Delayed::Worker.sleep_delay = 60

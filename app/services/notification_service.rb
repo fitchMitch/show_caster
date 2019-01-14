@@ -29,19 +29,20 @@ class NotificationService < Notification
     # Both notifications will be set unless short notice
     seconds_till_poll_expiration,
     seconds_before_reminding_poll = self.get_delays(poll)
-    return nil if Notification.short_notice(seconds_before_reminding_poll)
-
-    # for some player to remember they should answer poll's question
-    ReminderMailJob.delay(
-      run_at: seconds_before_reminding_poll.seconds.from_now,
-      queue: 'mailers'
-    ).perform_later(poll.id) unless seconds_before_reminding_poll < 0
-    #for some poll's owner to remember they should announce the end of the poll
+    byebug
 
     ReminderPollEndJob.delay(
       run_at: seconds_till_poll_expiration.seconds.from_now,
       queue: 'mailers'
-    ).perform_later(poll.id) unless seconds_till_poll_expiration < 0
+    ).perform_later(poll.id)
+
+    # for some player to remember they should answer poll's question
+    unless Notification.short_notice?(seconds_before_reminding_poll)
+      ReminderMailJob.delay(
+        run_at: seconds_before_reminding_poll.seconds.from_now,
+        queue: 'mailers'
+      ).perform_later(poll.id)
+    end
   end
   # ========= Jobs are now set =====================
 
