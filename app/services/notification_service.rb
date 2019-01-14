@@ -29,7 +29,6 @@ class NotificationService < Notification
     # Both notifications will be set unless short notice
     seconds_till_poll_expiration,
     seconds_before_reminding_poll = self.get_delays(poll)
-    byebug
 
     ReminderPollEndJob.delay(
       run_at: seconds_till_poll_expiration.seconds.from_now,
