@@ -2,8 +2,6 @@ Delayed::Worker.queue_attributes = {
   high_priority: { priority: -10 },
   mailers: { priority: 20 }
 }
-ActiveRecord::Base.send(:attr_accessible, :priority)
-ActiveRecord::Base.send(:attr_accessible, :payload_object)
 # config/initializers/delayed_job_config.rb
 Delayed::Worker.destroy_failed_jobs = false
 Delayed::Worker.sleep_delay = 60
