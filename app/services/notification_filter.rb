@@ -19,6 +19,5 @@ class NotificationFilter < Notification
   rescue StandardError => e
     # Bugsnag.notify(e)
     Rails.logger.error("poll_end_reminder_mailing failure: #{e}")
-    raise e
   end
 end

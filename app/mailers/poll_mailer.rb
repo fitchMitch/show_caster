@@ -45,6 +45,7 @@ class PollMailer < ApplicationMailer
   rescue StandardError => e
     Bugsnag.notify(e)
     Rails.logger.error("poll_end_reminder_mail failure: #{e}")
+    raise e
   end
 
   private
