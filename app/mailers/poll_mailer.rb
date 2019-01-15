@@ -41,7 +41,7 @@ class PollMailer < ApplicationMailer
     mail(
       to: poll.owner.prefered_email,
       subject: I18n.t('polls.mails.reminder.end_subject')
-    )
+    ).deliver_now
   rescue StandardError => e
     Bugsnag.notify(e)
     Rails.logger.error("poll_end_reminder_mail failure: #{e}")
