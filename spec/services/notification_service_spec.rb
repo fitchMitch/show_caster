@@ -118,7 +118,7 @@ RSpec.describe NotificationService, type: :service do
 
     context 'everything is ok' do
       before do
-        allow(Delayed::Job).to receive(:all) { scheduled_jobs }
+        allow(Sidekiq::Queue).to receive(:new).with('mailers') { scheduled_jobs }
         allow_any_instance_of(
           Class
         ).to receive(:job_corresponds_to_poll?) { true }
@@ -130,8 +130,8 @@ RSpec.describe NotificationService, type: :service do
     end
     context 'when something goes wrong' do
       before do
-        allow(Delayed::Job).to receive(
-          :all
+        allow(Sidekiq::Queue).to receive(
+          :new
         ).and_raise(StandardError.new 'message')
       end
       it 'does notify Bugsnag' do

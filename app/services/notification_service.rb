@@ -15,7 +15,7 @@ class NotificationService < Notification
   end
 
   def self.destroy_all_notifications(poll)
-    Delayed::Job.all.each do |job|
+    Sidekiq::Queue.new("mailers").each do |job|
       job.destroy if job_corresponds_to_poll?(job, poll)
     end
   rescue StandardError => e

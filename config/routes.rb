@@ -1,3 +1,4 @@
+require 'sidekiq/web'
 Rails.application.routes.draw do
   mount Commontator::Engine => '/commontator'
   # Users and Sessions
@@ -6,7 +7,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :pictures, module: :users
     member do
-      mount Delayed::Web::Engine, at: '/jobs'
+      mount Sidekiq::Web => '/sidekiq'
       patch '/promote',     to: 'users#promote'
       patch '/bio',         to: 'users#bio'
       patch '/invite',      to: 'users#invite'
