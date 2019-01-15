@@ -6,20 +6,20 @@ class NotificationService < Notification
 
     # Both notifications will be set unless short notice
     seconds_till_poll_expiration,
-    seconds_before_reminding_poll = NotificationService.get_delays(poll)
+    seconds_before_reminding_poll = self.get_delays(poll)
     return nil if Notification.short_notice(seconds_before_reminding_poll)
 
-    NotificationService.set_future_mail_notifications(poll)
+    self.set_future_mail_notifications(poll)
   end
 
   def self.poll_notifications_update(poll)
-    poll_changes = NotificationService.analyse_poll_changes(poll)
+    poll_changes = self.analyse_poll_changes(poll)
     # Poll changes should be noticed to adminstrators and owner only
     # identify which changes there were and which one are important
-    NotificationService.destroy_all_notifications(poll)
+    self.destroy_all_notifications(poll)
     return nil if poll_changes.fetch("expiration_date", nil).nil?
 
-    NotificationService.set_future_mail_notifications(poll)
+    self.set_future_mail_notifications(poll)
   end
 
   def self.destroy_all_notifications(poll)
@@ -38,7 +38,7 @@ class NotificationService < Notification
 
   def self.set_future_mail_notifications(poll)
     seconds_till_poll_expiration,
-    seconds_before_reminding_poll = NotificationService.get_delays(poll)
+    seconds_before_reminding_poll = self.get_delays(poll)
 
     # for some player to remember they should answer poll's question
     ReminderMailJob.set(
@@ -50,7 +50,6 @@ class NotificationService < Notification
       wait: seconds_till_poll_expiration.seconds
     ).perform_later(poll.id) unless seconds_till_poll_expiration < 0
   end
-  # ========= Jobs are now set =====================
 
   def self.analyse_poll_changes(poll)
     answer_changes = []
