@@ -42,7 +42,7 @@ class NotificationService < Notification
 
     ReminderPollEndJob.set(
       wait: seconds_till_poll_expiration.seconds
-    ).deliver_now(poll.id) if seconds_till_poll_expiration > 0
+    ).perform_later(poll.id) if seconds_till_poll_expiration > 0
   end
 
   def self.analyse_poll_changes(poll)
