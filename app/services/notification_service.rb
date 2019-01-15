@@ -3,12 +3,6 @@ require 'sidekiq/api'
 class NotificationService < Notification
   def self.poll_creation(poll)
     PollMailer.poll_creation_mail(poll).deliver_now
-
-    # Both notifications will be set unless short notice
-    seconds_till_poll_expiration,
-    seconds_before_reminding_poll = self.get_delays(poll)
-    return nil if Notification.short_notice(seconds_before_reminding_poll)
-
     self.set_future_mail_notifications(poll)
   end
 
@@ -43,12 +37,12 @@ class NotificationService < Notification
     # for some player to remember they should answer poll's question
     ReminderMailJob.set(
       wait: seconds_before_reminding_poll.seconds
-    ).perform_later(poll.id) unless seconds_before_reminding_poll < 0
+    ).perform_later(poll.id) if seconds_before_reminding_poll > 0
     #for some poll's owner to remember they should announce the end of the poll
 
     ReminderPollEndJob.set(
       wait: seconds_till_poll_expiration.seconds
-    ).perform_later(poll.id) unless seconds_till_poll_expiration < 0
+    ).perform_later(poll.id) if seconds_till_poll_expiration > 0
   end
 
   def self.analyse_poll_changes(poll)
