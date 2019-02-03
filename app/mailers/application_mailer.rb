@@ -3,7 +3,7 @@ class ApplicationMailer < ActionMailer::Base
   layout 'mailer'
 
   def get_site
-    Rails.application.config.action_mailer.default_url_options[:host]
+    Rails.application.config.action_mailer.default_url_options[:site]
   end
 
   def url_login

@@ -7,7 +7,7 @@ class ReminderPollEndJob < ApplicationJob
 
   def perform(poll_id)
     poll = Poll.find_by(id: poll_id)
-    return nil if is_invalid_poll?(poll)
+    return nil if invalid_poll?(poll)
 
     Rails.logger.debug('NotificationService.poll_end_reminder_mailing')
     NotificationFilter.poll_end_reminder_mailing(poll_id)
@@ -16,13 +16,9 @@ class ReminderPollEndJob < ApplicationJob
     Rails.logger.error("ReminderPollEnd JOB is raising a error: #{e}")
   end
 
-  def error(job, exception)
-    Rails.logger.error("Error !  #{exception} on #{job.name}")
-  end
-
   private
 
-  def is_invalid_poll?(poll)
+  def invalid_poll?(poll)
     poll.nil?
   end
 end

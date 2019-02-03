@@ -40,6 +40,7 @@ Rails.application.configure do
   # config.action_mailer.delivery_method = :smtp
   # Don't use this literally; use your local dev host instead
   host = 'localhost:3000'
+  site = host
   config.action_mailer.default_url_options = { host: host }
 
   ActionMailer::Base.smtp_settings = {

@@ -59,6 +59,7 @@ Rails.application.configure do
   # config.action_mailer.delivery_method = :smtp
   # Don't use this literally; use your local dev host instead
   host = 'les-sesames.fr'
+  site = 'www.les-sesames.fr'
   config.action_mailer.default_url_options = { host: host }
 
   ActionMailer::Base.delivery_method = :smtp

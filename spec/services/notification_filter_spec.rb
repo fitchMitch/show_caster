@@ -68,7 +68,7 @@ RSpec.describe NotificationFilter, type: :service do
         allow(PollMailer).to receive(
           :poll_end_reminder_mail
         ).with(poll_opinion) { a_mail }
-        allow(a_mail).to receive(:deliver_now!) { a_delivered_mail }
+        allow(a_mail).to receive(:deliver_now) { a_delivered_mail }
       end
       it { expect(mailing).to eq a_delivered_mail }
     end
