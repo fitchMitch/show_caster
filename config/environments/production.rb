@@ -60,7 +60,10 @@ Rails.application.configure do
   # Don't use this literally; use your local dev host instead
   host = 'les-sesames.fr'
   site = 'www.les-sesames.fr'
-  config.action_mailer.default_url_options = { host: host }
+  config.action_mailer.default_url_options = {
+    host: host,
+    site: site
+  }
 
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
