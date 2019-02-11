@@ -29,6 +29,7 @@ class PollMailer < ApplicationMailer
 
     Rails.logger.error("poll_reminder_mail failure: #{e}")
     Rails.logger.error("Recipients: #{recipients.join(',')}")
+    raise e
   end
 
   def poll_end_reminder_mail(poll)
@@ -42,10 +43,10 @@ class PollMailer < ApplicationMailer
       to: poll.owner.prefered_email,
       subject: I18n.t('polls.mails.reminder.end_subject')
     )
-  rescue StandardError => e
-    Bugsnag.notify(e)
-    Rails.logger.error("poll_end_reminder_mail failure: #{e}")
-    raise e
+  # rescue StandardError => e
+  #   Bugsnag.notify(e)
+  #   Rails.logger.error("poll_end_reminder_mail failure: #{e}")
+  #   raise e
   end
 
   private
