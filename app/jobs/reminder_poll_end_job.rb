@@ -11,9 +11,6 @@ class ReminderPollEndJob < ApplicationJob
 
     Rails.logger.debug('NotificationService.poll_end_reminder_mailing')
     NotificationFilter.poll_end_reminder_mailing(poll_id)
-  rescue StandardError => e
-    # Bugsnag.notify(e)
-    Rails.logger.error("ReminderPollEnd JOB is raising a error: #{e}")
   end
 
   private
