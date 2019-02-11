@@ -1,7 +1,8 @@
 Hello !
 ===============================
-<%= @initiater%> aimerait avoir ton avis sur une question. Le plus vite sera le mieux, honnêtement.
-Voici le lien pour <%= link_to('Voter', @url) %>
-
+<%= @initiater%> aimerait avoir ton avis sur une question.
+Le plus vite sera le mieux, honnêtement.
+Voici le lien pour se loguer <%= link_to('Se loguer', @url_login) %>
+ et le lien pour <%= link_to('Voter', @url) %>
 -----------
-Date limite pour répondre : <%=   I18n.l( @final_call, format:"%a %d %b")%>
+Date limite pour répondre : <%= I18n.l( @final_call, format:"%a %d %b") %>
