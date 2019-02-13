@@ -34,18 +34,6 @@ RSpec.describe NotificationFilter, type: :service do
       end
       it { expect(mailing).to eq a_delivered_mail }
     end
-
-    context 'when something goes wrong' do
-      let(:poll_id) { 123 }
-      before do
-        allow(Poll).to receive(:find_by).and_raise(StandardError.new('message'))
-        allow_any_instance_of(Class).to receive(:raise).and_return(nil)
-      end
-      it 'does notify Bugsnag' do
-        expect(Bugsnag).to receive(:notify)
-        mailing
-      end
-    end
   end
 
   describe '.poll_end_reminder_mailing' do
