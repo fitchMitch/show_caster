@@ -19,8 +19,11 @@ class CoursesController < EventsController
 
   def index
     authorize(Course)
-    @future_events = Event.courses.future_events.page params[:page]
-    @passed_events = Event.courses.passed_events.page params[:page]
+    if params[:direction] == 'previous'
+      @events = Event.courses.passed_events.page params[:page]
+    else
+      @events = Event.courses.future_events.page params[:page]
+    end
   end
 
   def create

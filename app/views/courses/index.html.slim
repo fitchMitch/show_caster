@@ -15,13 +15,14 @@
             = I18n.t('performances.google_agenda_ok')
 
     h2= title_with_image('029-masks.png', 'courses.list')
-    ul.nav.nav-tabs.nav-pills role="tablist"
-      li.active role="presentation"
-        a aria-controls='nexting' data-toggle='tab' href='#nexting' role='tab'
+
+    .row.space-up-10
+      .col.md-6.room-left-15
+        = link_to courses_path(direction: "next", page: 0),  class: 'btn btn-primary' do
           = t("performances.nexting")
-      li role="presentation"
-        a aria-controls='pasting' data-toggle='tab' href='#pasting' role='tab'
-          = passed_label(@passed_events)
+        = image_tag('transp.png')
+        = link_to courses_path(direction: "previous", page: 0), class: 'btn btn-primary' do
+          = passed_label(@events)
 
     .row.strong.space-up-10
       .col-md-3.room-left-15
@@ -29,7 +30,7 @@
         br
         	.blue-bar-200
       .col-md-1.room-left-15.hidden-xs
-        strong=  t('performances.dur')
+        strong= t('performances.dur')
         br
         	.blue-bar-100
       .col-md-2.room-left-15

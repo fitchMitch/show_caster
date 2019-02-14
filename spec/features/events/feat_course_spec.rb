@@ -1,5 +1,6 @@
 require 'rails_helper'
 include ActionView::Helpers::DateHelper
+include EventsHelper
 
 # require 'vcr'
 
@@ -38,11 +39,15 @@ RSpec.feature  'Course | ' do
       scenario 'should list some courses in the past' do
         expect(page.body).to have_content(passed_course.note)
       end
-      scenario 'delete links and image links according to past or future' , js: true do
-        page.find(:xpath, "//a[@href='#nexting']").click
-        expect(page.find('#nexting')).to have_selector('a > i.fa.fa-trash.fa-lg')
-        page.find(:xpath, "//a[@href='#pasting']").click
-        expect(page.find('#pasting')).not_to have_selector('a > i.fa.fa-trash.fa-lg')
+      scenario 'delete links and image links according to past or future', js: true do
+        click_link(I18n.t('performances.nexting'))
+        expect(page.find('.tab-content')).to have_selector('a > i.fa.fa-trash.fa-lg')
+        click_link(
+          ActionView::Base.full_sanitizer.sanitize(
+            passed_label(Course.all)
+          ).strip
+        )
+        expect(page.find('.tab-content')).not_to have_selector('a > i.fa.fa-trash.fa-lg')
       end
     end
 
@@ -72,7 +77,11 @@ RSpec.feature  'Course | ' do
         # inside index page
         #--------------------
         expect(page.body).to have_content(I18n.t('performances.created'))
-        page.find(:xpath, "//a[@href='#pasting']").click
+        click_link(
+          ActionView::Base.full_sanitizer.sanitize(
+            passed_label(Course.all)
+          ).strip
+        )
         expect(page.body).to have_content(note)
         expect(page.body).to have_content(40) # minutes
         click_link(title)

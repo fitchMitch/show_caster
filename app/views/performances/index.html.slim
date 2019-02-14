@@ -14,13 +14,15 @@
             = image_tag("transp.png")
             = I18n.t('performances.google_agenda_ok')
     h2= title_with_image('030-theatre.png', 'performances.list')
-    ul.nav.nav-tabs.nav-pills role="tablist"
-      li.active role="presentation"
-        a aria-controls='nexting' data-toggle='tab' href='#nexting' role='tab'
-          = t("performances.nexting")
-      li role="presentation"
-        a aria-controls='pasting' data-toggle='tab' href='#pasting' role='tab'
-          = passed_label(@passed_events)
+
+    .row.space-up-10
+      .col.md-6.room-left-15
+        = link_to performances_path(direction: "next", page: 0),  class: 'btn btn-primary' do
+          = t('performances.nexting')
+        = image_tag('transp.png')
+        = link_to performances_path(direction: "previous", page: 0), class: 'btn btn-primary' do
+          = passed_label(@events)
+
     .space-up-10
     .row.strong
       .col-md-2.hidden-xs.room-left-15
