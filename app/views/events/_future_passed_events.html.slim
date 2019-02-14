@@ -1,8 +1,3 @@
-#nexting.tab-pane.fade.in.active role="tabpanel"
-  - @future_events.each do |event|
-    = render 'table_line', event: event
-  = paginate @future_events
-#pasting.tab-pane.fade role="tabpanel"
-  - @passed_events.each do |event|
-    = render 'table_line', event: event
-  = paginate @passed_events
+- @events.each do |event|
+  = render 'table_line', event: event
+= paginate @events

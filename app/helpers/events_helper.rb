@@ -39,19 +39,23 @@ module EventsHelper
   end
 
   def get_dictionnary(event)
+    return '' unless event.present?
+
     event.class.name.downcase.pluralize
   end
 
   def event_edit_page_title(event)
-    t("#{get_dictionnary(event)}.edit_page_title")
+    I18n.t("#{get_dictionnary(event)}.edit_page_title")
   end
 
   def event_new_page_title(event)
-    t("#{get_dictionnary(event)}.new_page_title")
+    I18n.t("#{get_dictionnary(event)}.new_page_title")
   end
 
   def passed_label(events)
-    t("#{get_dictionnary(events.first)}.passed_events_title").html_safe
+    return '' if events.nil?
+
+    I18n.t("#{get_dictionnary(events.first)}.passed_events_title").html_safe
   end
 
   def players_on_stage(event)

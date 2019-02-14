@@ -1,5 +1,6 @@
 require 'rails_helper'
 include ActionView::Helpers::DateHelper
+include EventsHelper
 
 # require 'vcr'
 
@@ -39,12 +40,15 @@ RSpec.feature  'Performance | ' do
         expect(page.body).to have_content(passed_performance.note)
       end
       scenario 'delete and image links are shownaccording to past or future', js: true do
-        page.find(:xpath, "//a[@href='#nexting']").click
+        # save_and_open_page
+        click_link(I18n.t('performances.nexting'))
         expect(page.body).to have_selector('a > i.fa.fa-trash.fa-lg')
-        # expect(page.body).to have_selector('a > i.fa.fa-image.fa-lg', count: 1)
         expect(page.body).to have_selector('a > i.fa.fa-trash.fa-lg', count: 3)
-        page.find(:xpath, "//a[@href='#pasting']").click
-        # expect(page.body).not_to have_selector('a > i.fa.fa-trash.fa-lg') # bugged?
+        click_link(
+          ActionView::Base.full_sanitizer.sanitize(
+            passed_label(Performance.all)
+          ).strip
+        )
         expect(page.body).to have_selector('a > i.fa.fa-image.fa-lg', count: 2)
       end
     end
@@ -75,7 +79,11 @@ RSpec.feature  'Performance | ' do
         # inside index page
         #--------------------
         expect(page.body).to have_content(I18n.t('performances.created'))
-        page.find(:xpath, "//a[@href='#pasting']").click
+        click_link(
+          ActionView::Base.full_sanitizer.sanitize(
+            passed_label(Performance.all)
+          ).strip
+        )
         expect(page.body).to have_content(note)
         expect(page.body).to have_content(40) # minutes
         click_link(title)

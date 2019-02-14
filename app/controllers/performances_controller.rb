@@ -9,8 +9,11 @@ class PerformancesController < EventsController
 
   def index
     authorize(Performance)
-    @future_events = Event.future_events.performances.page params[:page]
-    @passed_events = Event.passed_events.performances.page params[:page]
+    if params[:direction] == 'previous'
+      @events = Event.passed_events.performances.page params[:page]
+    else
+      @events = Event.future_events.performances.page params[:page]
+    end
   end
 
   def create
