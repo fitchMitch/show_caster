@@ -103,10 +103,6 @@ class Indicator
     self.show_with_role_count = activity.sum do |activity|
       activity.count_me if activity.count_me.present?
     end
-    # .inject do |sum, n|
-    # self.show_with_role_count = activity.inject(0) do |sum, n|
-    #   sum + n.count_me if n.count_me.present?
-    # end
   end
 
   def get_average_role_count

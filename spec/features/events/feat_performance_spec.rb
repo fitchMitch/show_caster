@@ -94,10 +94,10 @@ RSpec.feature  'Performance | ' do
         expect(page.body).to have_content(title)
         expect(page.body).to have_content(note)
         expect(page.body).to have_content(
-          Performance.last.actors.first.user.full_name
+          Performance.last.actors.first.user.first_and_l
         )
         expect(page.body).to have_content(
-          Performance.last.actors.last.user.full_name
+          Performance.last.actors.last.user.first_and_l
         )
       end
     end
@@ -143,10 +143,10 @@ RSpec.feature  'Performance | ' do
         expect(page.body).to have_content(title)
         expect(page.body).to have_content(note)
         expect(page.body).to have_content(
-          performance_w.actors.first.user.full_name
+          performance_w.actors.first.user.first_and_l
         )
         expect(page.body).to have_content(
-          performance_w.actors.last.user.full_name
+          performance_w.actors.last.user.first_and_l
         )
       end
     end
