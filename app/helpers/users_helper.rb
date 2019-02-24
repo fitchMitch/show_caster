@@ -72,7 +72,7 @@ module UsersHelper
   def badge_user_from_id(user_id)
     user = User.find_by_id(user_id)
     "<span class='badge_user' style='#{badge_user(user)}'>" \
-    "#{user.firstname} #{user.lastname.first}</span>".html_safe
+    "#{user.first_and_l}</span>".html_safe
   end
 
   def sesame_picture_url(user)
