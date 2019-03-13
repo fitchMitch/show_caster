@@ -27,7 +27,7 @@
           .col-md-4
             = t("polls.questioned_by")
             br
-            = @poll.owner.first_and_l unless @poll.owner.nil?
+            = @poll.owner.firstname_extended unless @poll.owner.nil?
       br
       = render partial: '/vote_opinions/form',
                locals: {poll_opinion: @poll, vote: @vote, answer_id: @answer_id}

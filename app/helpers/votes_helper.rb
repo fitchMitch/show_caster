@@ -18,13 +18,13 @@ module VotesHelper
     vote_first_label = votes.any? ? votes.first.vote_label : '?'
     output =  case vote_first_label
               when '?'
-                "<span class='text-muted'>#{user.first_and_l}</span>"
+                "<span class='text-muted'>#{user.firstname_extended}</span>"
               when 'yess'
                 badge_user_from_id(user.id)
               when 'noway'
-                "<strike>#{user.first_and_l}</strike>"
+                "<strike>#{user.firstname_extended}</strike>"
               else # maybe
-                "<span class='maybe-vote'>#{user.first_and_l} ?</span>"
+                "<span class='maybe-vote'>#{user.firstname_extended} ?</span>"
               end
     output.html_safe
   end

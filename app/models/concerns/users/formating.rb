@@ -8,14 +8,14 @@ module Users
     end
 
     def pick_color
-      # txt
+      # txt color
       s_txt  = pick(36, 76)
       l_txt  = pick(76, 95)
-      # background
+      # background color
       s_bckg = pick(66, 100)
       l_bckg = pick(32, 50)
       # hue
-      h_user = h_random pick(0, 1000)
+      h_user = hue_random pick(0, 1000)
 
       letters = to_hsl(h_user, s_txt, l_txt)
       background = to_hsl(h_user, s_bckg, l_bckg)
@@ -27,7 +27,7 @@ module Users
                                          "#{lastname.upcase}"
     end
 
-    def first_and_l
+    def firstname_extended
       same_firstnames = User.where(firstname: firstname)
 
       if firstname.nil? || firstname == ''
@@ -41,9 +41,9 @@ module Users
 
     def last_connexion
       if last_connexion_at.nil?
-        I18n.t("users.never_connected")
+        I18n.t('users.never_connected')
       else
-        I18n.t("users.connected_at", time: time_ago_in_words(last_connexion_at))
+        I18n.t('users.connected_at', time: time_ago_in_words(last_connexion_at))
       end
     end
 
@@ -72,12 +72,7 @@ module Users
       my_match.captures.compact.join(' ')
     end
 
-    # def to_hex_color(nbr)
-    #   incomplete_nr = nbr.to_s(16)
-    #   '0' * (6 - incomplete_nr.length) + incomplete_nr
-    # end
-
-    def h_random(index)
+    def hue_random(index)
       gold = (1 + Math.sqrt(5)) / 2
       perso = gold * index.to_i
       nbr = (perso - perso.floor)

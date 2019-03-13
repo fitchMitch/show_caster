@@ -30,7 +30,7 @@
     dd.space-up-10= @event.note
     dt= t('performances.created_by')
     - if @event.user.present?
-      dd= @event.user.first_and_l
+      dd= @event.user.firstname_extended
     dt
       p.space-up-20= t("performances.actors")
     dd
@@ -40,7 +40,7 @@
             strong= t("performances.players")
           - for actor in players_on_stage(@event)
             .badge_user.room-right-10.player-list  style= "#{badge_user actor.user}"
-              = "#{actor.user.first_and_l} "
+              = "#{actor.user.firstname_extended} "
         .col-md-4.col-sm-6.col-xs-12
           p
             strong=t("performances.mc_and_djs")
@@ -50,7 +50,7 @@
                 small
                   = "#{actor.stage_role_i18n} "
               = image_tag("transp.png")
-              = " #{actor.user.first_and_l} "
+              = " #{actor.user.firstname_extended} "
 
       hr
       - if @event.event_date < Time.zone.now

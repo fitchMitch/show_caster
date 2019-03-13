@@ -34,15 +34,15 @@ RSpec.describe Answer, type: :model do
       it { is_expected.to eq 'Gala LOUXOR' }
     end
 
-    describe '#first_and_l' do
+    describe '#firstname_extended' do
       let!(:user) { create(:user, firstname: 'Gala', lastname: 'Louxor') }
       context 'with a single Gala' do
-        subject { user.first_and_l }
+        subject { user.firstname_extended }
         it { is_expected.to eq 'Gala' }
       end
       context 'with two Gala' do
         let!(:user2) { create(:user, firstname: 'Gala', lastname: 'Arachne') }
-        subject { user.first_and_l }
+        subject { user.firstname_extended }
         it { is_expected.to eq 'Gala L' }
       end
     end
