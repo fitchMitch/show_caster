@@ -11,10 +11,7 @@ module VotesHelper
     raise 'updown_icons'
   end
 
-  def others_votes_list(answer, user)
-    votes = VoteDate.where('poll_id = ?', answer.poll_id)
-                    .where('answer_id = ?', answer.id)
-                    .where('user_id = ?', user.id)
+  def others_votes_list(votes, user)
     vote_first_label = votes.any? ? votes.first.vote_label : '?'
     output =  case vote_first_label
               when '?'

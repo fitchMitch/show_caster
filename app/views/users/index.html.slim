@@ -1,7 +1,7 @@
 .container
   h1
     = t("layout.users", theater_company: "Sésames")
-  h2= display_avatar_list.html_safe unless User.active.count.zero?
+  h2= display_avatar_list(@users_count) unless @users_count.zero?
   h2= t("users.list")
   .row
     .col-md-3.col-sm-3.col-xs-6

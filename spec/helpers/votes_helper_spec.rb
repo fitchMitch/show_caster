@@ -10,7 +10,7 @@ RSpec.describe VotesHelper, type: :helper do
     let!(:votop) { create(:vote_opinion) }
     it 'shall display name anyway' do
       expect(
-        helper.others_votes_list(votop.answer, votop.user)
+        helper.others_votes_list([votop], votop.user)
       ).to include(votop.user.firstname_extended)
     end
   end

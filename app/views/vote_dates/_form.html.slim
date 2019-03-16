@@ -22,8 +22,8 @@
             td.date-choice
               - User.active.order('firstname').each do |user|
                 = render partial: "vote_dates/others_vote_dates",
-                         locals: { content: others_votes_list(answer_vote[:answer],user),
-                                   user: user }
+                         locals: { content: others_votes_list( VoteDate.select_votes(answer_vote[:answer], user), user) }
+
                 br
               = vote_date_header(answer_vote)
   - if @answers_votes.size <= 5

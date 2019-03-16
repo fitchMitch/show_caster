@@ -177,6 +177,10 @@ class User < ApplicationRecord
     alternate_email.present? ? alternate_email : email
   end
 
+  def self.active_count
+    User.active.count
+  end
+
   protected
 
   def promotions_to_mute(old_user)

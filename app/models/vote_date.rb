@@ -28,9 +28,17 @@ class VoteDate < Vote
   # --    PUBLIC      ---
   # ------------------------
   def clean_votes
-    VoteDate.where(poll_id: poll_id)
-            .where(user_id: user_id)
-            .where(answer_id: answer_id)
+    VoteDate.search(poll_id, answer_id, user_id)
             .delete_all
+  end
+
+  def self.select_votes(answer, user)
+    VoteDate.search(answer.poll_id, answer.id, user.id)
+  end
+
+  def self.search(poll_id, answer_id, user_id)
+    VoteDate.where('poll_id = ?', poll_id)
+            .where('answer_id = ?', answer_id)
+            .where('user_id = ?', user_id)
   end
 end

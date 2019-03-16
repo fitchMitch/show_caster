@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def index
     authorize User
+    @users_count = User.active_count
     @users = policy_scope(User).page(params[:page])
                                .per(25)
   end

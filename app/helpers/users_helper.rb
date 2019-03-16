@@ -95,17 +95,21 @@ module UsersHelper
               style: in_dallas
   end
 
-  def display_avatar_list
-    user_count = User.active.count
-    return image_tag(random_character_avatar, size: 35).html_safe if (user_count == 1)
+  def display_avatar_list(user_active_count)
+    if user_active_count == 1
+      return image_tag(random_character_avatar, size: 35).html_safe
+    end
 
     res = ''
     avatar_path = 'png/characters'
     #TODO set as class_variable
-    extract_icons(user_count, avatar_path).each do |file|
-      res += image_tag(get_png_image_path(avatar_path, file), size: 35).html_safe
+    extract_icons(user_active_count, avatar_path).each do |file|
+      res += image_tag(
+        get_png_image_path(avatar_path, file),
+        size: 35
+      )
     end
-    res
+    res.html_safe
   end
 
   def event_date_link(obj)
