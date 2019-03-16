@@ -1,9 +1,9 @@
 .row.dashboard-line
   .col-sm-2.col-xs-2.center
-    = badge_user_from_id(rec[:id])
-  - rec[:shows_data].each do |rec_i|
+    = badge_user_from_id(record[:id])
+  - record[:shows_data].each do |current_record_data|
     .col-sm-1.col-xs-2.center
-      = show_perf(rec_i)
+      = show_perf(current_record_data)
 .row
   .col-xs-12
     span.space-up-5

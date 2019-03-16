@@ -5,15 +5,15 @@
     .col-sm-2.col-xs-2.center
       strong
         = t('dashboards.who')
-    - @periods.each do |key, val|
+    - @periods.each do |key, _|
       .col-sm-1.col-xs-2.center
         strong
-          = translate(key)
+          = local_lang_translate(key)
     .col-sm-1.col-xs-2.center
       strong
-        = "DJ #{translate('a_year')}"
+        = "DJ #{local_lang_translate('a_year')}"
     .col-sm-1.col-xs-2.center
       strong
-        = "MC #{translate('a_year')}"
-  - @res.each do |rec|
-    = render "frequency", rec: rec
+        = "MC #{local_lang_translate('a_year')}"
+  - @res.each do |record|
+    = render "frequency", record: record
