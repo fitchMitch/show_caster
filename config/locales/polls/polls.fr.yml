@@ -10,6 +10,7 @@ fr:
     expiration_date: Echéance
     expiration_hint: C'est aussi la date limite de remise des votes
     expired: Sondages échus - <strong>Résultats</strong>
+    expired_short: échu
     header: Sondages
     last_interaction: Dernier changement
     list: Liste des sondages
