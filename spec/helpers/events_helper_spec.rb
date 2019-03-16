@@ -2,13 +2,6 @@ require 'rails_helper'
 
 RSpec.describe EventsHelper, type: :helper do
   let(:event) { create(:performance) }
-  describe '#short_label_helper' do
-    it 'shall show a label' do
-      expr = "<span class='label label-success'>"
-      expect(helper.short_label_helper(event.id)).to include(expr)
-      expect(helper.short_label_helper(event.id)).to include(event.theater.theater_name[0, 25])
-    end
-  end
 
   describe '#photo_indicator' do
     let(:event_pic) { create(:performance_with_picture) }

@@ -4,14 +4,6 @@ module EventsHelper
     r.nil? ? '' : r[0]
   end
 
-  def short_label_helper(event_id)
-    event = Event.find_by(id: event_id)
-    "<span class='label label-success'>" \
-    "#{event.theater.theater_name[0, 25]}</span>" \
-    "<strong>#{event.event_date.strftime('%d-%b %Y')}</strong> " \
-    "| #{event.title[0, 35]}".html_safe
-  end
-
   def photo_indicator(event)
     return if event.photo_count.zero?
     "<span class='light-frame'><small>" \
