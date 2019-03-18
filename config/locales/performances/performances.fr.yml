@@ -33,7 +33,7 @@ fr:
     players_part: Côté joueurs
     progress: Avancement
     private_event: show privé
-    plus_actors: d'acteurs
+    plus_actors: de joueurs
     see: Voir la fiche spectacle
     show_in: Spectacle au %{name}
     show_privacy: Communication
@@ -46,4 +46,4 @@ fr:
 
     updated: "Le spectacle a bien été mis à jour. NB : il n'existait pas sur Google Calendar."
     updated_with_Google: Le spectacle a bien été mis à jour (et sur Google Agenda aussi).
-    passed_events_title: Spectacles du temps écoulé <i class="fa fa-image fa-lg"></i>
+    passed_events_title: Spectacles du temps passé <i class="fa fa-image fa-lg"></i>
