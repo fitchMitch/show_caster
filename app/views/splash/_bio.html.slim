@@ -1,11 +1,19 @@
-- User.active.order(:firstname).each do |user|
-  - if user.try(:pictures).present?
-    div
-      .col-md-4.col-sm-6.col-xs-12.space-up-20
-        .player-frame
-          .player-image
-            = image_tag(user.pictures.first.photo.url(:square), width: 260, class: %w[one two three four].sample)
-          .player-bio
-            p
-              i =user.full_name
-            p.bio= user.bio if user.try(:bio).present?
+
+.container
+  .row
+    .inner-column.showing-off
+      h1= "Les joueurs chez #{t('company_name_long')}"
+  .row
+    - User.active.order(:firstname).each do |user|
+      - if user.try(:pictures).present?
+        div
+          .col-md-4.col-sm-6.col-xs-12.space-up-20
+            .player-frame
+              .player-image
+                = image_tag(user.pictures.first.photo.url(:square), width: 260, class: %w[one two three four].sample)
+              .player-bio
+                p
+                  i =user.full_name
+                p.bio= user.bio if user.try(:bio).present?
+  .row
+    p.space-up-50

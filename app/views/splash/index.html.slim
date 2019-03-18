@@ -10,54 +10,16 @@ section.lightimage
                   class: "btn btn-primary btn-lg"
 
 section.colored.primary#about
-  .container
-    .row
-      .inner-column.showing-off
-        = render partial: 'next_shows'
+  = render partial: 'next_shows'
 
 section.features#features
-  .container
-    .row
-      .inner-column.showing-off
-        h1= "Les joueurs chez #{t('company_name_long')}"
-    .row
-      = render partial: 'bio'
-    .row
-      p.space-up-50
+  = render partial: 'bio'
 
 section.images#photos
-  .container
-    .row
-      .inner-column.showing-off
-        - if @photo_list.present?
-          h1 Photos des derniers spectacles
-    .row
-      - @photo_list.each do |pic|
-        .col-lg-4.col-md-4.col-sm-6.col-xs-12
-          = link_to pic.photo.url, target: '_blank'
-            = image_tag  pic.photo.url(:square),
-                         class: 'photo-galery'
+  = render partial: 'splash/photos', locals: { photo_list: @photo_list }
 
 p.space-up-250
 p#contact.space-up-25
 section.contact
-  .container
-    .row
-      .inner-column
-        h1
-          = I18n.t('mailchimp.allways_informed')
-        = form_tag splash_signup_path, role: :form, remote: true do
-          .form-group
-            .input-group
-              = text_field_tag :signup_email,
-                               "",
-                               class: "form-control",
-                               placeholder: 'E-Mail',
-                               type: "email"
-              span.input-group-btn
-                = submit_tag 'Envoyer', class: 'btn btn-primary'
-          #signup-message
-    .row
-      .inner-column
-        p.space-up-20= I18n.t('layout.what_for').html_safe
+  = render partial: 'splash/contact'
   p.space-up-50

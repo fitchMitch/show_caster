@@ -1,0 +1,19 @@
+.container
+  .row
+    .inner-column
+      h1
+        = I18n.t('mailchimp.allways_informed')
+      = form_tag splash_signup_path, role: :form, remote: true do
+        .form-group
+          .input-group
+            = text_field_tag :signup_email,
+                             "",
+                             class: "form-control",
+                             placeholder: 'E-Mail',
+                             type: "email"
+            span.input-group-btn
+              = submit_tag 'Envoyer', class: 'btn btn-primary'
+        #signup-message
+  .row
+    .inner-column
+      p.space-up-20= I18n.t('layout.what_for').html_safe
