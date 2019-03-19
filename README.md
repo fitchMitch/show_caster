@@ -15,7 +15,7 @@ synched with the company's Google Agenda. Possibility to upload and crop **photo
 * **Courses** management wether with an external **coach** or internally
 * Training **exercice** database
 * **Dashboard** for players statistics with their role on stage
-* **Poll management** (Doodle's way : dates, opinions, secret ballots)
+* **Poll management** (Doodle's way : dates, opinions, secret ballots) with **Sidekiq** Poll Reminders 
 * Commontator's **comments**
 * I18n
 
