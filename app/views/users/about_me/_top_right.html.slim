@@ -24,4 +24,6 @@
     .col-sm-6
       p
         strong
-          = event_date_link(@next_course)
+          = event_date_link @next_course
+          | | 
+          = course_label @next_course
