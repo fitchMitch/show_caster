@@ -19,7 +19,9 @@ class FrontPageService
   end
 
   def photo_list(former_shows_count, photo_count)
-    shows = Performance.passed_events.limit(former_shows_count)
+    shows = Performance.passed_events
+                       .public_events
+                       .limit(former_shows_count)
     return if shows.empty?
 
     res = []
