@@ -45,12 +45,14 @@ RSpec.describe FrontPageService, type: :service do
     context 'with no show' do
       it { expect(photo_list).to be(nil) }
     end
+
     context 'with not enough shows' do
       let(:show1) { double('show1') }
       let!(:shows) { [show1] }
       let(:performance) { double('performance') }
       before :each do
         allow(Performance).to receive(:passed_events) { performance }
+        allow(performance).to receive(:public_events) { performance }
         allow(performance).to receive(:limit) { shows }
         allow(Picture).to receive(:last_pictures) do
           [
@@ -73,6 +75,7 @@ RSpec.describe FrontPageService, type: :service do
       let(:performance) { double('performance') }
       before :each do
         allow(Performance).to receive(:passed_events) { performance }
+        allow(performance).to receive(:public_events) { performance }
         allow(performance).to receive(:limit) { shows }
         allow(Picture).to receive(:last_pictures).with(show1, m_pictures) do
           [
@@ -89,8 +92,35 @@ RSpec.describe FrontPageService, type: :service do
           ['photo6.JPG']
         end
       end
-    it { expect(photo_list.count).to eq(5) }
-    it { expect(photo_list.include?('photo6.JPG')).to be(false) }
+      it { expect(photo_list.count).to eq(5) }
+    end
+
+    context 'with some private show pictures' do
+      let(:show1) { double('show1') }
+      let(:show2) { double('show2', private_event: true) }
+      let(:show3) { double('show3') }
+      let!(:shows) { [show1, show3] }
+      let(:performance) { double('performance') }
+      before :each do
+        allow(Performance).to receive(:passed_events) { performance }
+        allow(performance).to receive(:public_events) { performance }
+        allow(performance).to receive(:limit) { shows }
+        allow(Picture).to receive(:last_pictures).with(show1, m_pictures) do
+          [
+            'photo1.JPG',
+            'photo2.jpg',
+            'photo3.PNG',
+            'photo4.png'
+          ]
+        end
+        allow(Picture).to receive(:last_pictures).with(show2, m_pictures) do
+          ['photo5.JPG']
+        end
+        allow(Picture).to receive(:last_pictures).with(show3, m_pictures) do
+          ['photo6.JPG']
+        end
+      end
+      it { expect(photo_list.include?('photo5.JPG')).to be false }
     end
   end
 end
