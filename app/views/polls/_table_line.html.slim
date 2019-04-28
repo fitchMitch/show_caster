@@ -1,7 +1,7 @@
 .container
   .row
-    .col-md-6.poll-frame= panel_question(poll)
-    .col-md-3
+    .col-md-6.poll-frame.col-xs-12= panel_question(poll)
+    .col-md-3.col-xs-6
       span.label.label-primary= poll_date poll.expiration_date
       br
       p.space-up-10.room-left-10
@@ -9,15 +9,14 @@
           = image_tag('icons/png/003-vote.png', size: 55)
         end
 
-    .col-md-2.hidden-xs
+    .col-md-2.col-xs-6 style='margin-top:60px;'
       - if policy(poll).edit?
         = image_tag('transp.png')
         = link_to_edit(poll)
       - if policy(poll).destroy?
-        = image_tag('transp.png')
         = link_to(fa_icon("trash lg 2x"),
                   poll,
-                  class:'destroy',
+                  class:'destroy room-left-50',
                   id: 'destroy',
                   data: { confirm: t('sure_question') },
                   method: :delete)
