@@ -1,0 +1,4 @@
+en:
+  announces:
+    updated: Actor's update was successfully updated.
+    destroyed:  Actor was successfully destroyed.

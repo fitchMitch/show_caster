@@ -31,8 +31,8 @@ Rails.application.routes.draw do
     resources :pictures, module: :events
   end
 
-  # Answers, Committes, Theaters, Coaches, Exercices
-  resources :answers, :theaters, :coaches, :exercices
+  # Answers, Committes, Theaters, Coaches, Exercices, Announces
+  resources :answers, :theaters, :coaches, :exercices, :announces
 
   # Polls
   resources :polls, only: %i[index new]

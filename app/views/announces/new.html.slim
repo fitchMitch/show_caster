@@ -1,0 +1,6 @@
+.container
+  .page-header
+    = link_to announces_path, class: 'btn btn-info' do
+      = back_sign
+    h2= t("announces.new")
+  = render 'form'

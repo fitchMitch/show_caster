@@ -1,4 +1,4 @@
-7.s-background{
+.s-background{
   background-color: $sesame-blue;
   text-align: center;
   margin-top: 10px;
@@ -52,4 +52,25 @@
 }
 .shine_1, .shine_2, .shine_3, .shine_4 {
   display: none;
+}
+.announce-frame{
+  padding: 2rem;
+  background-color: $sesame-blue;
+  color: white;
+  border: 2px solid $sesame-yellow;
+  border-radius: 10px;
+}
+.announce-title{
+  font-size: 1.5em;
+  padding: 15px;
+  text-align: right;
+  // line-height: 3em;
+  font-weight: 600;
+}
+.announce-body{
+  font-size: 1.2em;
+  padding: 15px;
+  text-align: justify;
+  border: 2px $sesame-blue dashed;
+  border-radius: 15px;
 }
