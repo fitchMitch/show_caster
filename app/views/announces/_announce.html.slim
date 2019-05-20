@@ -1,0 +1,16 @@
+tr.announce-desc
+  td.title= announce.title
+  td.body= announce.body
+  td.expiration_date= l announce.expiration_date, format:'%A %d %b'
+  td.time_start= announce.time_start
+  td.time_end= announce.time_end
+
+  td
+    - if policy(announce).edit?
+      = link_to fa_icon("edit 2x"), edit_announce_path(announce)
+    =image_tag('transp.png')
+    - if policy(announce).destroy?
+      = link_to fa_icon("trash 2x"),
+                announce,
+                data: { confirm: t('sure_question') },
+                method: :delete

@@ -1,0 +1,8 @@
+.container
+  .page-header
+    span.room-right-5
+      = link_to announces_path, class: 'btn btn-info room-right-25' do
+        = back_sign
+    h2
+      = t("announces.edit_announce")
+  = render 'form'

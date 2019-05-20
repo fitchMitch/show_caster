@@ -1,0 +1,11 @@
+-if !Announce.count.zero?
+  .row
+    .col-xs-12.center
+      h1= title_with_image '034-microphone.png', 'announces.announces'
+  - Announce.active.each do |announce|
+    .row
+      .col-xs-3.announce-title= announce.title
+      .col-xs-9.announce-body
+        .row
+          .col-sm-2.col-xs-12= badge_user_for_comment(announce.author)
+          .col-sm-10.col-xs-12= announce.body

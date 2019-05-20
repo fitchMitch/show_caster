@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181218113126) do
+ActiveRecord::Schema.define(version: 20190520134029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,18 @@ ActiveRecord::Schema.define(version: 20181218113126) do
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_actors_on_event_id", using: :btree
     t.index ["user_id"], name: "index_actors_on_user_id", using: :btree
+  end
+
+  create_table "announces", force: :cascade do |t|
+    t.string   "title"
+    t.string   "body"
+    t.datetime "time_start"
+    t.datetime "time_end"
+    t.datetime "expiration_date"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "author_id"
+    t.index ["author_id"], name: "index_announces_on_author_id", using: :btree
   end
 
   create_table "answers", force: :cascade do |t|
@@ -222,6 +234,7 @@ ActiveRecord::Schema.define(version: 20181218113126) do
 
   add_foreign_key "actors", "events"
   add_foreign_key "actors", "users"
+  add_foreign_key "announces", "users", column: "author_id"
   add_foreign_key "answers", "polls"
   add_foreign_key "events", "theaters"
   add_foreign_key "events", "users"

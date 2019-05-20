@@ -1,0 +1,26 @@
+.container
+  .page-header
+    - if policy(Announce).new?
+      = link_to new_announce_path, class: 'btn btn-primary' do
+        span.glyphicon.glyphicon-plus
+        = " #{ t("announces.new")}"
+    h2= title_with_image('034-microphone.png', 'announces.list')
+
+  .table-responsive
+    table.table.table-striped.table-bordered.table-hover
+      thead
+        tr
+          th
+            = t("announces.title")
+          th
+            = t("announces.body")
+          th
+            = t("announces.expiration_date")
+          th
+            = t("announces.time_start")
+          th
+            = t("announces.time_end")
+          th
+
+      tbody
+        = render @announces

@@ -1,0 +1,16 @@
+fr:
+  announces:
+    announces: Annonces
+    announce: L'annonce
+    author: Créateur
+    body: Corps de l'annonce
+    created_ok: Annonce bien créée
+    destroyed_ok: L'annonce a été détruite
+    expiration_date: Date d'expiration
+    new: Nouvelle annonce !
+    edit: Editer une annonce
+    list: Liste des annonces
+    title: Titre
+    time_start: Début (facultatif)
+    time_end: Fin (facultatif)
+    updated_ok: Annonce mise à jour
