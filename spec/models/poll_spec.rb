@@ -99,7 +99,7 @@ RSpec.describe Poll, type: :model do
 
   describe '#missing_voters_ids' do
     let(:user_active) { double('user_active') }
-    let!(:user) { create(:user) }       
+    let!(:user) { create(:user) }
     let(:poll) { vote_opinion.poll }
     let(:poll_d) { vote_date.poll }
     before :each do
@@ -132,7 +132,6 @@ RSpec.describe Poll, type: :model do
       expect(poll.comments_count).to eq(2)
     end
   end
-
 
   describe '#votes_destroy' do
     let!(:vote_opinion) { create(:vote_opinion) }

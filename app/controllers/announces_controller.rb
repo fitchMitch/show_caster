@@ -31,7 +31,7 @@ class AnnouncesController < ApplicationController
       @announce.author_id = current_user.id
       if @announce.save
         format.html {
-          redirect_to @announce,
+          redirect_to announces_path,
           notice: I18n.t('announces.created_ok')
         }
         format.json { render :show, status: :created, location: @announce }
@@ -51,7 +51,7 @@ class AnnouncesController < ApplicationController
     respond_to do |format|
       if @announce.update(announce_params)
         format.html {
-          redirect_to @announce,
+          redirect_to announces_path,
           notice: I18n.t('announces.updated_ok')
         }
         format.json { render :show, status: :ok, location: @announce }

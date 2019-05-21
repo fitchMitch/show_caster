@@ -31,7 +31,7 @@ FactoryBot.define do
 end
 
 FactoryBot.define do
-  factory :user, aliases: %i[owner creator editor] do
+  factory :user, aliases: %i[owner creator editor author] do
     firstname
     lastname
     email

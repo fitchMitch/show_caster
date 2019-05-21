@@ -16,7 +16,6 @@ class Announce < ApplicationRecord
 
    # Validations
    # =====================
-
    validates :title,
              presence: true,
              length: { maximum: 40, minimum: 3 }
