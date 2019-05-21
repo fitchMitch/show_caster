@@ -30,6 +30,6 @@ class AnnouncePolicy < ApplicationPolicy
   end
 
   def destroy?
-    @record.author == @user.id || @user.admin?
+    registered? && (@record.author == @user.id || @user.admin?)
   end
 end

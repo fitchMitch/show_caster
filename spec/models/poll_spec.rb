@@ -133,7 +133,6 @@ RSpec.describe Poll, type: :model do
     end
   end
 
-
   describe '#votes_destroy' do
     let!(:vote_opinion) { create(:vote_opinion) }
     let(:poll) { vote_opinion.poll }
