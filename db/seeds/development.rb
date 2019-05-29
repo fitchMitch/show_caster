@@ -324,3 +324,21 @@ end
     exercice.skill_list.add(skills.join(', '), parse: true)
   end.save
 end
+# -----------------
+# Announces
+# -----------------
+3.times do |n|
+  user_id =      users.sample.id
+  title =        FFaker::Lorem.sentence(1).truncate(25)
+  body =         FFaker::Lorem.paragraph(2 + randy(3).truncate(249))
+  time_start =   Time.zone.now + 2.weeks - (0..28).to_a.sample.days
+  time_end =     time_start + (0..2).to_a.sample.days
+
+  Announce.create!(
+    user_id:    user_id,
+    title:      title,
+    body:       body ,
+    time_start: time_start,
+    time_end:   time_end
+  )
+end

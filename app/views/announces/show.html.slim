@@ -13,8 +13,6 @@
     dd
     dt= "#{t("announces.body")} : "
     dd.announce-frame= @announce.body
-    dt= "#{t("announces.expiration_date")} : "
-    dd= time_ago_in_words(@announce.expiration_date)
     dt= "#{t("announces.time_start")} : "
     dd= time_ago_in_words(@announce.time_start) unless @announce.time_start.nil?
     dt= "#{t("announces.time_end")} : "

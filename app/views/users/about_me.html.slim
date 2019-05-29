@@ -1,5 +1,6 @@
 #about_me.container
-  = render partial: 'users/about_me/announces'
+  - if Announce.shown_as_active.count > 0
+    = render partial: 'users/about_me/announces'
   .row
     .col-sm-7
       = render partial: 'users/about_me/top_left'

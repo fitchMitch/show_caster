@@ -6,11 +6,14 @@ fr:
     body: Corps de l'annonce
     created_ok: Annonce bien créée
     destroyed_ok: L'annonce a été détruite
+    errors:
+      future_not_passed: -> Après le début, la fin se situe !
     expiration_date: Date d'expiration
+    hint: Cette annonce est visible du mois avant sa date de début, jusqu'à la fin.
     new: Nouvelle annonce !
     edit: Editer une annonce
     list: Liste des annonces
     title: Titre
-    time_start: Début (facultatif)
-    time_end: Fin (facultatif)
+    time_start: Début
+    time_end: Fin
     updated_ok: Annonce mise à jour
