@@ -5,7 +5,8 @@ RSpec.describe 'AnnouncesController', type: :request do
     {
       title: "A la belle Etoile",
       body: "*" * 11,
-      expiration_date: Time.zone.now + 5.days
+      time_start: Time.zone.now + 5.days,
+      time_end: Time.zone.now + 6.days
     }
   end
   let(:invalid_attributes_body_only) { { body: 'xx, rue'} }
