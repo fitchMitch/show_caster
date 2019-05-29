@@ -14,8 +14,9 @@ class AnnouncesController < ApplicationController
 
   # GET /announces/new
   def new
-    expiration_date = DateTime.current.advance(weeks: 3)
-    @announce = Announce.new(expiration_date: expiration_date )
+    time_start = DateTime.current.advance(weeks: 3)
+    time_end = DateTime.current.advance(weeks: 4)
+    @announce = Announce.new(time_start: time_start, time_end: time_end )
   end
 
   # GET /announces/1/edit
@@ -91,8 +92,7 @@ class AnnouncesController < ApplicationController
                     :time_start,
                     :time_end,
                     :title,
-                    :body,
-                    :expiration_date
+                    :body
       )
     end
 end

@@ -1,10 +1,14 @@
 tr.announce-desc
   td.title= announce.title
   td.body= announce.body
-  td.expiration_date= l announce.expiration_date, format:'%A %d %b'
-  td.time_start= announce.time_start
-  td.time_end= announce.time_end
-
+  - if announce.time_start.present?
+    td.time_start= l announce.time_start, format:'%A %d %b'
+  - else
+    td
+  - if announce.time_end.present?
+    td.time_end= l announce.time_end, format:'%A %d %b' 
+  - else
+    td
   td
     - if policy(announce).edit?
       = link_to fa_icon("edit 2x"), edit_announce_path(announce)

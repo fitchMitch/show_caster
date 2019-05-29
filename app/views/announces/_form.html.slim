@@ -5,28 +5,21 @@
     .row
       .col-sm-6.col-lg-3
         = f.input :title, label: t("announces.title")
-      .col-sm-6.col-lg-9
+      .col-sm-6.col-lg-5
         = f.input :body,
                   as: :text,
-                  label: t("announces.body")
-      br
-      .pull-right
-        #chars_left.alert-chars-too-many
-    .row
-      .col-sm-6.col-lg-3
-        = f.input :expiration_date,
-                  as: :date,
-                  html5: true,
-                  label: t("announces.expiration_date")
-      .col-sm-6.col-lg-3
-      .col-sm-6.col-lg-3
+                  label: t("announces.body"),
+                  hint: t('announces.hint')
+        .pull-right
+          #chars_left.alert-chars-too-many
+      .col-sm-6.col-lg-2
         = f.input :time_start,
                   as: :date,
                   html5: true,
                   start_year: Time.zone.now.year.to_i,
                   end_year: Time.zone.now.year.to_i + 2,
                   label: t("announces.time_start")
-      .col-sm-6.col-lg-3
+      .col-sm-6.col-lg-2
         = f.input :time_end, minute_step: 30,
                   as: :date,
                   html5: true,
@@ -35,7 +28,7 @@
                   label: t("announces.time_end")
 
 
-  .form-actions
+  .form-actions.center.space-up-20
     = f.button :submit,
                label: t("submit"),
                class: 'btn btn-primary'
