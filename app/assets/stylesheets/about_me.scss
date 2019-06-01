@@ -5,6 +5,7 @@
   margin-bottom: 10px;
 }
 .petal {
+  clear:both;
   display: block;
   margin:10px 5px 20px  5px;
 }
@@ -53,24 +54,43 @@
 .shine_1, .shine_2, .shine_3, .shine_4 {
   display: none;
 }
-.announce-frame{
-  padding: 2rem;
-  background-color: $sesame-blue;
-  color: white;
-  border: 2px solid $sesame-yellow;
-  border-radius: 10px;
+.announce-container{
+  min-width: 250px;
+  max-width: 530px;
+  float:left;
+  min-height: 200px;
+  text-align:center;
+  margin: 10px 15px 0 15px;
 }
+// .announce-frame{
+//   padding: 2rem;
+//   background-color: $sesame-blue;
+//   color: white;
+//   border: 2px solid $sesame-yellow;
+//   border-radius: 10px;
+// }
 .announce-title{
-  font-size: 1.5em;
-  padding: 15px;
-  text-align: right;
-  // line-height: 3em;
+  font-size: 1.3em;
+  line-height: 0em;
+  text-indent: 55px;
+  color:$sesame-blue;
   font-weight: 600;
+  text-shadow: 3px 3px 1px #9cb0e5;
+}
+.announce-badge{
+  text-align: right;
+  float: left;
+  margin: 0 15px 7px 0;
 }
 .announce-body{
-  font-size: 1.2em;
-  padding: 15px;
   text-align: justify;
-  border: 2px $sesame-blue dashed;
-  border-radius: 15px;
+  font-size: 1em;
+  line-height: 1.8em;
+  padding: 25px;
+  border: 3px $sesame-blue solid;
+  border-radius: 4px;
+  background-color: #e8e9ef;
+}
+.clear{
+  clear:both;
 }

@@ -2,17 +2,17 @@ tr.announce-desc
   td.title= announce.title
   td.body= announce.body
   - if announce.time_start.present?
-    td.time_start= l announce.time_start, format:'%A %d %b'
+    td.time_start= l announce.time_start, format:'%a %d %b %Y'
   - else
     td
   - if announce.time_end.present?
-    td.time_end= l announce.time_end, format:'%A %d %b' 
+    td.time_end= l announce.time_end, format:'%a %d %b %Y'
   - else
     td
   td
     - if policy(announce).edit?
       = link_to fa_icon("edit 2x"), edit_announce_path(announce)
-    =image_tag('transp.png')
+    = image_tag('transp.png')
     - if policy(announce).destroy?
       = link_to fa_icon("trash 2x"),
                 announce,

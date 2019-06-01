@@ -87,8 +87,7 @@ module UsersHelper
   def badge_user_for_comment(user, size = 60)
     square_size = "#{size}x#{size}"
     in_dallas = "border: 3px solid black;
-                 border-color: #{user.hsl_user_color2};
-                 "
+                 border-color: #{user.hsl_user_color2};"
     image_tag sesame_picture_url(user),
               size: square_size,
               class: 'in-dallas',

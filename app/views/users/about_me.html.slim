@@ -1,7 +1,7 @@
 #about_me.container
   - if Announce.shown_as_active.count > 0
     = render partial: 'users/about_me/announces'
-  .row
+  .row.clear
     .col-sm-7
       = render partial: 'users/about_me/top_left'
       - if @last_comments.present?
