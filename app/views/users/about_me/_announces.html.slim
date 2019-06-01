@@ -6,10 +6,14 @@
       = link_to fa_icon('plus'), new_announce_path
 - Announce.shown_as_active.each do |announce|
   .announce-container
+    div.announce-title
+      = announce.title
     .announce-body
-      div.announce-title
-        = announce.title
-      br
       span.announce-badge
         = badge_user_for_comment(announce.author, 40)
       = announce.body
+      p.announce-timing
+        |Début :
+        = l announce.time_start, format: '%a %d %b'
+        | - Fin :
+        = l announce.time_end, format: '%a %d %b'

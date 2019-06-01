@@ -71,11 +71,14 @@
 // }
 .announce-title{
   font-size: 1.3em;
-  line-height: 0em;
-  text-indent: 55px;
-  color:$sesame-blue;
+  line-height: 2em;
+  vertical-align: middle;
+  color: white;
+  width:100%;
   font-weight: 600;
-  text-shadow: 3px 3px 1px #9cb0e5;
+  // text-shadow: 2px 3px 1px #9cb0e5;
+  background-color: $sesame-blue;
+  border-radius: 5px 5px 0 0 ;
 }
 .announce-badge{
   text-align: right;
@@ -86,10 +89,17 @@
   text-align: justify;
   font-size: 1em;
   line-height: 1.8em;
-  padding: 25px;
+  padding: 25px 25px 5px 25px;
   border: 3px $sesame-blue solid;
-  border-radius: 4px;
+  border-radius: 0 0 5px 5px;
   background-color: #e8e9ef;
+}
+p.announce-timing{
+  background-color: #CCC;
+  color: #777;
+  width: 100%;
+  text-indent:55px;
+
 }
 .clear{
   clear:both;
