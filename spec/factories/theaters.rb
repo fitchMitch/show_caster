@@ -11,7 +11,7 @@
 
 FactoryBot.define do
   factory :theater do
-    theater_name        { "Au #{FFaker::Animal.common_name} enfumé" }
+    theater_name        { "Au #{FFaker::AnimalUS.common_name} enfumé" }
     location            { FFaker::AddressFR.full_address }
     manager             { 'Tolier' }
     manager_phone       { '0148245774' }

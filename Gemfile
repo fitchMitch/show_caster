@@ -8,7 +8,7 @@ end
 # Technical
 # -----------------------
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-ruby '2.2.7'
+ruby '2.4.1'
 
 gem 'rails',                                                '~> 5.0.6'
 gem 'pg',                                                   '~> 0.20'
@@ -97,8 +97,7 @@ group :test do
   gem 'webmock',                                                '~> 3.4'
   gem 'capybara',                                               '~> 3.0'
   gem 'launchy',                                                '~> 2.4'
-  gem 'selenium-webdriver',                                     '~> 3.11'
-  gem 'chromedriver-helper'
+  gem 'webdrivers',                                             '~> 4.0'
   gem 'pundit-matchers',                                        '~> 1.4.1'
   gem 'rubocop-rspec',                                          '~> 1.28'
   gem 'rspec',                                                  '~> 3.7.0'
