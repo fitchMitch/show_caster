@@ -4,7 +4,7 @@ before_script:
 - psql -c "CREATE USER sesame WITH PASSWORD 'bar';"
 - psql -c "ALTER ROLE sesame WITH SUPERUSER;"
 rvm:
-- 2.2.7
+- 2.4.1
 branches:
   only:
   - master
