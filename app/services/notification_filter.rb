@@ -13,4 +13,11 @@ class NotificationFilter < Notification
 
     PollMailer.poll_end_reminder_mail(poll).deliver_now
   end
+
+  def self.course_reminder_mailing(course_id)
+    course = Course.find_by(id: course_id)
+    return nil if course.nil? || course.courseable.archived?
+
+    CourseMailer.course_reminder_mail(course).deliver_now
+  end
 end

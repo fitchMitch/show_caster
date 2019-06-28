@@ -15,7 +15,19 @@ RSpec.describe NotificationService, type: :service do
       subject
     end
     it { expect(poll_to_deliver).to receive(:deliver_now) }
-    it { expect(described_class).to receive(:set_future_mail_notifications) }
+    it { expect(described_class).to receive(:set_poll_notification_mails) }
+  end
+
+  describe '.course_creation' do
+    let(:course) { create(:course) }
+    subject { described_class.course_creation(course) }
+    let(:course_creation_done) { double 'course_creation_done'  }
+    before do
+      allow(NotificationService).to receive(:set_course_notification_mail).once do
+        course_creation_done
+      end
+    end
+    it { expect(subject).to eq course_creation_done }
   end
 
   describe '.poll_notifications_update' do
@@ -44,48 +56,52 @@ RSpec.describe NotificationService, type: :service do
       it 'should destroy old notifications' do
         expect(NotificationService).to receive(:destroy_all_notifications).with(poll_date)
         expect(NotificationService).to receive(
-          :set_future_mail_notifications
+          :set_poll_notification_mails
         ).with(poll_date)
         subject
       end
     end
   end
-
+# Sample
+# {
+# 'class'=>'ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper',
+# 'wrapped'=>'ReminderPollEndJob',
+# 'queue'=>'mailers',
+# 'args'=> [
+#   {
+#     'job_class'=>'ReminderPollEndJob',
+#     'job_id'=>'2db0c540-6bf3-49b2-b496-db22733b80bf',
+#     'provider_job_id'=>nil,
+#     'queue_name'=>'mailers',
+#     'priority'=>nil,
+#     'arguments'=>[poll.id],
+#     'locale'=>'fr'
+#   }
+# ],
+# 'retry'=>true,
+# 'jid'=>'a9decad10eb3374c7d74276a',
+# 'created_at'=>1545506938.8081102
+# }
   describe '.destroy_all_notifications' do
     let!(:poll_id) { 123 }
     let!(:poll) { build(:poll_date, id: poll_id) }
     let(:scheduled_jobs) { [a_scheduled_job] }
-    let(:arguments_array) { double('arguments_array', { 'arguments' => [poll_id]  }) }
-    let(:a_scheduled_job) { double('a_scheduled_job', { 'args' => [arguments_array] }) }
-      # {
-      # 'class'=>'ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper',
-      # 'wrapped'=>'ReminderPollEndJob',
-      # 'queue'=>'mailers',
-      # 'args'=> [
-      #   {
-      #     'job_class'=>'ReminderPollEndJob',
-      #     'job_id'=>'2db0c540-6bf3-49b2-b496-db22733b80bf',
-      #     'provider_job_id'=>nil,
-      #     'queue_name'=>'mailers',
-      #     'priority'=>nil,
-      #     'arguments'=>[poll.id],
-      #     'locale'=>'fr'
-      #   }
-      # ],
-      # 'retry'=>true,
-      # 'jid'=>'a9decad10eb3374c7d74276a',
-      # 'created_at'=>1545506938.8081102
-      # }
+    let(:a_scheduled_job) do
+      double('scheduled_jobs', args: 'something')
+    end
+    subject { described_class.destroy_all_notifications(poll)}
     context 'everything is ok' do
       before do
         allow(Sidekiq::ScheduledSet).to receive(:new) { scheduled_jobs }
+        allow(NotificationService).to receive(:destroy_conditions_ok?) { true }
         allow(a_scheduled_job).to receive(:delete)
-        allow(scheduled_jobs.first).to receive(:delete)
+      end
+      after do
+        subject
       end
       it 'should delete the related notifications' do
-        skip 'missing test due  to double not being a correct object'
-        expect(a_scheduled_job).to receive(:delete) {}
-        described_class.destroy_all_notifications(poll)
+        # skip 'missing test due  to double not being a correct object'
+        expect(a_scheduled_job).to receive(:delete) { nil }
       end
     end
     context 'when something goes wrong' do
@@ -94,15 +110,49 @@ RSpec.describe NotificationService, type: :service do
           :new
         ).and_raise(StandardError.new 'message')
       end
-      # it 'does notify Bugsnag' do
-      #   expect(Bugsnag).to receive(:notify)
-      #   described_class.destroy_all_notifications(poll)
-      # end
+      it 'does notify Bugsnag' do
+        expect(Bugsnag).to receive(:notify)
+        described_class.destroy_all_notifications(poll)
+      end
     end
   end
 
-  describe '.set_future_mail_notifications' do
-    subject { described_class.set_future_mail_notifications(poll) }
+  describe '.destroy_conditions_ok?' do
+    let(:obj) { create(:poll_opinion) }
+    let(:job) do
+      double('job', args: [
+        {
+          job_class: 'ReminderMailJob',
+          arguments: [obj.id]
+        }.with_indifferent_access
+      ])
+    end
+    let(:job_wrong) do
+      double('job', args: [
+        {
+          job_class: 'ReminderMailJob',
+          arguments: [0] # there
+        }.with_indifferent_access
+      ])
+    end
+    let(:subject1) { described_class.send(:destroy_conditions_ok?, obj, job) }
+    let(:subject2) { described_class.send(:destroy_conditions_ok?, obj, job_wrong) }
+    it { expect(subject1).to be(true) }
+    it { expect(subject2).to be(false) }
+  end
+
+  describe '.super_klass' do
+    let(:poll_opinion) { build(:poll_opinion) }
+    let(:poll_date) { build(:poll_date) }
+    let(:course) { build(:course) }
+
+    it { expect(NotificationService.super_klass(poll_opinion)).to eq 'Poll' }
+    it { expect(NotificationService.super_klass(poll_date)).to eq 'Poll' }
+    it { expect(NotificationService.super_klass(course)).to eq 'Course' }
+  end
+
+  describe '.set_poll_notification_mails' do
+    subject { described_class.set_poll_notification_mails(poll) }
     let!(:poll) { build(:poll_date) }
 
     let(:mailjob) { double('mailjob') }
@@ -116,6 +166,20 @@ RSpec.describe NotificationService, type: :service do
     it { expect(ReminderPollEndJob).to receive(:set).with({ wait: 2 }) { mailendjob } }
     after :each do
       subject
+    end
+  end
+
+  describe '.set_course_notification_mail' do
+    let(:course) { create(:course) }
+    let(:a_mail_job) { double('a_mail_job') }
+    before do
+      allow(NotificationService).to receive(:get_delays) { [0,10] }
+      allow(ReminderCourseMailJob).to receive(:set) { a_mail_job }
+      allow(a_mail_job).to receive(:perform_later) { nil }
+    end
+    it { expect(a_mail_job).to receive(:perform_later).with(course.id)  }
+    after do
+      NotificationService.set_course_notification_mail(course)
     end
   end
 

@@ -9,6 +9,9 @@ fr:
     g_title_course: Cours / Entrainement impro au %{name}
     header: Les cours
     list: Liste des cours
+    mails:
+      reminder:
+        subject: Tu es coach la semaine prochaine ! 
     new_page_title: Nouveau cours
     new_button: Nouveau cours
     no_future_course: Pas de cours prévu (?)
