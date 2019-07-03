@@ -93,8 +93,8 @@ end
 
 group :test do
   gem 'simplecov', require: false
+  gem 'hashdiff',                                               ['>= 1.0.0.beta1', '< 2.0.0']
   # gem 'vcr'
-  gem 'webmock',                                                '~> 3.4'
   gem 'capybara',                                               '~> 3.0'
   gem 'launchy',                                                '~> 2.4'
   gem 'webdrivers',                                             '~> 4.0'
@@ -105,6 +105,7 @@ group :test do
   gem 'rspec-rails'
   gem 'rspec-retry'
   gem 'shoulda'
+  gem 'webmock',                                                '~> 3.6'
 end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
