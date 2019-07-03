@@ -18,16 +18,23 @@ RSpec.describe CoursesHelper, type: :helper do
   end
 
   describe '#course_label' do
-    let(:course_with_coach) { build(:course_with_coach) }
-    let(:course) { build(:auto_coached_course) }
-    it 'should label "Coach" courses from a coach' do
-      expect(helper.course_label(course_with_coach)).to include('Coach')
+    context 'when courses list is not empty' do
+      let(:course_with_coach) { build(:course_with_coach) }
+      let(:course) { build(:auto_coached_course) }
+      it 'should label "Coach" courses from a coach' do
+        expect(helper.course_label(course_with_coach)).to include('Coach')
+      end
+      it 'should label course with "auto coaché" when autocoached' do
+        expect( helper.course_label(course)).to include('Auto coaché')
+      end
+      it 'should label with a member name' do
+        expect(helper.course_label(course)).to include(course.courseable.full_name)
+      end
     end
-    it 'should label course with "auto coaché" when autocoached' do
-      expect( helper.course_label(course)).to include('Auto coaché')
-    end
-    it 'should label with a member name' do
-      expect(helper.course_label(course)).to include(course.courseable.full_name)
+
+    context 'when course list is empty' do
+      let(:wording) { 'pas de cours prévu' }
+      it { expect(helper.course_label(wording)).to eq(wording)  }
     end
   end
 end
