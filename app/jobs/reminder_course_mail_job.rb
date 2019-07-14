@@ -1,14 +1,9 @@
+# frozen_string_literal: true
+
 class ReminderCourseMailJob < ApplicationJob
   queue_as :mailers
 
   def perform(course_id)
-    NotificationFilter.course_reminder_mailing(course_id)
-  rescue StandardError => e
-    Bugsnag.notify(e)
-    Rails.logger.error("ReminderMailJob error : #{e}")
-  end
-
-  def error(job, exception)
-    Rails.logger.error("Error !  #{exception} on #{job.name}")
+    super(course_id, self.class, 'course_reminder_mailing')
   end
 end
