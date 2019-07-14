@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SeasonsHelper
   @@seasons = %w[spring summer fall winter]
   def current_season

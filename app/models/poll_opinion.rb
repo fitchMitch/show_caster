@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: polls
@@ -38,7 +40,7 @@ class PollOpinion < Poll
   # Scope
   #-----------
   # scope :found_by, -> (user) { where('user_id = ?', user_id) }
-  scope :with_my_opinion_votes, -> (user) {
+  scope :with_my_opinion_votes, lambda { |user|
     active.joins(:vote_opinions)
           .where('user_id = ?', user.id)
   }

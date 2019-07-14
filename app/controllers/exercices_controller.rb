@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExercicesController < ApplicationController
   before_action :set_exercice, only: %i[show edit update destroy]
 
@@ -6,7 +8,7 @@ class ExercicesController < ApplicationController
   def index
     authorize Exercice
     @q = Exercice.ransack(params[:q])
-    @exercices = @q.result()
+    @exercices = @q.result
   end
 
   def show; end

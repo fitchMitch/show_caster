@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :poll do
     question          { "Poll : #{FFaker::Lorem.sentence(1)} ?" }

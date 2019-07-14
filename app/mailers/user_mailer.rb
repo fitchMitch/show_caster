@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserMailer < ApplicationMailer
   def welcome_mail(user)
     # This mails informs the user he's been invited to be a member
@@ -32,7 +34,7 @@ class UserMailer < ApplicationMailer
   end
 
   def to_sentence(list)
-    list.map!(&:capitalize) unless list.nil?
+    list&.map!(&:capitalize)
     list.nil? || list.empty? ? nil : list.join(', ')
   end
 

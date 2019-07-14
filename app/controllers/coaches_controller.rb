@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class CoachesController < ApplicationController
-  before_action :set_coach, only: [:show, :edit, :update, :destroy]
+  before_action :set_coach, only: %i[show edit update destroy]
 
   # respond_to :html, :json, :js
 
@@ -57,7 +59,6 @@ class CoachesController < ApplicationController
                   :lastname,
                   :email,
                   :note,
-                  :cell_phone_nr
-                 )
+                  :cell_phone_nr)
   end
 end

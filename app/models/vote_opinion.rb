@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class VoteOpinion < Vote
   #-----------
   # Includes
@@ -22,17 +24,17 @@ class VoteOpinion < Vote
   # Scope
   #-----------
   # scope :found_by, -> (user) { where('user_id = ?', user_id) }
-  scope :votes_for, -> (poll_opinion, answer) {
+  scope :votes_for, lambda { |poll_opinion, answer|
     where(poll_id: poll_opinion.id).where(answer_id: answer.id)
                                    .pluck(:user_id)
   }
-  scope :who_voted_for, -> (poll_opinion, answer) {
+  scope :who_voted_for, lambda { |poll_opinion, answer|
     votes_for(poll_opinion, answer).uniq
   }
-  scope :count_votes_for, -> (poll_opinion, answer) {
+  scope :count_votes_for, lambda { |poll_opinion, answer|
     votes_for(poll_opinion, answer).count
   }
-  scope :which_answer, -> (poll_opinion, user) {
+  scope :which_answer, lambda { |poll_opinion, user|
     where(poll_id: poll_opinion.id).where(user_id: user.id)
                                    .pluck(:answer_id)
                                    .uniq

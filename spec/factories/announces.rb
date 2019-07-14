@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :announce do
     title               { FFaker::Lorem.sentence(1)[0..39] }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PollDate < Poll
   acts_as_commontable dependent: :destroy
   #-----------
@@ -26,11 +28,11 @@ class PollDate < Poll
   # Scope
   #-----------
   # scope :found_by, -> (user) { where('user_id = ?', user_id) }
-  scope :with_my_date_votes, -> (user) {
+  scope :with_my_date_votes, lambda { |user|
     active.joins(:vote_dates)
           .where('votes.user_id = ?', user.id)
   }
-  scope :count_my_date_votes, -> (user) {
+  scope :count_my_date_votes, lambda { |user|
     active.joins(:vote_dates)
           .where('votes.user_id = ?', user.id)
           .group('polls.id')

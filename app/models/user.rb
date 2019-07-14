@@ -1,5 +1,4 @@
-
-
+# frozen_string_literal: true
 class User < ApplicationRecord
   acts_as_commontator
   acts_as_taggable_on :committees
@@ -34,7 +33,7 @@ class User < ApplicationRecord
   belongs_to :committee
   # =====================
 
-  scope :active, -> {
+  scope :active, lambda {
     where(status: %i[invited googled registered]).where.not(role: :other)
   }
   scope :active_count, -> { active.count }
@@ -44,15 +43,15 @@ class User < ApplicationRecord
   # =====================
 
   validates :email,
-    presence: true,
-    length: { maximum: 255, minimum: 5 },
-    format: { with: VALID_EMAIL_REGEX },
-    uniqueness: { case_sensitive: false }
+            presence: true,
+            length: { maximum: 255, minimum: 5 },
+            format: { with: VALID_EMAIL_REGEX },
+            uniqueness: { case_sensitive: false }
   validates :alternate_email,
-    allow_blank: true,
-    length: { maximum: 255, minimum: 5 },
-    format: { with: VALID_EMAIL_REGEX },
-    uniqueness: { case_sensitive: false }
+            allow_blank: true,
+            length: { maximum: 255, minimum: 5 },
+            format: { with: VALID_EMAIL_REGEX },
+            uniqueness: { case_sensitive: false }
 
   validates :uid, uniqueness: { case_sensitive: true }, allow_nil: true
   validates :bio, length: { maximum: 250 }
@@ -71,14 +70,14 @@ class User < ApplicationRecord
     if access_token[:credentials][:expires_at].nil? ||
        access_token[:info][:email].nil?
       Rails.logger.error(access_token.to_s)
-      nil #TODO withdraw
+      nil # TODO: withdraw
     elsif user.update_attributes(update_parameters)
       user
     else
       Rails.logger.error 'OAuth user updating went wrong'
       Rails.logger.error user_update_parameters
       Bugsnag.notify("Oauth and update user faulty : #{from_token}")
-      nil #TODO withdraw
+      nil # TODO: withdraw
     end
   end
 
@@ -204,6 +203,6 @@ class User < ApplicationRecord
     self.alternate_email = alternate_email.downcase if alternate_email.present?
     self.role ||= 'player'
     self.color ||= pick_color
-    self.phone_number_format
+    phone_number_format
   end
 end

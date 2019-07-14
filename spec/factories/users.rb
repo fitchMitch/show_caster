@@ -1,32 +1,34 @@
+# frozen_string_literal: true
+
 include Users::Formating
 FactoryBot.define do
-  sequence :email do |n|
+  sequence :email do |_n|
     FFaker::Internet.unique.free_email
   end
 end
 FactoryBot.define do
-  sequence :cell_phone_nr do |n|
-    format_by_two(FFaker::PhoneNumberFR::unique.mobile_phone_number)
+  sequence :cell_phone_nr do |_n|
+    format_by_two(FFaker::PhoneNumberFR.unique.mobile_phone_number)
   end
 end
 FactoryBot.define do
-  sequence :address do |n|
-    FFaker::AddressFR::unique.full_address
+  sequence :address do |_n|
+    FFaker::AddressFR.unique.full_address
   end
 end
 FactoryBot.define do
-  sequence :firstname do |n|
+  sequence :firstname do |_n|
     FFaker::NameFR.unique.first_name
   end
 end
 FactoryBot.define do
-  sequence :lastname do |n|
+  sequence :lastname do |_n|
     FFaker::NameFR.unique.last_name.upcase
   end
 end
 FactoryBot.define do
   sequence :uid do |n|
-    105205260860063499768 + 1 + n
+    105_205_260_860_063_499_768 + 1 + n
   end
 end
 
@@ -69,7 +71,7 @@ FactoryBot.define do
       address
     end
     trait :archived do
-      status                { 4 }
+      status { 4 }
       cell_phone_nr
       address
     end

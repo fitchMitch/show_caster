@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def flash_class(level)
     case level.to_sym
@@ -25,7 +27,7 @@ module ApplicationHelper
     end
   end
 
-  def red_bell_notice(current_user, size=1)
+  def red_bell_notice(current_user, size = 1)
     icon = "bell #{size}x"
     ficon = fa_icon(icon)
     bell = "<span class='bell'>#{ficon}</span>"

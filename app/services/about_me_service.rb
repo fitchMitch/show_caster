@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AboutMeService
   def next_show(user_id)
     shows = Performance.next_shows(user_id)

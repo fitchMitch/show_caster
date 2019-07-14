@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: theaters
@@ -18,7 +20,7 @@ FactoryBot.define do
 
     factory :theater_with_performance do
       transient do
-        events_count    { 1 }
+        events_count { 1 }
       end
       after(:create) do |theater, evaluator|
         create_list(:performance, evaluator.events_count, theater: theater)
@@ -27,7 +29,7 @@ FactoryBot.define do
 
     factory :theater_with_course do
       transient do
-        events_count    { 1 }
+        events_count { 1 }
       end
       after(:create) do |theater, evaluator|
         create_list(:course, evaluator.events_count, theater: theater)

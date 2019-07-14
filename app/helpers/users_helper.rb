@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module UsersHelper
-  #require 'nokogiri'
+  # require 'nokogiri'
   include IconsHelper
   include SeasonsHelper
   include LoggingHelper
@@ -14,7 +16,7 @@ module UsersHelper
 
   def link_to_user(user, current_user)
     if current_user?(user) || current_user.admin?
-    # TODO ?if ( current_user?(user) || current_user.admin?) && policy(user).edit?
+      # TODO: ?if ( current_user?(user) || current_user.admin?) && policy(user).edit?
       if user.archived?
         link_to user.full_name, user_path(user).html_safe
       else
@@ -76,10 +78,10 @@ module UsersHelper
   end
 
   def sesame_picture_url(user)
-    if user.pictures && user.pictures.first && user.pictures.first.photo
+    if user.pictures&.first && user.pictures.first.photo
       user.pictures.first.photo(:square)
     else
-      #TODO set as class_variable
+      # TODO: set as class_variable
       user.photo_url || image_url('Zoidberg.png')
     end
   end
@@ -101,7 +103,7 @@ module UsersHelper
 
     res = ''
     avatar_path = 'png/characters'
-    #TODO set as class_variable
+    # TODO: set as class_variable
     extract_icons(user_active_count, avatar_path).each do |file|
       res += image_tag(
         get_png_image_path(avatar_path, file),
@@ -113,6 +115,7 @@ module UsersHelper
 
   def event_date_link(obj)
     return obj unless obj.respond_to?(:event_date)
+
     start = obj.event_date > Time.zone.now ? 'Dans' : 'Il y a'
     wording_for_future = "#{start} #{time_ago_in_words(obj.event_date)}"
     if obj.type == 'Course'
@@ -146,7 +149,7 @@ module UsersHelper
 
     res = []
     user.committee_list.each do |tag|
-      res << content_tag(:span, tag, class: ['label', 'label-success'])
+      res << content_tag(:span, tag, class: %w[label label-success])
     end
     res.join(image_tag('transp.png')).html_safe
   end

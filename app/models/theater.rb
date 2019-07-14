@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Theater < ApplicationRecord
   include Users::Formating
   before_save { formatting }

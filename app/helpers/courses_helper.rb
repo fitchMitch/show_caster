@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CoursesHelper
   def default_duration(event)
     event.duration || '3 h'
@@ -13,7 +15,7 @@ module CoursesHelper
 
   def course_label(event)
     return event if event.is_a? String
-    
+
     return nil if event.courseable.nil?
 
     if event.courseable_type == 'Coach'

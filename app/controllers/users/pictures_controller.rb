@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Users::PicturesController < PicturesController
   before_action :set_imageable
 

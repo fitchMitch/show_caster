@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # getting random icons from images
 module IconsHelper
   def extract_icons(number, path)

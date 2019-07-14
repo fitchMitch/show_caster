@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Picture < ApplicationRecord
   # Extra accessors
   # includes
@@ -23,16 +25,16 @@ class Picture < ApplicationRecord
   # Validations
   # =====================
   validates_attachment :photo, presence: true, size: { in: 0.1..4.megabytes }
-  validates_attachment_content_type :photo, content_type: /\Aimage\/.*\z/
+  validates_attachment_content_type :photo, content_type: %r{\Aimage/.*\z}
   crop_attached_file :photo, aspect: false
   # =====================
 
-  scope :last_pictures, -> (image, number_of) {
+  scope :last_pictures, lambda { |image, number_of|
     where(
       'imageable_id = ? and imageable_type=?',
       image.id,
       'Event'
     ).limit(number_of)
-     .order("RANDOM()")
+      .order('RANDOM()')
   }
 end

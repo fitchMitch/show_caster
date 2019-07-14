@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Course < Event
   # includes
   attr_accessor :is_autocoached, :users_list, :coaches_list
@@ -19,7 +21,7 @@ class Course < Event
               greater_than_or_equal_to: 15
             }
   # Scopes
-  scope :next_courses, -> {
+  scope :next_courses, lambda {
     where('event_date > ?', Time.zone.now).order('event_date ASC')
   }
 

@@ -1,26 +1,28 @@
+# frozen_string_literal: true
+
 class Announce < ApplicationRecord
   # Relationships
   # =====================
   belongs_to :author,
              class_name: 'User'
-   # Pre and Post processing
+  # Pre and Post processing
 
-   # Enums
+  # Enums
 
-   # =====================
-   # Scopes
-   # =====================
-  scope :ahead_start, ->(month_count) {
+  # =====================
+  # Scopes
+  # =====================
+  scope :ahead_start, lambda { |month_count|
     where('time_start <= ?', (Time.zone.now + month_count.month))
   }
-  scope :before_end, -> {
+  scope :before_end, lambda {
     where('time_end >= ?', Time.zone.now)
   }
   # Validations
   # =====================
   validates :title,
-           presence: true,
-           length: { maximum: 40, minimum: 3 }
+            presence: true,
+            length: { maximum: 40, minimum: 3 }
   validates :body,
             presence: true,
             length: { maximum: 250, minimum: 10 }
@@ -30,9 +32,9 @@ class Announce < ApplicationRecord
             presence: true
   validate :end_after_start
 
-   # ------------------------
-   # --    PUBLIC      ---
-   # ------------------------
+  # ------------------------
+  # --    PUBLIC      ---
+  # ------------------------
 
   def self.shown_as_active
     Announce.ahead_start(1).before_end

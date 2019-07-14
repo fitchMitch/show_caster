@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Performance < Event
   # includes
 
@@ -23,7 +25,7 @@ class Performance < Event
             presence: true
   validates :title,
             presence: true,
-            length:  {
+            length: {
               minimum: 5,
               maximum: 60
             }
@@ -35,12 +37,12 @@ class Performance < Event
 
   # Scopes
   # scope :found_by, -> (user) { where('user_id = ?', user_id) }
-  scope :next_shows, -> (user_id) {
+  scope :next_shows, lambda { |user_id|
     joins(:actors).where('actors.user_id = ?', user_id)
                   .where('events.event_date > ?', Time.zone.now)
                   .order('events.event_date ASC')
   }
-  scope :previous_shows, -> (user_id) {
+  scope :previous_shows, lambda { |user_id|
     joins(:actors).where('actors.user_id = ?', user_id)
                   .where('events.event_date < ?', Time.zone.now)
                   .order('events.event_date DESC')

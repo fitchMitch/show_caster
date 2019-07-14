@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PollDatesController < PollsController
   before_action :set_poll, only: %i[show edit update destroy]
 
@@ -5,7 +7,7 @@ class PollDatesController < PollsController
     @vote_date = @poll.vote_dates.build
     @answers_votes = @poll.fill_answers_votes(current_user)
     @winners = @poll.best_dates_answer.keys
-    
+
     @commontable = @poll
     commontator_thread_show(@commontable)
   end
@@ -21,7 +23,6 @@ class PollDatesController < PollsController
                     date_answer
                     poll_id
                     _destroy
-                    ]
-                  )
+                  ])
   end
 end

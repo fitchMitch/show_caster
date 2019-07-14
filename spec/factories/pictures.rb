@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: pictures
@@ -19,11 +21,11 @@
 FactoryBot.define do
   factory :picture do
     fk      { 'aForeying_Key' }
-    photo   {
+    photo   do
       File.new(
         "#{Rails.root}/spec/support/fixtures/pbhinanagkgpkadi.jpg"
       )
-    }
+    end
     factory :picture_event do
       imageable { |a| a.association(:performance) }
     end

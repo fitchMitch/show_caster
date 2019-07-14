@@ -1,6 +1,7 @@
-module VotesHelper
+# frozen_string_literal: true
 
-  BADGE_CLASSES = %w[first second third fourth fifth other]
+module VotesHelper
+  BADGE_CLASSES = %w[first second third fourth fifth other].freeze
 
   def vote_date_header(answer_vote)
     render partial: 'vote_dates/date_panel',
@@ -30,7 +31,7 @@ module VotesHelper
     if vote.try(:answer_id).nil?
       edit_vote_opinion_path(vote)
     else
-      # TODO not tested at all
+      # TODO: not tested at all
       new_poll_opinion_vote_opinion_path(vote)
     end
   end

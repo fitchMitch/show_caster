@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class VoteOpinionsController < VotesController
-  before_action :set_vote, only: [:show, :edit, :update, :destroy]
+  before_action :set_vote, only: %i[show edit update destroy]
 
   def new
     # authorize VoteOpinion

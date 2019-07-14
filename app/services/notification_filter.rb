@@ -1,5 +1,6 @@
-class NotificationFilter < Notification
+# frozen_string_literal: true
 
+class NotificationFilter < Notification
   def self.poll_reminder_mailing(poll_id)
     poll = Poll.find_by(id: poll_id)
     return nil if poll.nil? || poll.missing_voters_ids.empty?

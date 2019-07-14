@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Poll < ApplicationRecord
   @@days_threshold_for_first_mail_alert = 5
   @@days_threshold_for_second_mail_alert = 2
@@ -39,7 +41,7 @@ class Poll < ApplicationRecord
   scope :passed_ordered, -> { unscoped.order('expiration_date DESC') }
   scope :expired, -> { where('expiration_date < ?', Time.zone.now) }
   scope :active, -> { where('expiration_date >= ?', Time.zone.now) }
-  scope :last_results, -> (user) {
+  scope :last_results, lambda { |user|
     expired.where('expiration_date > ?', user.last_connexion_at)
   }
   # ------------------------

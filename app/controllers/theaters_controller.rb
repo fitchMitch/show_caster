@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TheatersController < ApplicationController
   before_action :set_theater, only: %i[show edit update destroy]
 

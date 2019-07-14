@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :set_user, only: %i[
     show edit update destroy promote invite bio
@@ -59,7 +61,7 @@ class UsersController < ApplicationController
       status: params[:user][:status],
       committee_list: params[:user][:committee_list]
     }
-    if @user && @user.update(user_updates)
+    if @user&.update(user_updates)
       message = @user.inform_promoted_person(current_user, old_user, old_user_committees)
       redirect_to @user, notice: I18n.t(message, name: @user.full_name)
     else
@@ -69,7 +71,7 @@ class UsersController < ApplicationController
   end
 
   def invite
-    if @user && @user.update(status: 'invited')
+    if @user&.update(status: 'invited')
       @user.welcome_mail
       redirect_to user_path(@user),
                   notice: I18n.t('users.invited', name: @user.full_name)
@@ -80,7 +82,7 @@ class UsersController < ApplicationController
   end
 
   def bio
-    if @user && @user.update(bio: params[:user][:bio])
+    if @user&.update(bio: params[:user][:bio])
       redirect_to user_path(@user),
                   notice: I18n.t('users.bio_successfull')
     else

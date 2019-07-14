@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class PicturesController < ApplicationController
-  before_action :set_picture, only: [:show, :edit, :update, :destroy]
+  before_action :set_picture, only: %i[show edit update destroy]
 
   # GET /pictures/new
   def new
@@ -15,7 +17,7 @@ class PicturesController < ApplicationController
 
   # GET /pictures/1
   # GET /pictures/1.json
-  def show ; end
+  def show; end
 
   # GET /pictures/1/edit
   def edit; end
@@ -70,7 +72,6 @@ class PicturesController < ApplicationController
                   :photo_crop_w,
                   :photo_crop_h,
                   :imageable_id,
-                  :imageable_type
-                )
+                  :imageable_type)
   end
 end

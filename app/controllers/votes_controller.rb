@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class VotesController < ApplicationController
   def update; end
 
@@ -12,7 +14,7 @@ class VotesController < ApplicationController
 
   def set_type
     type = params.fetch(:type, nil)
-    (['VoteOpinion', 'VoteDate'].include? type) ? type.underscore : "users"
+    (%w[VoteOpinion VoteDate].include? type) ? type.underscore : 'users'
   end
 
   def vote_params

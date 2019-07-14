@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CoursesController < EventsController
   before_action :set_polymorphic_courseable_out_of_params,
                 only: %i[create update]
@@ -19,11 +21,11 @@ class CoursesController < EventsController
 
   def index
     authorize(Course)
-    if params[:direction] == 'previous'
-      @events = Event.courses.passed_events.page params[:page]
-    else
-      @events = Event.courses.future_events.page params[:page]
-    end
+    @events = if params[:direction] == 'previous'
+                Event.courses.passed_events.page params[:page]
+              else
+                Event.courses.future_events.page params[:page]
+              end
   end
 
   def create

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'google/api_client/client_secrets'
 require 'google/apis/calendar_v3'
 
@@ -10,13 +12,11 @@ class GoogleCalendarService
 
   def configure_client(current_user)
     client_secrets = Google::APIClient::ClientSecrets.new(
-      {
-        'installed' => {
-          'access_token' => current_user.token,
-          'refresh_token' => current_user.refresh_token,
-          'client_id' => ENV['GOOGLE_CLIENT_ID'],
-          'client_secret' => ENV['GOOGLE_CLIENT_SECRETS']
-        }
+      'installed' => {
+        'access_token' => current_user.token,
+        'refresh_token' => current_user.refresh_token,
+        'client_id' => ENV['GOOGLE_CLIENT_ID'],
+        'client_secret' => ENV['GOOGLE_CLIENT_SECRETS']
       }
     )
     @calendar = Google::Apis::CalendarV3::CalendarService.new
@@ -39,7 +39,7 @@ class GoogleCalendarService
   def existing_event?(id)
     response = @calendar.get_event(company_calendar_id, id)
     response.id == id
-  rescue
+  rescue StandardError
     Rails.logger.warn("Calendar id fails here : #{id}")
     false
   end
@@ -73,17 +73,17 @@ class GoogleCalendarService
       @calendar.delete_event(company_calendar_id, event.fk)
     else
       Rails.logger.warn(
-        "fails to delete from GCalendar event id/fk:" \
+        'fails to delete from GCalendar event id/fk:' \
         " #{event.id} / #{event.fk}"
       )
       nil
     end
-  rescue
+  rescue StandardError
     Bugsnag.notify($ERROR_INFO)
     Rails.logger
          .debug(
            "API Call failed with #{$ERROR_INFO} \n" \
-           "in delete_event_google_calendar"
+           'in delete_event_google_calendar'
          )
     nil
   end

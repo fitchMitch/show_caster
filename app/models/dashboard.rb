@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Dashboard
   include ActiveModel::AttributeAssignment
   attr_accessor :indicator_collection, :periods
@@ -14,6 +16,7 @@ class Dashboard
 
   def sort
     return self if indicator_collection.size <= 1
+
     self.indicator_collection = indicator_collection.sort { |a, b| a <=> b }
     self
   end
@@ -124,6 +127,7 @@ class Indicator
 
     period_start_time = attri.fetch(:period_start_time)
     raise ArgumentError unless attri[:period_start_time].is_a? Time
+
     {
       role: role,
       period_label: period_label,

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FrontPageService
   def next_performances(n = 5)
     Event.performances

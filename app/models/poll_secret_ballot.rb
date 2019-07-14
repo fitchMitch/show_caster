@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: polls
@@ -29,7 +31,7 @@ class PollSecretBallot < PollOpinion
            dependent: :destroy,
            foreign_key: 'poll_id',
            class_name: 'VoteOpinion'
-           # inverse_of: :poll_secret_ballot,
+  # inverse_of: :poll_secret_ballot,
 
   # Validations
   #-----------

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PollsController < ApplicationController
   def new
     poll_class = set_type.classify.constantize

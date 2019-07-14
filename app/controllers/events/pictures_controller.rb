@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Events::PicturesController < PicturesController
   before_action :set_imageable
 

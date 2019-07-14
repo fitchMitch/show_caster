@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Exercice < ApplicationRecord
   acts_as_taggable
   acts_as_taggable_on :skills
