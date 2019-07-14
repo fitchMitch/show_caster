@@ -39,7 +39,8 @@ RSpec.feature  'Performance | ' do
       scenario 'should list some performances in the past' do
         expect(page.body).to have_content(passed_performance.note)
       end
-      scenario 'delete and image links are shownaccording to past or future', js: true do
+      scenario 'delete and image links are shown according to past or future', js: true do
+        
         # save_and_open_page
         click_link(I18n.t('performances.nexting'))
         expect(page.body).to have_selector('a > i.fa.fa-trash.fa-lg')

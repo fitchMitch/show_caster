@@ -23,6 +23,7 @@
 !/tmp/.keep
 /dumps/*
 /dump.rdb
+/bin/atom-rubocop.sh
 
 # Ignore Byebug command history file.
 .byebug_history

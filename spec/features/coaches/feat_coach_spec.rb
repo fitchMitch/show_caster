@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.feature  'Coach' do
+RSpec.feature 'Coach' do
   feature 'as a registered admin' do
     given!(:admin) { create(:user, :admin, :registered, lastname: 'ADMIN') }
     feature 'visiting INDEX' do
@@ -43,7 +45,7 @@ RSpec.feature  'Coach' do
         expect(page.body).to have_content I18n.t('coaches.save_success')
         page_attr_matcher(
           coach,
-          %w(firstname lastname email note cell_phone_nr)
+          %w[firstname lastname email note cell_phone_nr]
         )
       end
     end
@@ -66,7 +68,7 @@ RSpec.feature  'Coach' do
       scenario 'it shall create a Coach' do
         coach = Coach.last
         expect(page.body).to have_content I18n.t('coaches.update_success')
-        page_attr_matcher(coach, %w(firstname lastname email note cell_phone_nr))
+        page_attr_matcher(coach, %w[firstname lastname email note cell_phone_nr])
       end
     end
 

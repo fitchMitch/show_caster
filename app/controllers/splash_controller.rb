@@ -7,10 +7,12 @@ class SplashController < ApplicationController
     @very_next_performance = @next_performances.first || nil
     @other_performances = @next_performances.drop(1)
     @players_firstnames = []
-    @players_firstnames = front_page_service.players_on_stage(
-      @very_next_performance
-    ) unless @very_next_performance.nil?
-    @photo_list = front_page_service.photo_list(6,9)
+    unless @very_next_performance.nil?
+      @players_firstnames = front_page_service.players_on_stage(
+        @very_next_performance
+      )
+    end
+    @photo_list = front_page_service.photo_list(6, 9)
   end
 
   def signup
@@ -25,15 +27,4 @@ class SplashController < ApplicationController
     end
     @message
   end
-
-  # private
-
-  # def gem_available?(name)
-  #   Gem::Specification.find_by_name(name)
-  # rescue Gem::LoadError
-  #   false
-  # rescue StandardError => e
-  #   Gem.available?(name)
-  #   Rails.logger.warn("missing gem with : #{e}")
-  # end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PerformancesController < EventsController
   before_action :set_event, only: %i[show edit update destroy]
 
@@ -9,11 +11,11 @@ class PerformancesController < EventsController
 
   def index
     authorize(Performance)
-    if params[:direction] == 'previous'
-      @events = Event.passed_events.performances.page params[:page]
-    else
-      @events = Event.future_events.performances.page params[:page]
-    end
+    @events = if params[:direction] == 'previous'
+                Event.passed_events.performances.page params[:page]
+              else
+                Event.future_events.performances.page params[:page]
+              end
   end
 
   def create

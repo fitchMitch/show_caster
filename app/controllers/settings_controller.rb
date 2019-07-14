@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SettingsController < ApplicationController
   before_action :get_setting, only: %i[edit update]
 

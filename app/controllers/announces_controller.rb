@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class AnnouncesController < ApplicationController
-  before_action :set_announce, only: [:show, :edit, :update, :destroy]
+  before_action :set_announce, only: %i[show edit update destroy]
 
   # GET /announces
   # GET /announces.json
@@ -9,19 +11,17 @@ class AnnouncesController < ApplicationController
 
   # GET /announces/1
   # GET /announces/1.json
-  def show
-  end
+  def show; end
 
   # GET /announces/new
   def new
     time_start = DateTime.current.advance(weeks: 3)
     time_end = DateTime.current.advance(weeks: 4)
-    @announce = Announce.new(time_start: time_start, time_end: time_end )
+    @announce = Announce.new(time_start: time_start, time_end: time_end)
   end
 
   # GET /announces/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /announces
   # POST /announces.json
@@ -31,17 +31,17 @@ class AnnouncesController < ApplicationController
     respond_to do |format|
       @announce.author_id = current_user.id
       if @announce.save
-        format.html {
+        format.html do
           redirect_to announces_path,
-          notice: I18n.t('announces.created_ok')
-        }
+                      notice: I18n.t('announces.created_ok')
+        end
         format.json { render :show, status: :created, location: @announce }
       else
         format.html { render :new }
-        format.json {
+        format.json do
           render json: @announce.errors,
-          status: :unprocessable_entity
-        }
+                 status: :unprocessable_entity
+        end
       end
     end
   end
@@ -51,17 +51,17 @@ class AnnouncesController < ApplicationController
   def update
     respond_to do |format|
       if @announce.update(announce_params)
-        format.html {
+        format.html do
           redirect_to announces_path,
-          notice: I18n.t('announces.updated_ok')
-        }
+                      notice: I18n.t('announces.updated_ok')
+        end
         format.json { render :show, status: :ok, location: @announce }
       else
         format.html { render :edit }
-        format.json {
+        format.json do
           render json: @announce.errors,
-          status: :unprocessable_entity
-        }
+                 status: :unprocessable_entity
+        end
       end
     end
   end
@@ -71,28 +71,28 @@ class AnnouncesController < ApplicationController
   def destroy
     @announce.destroy
     respond_to do |format|
-      format.html {
+      format.html do
         redirect_to announces_url,
-        notice: I18n.t('announces.destroyed_ok')
-      }
+                    notice: I18n.t('announces.destroyed_ok')
+      end
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_announce
-      @announce = Announce.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def announce_params
-      params.require(:announce)
-            .permit(:author_id,
-                    :time_start,
-                    :time_end,
-                    :title,
-                    :body
-      )
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_announce
+    @announce = Announce.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def announce_params
+    params.require(:announce)
+          .permit(:author_id,
+                  :time_start,
+                  :time_end,
+                  :title,
+                  :body)
+  end
 end

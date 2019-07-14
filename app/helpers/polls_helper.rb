@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PollsHelper
   def poll_date(this_date)
     condition = (this_date.is_a? Date) || (this_date.is_a? Time)
@@ -11,6 +13,7 @@ module PollsHelper
 
   def answers_list(poll)
     return nil unless poll.respond_to?(:type)
+
     li = []
     case poll.type
     when 'PollOpinion', 'PollSecretBallot'
@@ -31,6 +34,7 @@ module PollsHelper
 
   def panel_question(poll)
     return nil unless poll.respond_to?(:question) && poll.respond_to?(:type)
+
     question = "<strong>#{poll.question}</strong>".html_safe
     case poll.type
     when 'PollOpinion'
