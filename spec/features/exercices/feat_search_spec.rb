@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.feature Exercice do
@@ -40,17 +42,15 @@ RSpec.feature Exercice do
   describe 'searching through text', js: true do
     let!(:exercice1) do
       create(:exercice,
-              category: 'imagination',
-              title: 'errare humanum est',
-              energy_level: 'high'
-      )
+             category: 'imagination',
+             title: 'errare humanum est',
+             energy_level: 'high')
     end
     let!(:exercice2) do
       create(:exercice,
-              category: 'imagination',
-              title: 'test',
-              energy_level: 'high'
-      )
+             category: 'imagination',
+             title: 'test',
+             energy_level: 'high')
     end
     let!(:exercice3) do
       create(
@@ -83,7 +83,7 @@ RSpec.feature Exercice do
       )
       page.execute_script("$('form').submit()")
       sleep 0.95
-      #because of 'test' in the input field
+      # because of 'test' in the input field
       expect(page.body).to have_selector('.exo-category', count: 0)
       fill_in(
         'q[title_or_instructions_cont]', with: ''

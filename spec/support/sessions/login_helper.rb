@@ -1,21 +1,23 @@
+# frozen_string_literal: true
+
 module Sessions
   module LoginHelper
-    def request_for_google(user, valid= true)
+    def request_for_google(user, valid = true)
       request.env['omniauth.auth'] = {
-        'info' =>  {
-          'name' =>  user.full_name,
-          'email' =>  user.email,
-          'first_name' =>  user.firstname,
-          'last_name' =>  user.lastname,
+        'info' => {
+          'name' => user.full_name,
+          'email' => user.email,
+          'first_name' => user.firstname,
+          'last_name' => user.lastname,
           'image' => 'https://lh6.googleusercontent.com/-rjQ1xttjdEM/AAAAAAAAAAI/AAAAAAAACAM/7XxFDEm3Vyg/photo.jpg',
           'urls' => {
             'google' => 'https://plus.google.com/105205260860062499768'
           }
         },
-        'credentials' =>  {
+        'credentials' => {
           'token' => 'ya29.GlukBbAsVH4LTKRytn0EKgsR8omN_nwO22DM56nS9skMrXbV9ZaI8SkPfIbdpwex4trWyPBZJr1W0I8V2D0IqLMDGzZiOKwRMYM68kyIpTFpbJx4ISGsLsAJxa1W',
           'refresh_token' => '1/52gjoGWkNN4ae5fP_i4-P9ZsrjXosy_zBmpjWOGhzBQ',
-          'expires_at' => 1624340628,
+          'expires_at' => 1_624_340_628,
           'expires' => true
         }
       }
