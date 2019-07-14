@@ -12,6 +12,8 @@ module CoursesHelper
   end
 
   def course_label(event)
+    return event if event.is_a? String
+    
     return nil if event.courseable.nil?
 
     if event.courseable_type == 'Coach'
