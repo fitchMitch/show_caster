@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe NotificationService, type: :service do
@@ -21,9 +23,9 @@ RSpec.describe NotificationService, type: :service do
   describe '.course_creation' do
     let(:course) { create(:course) }
     subject { described_class.course_creation(course) }
-    let(:course_creation_done) { double 'course_creation_done'  }
+    let(:course_creation_done) { double 'course_creation_done' }
     before do
-      allow(NotificationService).to receive(:set_course_notification_mail).once do
+      allow(NotificationService).to receive(:course_notification_mail).once do
         course_creation_done
       end
     end
@@ -62,26 +64,26 @@ RSpec.describe NotificationService, type: :service do
       end
     end
   end
-# Sample
-# {
-# 'class'=>'ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper',
-# 'wrapped'=>'ReminderPollEndJob',
-# 'queue'=>'mailers',
-# 'args'=> [
-#   {
-#     'job_class'=>'ReminderPollEndJob',
-#     'job_id'=>'2db0c540-6bf3-49b2-b496-db22733b80bf',
-#     'provider_job_id'=>nil,
-#     'queue_name'=>'mailers',
-#     'priority'=>nil,
-#     'arguments'=>[poll.id],
-#     'locale'=>'fr'
-#   }
-# ],
-# 'retry'=>true,
-# 'jid'=>'a9decad10eb3374c7d74276a',
-# 'created_at'=>1545506938.8081102
-# }
+  # Sample
+  # {
+  # 'class'=>'ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper',
+  # 'wrapped'=>'ReminderPollEndJob',
+  # 'queue'=>'mailers',
+  # 'args'=> [
+  #   {
+  #     'job_class'=>'ReminderPollEndJob',
+  #     'job_id'=>'2db0c540-6bf3-49b2-b496-db22733b80bf',
+  #     'provider_job_id'=>nil,
+  #     'queue_name'=>'mailers',
+  #     'priority'=>nil,
+  #     'arguments'=>[poll.id],
+  #     'locale'=>'fr'
+  #   }
+  # ],
+  # 'retry'=>true,
+  # 'jid'=>'a9decad10eb3374c7d74276a',
+  # 'created_at'=>1545506938.8081102
+  # }
   describe '.destroy_all_notifications' do
     let!(:poll_id) { 123 }
     let!(:poll) { build(:poll_date, id: poll_id) }
@@ -89,7 +91,7 @@ RSpec.describe NotificationService, type: :service do
     let(:a_scheduled_job) do
       double('scheduled_jobs', args: 'something')
     end
-    subject { described_class.destroy_all_notifications(poll)}
+    subject { described_class.destroy_all_notifications(poll) }
     context 'everything is ok' do
       before do
         allow(Sidekiq::ScheduledSet).to receive(:new) { scheduled_jobs }
@@ -108,7 +110,7 @@ RSpec.describe NotificationService, type: :service do
       before do
         allow(Sidekiq::ScheduledSet).to receive(
           :new
-        ).and_raise(StandardError.new 'message')
+        ).and_raise(StandardError.new('message'))
       end
       it 'does notify Bugsnag' do
         expect(Bugsnag).to receive(:notify)
@@ -121,19 +123,19 @@ RSpec.describe NotificationService, type: :service do
     let(:obj) { create(:poll_opinion) }
     let(:job) do
       double('job', args: [
-        {
-          job_class: 'ReminderMailJob',
-          arguments: [obj.id]
-        }.with_indifferent_access
-      ])
+               {
+                 job_class: 'ReminderMailJob',
+                 arguments: [obj.id]
+               }.with_indifferent_access
+             ])
     end
     let(:job_wrong) do
       double('job', args: [
-        {
-          job_class: 'ReminderMailJob',
-          arguments: [0] # there
-        }.with_indifferent_access
-      ])
+               {
+                 job_class: 'ReminderMailJob',
+                 arguments: [0] # there
+               }.with_indifferent_access
+             ])
     end
     let(:subject1) { described_class.send(:destroy_conditions_ok?, obj, job) }
     let(:subject2) { described_class.send(:destroy_conditions_ok?, obj, job_wrong) }
@@ -162,24 +164,24 @@ RSpec.describe NotificationService, type: :service do
       allow(mailendjob).to receive(:perform_later)
       allow(described_class).to receive(:get_delays) { [2, 1] }
     end
-    it { expect(ReminderMailJob).to receive(:set).with({ wait: 1 }) { mailjob } }
-    it { expect(ReminderPollEndJob).to receive(:set).with({ wait: 2 }) { mailendjob } }
+    it { expect(ReminderMailJob).to receive(:set).with(wait: 1) { mailjob } }
+    it { expect(ReminderPollEndJob).to receive(:set).with(wait: 2) { mailendjob } }
     after :each do
       subject
     end
   end
 
-  describe '.set_course_notification_mail' do
+  describe '.course_notification_mail' do
     let(:course) { create(:course) }
     let(:a_mail_job) { double('a_mail_job') }
     before do
-      allow(NotificationService).to receive(:get_delays) { [0,10] }
+      allow(NotificationService).to receive(:get_delays) { [0, 10] }
       allow(ReminderCourseMailJob).to receive(:set) { a_mail_job }
       allow(a_mail_job).to receive(:perform_later) { nil }
     end
-    it { expect(a_mail_job).to receive(:perform_later).with(course.id)  }
+    it { expect(a_mail_job).to receive(:perform_later).with(course.id) }
     after do
-      NotificationService.set_course_notification_mail(course)
+      NotificationService.course_notification_mail(course)
     end
   end
 
@@ -195,24 +197,24 @@ RSpec.describe NotificationService, type: :service do
       before do
         allow(poll).to receive(:previous_changes) { question_change }
       end
-      it { expect(subject).to eq question_change.merge({ 'answer_changes'=>[] }) }
+      it { expect(subject).to eq question_change.merge('answer_changes' => []) }
     end
     context 'with a question change in the answers' do
       let!(:answer_opinion) { create(:answer_opinion) }
       let(:poll) { answer_opinion.poll_opinion }
       let(:answer_change) do
         {
-          'answer_label'=>[
+          'answer_label'  =>  [
             'Answer 1',
             'Answer 1 altered'
           ],
-          'updated_at'=>[
+          'updated_at'  =>  [
             Time.zone.now,
             Time.zone.now
           ]
         }
       end
-      let(:result) { { 'answer_changes'=>[answer_change] } }
+      let(:result) { { 'answer_changes' => [answer_change] } }
       before do
         allow(poll).to receive(:previous_changes) { {} }
         allow_any_instance_of(Answer).to receive(:previous_changes) { answer_change }

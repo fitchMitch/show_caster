@@ -1,35 +1,37 @@
+# frozen_string_literal: true
+
 require 'sidekiq/api'
 
 class NotificationService < Notification
   def self.poll_creation(poll)
     PollMailer.poll_creation_mail(poll).deliver_now
-    self.set_poll_notification_mails(poll)
+    set_poll_notification_mails(poll)
   end
 
   def self.course_creation(course)
-    self.set_course_notification_mail(course)
+    course_notification_mail(course)
   end
 
   def self.poll_notifications_update(poll)
-    poll_changes = self.analyse_poll_changes(poll)
+    poll_changes = analyse_poll_changes(poll)
     # Poll changes should be noticed to adminstrators and owner only
     # identify which changes there were and which one are important
-    self.destroy_all_notifications(poll)
-    return nil if poll_changes.fetch("expiration_date", nil).nil?
+    destroy_all_notifications(poll)
+    return nil if poll_changes.fetch('expiration_date', nil).nil?
 
-    self.set_poll_notification_mails(poll)
+    set_poll_notification_mails(poll)
   end
 
   def self.destroy_all_notifications(obj)
     scheduled_jobs = Sidekiq::ScheduledSet.new
     scheduled_jobs.each do |job|
-      if job.args.present?
-        #TODO withdraw following line
-        Rails.logger.debug("----------------------------")
-        Rails.logger.debug(self.destroy_conditions_ok?(obj, job))
-        Rails.logger.debug("----------------------------")
-        job.delete if self.destroy_conditions_ok?(obj, job)
-      end
+      next unless job.args.present?
+
+      # TODO: withdraw following line
+      Rails.logger.debug('----------------------------')
+      Rails.logger.debug(destroy_conditions_ok?(obj, job))
+      Rails.logger.debug('----------------------------')
+      job.delete if destroy_conditions_ok?(obj, job)
     end
   rescue StandardError => e
     Bugsnag.notify(e)
@@ -46,7 +48,7 @@ class NotificationService < Notification
     }.with_indifferent_access
     job_hash = job.args.first
     job_hash['arguments'].first == obj.id &&
-      class_linker[job_hash['job_class']] == self.super_klass(obj)
+      class_linker[job_hash['job_class']] == super_klass(obj)
   end
 
   def self.super_klass(obj)
@@ -60,25 +62,30 @@ class NotificationService < Notification
 
   def self.set_poll_notification_mails(poll)
     seconds_till_poll_expiration,
-    seconds_before_reminding_poll = self.get_delays(poll)
+    seconds_before_reminding_poll = get_delays(poll)
 
     # for some player to remember they should answer poll's question
-    ReminderMailJob.set(
-      wait: seconds_before_reminding_poll.seconds
-    ).perform_later(poll.id) if seconds_before_reminding_poll > 0
-    #for some poll's owner to remember they should announce the end of the poll
+    if seconds_before_reminding_poll > 0
+      ReminderMailJob.set(
+        wait: seconds_before_reminding_poll.seconds
+      ).perform_later(poll.id)
+    end
+    # for some poll's owner to remember they should announce the end of the poll
 
-    ReminderPollEndJob.set(
-      wait: seconds_till_poll_expiration.seconds
-    ).perform_later(poll.id) if seconds_till_poll_expiration > 0
+    if seconds_till_poll_expiration > 0
+      ReminderPollEndJob.set(
+        wait: seconds_till_poll_expiration.seconds
+      ).perform_later(poll.id)
+    end
   end
 
-  def self.set_course_notification_mail(course)
-    seconds_till_course_start,
-    seconds_before_course_reminder= self.get_delays(course)
-    ReminderCourseMailJob.set(
-      wait: seconds_before_course_reminder.seconds
-    ).perform_later(course.id) if seconds_before_course_reminder > 0
+  def self.course_notification_mail(course)
+    _, seconds_before_course_reminder = get_delays(course)
+    if seconds_before_course_reminder > 0
+      ReminderCourseMailJob.set(
+        wait: seconds_before_course_reminder.seconds
+      ).perform_later(course.id)
+    end
   end
 
   def self.analyse_poll_changes(poll)
@@ -96,7 +103,7 @@ class NotificationService < Notification
   # end
 
   def self.get_delays(obj)
-    trigger_in_secs = self.seconds_till_poll_expiration obj
+    trigger_in_secs = seconds_till_poll_expiration obj
     day_gap = obj.class.days_threshold_for_first_mail_alert.days
     seconds_before_reminding = trigger_in_secs - day_gap.to_i
 
@@ -107,37 +114,37 @@ class NotificationService < Notification
     poll_like = %w[Poll PollOpinion PollDate PollSecretBallot]
     model_name = obj.model_name.name
     date = nil
-    if poll_like.include?(model_name)
-      date = obj.expiration_date
-    elsif (model_name == 'Course')
-      date = obj.event_date
-    else
-      date = obj.event_date
-    end
+    date = if poll_like.include?(model_name)
+             obj.expiration_date
+           elsif model_name == 'Course'
+             obj.event_date
+           else
+             obj.event_date
+           end
     date - Time.zone.now
   end
 end
-  # Sample
-  # {
-  #   "expiration_date"=>[
-  #     Tue, 01 Jan 2019 00:00:00 CET +01:00,
-  #     Wed, 02 Jan 2019 00:00:00 CET +01:00
-  #   ],
-  #   "question"=>[
-  #     "Question deuxxx",
-  #     "Question deux"
-  #   ],
-  #   "answer_changes"=>[
-  #     {
-  #       "date_answer"=>[
-  #         Wed, 26 Dec 2018 19:00:00 CET +01:00,
-  #         Wed, 26 Dec 2018 18:00:00 CET +01:00
-  #       ],
-  #       "updated_at"=>[
-  #         Mon, 24 Dec 2018 10:26:40 CET +01:00,
-  #         Mon, 24 Dec 2018 10:29:17 CET +01:00
-  #       ]
-  #     },
-  #     {}
-  #   ]
-  # }
+# Sample
+# {
+#   "expiration_date"=>[
+#     Tue, 01 Jan 2019 00:00:00 CET +01:00,
+#     Wed, 02 Jan 2019 00:00:00 CET +01:00
+#   ],
+#   "question"=>[
+#     "Question deuxxx",
+#     "Question deux"
+#   ],
+#   "answer_changes"=>[
+#     {
+#       "date_answer"=>[
+#         Wed, 26 Dec 2018 19:00:00 CET +01:00,
+#         Wed, 26 Dec 2018 18:00:00 CET +01:00
+#       ],
+#       "updated_at"=>[
+#         Mon, 24 Dec 2018 10:26:40 CET +01:00,
+#         Mon, 24 Dec 2018 10:29:17 CET +01:00
+#       ]
+#     },
+#     {}
+#   ]
+# }
