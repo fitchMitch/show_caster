@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class VoteDatesController < VotesController
   before_action :set_vote, only: %i[show edit update destroy]
   before_action :set_poll, only: %i[new]
@@ -18,7 +20,7 @@ class VoteDatesController < VotesController
   def create
     if vote_params[:vote_label] == ''
       flash[:alert] = I18n.t('votes.non_null')
-      redirect_to poll_date_path(vote_params[:poll_id]) and return
+      redirect_to(poll_date_path(vote_params[:poll_id])) && return
     end
     @vote = current_user.vote_dates.build(vote_params)
     authorize @vote

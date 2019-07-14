@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class ReminderPollEndJob < ApplicationJob
   queue_as :mailers
 
-  rescue_from(ActiveRecord::RecordNotFound) do |exception|
+  rescue_from(ActiveRecord::RecordNotFound) do |_exception|
     Rails.logger.error 'found an exception with a RecordNotFound'
   end
 

@@ -10,5 +10,4 @@ module AttributesMatcher
       expect(page.body).to have_content obj.send(attr)
     end
   end
-
 end

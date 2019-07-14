@@ -40,7 +40,6 @@ module ShowCaster
     # Whitelist locales available for the application
     config.i18n.available_locales = %i[en fr]
     config.i18n.default_locale = :fr
-    config.i18n.fallbacks = [I18n.default_locale]
 
     config.time_zone = 'Paris'
     config.active_record.default_timezone = :local

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Session Controller
 class SessionsController < ApplicationController
   skip_before_action :require_login
@@ -65,6 +67,7 @@ class SessionsController < ApplicationController
     if request.env['omniauth.auth'].nil?
       raise 'OmniAuth error. Parameters not defined.'
     end
+
     request.env['omniauth.auth']
   rescue Exception => e
     Rails.logger.warn("Omniauth missing parameter error : #{e}")

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module EventsHelper
   def get_duration(val)
     r = Event::DURATIONS.rassoc(val)
@@ -6,6 +8,7 @@ module EventsHelper
 
   def photo_indicator(event)
     return if event.photo_count.zero?
+
     "<span class='light-frame'><small>" \
     "<strong>#{event.photo_count}</strong></small>" \
     "  #{fa_icon('image')}</span>".html_safe

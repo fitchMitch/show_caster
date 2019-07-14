@@ -19,7 +19,7 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
-WebMock.disable_net_connect!(allow_localhost: true)
+# WebMock.disable_net_connect!(allow_localhost: true)
 
 # Capybara.register_driver :selenium_chrome do |app|
 #   Capybara::Selenium::Driver.new(app, browser: :chrome)

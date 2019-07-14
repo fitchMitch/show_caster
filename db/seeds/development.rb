@@ -33,12 +33,10 @@ committees = [
 User.create!(
   firstname:             'Etienne',
   lastname:              'WEIL',
-  email:                 'weil.etienne@hotmail.fr',
+  email:                 'etienne.weil@gmail.com',
   role:                   2,
   cell_phone_nr:          FFaker::PhoneNumberFR.mobile_phone_number,
   address:                '29, rue St Jean, Paris 75014'
-  # committee:              committees.last
-  # uid:                    105205260860063499768
 )
 18.times do |n|
   uid =                   (105205260860063499768 + n + 1).to_s
@@ -121,7 +119,7 @@ Theater.create!(
   manager_phone:        '0521452142'
 )
 Theater.create!(
-  theater_name:         "Le #{FFaker::Animal.common_name} agité",
+  theater_name:         "Le #{FFaker::AnimalUS.common_name} agité",
   location:              FFaker::AddressFR.unique.full_address,
   manager:              "Mr. #{FFaker::NameFR.unique.last_name}",
   manager_phone:        FFaker::PhoneNumberFR.mobile_phone_number
@@ -328,14 +326,14 @@ end
 # Announces
 # -----------------
 3.times do |n|
-  user_id =      users.sample.id
-  title =        FFaker::Lorem.sentence(1).truncate(25)
-  body =         FFaker::Lorem.paragraph(2 + randy(3).truncate(249))
+  author_id =    users.sample.id
+  title =        (FFaker::Lorem.sentence(1)).truncate(25)
+  body =         (FFaker::Lorem.paragraph(2 + randy(3)).truncate(249))
   time_start =   Time.zone.now + 2.weeks - (0..28).to_a.sample.days
-  time_end =     time_start + (0..2).to_a.sample.days
+  time_end =     time_start + (1..3).to_a.sample.days
 
   Announce.create!(
-    user_id:    user_id,
+    author_id:  author_id,
     title:      title,
     body:       body ,
     time_start: time_start,
