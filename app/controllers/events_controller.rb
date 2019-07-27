@@ -25,12 +25,14 @@ class EventsController < ApplicationController
   def destroy
     @service = GoogleCalendarService.new(current_user)
     if @event.destroy
+      NotificationService.destroy_all_notifications(@event)
       result = @service.delete_google_calendar(@event)
       if result.nil?
         redirect_to events_url(@event),
                     notice: I18n.t('performances.google_locked')
       else
-        redirect_to events_url(@event), notice: I18n.t('performances.destroyed')
+        redirect_to events_url(@event),
+                    notice: I18n.t('performances.destroyed')
       end
     else
       Rails.logger.debug('Rails event destroy failure')

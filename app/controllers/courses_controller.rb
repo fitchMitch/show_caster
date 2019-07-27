@@ -43,6 +43,7 @@ class CoursesController < EventsController
     @event.provider = 'google_calendar_v3'
 
     if @event.save
+      NotificationService.course_creation(@event)
       redirect_to events_url(@event),
                   notice: I18n.t('performances.created')
     else

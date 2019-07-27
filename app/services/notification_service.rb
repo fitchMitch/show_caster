@@ -5,7 +5,11 @@ require 'sidekiq/api'
 class NotificationService < Notification
   def self.poll_creation(poll)
     PollMailer.poll_creation_mail(poll).deliver_now
-    set_future_mail_notifications(poll)
+    set_poll_notification_mails(poll)
+  end
+
+  def self.course_creation(course)
+    course_notification_mail(course)
   end
 
   def self.poll_notifications_update(poll)
@@ -15,24 +19,69 @@ class NotificationService < Notification
     destroy_all_notifications(poll)
     return nil if poll_changes.fetch('expiration_date', nil).nil?
 
-    set_future_mail_notifications(poll)
+    set_poll_notification_mails(poll)
   end
 
-  def self.destroy_all_notifications(poll)
+  def self.destroy_all_notifications(obj)
     scheduled_jobs = Sidekiq::ScheduledSet.new
     scheduled_jobs.each do |job|
-      if job['args'].present?
-        job.delete if job['args'].first['arguments'] == [poll.id]
-      end
+      next unless job.args.present?
+
+      # TODO: withdraw following line
+      Rails.logger.debug('----------------------------')
+      Rails.logger.debug(destroy_conditions_ok?(obj, job))
+      Rails.logger.debug('----------------------------')
+      job.delete if destroy_conditions_ok?(obj, job)
     end
   rescue StandardError => e
-    # Bugsnag.notify(e)
+    Bugsnag.notify(e)
     Rails.logger.warn("destroy_all_notifications failure: #{e}")
   end
 
-  private
+  def self.get_delays(obj)
+    trigger_in_secs = seconds_till_poll_expiration obj
+    day_gap = obj.class.days_threshold_for_first_mail_alert.days
+    seconds_before_reminding = trigger_in_secs - day_gap.to_i
 
-  def self.set_future_mail_notifications(poll)
+    [trigger_in_secs, seconds_before_reminding]
+  end
+
+  def self.seconds_till_poll_expiration(obj)
+    poll_like = %w[Poll PollOpinion PollDate PollSecretBallot]
+    model_name = obj.model_name.name
+    date = nil
+    date = if poll_like.include?(model_name)
+             obj.expiration_date
+           elsif model_name == 'Course'
+             obj.event_date
+           else
+             obj.event_date
+           end
+    date - Time.zone.now
+  end
+
+
+  def self.destroy_conditions_ok?(obj, job)
+    class_linker = {
+      ReminderCourseMailJob: 'Course',
+      ReminderMailJob: 'Poll',
+      ReminderPollEndJob: 'Poll'
+    }.with_indifferent_access
+    job_hash = job.args.first
+    job_hash['arguments'].first == obj.id &&
+      class_linker[job_hash['job_class']] == super_klass(obj)
+  end
+
+  def self.super_klass(obj)
+    obj.model_name
+       .name
+       .underscore
+       .split('_')
+       .first
+       .capitalize
+  end
+
+  def self.set_poll_notification_mails(poll)
     seconds_till_poll_expiration,
     seconds_before_reminding_poll = get_delays(poll)
 
@@ -51,18 +100,19 @@ class NotificationService < Notification
     end
   end
 
+  def self.course_notification_mail(course)
+    _, seconds_before_course_reminder = get_delays(course)
+    if seconds_before_course_reminder > 0
+      ReminderCourseMailJob.set(
+        wait: seconds_before_course_reminder.seconds
+      ).perform_later(course.id)
+    end
+  end
+
   def self.analyse_poll_changes(poll)
     answer_changes = []
     poll.answers.each { |answer| answer_changes << answer.previous_changes }
     poll.previous_changes.merge('answer_changes' => answer_changes)
-  end
-
-  def self.get_delays(poll)
-    seconds_till_poll_expiration = poll.expiration_date - Time.zone.now
-    day_gap = Poll.days_threshold_for_first_mail_alert.days
-    seconds_before_reminding_poll = seconds_till_poll_expiration - day_gap.to_i
-
-    [seconds_till_poll_expiration, seconds_before_reminding_poll]
   end
 end
 # Sample

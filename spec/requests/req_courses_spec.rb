@@ -1,5 +1,3 @@
-
-
 require 'rails_helper'
 # require 'vcr' TODO
 
@@ -62,8 +60,10 @@ RSpec.describe 'Courses', type: :request do
         let(:result) { double('result', id: '0123145874521') }
         before(:each) do
           allow(GoogleCalendarService).to receive(:new) { google_service }
+          allow(NotificationService).to receive(:course_creation) { nil }
           allow(google_service).to receive(:add_to_google_calendar) { result }
         end
+
         context 'valid conditions' do
           # it 'creates a new Event', :vcr do
           it 'creates a new Event' do
@@ -87,6 +87,12 @@ RSpec.describe 'Courses', type: :request do
             expect(Event.last.user_id).to eq(admin.id)
             expect(Event.last.provider).to eq('google_calendar_v3')
             expect(Event.last.fk).to eq(result.id)
+          end
+        end
+        context 'valid conditions test for notification planning' do
+          it { expect(NotificationService).to receive(:course_creation)  }
+          after do
+            post '/courses', params:{ course: valid_attributes}
           end
         end
         context 'invalid params' do
@@ -244,9 +250,27 @@ RSpec.describe 'Courses', type: :request do
       let(:google_service) { double('google_service') }
       let(:result) { 123456789 }
       # let(:valid_session) { request_log_in( admin ) }
+      context 'with every condition ok' do
+        before(:each) do
+          allow(NotificationService).to receive(:destroy_all_notifications) { nil }
+          allow(GoogleCalendarService).to receive(:new) { google_service }
+          allow(google_service).to receive(:delete_google_calendar){ result }
+        end
+        after do
+          delete url, params: {
+            id: course.id,
+            course: valid_attributes
+          }
+        end
+        it 'sends a Notification by mail' do
+          expect(NotificationService).to receive(:destroy_all_notifications).once
+        end
+      end
+
       context 'with valid local ActiveRecord service' do
         context 'with valid Google service' do
           before(:each) do
+            allow(NotificationService).to receive(:destroy_all_notifications) { nil }
             allow(GoogleCalendarService).to receive(:new) { google_service }
             allow(google_service).to receive(:delete_google_calendar){ result }
           end
@@ -273,6 +297,7 @@ RSpec.describe 'Courses', type: :request do
             expect(flash[:notice]).to eq(I18n.t('performances.destroyed'))
           end
         end
+
         context 'with INvalid Google service' do
           before(:each) do
             allow(GoogleCalendarService).to receive(:new) { google_service }

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Course < Event
+  @@days_threshold_for_first_mail_alert = 8
   # includes
   attr_accessor :is_autocoached, :users_list, :coaches_list
   # Pre and Post processing
@@ -26,6 +27,10 @@ class Course < Event
   }
 
   # METHODS
+  def self.days_threshold_for_first_mail_alert
+    @@days_threshold_for_first_mail_alert
+  end
+
   def google_event_params
     theater_name = theater.theater_name
     {
