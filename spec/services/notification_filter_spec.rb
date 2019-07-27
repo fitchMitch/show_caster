@@ -38,9 +38,9 @@ RSpec.describe NotificationFilter, type: :service do
 
   describe '.poll_end_reminder_mailing' do
     subject(:mailing) { described_class.poll_end_reminder_mailing(poll_id) }
+    let(:poll_id) { 123 }
 
     context 'when poll no longer exists' do
-      let(:poll_id) { 123 }
       before do
         allow(Poll).to receive(:find_by) { nil }
       end
@@ -60,17 +60,40 @@ RSpec.describe NotificationFilter, type: :service do
       end
       it { expect(mailing).to eq a_delivered_mail }
     end
+  end
 
-    # context 'when something goes wrong' do
-    #   let(:poll_id) { 123 }
-    #   before do
-    #     allow(Poll).to receive(:find_by).and_raise(StandardError.new('message'))
-    #     allow_any_instance_of(Class).to receive(:raise).and_return(nil)
-    #   end
-    #   it 'does notify Bugsnag' do
-    #     expect(Bugsnag).to receive(:notify)
-    #     mailing
-    #   end
-    # end
+  describe '.course_reminder_mailing' do
+    let(:course_id) { 123 }
+    subject(:mailing) { described_class.course_reminder_mailing(course_id) }
+
+    context 'when course no longer exists' do
+      before do
+        allow(Course).to receive(:find_by) { nil }
+      end
+      it { expect(mailing).to be(nil) }
+    end
+    context 'when coach is no longer active' do
+      let!(:course) { create(:auto_coached_course) }
+      before do
+        course.courseable.archived!
+        allow(Course).to receive(:find_by) { course }
+      end
+      it { expect(mailing).to be(nil) }
+    end
+
+    context 'when course and coach are active' do
+      let(:user) { create(:user) }
+      let(:course) { build(:course, courseable: user) }
+      let(:a_delivered_mail) { double('a_delivered_mail') }
+      let(:a_mail) { double('a_mail') }
+      before do
+        allow(Course).to receive(:find_by) { course }
+        allow(CourseMailer).to receive(
+          :course_reminder_mail
+        ).with(course) { a_mail }
+        allow(a_mail).to receive(:deliver_now) { a_delivered_mail }
+      end
+      it { expect(mailing).to eq a_delivered_mail }
+    end
   end
 end

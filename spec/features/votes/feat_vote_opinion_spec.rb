@@ -23,9 +23,12 @@ RSpec.feature 'vote opinion feature', type: :feature do
       log_in admin
       visit new_poll_opinion_path
       within '#new_poll_opinion' do
-        fill_in 'poll_opinion[question]', with: 'question'
-        fill_in 'poll_opinion[answers_attributes][0][answer_label]', with: 'answer 1'
-        fill_in 'poll_opinion[answers_attributes][1][answer_label]', with: 'answer 2'
+        fill_in 'poll_opinion[question]',
+                with: 'question'
+        fill_in 'poll_opinion[answers_attributes][0][answer_label]',
+                with: 'answer 1'
+        fill_in 'poll_opinion[answers_attributes][1][answer_label]',
+                with: 'answer 2'
       end
       click_button(I18n.t('helpers.submit.poll_opinion.create'))
       find('.link-to-vote').click
@@ -40,9 +43,12 @@ RSpec.feature 'vote opinion feature', type: :feature do
       log_in admin
       visit new_poll_opinion_path
       within '#new_poll_opinion' do
-        fill_in 'poll_opinion[question]', with: 'question'
-        fill_in 'poll_opinion[answers_attributes][0][answer_label]', with: 'answer 1'
-        fill_in 'poll_opinion[answers_attributes][1][answer_label]', with: 'answer 2'
+        fill_in 'poll_opinion[question]',
+                with: 'question'
+        fill_in 'poll_opinion[answers_attributes][0][answer_label]',
+                with: 'answer 1'
+        fill_in 'poll_opinion[answers_attributes][1][answer_label]',
+                with: 'answer 2'
       end
       click_button(I18n.t('helpers.submit.poll_opinion.create'))
       find('.link-to-vote').click

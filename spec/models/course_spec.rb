@@ -24,7 +24,9 @@ require 'rails_helper'
 RSpec.describe Course, type: :model do
   it { should belong_to(:user) }
   it { should belong_to(:theater) }
+
   it { should validate_presence_of(:event_date) }
+  it { should validate_presence_of(:duration) }
 
   describe 'scope next_courses' do
     let!(:now) { Time.zone.now }
@@ -41,6 +43,11 @@ RSpec.describe Course, type: :model do
       ).to eq (now + 2.days).to_i
     end
   end
+
+  describe '.days_threshold_for_first_mail_alert' do
+    it { expect(described_class.days_threshold_for_first_mail_alert).to eq 8 }
+  end
+
   describe '#google_event_params' do
     let!(:course) { create(:course) }
     it 'should set google calendar params ok' do
