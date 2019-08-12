@@ -5,7 +5,7 @@ require 'sidekiq/api'
 class NotificationService < Notification
   def self.poll_creation(poll)
     PollMailer.poll_creation_mail(poll).deliver_now
-    set_poll_notification_mails(poll)
+    NotificationService.set_poll_notification_mails(poll)
   end
 
   def self.course_creation(course)
@@ -19,7 +19,7 @@ class NotificationService < Notification
     destroy_all_notifications(poll)
     return nil if poll_changes.fetch('expiration_date', nil).nil?
 
-    set_poll_notification_mails(poll)
+    NotificationService.set_poll_notification_mails(poll)
   end
 
   def self.destroy_all_notifications(obj)
