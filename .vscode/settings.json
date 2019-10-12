@@ -1,0 +1,7 @@
+{
+    "editor.rulers": [80,120],
+    "workbench.colorCustomizations": {
+        "editorRuler.foreground": "#4e192b"
+    },
+    "ruby.intellisense": "rubyLocate"
+}
