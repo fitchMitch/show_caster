@@ -12,6 +12,7 @@ module LoggingHelper
         ": #{message} - #{separator}"
         end_message = "#{separator} - END of #{level.to_s.upcase}" \
         " - #{separator}"
+        
         eval 'Rails.logger.' + level + '("' + start_message + '")'
         instance_exec(&block) if block.present?
         eval 'Rails.logger.' + level + '("' + end_message + '")'

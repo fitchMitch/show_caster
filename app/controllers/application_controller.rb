@@ -34,9 +34,9 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
-    unless user_signed_in?
-      redirect_to root_path, alert: I18n.t('users.not_logged_in')
-    end
+    return if user_signed_in?
+
+    redirect_to root_path, alert: I18n.t('users.not_logged_in')
   end
 
   def pointed_page
