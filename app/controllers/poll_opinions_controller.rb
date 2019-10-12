@@ -6,7 +6,7 @@ class PollOpinionsController < PollsController
   def show
     @vote = @poll.vote_opinions.build
     @answers_id = VoteOpinion.which_answer(@poll, current_user)
-    @answer_id = @answers_id.count > 0 ? @answers_id.first : nil
+    @answer_id = @answers_id.count.positive? ? @answers_id.first : nil
     @commontable = @poll
     commontator_thread_show(@commontable)
   end
