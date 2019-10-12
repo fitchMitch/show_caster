@@ -66,7 +66,7 @@ class Indicator
     if role == other.role
       return 0 if period_start_time.to_i == other.period_start_time.to_i
 
-      other.period_start_time.to_i - period_start_time.to_i > 0 ? 1 : -1
+      other.period_start_time.to_i > period_start_time.to_i ? 1 : -1
     else
       role < other.role ? -1 : 1
     end
@@ -95,7 +95,8 @@ class Indicator
   def get_performance(ending)
     Performance
       .select('count(events.theater_id) as count_me', 'actors.user_id as perso')
-      .where('events.event_date > ? and events.event_date <= ?', period_start_time, ending)
+      .where('events.event_date > ?', period_start_time)
+      .where('events.event_date <= ?', ending)
       .where('actors.stage_role = ?', role)
       .joins(:actors)
       .group('perso')

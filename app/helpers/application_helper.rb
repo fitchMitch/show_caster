@@ -31,7 +31,7 @@ module ApplicationHelper
     icon = "bell #{size}x"
     ficon = fa_icon(icon)
     bell = "<span class='bell'>#{ficon}</span>"
-    Poll.expecting_my_vote(current_user) > 0 ? bell.html_safe : ''
+    Poll.expecting_my_vote(current_user).positive? ? bell.html_safe : ''
   end
 
   def title_with_image(image_name, i18n_text)

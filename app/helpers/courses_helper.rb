@@ -6,8 +6,8 @@ module CoursesHelper
   end
 
   def coach_name(event)
-    name = event.courseable
-                .nil? ? event.user.full_name : event.courseable.full_name
+    ec = event.courseable
+    name = ec.nil? ? event.user.full_name : ec.full_name
     star = fa_icon 'star', class: 'star_coach'
     res = event.courseable_type == 'Coach' ? "#{star} #{name} #{star}" : name
     res.html_safe
