@@ -42,7 +42,7 @@ gem 'rails-assets-jcrop', source: 'https://rails-assets.org'
 gem 'rails-settings-cached', '~> 0.7', '>= 0.7.2'
 gem 'ransack', '~> 2.1', '>= 2.1.1'
 gem 'select2-rails',                                        '~> 4.0'
-gem 'simple_form', '~> 4.1', '>= 4.1.0'
+gem 'simple_form', '~> 5.0', '>= 5.0.0'
 # gem 'rails-settings-cached', source: 'https://rubygems.org'
 # API ones
 # -----------------------
