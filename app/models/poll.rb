@@ -74,7 +74,7 @@ class Poll < ApplicationRecord
       PollOpinion.with_my_opinion_votes(user).distinct,
       PollSecretBallot.with_my_opinion_votes(user).distinct,
       PollDate.with_my_date_votes(user).distinct
-    ].inject([]) { |poll, sum| sum + poll }
+    ].uniq.inject([]) { |poll, sum| sum + poll }
   end
 
   def answer_id_sorted_by_vote_count

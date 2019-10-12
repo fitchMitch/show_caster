@@ -28,7 +28,7 @@
 # Ignore Byebug command history file.
 .byebug_history
 brakeman.html
-
+/.vscode/
 
 #------------------------------
 # ignore all .a files
