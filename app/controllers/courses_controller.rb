@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 class CoursesController < EventsController
-  COURSE_HOUR_START = 20
-  COURSE_DURATION = 150
-
   before_action :set_polymorphic_courseable_out_of_params,
                 only: %i[create update]
   before_action :set_event,
@@ -12,7 +9,7 @@ class CoursesController < EventsController
   def new
     authorize(Course)
     @event = Course.new(
-      duration: CoursesController::COURSE_DURATION,
+      duration: Course::COURSE_DURATION,
       event_date: next_course_day
     )
     @is_coach = false
@@ -25,7 +22,7 @@ class CoursesController < EventsController
           .last
           .event_date
           .beginning_of_day
-          .advance(days: 7, hours: CoursesController::COURSE_HOUR_START)
+          .advance(days: 7, hours: Course::COURSE_HOUR_START)
   end
 
   def edit

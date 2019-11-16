@@ -2,6 +2,8 @@
 
 class Course < Event
   @@days_threshold_for_first_mail_alert = 8
+  COURSE_HOUR_START = 20
+  COURSE_DURATION = 150
   # includes
   attr_accessor :is_autocoached, :users_list, :coaches_list
   # Pre and Post processing

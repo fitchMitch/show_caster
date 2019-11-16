@@ -4,7 +4,7 @@ RSpec.describe Theater, type: :model do
   context 'with valid attributes' do
     let(:valid_attributes) do
       {
-        theater_name: 'A la belle Etoile',
+        theater_name: 'à la belle Etoile',
         location: '12 de la rue',
         manager: 'M.Jules',
         manager_phone: '0123456789'
@@ -19,7 +19,9 @@ RSpec.describe Theater, type: :model do
       it 'should be verified : factory validation' do
         theater = create(:theater, valid_attributes)
 
-        expect(theater.theater_name).to eq(valid_attributes[:theater_name].upcase)
+        expect(theater.theater_name).to eq(
+          valid_attributes[:theater_name].capitalize
+        )
         expect(theater.location).to eq(valid_attributes[:location])
         expect(theater.manager).to eq(valid_attributes[:manager])
         expect(theater.manager_phone).to eq('01 23 45 67 89')
@@ -55,7 +57,7 @@ RSpec.describe Theater, type: :model do
     end
     it 'should format theater name' do
       theater.save
-      expect(theater.theater_name).to eq('LYS')
+      expect(theater.theater_name).to eq('Lys')
     end
   end
 end
