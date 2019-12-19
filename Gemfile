@@ -40,21 +40,21 @@ gem 'meta-tags', '2.11.1'
 gem 'papercrop', '~> 0.3', '>= 0.3.0'
 gem 'rails-assets-jcrop', source: 'https://rails-assets.org'
 gem 'rails-settings-cached', '~> 0.7', '>= 0.7.2'
-gem 'ransack', '~> 2.1', '>= 2.1.1'
+gem 'ransack', '~> 2.3', '>= 2.3.0'
 gem 'select2-rails',                                        '~> 4.0'
-gem 'simple_form', '~> 5.0', '>= 5.0.0'
+gem 'simple_form', '~> 5.0', '>= 5.0.1'
 # gem 'rails-settings-cached', source: 'https://rubygems.org'
 # API ones
 # -----------------------
 gem 'gibbon',                                               '~> 3.2'
 gem 'google-api-client',                                    '~> 0.23'
-gem 'omniauth-google-oauth2',                               '~> 0.5'
+gem 'omniauth-google-oauth2', '~> 0.8', '>= 0.8.0'
 # https://docs.bugsnag.com/platforms/ruby/rails/
 gem 'bugsnag',                                              '~> 6.8'
 # middleware
 # -----------------------
 # background jogs
-gem 'sidekiq',                                              '~> 5.2'
+gem 'sidekiq', '~> 5.2', '>= 5.2.7'
 # -----------------------
 gem 'mini_magick',                                          '~> 4.9'
 gem 'paperclip',                                            '~> 6.0.0'
@@ -65,7 +65,7 @@ gem 'pundit',                                               '~> 1.1'
 group :development, :test do
   gem 'puma',                                                 '~> 3.0'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'better_errors',                                        '~> 2.4'
+  gem 'better_errors', '~> 2.5', '>= 2.5.1'
   gem 'binding_of_caller',                                    '~> 0.8'
   gem 'byebug',                                               '~> 10.0'
   gem 'pry',                                                  '~> 0.11'
@@ -95,7 +95,7 @@ group :test do
   gem 'hashdiff',                                               ['>= 1.0.0.beta1', '< 2.0.0']
   gem 'simplecov', require: false
   # gem 'vcr'
-  gem 'capybara', '~> 3.25', '>= 3.25.0'
+  gem 'capybara', '~> 3.29', '>= 3.29.0'
   gem 'launchy',                                                '~> 2.4'
   gem 'pundit-matchers', '~> 1.4.1'
   gem 'rspec',                                                  '~> 3.7.0'
@@ -112,5 +112,5 @@ end
 
 group :production do
   gem 'lograge', '~> 0.11', '>= 0.11.2'
-  gem 'passenger', '5.1.12', require: 'phusion_passenger/rack_handler'
+  gem 'passenger', '5.1.12'
 end
