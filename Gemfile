@@ -54,7 +54,7 @@ gem 'bugsnag',                                              '~> 6.8'
 # middleware
 # -----------------------
 # background jogs
-gem 'sidekiq',                                              '~> 5.2'
+gem 'sidekiq',                                              '~> 5.2.7'
 # -----------------------
 gem 'mini_magick',                                          '~> 4.9'
 gem 'paperclip',                                            '~> 6.0.0'

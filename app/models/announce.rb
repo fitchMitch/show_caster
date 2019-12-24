@@ -44,20 +44,11 @@ class Announce < ApplicationRecord
 
   def end_after_start
     if time_start.nil?
-      errors.add(
-        :time_start,
-        'obligatoire'
-      )
+      errors.add(:time_start, 'obligatoire')
     elsif time_end.nil?
-      errors.add(
-        :time_end,
-        'obligatoire'
-      )
+      errors.add(:time_end, 'obligatoire')
     elsif time_end <= time_start
-      errors.add(
-        :time_end,
-        I18n.t('announces.errors.future_not_passed')
-      )
+      errors.add(:time_end, I18n.t('announces.errors.future_not_passed'))
     end
   end
 end
