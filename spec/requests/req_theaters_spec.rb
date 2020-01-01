@@ -29,7 +29,7 @@ RSpec.describe "Theaters", type: :request do
 
         it "assigns a newly created theater as @theater and formats cell_phone_nr" do
           post '/theaters', params: { theater: valid_attributes }
-          expect(Theater.last.theater_name).to eq("A LA BELLE ETOILE")
+          expect(Theater.last.theater_name).to eq(valid_attributes[:theater_name])
         end
 
         it "redirects to the created theater" do

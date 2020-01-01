@@ -47,7 +47,9 @@ RSpec.feature  'Course | ' do
             passed_label(Course.all)
           ).strip
         )
-        expect(page.find('.tab-content')).not_to have_selector('a > i.fa.fa-trash.fa-lg')
+        expect(page.find('.tab-content')).not_to have_selector(
+          'a > i.fa.fa-trash.fa-lg'
+        )
       end
     end
 
@@ -76,19 +78,19 @@ RSpec.feature  'Course | ' do
         #--------------------
         # inside index page
         #--------------------
-        expect(page.body).to have_content(I18n.t('performances.created'))
-        click_link(
-          ActionView::Base.full_sanitizer.sanitize(
-            passed_label(Course.all)
-          ).strip
-        )
+        # click_link(
+        #   ActionView::Base.full_sanitizer.sanitize(
+        #     passed_label(Course.all)
+        #   ).strip # clic sur 'cours du temps passé'
+        # )
+        expect(page.body).to have_content('40') # minutes
         expect(page.body).to have_content(note)
-        expect(page.body).to have_content(40) # minutes
+
         click_link(title)
         #--------------------
         # inside show page
         #--------------------
-        expect(page.body).to have_content(40)
+        expect(page.body).to have_content('40')
         expect(page.body).to have_content(note)
         expect(page.body).to have_content(
           Course.all.last.courseable.full_name
@@ -128,9 +130,6 @@ RSpec.feature  'Course | ' do
         #--------------------
         # inside show page
         #--------------------
-        # expect(page.body).to have_content(
-        #   time_ago_in_words((course_w.duration * 60).seconds.from_now)
-        # )
         expect(page.body).to have_content Event::DURATIONS.rassoc(
           course_w.duration
         )

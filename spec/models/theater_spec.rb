@@ -20,7 +20,7 @@ RSpec.describe Theater, type: :model do
         theater = create(:theater, valid_attributes)
 
         expect(theater.theater_name).to eq(
-          valid_attributes[:theater_name].capitalize
+          valid_attributes[:theater_name]
         )
         expect(theater.location).to eq(valid_attributes[:location])
         expect(theater.manager).to eq(valid_attributes[:manager])
@@ -57,7 +57,7 @@ RSpec.describe Theater, type: :model do
     end
     it 'should format theater name' do
       theater.save
-      expect(theater.theater_name).to eq('Lys')
+      expect(theater.theater_name).to eq('lys')
     end
   end
 end
