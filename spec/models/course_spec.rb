@@ -39,8 +39,8 @@ RSpec.describe Course, type: :model do
     end
     it 'should have course1 as first' do
       expect(
-        Course.next_courses.to_a.first.event_date.to_i
-      ).to eq (now + 2.days).to_i
+          (Course.next_courses.to_a.first.event_date - now - 2.days).abs.round
+      ).to be < 1
     end
   end
 

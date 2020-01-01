@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Course < Event
-  @@days_threshold_for_first_mail_alert = 8
+  DAYS_THRESHOLD_FOR_FIRST_MAIL_ALERT = 8
   COURSE_HOUR_START = 20
   COURSE_DURATION = 150
   # includes
@@ -30,7 +30,7 @@ class Course < Event
 
   # METHODS
   def self.days_threshold_for_first_mail_alert
-    @@days_threshold_for_first_mail_alert
+    DAYS_THRESHOLD_FOR_FIRST_MAIL_ALERT
   end
 
   def google_event_params

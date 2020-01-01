@@ -35,7 +35,7 @@ RSpec.describe 'Courses', type: :request do
     describe '#new' do
       it 'should get new page' do
         get '/courses/new'
-        expect(response).to render_template :new
+        expect(response).to render_template(:new)
       end
     end
 
@@ -180,11 +180,11 @@ RSpec.describe 'Courses', type: :request do
             before(:each) do
               allow(GoogleCalendarService).to receive(:new) { google_service }
               allow(google_service).to receive(:update_google_calendar) { "a String" }
-            put url,
-              params: {
-                id: course.id,
-                course: new_attributes_theater
-              }
+              put url,
+                  params: {
+                    id: course.id,
+                    course: new_attributes_theater
+                  }
             end
             it 'redirects to the permances page' do
               expect(response).to redirect_to courses_path
@@ -362,5 +362,9 @@ RSpec.describe 'Courses', type: :request do
         end
       end
     end
+  end
+
+  it 'expect a date for next course' do
+    expect(CoursesController.new.next_course_day.class.name).to eq('Date')
   end
 end

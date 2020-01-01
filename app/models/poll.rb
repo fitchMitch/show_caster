@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Poll < ApplicationRecord
-  @@days_threshold_for_first_mail_alert = 5
-  @@days_threshold_for_second_mail_alert = 2
-  @@days_threshold_for_SMS_alert = 2
+  DAYS_THRESHOLD_FOR_FIRST_MAIL_ALERT = 5
+  DAYS_THRESHOLD_FOR_SECOND_MAIL_ALERT = 2
+  DAYS_THRESHOLD_FOR_SMS_ALERT = 2
   #-----------
   # Includes
   #-----------
@@ -48,15 +48,15 @@ class Poll < ApplicationRecord
   # --    PUBLIC      ---
   # ------------------------
   def self.days_threshold_for_first_mail_alert
-    @@days_threshold_for_first_mail_alert
+    DAYS_THRESHOLD_FOR_FIRST_MAIL_ALERT
   end
 
   def self.days_threshold_for_second_mail_alert
-    @@days_threshold_for_second_mail_alert
+    DAYS_THRESHOLD_FOR_SECOND_MAIL_ALERT
   end
 
   def self.days_threshold_for_sms_alert
-    @@days_threshold_for_SMS_alert
+    DAYS_THRESHOLD_FOR_SMS_ALERT
   end
 
   def self.expecting_my_vote(current_user)

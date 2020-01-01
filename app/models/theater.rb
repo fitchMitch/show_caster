@@ -21,6 +21,5 @@ class Theater < ApplicationRecord
 
   def formatting
     self.manager_phone = format_by_two(manager_phone) if manager_phone.present?
-    self.theater_name = theater_name.capitalize
   end
 end

@@ -8,21 +8,26 @@ class CoursesController < EventsController
 
   def new
     authorize(Course)
-    @event = Course.new(
-      duration: Course::COURSE_DURATION,
-      event_date: next_course_day
-    )
+    @event = Course.new( {
+        duration: Course::COURSE_DURATION,
+        event_date: next_course_day
+    })
     @is_coach = false
     @is_autocoached = '1'
   end
 
   def next_course_day
-    Course.all
-          .order(event_date: :ASC)
-          .last
-          .event_date
-          .beginning_of_day
-          .advance(days: 7, hours: Course::COURSE_HOUR_START)
+    latest_course = Course.all
+                          .order(event_date: :ASC)
+                          .last
+    if latest_course.try(:event_date).nil?
+      Date.today
+    else
+      latest_course.event_date
+                   .beginning_of_day
+                   .advance(days: 7, hours: Course::COURSE_HOUR_START)
+
+    end
   end
 
   def edit
