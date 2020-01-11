@@ -3,10 +3,16 @@ class CourseMailer < ApplicationMailer
   def course_reminder_mail(course)
     recipient = course.courseable
 
-    mail(
-      to: [course.courseable.email],
-      subject: I18n.t('courses.mails.reminder.subject')
-    )
+    if recipient.try(:email)
+      mail(
+        to: [recipient.email],
+        subject: I18n.t('courses.mails.reminder.subject')
+      )
+    else
+      Rails.logger.warn(
+        "Impossible de notifier ce coach sans son adresse email"
+      )
+    end
   rescue StandardError => e
     Bugsnag.notify(e)
 
