@@ -40,9 +40,9 @@ gem 'meta-tags', '2.11.1'
 gem 'papercrop', '~> 0.3', '>= 0.3.0'
 gem 'rails-assets-jcrop', source: 'https://rails-assets.org'
 gem 'rails-settings-cached', '~> 0.7', '>= 0.7.2'
-gem 'ransack', '~> 2.1', '>= 2.1.1'
+gem 'ransack', '~> 2.3', '>= 2.3.0'
 gem 'select2-rails',                                        '~> 4.0'
-gem 'simple_form', '~> 5.0', '>= 5.0.0'
+gem 'simple_form', '~> 5.0', '>= 5.0.1'
 # gem 'rails-settings-cached', source: 'https://rubygems.org'
 # API ones
 # -----------------------
@@ -95,7 +95,7 @@ group :test do
   gem 'hashdiff',                                               ['>= 1.0.0.beta1', '< 2.0.0']
   gem 'simplecov', require: false
   # gem 'vcr'
-  gem 'capybara', '~> 3.25', '>= 3.25.0'
+  gem 'capybara', '~> 3.30', '>= 3.30.0'
   gem 'launchy',                                                '~> 2.4'
   gem 'pundit-matchers', '~> 1.4.1'
   gem 'rspec',                                                  '~> 3.7.0'
@@ -104,7 +104,7 @@ group :test do
   gem 'rspec-retry'
   gem 'rubocop-rspec', '~> 1.28'
   gem 'shoulda'
-  gem 'webdrivers', '~> 4.1', '>= 4.1.0'
+  gem 'webdrivers', '~> 4.2', '>= 4.2.0'
   gem 'webmock', '~> 3.6'
 end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
