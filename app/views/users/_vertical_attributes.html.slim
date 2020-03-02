@@ -1,10 +1,4 @@
 .row
-  .col-sm-4.right.hidden-sm.hidden-xs Photo Google
-  .col-sm-8
-    - if @user.photo_url.present?
-      = image_tag @user.photo_url, size: "150x150"
-    - else
-      = image_tag 'Zoidberg.png', size: "150x150"
 .row.form-std-height
   .col-sm-4.right.hidden-sm.hidden-xs= t("users.role")
   .col-sm-8

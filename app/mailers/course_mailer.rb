@@ -1,5 +1,4 @@
 class CourseMailer < ApplicationMailer
-
   def course_reminder_mail(course)
     recipient = course.courseable
 
@@ -10,7 +9,7 @@ class CourseMailer < ApplicationMailer
       )
     else
       Rails.logger.warn(
-        "Impossible de notifier ce coach sans son adresse email"
+        'Impossible de notifier ce coach sans son adresse email'
       )
     end
   rescue StandardError => e
@@ -20,5 +19,4 @@ class CourseMailer < ApplicationMailer
     Rails.logger.error("Recipient: #{recipient}")
     raise e
   end
-
 end
