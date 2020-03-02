@@ -12,7 +12,7 @@
         .image-container
           .image-part
             = image_tag(random_character_avatar, size: 350 )
-      - else @user.pictures.empty?
+      - else
         .image-container
           .image-part
             = image_tag(@user.pictures.first.photo(:square), width:350)
