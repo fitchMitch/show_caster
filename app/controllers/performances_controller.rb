@@ -13,8 +13,10 @@ class PerformancesController < EventsController
     authorize(Performance)
     @events = if params[:direction] == 'previous'
                 Event.passed_events.performances.page params[:page]
-              else
+              elsif params[:direction] == 'next'
                 Event.future_events.performances.page params[:page]
+              else
+                Event.performances.page params[:page]
               end
   end
 

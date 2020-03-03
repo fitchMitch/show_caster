@@ -42,4 +42,10 @@ module ApplicationHelper
   def back_sign
     fa_icon('arrow-circle-left', text: t('back'))
   end
+
+  def cosy_puts(arg = nil)
+    puts '= ' * 20
+    arg.nil? ? yield : (puts arg)
+    puts '= ' * 20
+  end
 end

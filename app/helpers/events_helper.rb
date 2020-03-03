@@ -34,9 +34,7 @@ module EventsHelper
   end
 
   def get_dictionnary(event)
-    return '' unless event.present?
-
-    event.class.name.downcase.pluralize
+    event.nil? ? 'performances' : event.class.name.downcase.pluralize
   end
 
   def event_edit_page_title(event)
@@ -48,7 +46,7 @@ module EventsHelper
   end
 
   def passed_label(events)
-    return '' if events.nil?
+    return '--->' if events.empty?
 
     I18n.t("#{get_dictionnary(events.first)}.passed_events_title").html_safe
   end

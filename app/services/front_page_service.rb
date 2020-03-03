@@ -30,7 +30,6 @@ class FrontPageService
     shows.each do |show|
       res += Picture.last_pictures(show, photo_count)
     end
-    res = res.shuffle[0..(photo_count - 1)] if res.size >= photo_count
-    res
+    res.size >= photo_count ? res.shuffle![0...photo_count] : res
   end
 end
