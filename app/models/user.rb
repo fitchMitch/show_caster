@@ -32,7 +32,10 @@ class User < ApplicationRecord
   has_many :polls, foreign_key: :owner_id
   belongs_to :committee
   # =====================
-
+  # scope :inactive,
+  #       lambda  {
+  #         where(role: :other).or(where(status: %i[setup archived]))
+  #       }
   scope :active,
         lambda {
           where(status: %i[invited googled registered]).where
