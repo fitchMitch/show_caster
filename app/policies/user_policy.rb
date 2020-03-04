@@ -3,7 +3,7 @@ class UserPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.admin?
-        scope.all.order(:firstname)
+        scope.all.order(:status, :firstname)
       else
         scope.active.order(:firstname)
       end
