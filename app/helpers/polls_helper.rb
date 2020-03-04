@@ -45,7 +45,6 @@ module PollsHelper
               poll
             ),
             context: :warning
-
     when 'PollSecretBallot'
       panel question,
             heading: panel_header(

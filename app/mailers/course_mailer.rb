@@ -4,8 +4,11 @@ class CourseMailer < ApplicationMailer
 
     if recipient.try(:email)
       mail(
-        to: [recipient.email],
-        subject: I18n.t('courses.mails.reminder.subject')
+        to: recipient.email,
+        bcc: User.active_admins.pluck(:email),
+        subject: I18n.t('courses.mails.reminder.subject'),
+        template_path: 'course_mailer',
+        template_name: 'course_reminder_mail'
       )
     else
       Rails.logger.warn(
@@ -16,7 +19,7 @@ class CourseMailer < ApplicationMailer
     Bugsnag.notify(e)
 
     Rails.logger.error("course_reminder_mail failure: #{e}")
-    Rails.logger.error("Recipient: #{recipient}")
+    Rails.logger.error("Recipient: #{recipient.try(:email)}")
     raise e
   end
 end

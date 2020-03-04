@@ -45,6 +45,14 @@ RSpec.describe User, type: :model do
     it { should_not allow_value('gog.o@lelefr').for(:email) }
   end
 
+  describe '.active_admins' do
+    let!(:admin) { create(:user, :registered) }
+    let!(:admin_2) { create(:user, :registered) }
+    let!(:user) { create(:user, :invited, :admin_com) }
+    let!(:user_ex_admin) { create(:user, :archived) }
+    it { expect(User.active_admins.count).to eq(2) }
+  end
+
   describe '.from_omniauth' do
     let!(:user) { create(:user) }
     let(:f) { { info: { email: 'g' }, credentials: { expires_at: 'g' } } }

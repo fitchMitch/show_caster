@@ -24,7 +24,9 @@ class PollMailer < ApplicationMailer
 
     mail(
       to: recipients.join(','),
-      subject: I18n.t('polls.mails.reminder.subject')
+      subject: I18n.t('polls.mails.reminder.subject'),
+      template_path: 'poll_mailer',
+      template_name: 'poll_reminder_mail'
     )
   rescue StandardError => e
     Bugsnag.notify(e)
@@ -38,13 +40,17 @@ class PollMailer < ApplicationMailer
     @url = get_polls_url
     @url_login = url_login
     @poll = poll
-    Rails.logger.debug('------ poll_end_reminder_mail -------')
-    Rails.logger.debug("subject: #{I18n.t('polls.mails.reminder.end_subject')}")
-    Rails.logger.debug('-----------------------------')
-    mail(
-      to: poll.owner.prefered_email,
-      subject: I18n.t('polls.mails.reminder.end_subject')
-    )
+    recipient_email = poll.try(:owner).try(:prefered_email)
+    if recipient_email.nil?
+      Rails.logger('PollMailer: unable to find out poll\'s email for emailing')
+    else
+      mail(
+        to: recipient_email,
+        subject: I18n.t('polls.mails.reminder.end_subject'),
+        template_path: 'poll_mailer',
+        template_name: 'poll_end_reminder_mail'
+      )
+    end
   rescue StandardError => e
     Bugsnag.notify(e)
     Rails.logger.error("poll_end_reminder_mail failure: #{e}")

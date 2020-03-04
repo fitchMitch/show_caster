@@ -7,11 +7,15 @@ created_at =     today
 updated_at =     today
 
 def randy(n)
-  (0..n).to_a.sample
+  (0...n).to_a.sample
 end
 
 def n_out_of_m?(n, m)
   randy(m) <= n
+end
+
+def random_player
+  User.all.to_a.sample
 end
 
 # -----------------
@@ -38,35 +42,36 @@ User.create!(
   cell_phone_nr:          FFaker::PhoneNumberFR.mobile_phone_number,
   address:                '29, rue St Jean, Paris 75014'
 )
-18.times do |n|
-  uid =                   (105205260860063499768 + n + 1).to_s
-  firstname =              FFaker::NameFR.first_name
-  lastname =               FFaker::NameFR.unique.last_name
-  email =                  FFaker::Internet.free_email
-  role =                   (0..3).to_a.sample
-  is_registered =          n_out_of_m?(8, 11)
-  cell_phone_nr =          nil
-  address =                nil
-  alternate_email =        FFaker::Internet.email if n_out_of_m?(2, 5)
-  # committee =              committees.sample
+16.times do |n|
+  uid =             (105205260860063499768 + n + 1).to_s
+  firstname =        FFaker::NameFR.first_name
+  lastname =         FFaker::NameFR.unique.last_name
+  email =            FFaker::Internet.free_email
+  role =             randy(4)
+  is_registered =    n_out_of_m?(8, 11)
+  cell_phone_nr =    nil
+  address =          nil
+  alternate_email =  FFaker::Internet.email if n_out_of_m?(2, 5)
+  # committee =        committees.sample
   if is_registered
-    cell_phone_nr =        FFaker::PhoneNumberFR.mobile_phone_number
-    address =              FFaker::AddressFR.unique.full_address
+    cell_phone_nr =  FFaker::PhoneNumberFR.mobile_phone_number
+    address =        FFaker::AddressFR.unique.full_address
     # setup: 0, invited: 1, googled: 2, registered: 3, archived: 4
-    status =               3
+    status =         3
   else
-    status =              randy(3)
-    status =              4 if status == 3
+    status =        randy(4)
+    status =        4 if status == 3
   end
 
   User.create!(
-    email:                email,
-    firstname:            firstname,
-    lastname:             lastname,
-    status:               status,
-    cell_phone_nr:        cell_phone_nr,
-    address:              address,
-    role:                 role
+    email: email,
+    firstname: firstname,
+    lastname: lastname,
+    status: status,
+    cell_phone_nr: cell_phone_nr,
+    address: address,
+    role: role,
+    alternate_email: alternate_email
   )
 end
 users = User.all
@@ -89,16 +94,16 @@ Coach.create!(
 )
 
 4.times do |n|
-  firstname =              FFaker::NameFR.unique.first_name
-  lastname =               FFaker::NameFR.unique.last_name
-  email =                  FFaker::Internet.free_email
-  cell_phone_nr =          FFaker::PhoneNumberFR.mobile_phone_number
+  firstname     = FFaker::NameFR.unique.first_name
+  lastname      = FFaker::NameFR.unique.last_name
+  email         = FFaker::Internet.free_email
+  cell_phone_nr = FFaker::PhoneNumberFR.mobile_phone_number
 
   Coach.create!(
-    email:                email,
-    firstname:            firstname,
-    lastname:             lastname,
-    cell_phone_nr:        cell_phone_nr
+    email: email,
+    firstname: firstname,
+    lastname: lastname,
+    cell_phone_nr: cell_phone_nr
   )
 end
 coaches = Coach.all
@@ -107,22 +112,22 @@ coaches = Coach.all
 # Theaters
 # -----------------
 Theater.create!(
-  theater_name:       'Kibelé',
-  location:    '12, rue de l\'échiquier, 75010 PARIS',
-  manager:              'Mr. Fraise',
-  manager_phone:        '0148245774'
+  theater_name: 'Kibelé',
+  location: '12, rue de l\'échiquier, 75010 PARIS',
+  manager: 'Mr. Fraise',
+  manager_phone: '0148245774'
 )
 Theater.create!(
-  theater_name:       'Centre Oudiné',
-  location:    '16, rue Oudiné',
-  manager:              'Mr. Battard',
-  manager_phone:        '0521452142'
+  theater_name: 'Centre Oudiné',
+  location: '16, rue Oudiné',
+  manager: 'Mr. Battard',
+  manager_phone: '0521452142'
 )
 Theater.create!(
-  theater_name:         "Le #{FFaker::AnimalUS.common_name} agité",
-  location:              FFaker::AddressFR.unique.full_address,
-  manager:              "Mr. #{FFaker::NameFR.unique.last_name}",
-  manager_phone:        FFaker::PhoneNumberFR.mobile_phone_number
+  theater_name: "Le #{FFaker::AnimalUS.common_name} agité",
+  location: FFaker::AddressFR.unique.full_address,
+  manager: "Mr. #{FFaker::NameFR.unique.last_name}",
+  manager_phone: FFaker::PhoneNumberFR.mobile_phone_number
 )
 theaters = Theater.all
 
@@ -136,25 +141,25 @@ theaters = Theater.all
   note = FFaker::Lorem.paragraph(1)
   private_event = n_out_of_m?(1, 5) ? false : true
   Performance.create!(
-    theater:             theaters.sample,
-    title:                "Les Mentals moisis par #{I18n.t('company_name_long')}",
-    user:                 users.sample,
-    private_event:        private_event,
-    note:                 note,
-    duration:             duration,
-    event_date:           event_date,
-    created_at:           created_at,
-    updated_at:           updated_at,
-    type:                 'Performance'
+    theater: theaters.sample,
+    title: "Les Mentals moisis par #{I18n.t('company_name_long')}",
+    user: users.sample,
+    private_event: private_event,
+    note: note,
+    duration: duration,
+    event_date: event_date,
+    created_at: created_at,
+    updated_at: updated_at,
+    type: 'Performance'
   )
 end
 performances = Performance.all
 
 14.times do |n|
   event_date = today + (-200..200).to_a.sample * 3600 * 24
-  name = "Cours du #{event_date}"
-  duration = Event::DURATIONS.sample[1]
-  note = FFaker::Lorem.paragraph(1)
+  name       = "Cours du #{event_date}"
+  duration   = Event::DURATIONS.sample[1]
+  note       = FFaker::Lorem.paragraph(1)
   if n_out_of_m?(4, 5)
     courseable_type = 'User'
     courseable_id = users.sample.id
@@ -163,16 +168,16 @@ performances = Performance.all
     courseable_id = coaches.sample.id
   end
   Course.create!(
-    theater:             theaters.sample,
-    title:               name,
-    note:                 note,
-    duration:             duration,
-    event_date:           event_date,
-    created_at:           created_at,
-    updated_at:           updated_at,
-    type:                 'Course',
-    courseable_id:        courseable_id,
-    courseable_type:      courseable_type
+    theater: theaters.sample,
+    title: name,
+    note: note,
+    duration: duration,
+    event_date: event_date,
+    created_at: created_at,
+    updated_at: updated_at,
+    type: 'Course',
+    courseable_id: courseable_id,
+    courseable_type: courseable_type
   )
 end
 performances = Performance.all
@@ -183,19 +188,20 @@ performances = Performance.all
 performances.each do |event|
   6.times do |n|
     Actor.create(
-      event_id:       event.id,
-      user_id:        User.active.sample.id,
-      stage_role:     Actor.stage_roles.keys.sample.to_sym
+      event_id: event.id,
+      user_id: User.active.sample.id,
+      stage_role: Actor.stage_roles.keys.sample.to_sym
     )
   end
 end
 # PollSecretBallot
-question = "Acceptons nous #{FFaker::NameFR.first_name} dans la troupe ?"
+question        = "Acceptons nous #{FFaker::NameFR.first_name} dans la troupe ?"
 expiration_date = Date.today + (randy(20) + 10).days
-secret_ballot = PollSecretBallot.create!(
-  question:           question,
-  expiration_date:    expiration_date,
-  type:               'PollSecretBallot'
+secret_ballot   = PollSecretBallot.create!(
+  question: question,
+  expiration_date: expiration_date,
+  type: 'PollSecretBallot',
+  owner: random_player
 )
 secret_ballots = [secret_ballot]
 
@@ -204,9 +210,10 @@ secret_ballots = [secret_ballot]
   question = "#{FFaker::Lorem.sentence(1)} ?"
   expiration_date = Date.today + (randy(20) + 10).days
   PollOpinion.create!(
-    question:           question,
-    expiration_date:    expiration_date,
-    type:               'PollOpinion'
+    question: question,
+    expiration_date: expiration_date,
+    type: 'PollOpinion',
+    owner: random_player
   )
 end
 poll_opinions = Poll.opinion_polls
@@ -218,9 +225,10 @@ poll_opinions = Poll.opinion_polls
   question = "Quand fait on le #{FFaker::Lorem.sentence(1)} ?"
   expiration_date = Date.today + (randy(20) + 10).days
   PollDate.create!(
-    question:           question,
-    expiration_date:    expiration_date,
-    type:               'PollDate'
+    question: question,
+    expiration_date: expiration_date,
+    type: 'PollDate',
+    owner: random_player
   )
 end
 poll_dates = Poll.date_polls
@@ -310,13 +318,13 @@ end
   max_people =   Exercice.max_people.keys.sample
 
   Exercice.create!(
-    title:         title,
-    instructions:  instructions,
-    category:      category ,
-    focus:         focus,
-    promess:       promess,
-    energy_level:  energy_level,
-    max_people:    max_people
+    title: title,
+    instruction: instructions,
+    category: category,
+    focus: focus,
+    promess: promess,
+    energy_level: energy_level,
+    max_people: max_people
   )
   Exercice.last.tap do |exercice|
     exercice.skill_list.add(skills.join(', '), parse: true)
@@ -333,10 +341,10 @@ end
   time_end =     time_start + (1..3).to_a.sample.days
 
   Announce.create!(
-    author_id:  author_id,
-    title:      title,
-    body:       body ,
+    author_id: author_id,
+    title: title,
+    body: body,
     time_start: time_start,
-    time_end:   time_end
+    time_end: time_end
   )
 end

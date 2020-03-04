@@ -47,10 +47,20 @@ class PollsController < ApplicationController
   end
 
   def destroy
-    @poll.votes_destroy
-    @poll.destroy
-    NotificationService.destroy_all_notifications(@poll)
-    redirect_to polls_url, notice: I18n.t('polls.destroyed')
+    res = true
+    Poll.transaction do
+      res = @poll.votes_destroy &&
+            @poll.destroy &&
+            NotificationService.destroy_all_notifications(@poll)
+      unless res
+        raise ActiveRecord::Rollback, "won't destroy poll ? ##{@poll.id}"
+      end
+    end
+    if res
+      redirect_to polls_url, notice: I18n.t('polls.destroyed')
+    else
+      redirect_to polls_url, alert: I18n.t('polls.destroyed_not')
+    end
   end
 
   # protected
