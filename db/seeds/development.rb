@@ -319,7 +319,7 @@ end
 
   Exercice.create!(
     title: title,
-    instruction: instructions,
+    instructions: instructions,
     category: category,
     focus: focus,
     promess: promess,
