@@ -27,15 +27,13 @@ class NotificationService < Notification
     scheduled_jobs.each do |job|
       next unless job.args.present?
 
-      # TODO: withdraw following line
-      Rails.logger.debug('----------------------------')
-      Rails.logger.debug(destroy_conditions_ok?(obj, job))
-      Rails.logger.debug('----------------------------')
       job.delete if destroy_conditions_ok?(obj, job)
     end
+    true
   rescue StandardError => e
     Bugsnag.notify(e)
     Rails.logger.warn("destroy_all_notifications failure: #{e}")
+    return false
   end
 
   def self.get_delays(obj)
@@ -49,7 +47,6 @@ class NotificationService < Notification
   def self.seconds_till_poll_expiration(obj)
     poll_like = %w[Poll PollOpinion PollDate PollSecretBallot]
     model_name = obj.model_name.name
-    date = nil
     date = if poll_like.include?(model_name)
              obj.expiration_date
            elsif model_name == 'Course'
@@ -59,7 +56,6 @@ class NotificationService < Notification
            end
     date - Time.zone.now
   end
-
 
   def self.destroy_conditions_ok?(obj, job)
     class_linker = {
@@ -86,14 +82,14 @@ class NotificationService < Notification
     seconds_before_reminding_poll = get_delays(poll)
 
     # for some player to remember they should answer poll's question
-    if seconds_before_reminding_poll > 0
+    if seconds_before_reminding_poll.positive?
       ReminderMailJob.set(
         wait: seconds_before_reminding_poll.seconds
       ).perform_later(poll.id)
     end
     # for some poll's owner to remember they should announce the end of the poll
 
-    if seconds_till_poll_expiration > 0
+    if seconds_till_poll_expiration.positive?
       ReminderPollEndJob.set(
         wait: seconds_till_poll_expiration.seconds
       ).perform_later(poll.id)
@@ -102,7 +98,7 @@ class NotificationService < Notification
 
   def self.course_notification_mail(course)
     _, seconds_before_course_reminder = get_delays(course)
-    if seconds_before_course_reminder > 0
+    if seconds_before_course_reminder.positive?
       ReminderCourseMailJob.set(
         wait: seconds_before_course_reminder.seconds
       ).perform_later(course.id)

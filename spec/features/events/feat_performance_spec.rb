@@ -40,16 +40,14 @@ RSpec.feature  'Performance | ' do
         expect(page.body).to have_content(passed_performance.note)
       end
       scenario 'delete and image links are shown according to past or future', js: true do
-        
-        # save_and_open_page
         click_link(I18n.t('performances.nexting'))
         expect(page.body).to have_selector('a > i.fa.fa-trash.fa-lg')
         expect(page.body).to have_selector('a > i.fa.fa-trash.fa-lg', count: 3)
-        click_link(
-          ActionView::Base.full_sanitizer.sanitize(
-            passed_label(Performance.all)
-          ).strip
-        )
+
+        passed_events = ActionView::Base.full_sanitizer.sanitize(
+          I18n.t('performances.passed_events_title')
+        ).strip
+        click_link(passed_events)
         expect(page.body).to have_selector('a > i.fa.fa-image.fa-lg', count: 2)
       end
     end

@@ -82,13 +82,14 @@ group :development, :test do
 end
 
 group :development do
-  gem 'listen',                                                 '~> 3.0.5'
-  gem 'web-console', '>= 3.7.0'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'letter_opener',                                          '~> 1.6'
+  gem 'listen',                                                 '~> 3.0.5'
+  gem 'readapt',                                                '~> 0.8.1'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring',                                                 '~> 2.0'
   gem 'spring-commands-rspec',                                  '~> 1.0.4'
   gem 'spring-watcher-listen',                                  '~> 2.0.0'
+  gem 'web-console', '>= 3.7.0'
 end
 
 group :test do

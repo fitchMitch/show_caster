@@ -5,6 +5,7 @@ fr:
     answer_possibility: Réponse possible
     calendar_question: Question de dates
     destroyed:  Ce sondage a été supprimé
+    destroyed_not:  Ce sondage n'a pas pu être supprimé
     edit: Modifier le sondage
     expecting_answer: En attente de ma réponse
     expiration_date: Echéance

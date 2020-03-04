@@ -17,13 +17,13 @@
 
     .row.space-up-10
       .col.md-6.room-left-15
-        - if @events.future_events.size > 0
-          = link_to performances_path(direction: "next", page: 0),  class: 'btn btn-primary' do
-            = t('performances.nexting')
-        = image_tag('transp.png')
-        - if @events.passed_events.size > 0
+        - if @all_events.passed_events.size.positive?
           = link_to performances_path(direction: "previous", page: 0), class: 'btn btn-primary' do
             = passed_label(@events)
+        = image_tag('transp.png')
+        - if @all_events.future_events.size.positive?
+          = link_to performances_path(direction: "next", page: 0),  class: 'btn btn-primary' do
+            = t('performances.nexting')
 
     .space-up-10
     .row.strong

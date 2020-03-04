@@ -33,12 +33,16 @@ class User < ApplicationRecord
   belongs_to :committee
   # =====================
 
-  scope :active, lambda {
-    where(status: %i[invited googled registered]).where.not(role: :other)
-  }
-  scope :active_count, -> { active.count }
+  scope :active,
+        lambda {
+          where(status: %i[invited googled registered]).where
+                                                       .not(role: :other)
+        }
+  scope :active_admins,
+        -> { active.where(role: :admin) }
+  scope :active_count,
+        -> { active.count }
   # =====================
-
   # Validations
   # =====================
 
@@ -56,9 +60,9 @@ class User < ApplicationRecord
   validates :uid, uniqueness: { case_sensitive: true }, allow_nil: true
   validates :bio, length: { maximum: 250 }
 
-  # ------------------------
+  # =====================
   # --    PUBLIC      ---
-  # ------------------------
+  # =====================
   def self.from_omniauth(access_token)
     user = User.retrieve(access_token[:info])
     return 'unknown user' if user.nil?

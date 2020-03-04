@@ -112,8 +112,9 @@ class Poll < ApplicationRecord
   end
 
   def votes_destroy
-    Vote.where(poll_id: id)
-        .delete_all
-    Rails.logger.info('----- success in votes_destroy ---------')
+    res = Vote.where(poll_id: id)
+              .delete_all
+    Rails.logger.info("----- success in votes_destroy #{id}---------")
+    res
   end
 end
