@@ -81,13 +81,12 @@ RSpec.feature 'PollSecretBallot' do
     feature 'visiting DELETE' do
       background :each do
         log_in admin
-        poll_secret_ballot = create(:secret_ballot_with_answers)
+        create(:secret_ballot_with_answers, owner: admin)
         visit poll_secret_ballots_path
         page.find('.destroy', match: :first).click
       end
 
       scenario 'it shall create a PollOpinion' do
-        poll_secret_ballot = PollOpinion.last
         expect(page.body).to have_content (I18n.t('polls.destroyed'))
         expect(page.body).to have_selector('h2', text: I18n.t('polls.list'))
       end
