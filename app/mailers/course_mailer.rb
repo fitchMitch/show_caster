@@ -5,7 +5,6 @@ class CourseMailer < ApplicationMailer
     if recipient.try(:email)
       mail(
         to: recipient.email,
-        bcc: User.active_admins.pluck(:email),
         subject: I18n.t('courses.mails.reminder.subject'),
         template_path: 'course_mailer',
         template_name: 'course_reminder_mail'

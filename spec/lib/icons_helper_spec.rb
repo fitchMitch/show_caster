@@ -4,15 +4,11 @@ RSpec.describe IconsHelper do
   let(:dummy_class) { Class.new { include IconsHelper } }
   let(:a_path) { 'png/characters' }
   describe '.extract_icons' do
-    let(:number) { (2..4).to_a.sample }
+    let(:number) { (1..2).to_a.sample }
     it 'should return an Array with a number of items' do
       res = dummy_class.new.extract_icons(number, a_path)
       expect(res.is_a?(Array)).to be(true)
       expect(res.count).to eq(number)
-    end
-    it 'should return an Array with a number of items' do
-      res = dummy_class.new.extract_icons(1, a_path)
-      expect(res.is_a?(String)).to be(true)
     end
     it 'should return an Array of png items' do
       res = dummy_class.new.extract_icons(number, a_path)
