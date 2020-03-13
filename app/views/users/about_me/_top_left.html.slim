@@ -1,6 +1,6 @@
 .petal.petal-up.petal-left.shine_1
   .oim-title
-    = image_tag(random_current_season_image, size:40).html_safe
+    = image_tag(random_season_image(@previous_show_date), size:40).html_safe
     = image_tag('transp.png')
     = t('wham.lastly')
   .row

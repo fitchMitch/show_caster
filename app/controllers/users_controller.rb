@@ -96,12 +96,13 @@ class UsersController < ApplicationController
   end
 
   def about_me
-    my_own = AboutMeService.new
-    @next_performance = my_own.next_show(current_user.id)
-    @last_performance = my_own.previous_show(current_user.id)
+    my_own = AboutMeService.new(current_user)
+    @next_performance = my_own.next_show
+    @last_performance = my_own.previous_show
     @next_course = my_own.next_course
-    @last_comments = my_own.last_comments(current_user)
-    @last_poll_results = my_own.last_poll_results(current_user)
+    @last_comments = my_own.last_comments
+    @last_poll_results = my_own.last_poll_results
+    @previous_show_date = my_own.previous_show_date
   end
 
   private

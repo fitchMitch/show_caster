@@ -130,16 +130,6 @@ module UsersHelper
     Bugsnag.notify(e)
   end
 
-  def random_next_season_image
-    path = "png/seasons/#{next_season}"
-    get_random_png_icon(path)
-  end
-
-  def random_current_season_image
-    path = "png/seasons/#{current_season}"
-    get_random_png_icon(path)
-  end
-
   def random_character_avatar
     get_random_png_icon('png/characters')
   end
