@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 class AboutMeService
-  def next_show(user_id)
-    shows = Performance.next_shows(user_id)
+  def initialize(user)
+    @user = user
+  end
+
+  def next_show
+    shows = Performance.next_shows(@user.id)
     if shows.empty?
       verbose = (1..7).to_a.sample < 2
       if verbose
@@ -15,13 +19,17 @@ class AboutMeService
     end
   end
 
-  def previous_show(user_id)
-    shows = Performance.previous_shows(user_id)
+  def previous_show
+    shows = Performance.previous_shows(@user.id)
     if shows.empty?
       I18n.t('performances.no_passed_show')
     else
       shows.first
     end
+  end
+
+  def previous_show_date
+    previous_show.is_a?(Performance) ? previous_show.event_date : nil
   end
 
   def next_course
@@ -33,16 +41,16 @@ class AboutMeService
     end
   end
 
-  def last_comments(user)
+  def last_comments
     last_comments = []
-    thread_id_list = Commontator::Thread.last_comments(user)
+    thread_id_list = Commontator::Thread.last_comments(@user)
     thread_id_list.each do |thread_id|
       last_comments << Commontator::Comment.last_comments(thread_id).first
     end
     last_comments
   end
 
-  def last_poll_results(user)
-    Poll.last_results(user)
+  def last_poll_results
+    Poll.last_results(@user)
   end
 end

@@ -1,5 +1,10 @@
 .row.user-list class= "#{user.firstname} #{user.lastname}"
   .col-md-3.col-sm-3.col-xs-6
+    .room-right-10
+      - if user.pictures.blank?
+        = image_tag(random_character_avatar, size: 35 )
+      - else
+        = image_tag(user.pictures.first.photo(:square), width: 35)
     = link_to_user(user, current_user)
   .col-md-2.hidden-sm.hidden-xs
     small
