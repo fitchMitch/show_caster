@@ -46,8 +46,7 @@ module EventsHelper
   end
 
   def passed_label(events)
-    return '--->' if events.empty?
-
+    events = [nil] if events.empty?
     I18n.t("#{get_dictionnary(events.first)}.passed_events_title").html_safe
   end
 
