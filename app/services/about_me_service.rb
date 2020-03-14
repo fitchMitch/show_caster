@@ -21,11 +21,7 @@ class AboutMeService
 
   def previous_show
     shows = Performance.previous_shows(@user.id)
-    if shows.empty?
-      I18n.t('performances.no_passed_show')
-    else
-      shows.first
-    end
+    shows.empty? ? I18n.t('performances.no_passed_show') : shows.first
   end
 
   def previous_show_date

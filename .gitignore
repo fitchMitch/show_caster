@@ -48,3 +48,6 @@ brakeman.html
 
 # ignore all .pdf files in the doc/ directory and any of its subdirectories
 #doc/**/*.pdf
+
+# Ignore application configuration
+/config/application.yml
