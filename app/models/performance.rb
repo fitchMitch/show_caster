@@ -11,8 +11,7 @@ class Performance < Event
   belongs_to :user
   belongs_to :theater
   has_many :pictures, as: :imageable, dependent: :destroy
-
-  has_many  :actors,
+  has_many :actors,
             dependent: :destroy,
             inverse_of: :performance,
             foreign_key: 'event_id'
@@ -42,11 +41,15 @@ class Performance < Event
                   .where('events.event_date > ?', Time.zone.now)
                   .order('events.event_date ASC')
   }
-  scope :previous_shows, lambda { |user_id|
-    joins(:actors).where('actors.user_id = ?', user_id)
-                  .where('events.event_date < ?', Time.zone.now)
-                  .order('events.event_date DESC')
-  }
+  def self.named_scope_previous_show_method(user_id)
+    act_ar  = Actor.arel_table
+    perf_ar = Performance.arel_table
+    Performance.joins(:actors)
+               .where(perf_ar[:event_date].lt(Time.zone.now))
+               .where(act_ar[:user_id].eq(user_id))
+               .order(perf_ar[:event_date].desc)
+  end
+  scope(:previous_shows, proc {|args| named_scope_previous_show_method(args) })
 
   # ------------------------
   # --    PUBLIC      ---
