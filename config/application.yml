@@ -1,0 +1,53 @@
+SHOW_CASTER_PORT: ""
+SHOW_CASTER_HOST: ""
+development:
+  SMTP_EMAIL: no-reply@les-sesames.fr
+  SMTP_PASSWORD: this697_is8nO_ans,wer
+  SMTP_SERVER: mail.gandi.net
+
+  MAILCHIMP_API_KEY: f0b24b95e4293c1ed01e131bc2e49120-us17
+  MAILCHIMP_SPLASH_SIGNUP_LIST_ID: 3787e6a2f3
+
+  GOOGLE_API_KEY: 1032052701730-nfa20fm4mttqmctnb0aa7076rhi0lkvn.apps.googleusercontent.com
+  GOOGLE_CLIENT_ID: 1032052701730-nfa20fm4mttqmctnb0aa7076rhi0lkvn.apps.googleusercontent.com
+  GOOGLE_CREDENTIAL_STORE: ""
+  GOOGLE_CLIENT_SECRETS: z_z6Z7QWAeEdUiuJM_vE1UPv
+  GOOGLE_CALENDAR_ID: cvcb58q0fldibag1nattkg9luc@group.calendar.google.com
+
+  SECRET_KEY_BASE: irgendwie
+  REDIS_SITE: localhost:6379/0
+
+  BUGSNAG_API_KEY: 483c0ee2efca0a4199573b7f299bcd90
+
+  SHOW_CASTER_DATABASE_USERNAME: sesame
+  SHOW_CASTER_DATABASE_PASSWORD: matwo
+  SHOW_CASTER_DATABASE_PORT: 5432
+
+  DEVISE_SECRET_KEY: kill_this_please_652e9659009dfd780560db632c2c1afa87d63b216c0bca2118d620e761655f2a9561f80ece60d6c41ea95a5c096659cf8ac2a0ff1b0da6ab1969c39c387a9c59t
+test:
+  SMTP_EMAIL: no-reply@les-sesames.fr
+  SMTP_PASSWORD: this697_is8nO_ans,wer
+  SMTP_SERVER: mail.gandi.net
+
+  MAILCHIMP_API_KEY: f0b24b95e4293c1ed01e131bc2e49120-us17
+  MAILCHIMP_SPLASH_SIGNUP_LIST_ID: 3787e6a2f3
+
+  GOOGLE_API_KEY: 1032052701730-nfa20fm4mttqmctnb0aa7076rhi0lkvn.apps.googleusercontent.com
+  GOOGLE_CLIENT_ID: 1032052701730-nfa20fm4mttqmctnb0aa7076rhi0lkvn.apps.googleusercontent.com
+  GOOGLE_CREDENTIAL_STORE: ""
+  GOOGLE_CLIENT_SECRETS: z_z6Z7QWAeEdUiuJM_vE1UPv
+  GOOGLE_CALENDAR_ID: cvcb58q0fldibag1nattkg9luc@group.calendar.google.com
+
+  SECRET_KEY_BASE: irgendwie
+  REDIS_SITE: localhost:6379/0
+
+  BUGSNAG_API_KEY: 483c0ee2efca0a4199573b7f299bcd90
+  # SGBD_PWD_DEV: jjflo
+
+  SHOW_CASTER_DATABASE_USERNAME: sesame
+  SHOW_CASTER_DATABASE_PASSWORD: matwo
+  SHOW_CASTER_DATABASE_PORT: 5432
+
+  DEVISE_SECRET_KEY: kill_this_please_652e9659009dfd780560db632c2c1afa87d63b216c0bca2118d620e761655f2a9561f80ece60d6c41ea95a5c096659cf8ac2a0ff1b0da6ab1969c39c387a9c59t
+
+

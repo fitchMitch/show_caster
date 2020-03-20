@@ -1,0 +1,2 @@
+CREATE USER sesame;
+ALTER USER sesame WITH SUPERUSER;
