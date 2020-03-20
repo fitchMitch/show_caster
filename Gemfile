@@ -16,9 +16,9 @@ gem 'annotate'
 gem 'coffee-rails', '~> 4.2', '>= 4.2.2'
 gem 'jbuilder',                                             '~> 2.5'
 gem 'pg',                                                   '~> 0.20'
-gem 'rails',                                                '~> 5.0.7', '>= 5.0.7.2'
+gem 'rails', '~> 5.2.4', '>= 5.2.4.2'
 gem 'slim',                                                 '>= 3.0.9'
-gem 'slim-rails',                                           '~> 3.2', '>= 3.2.0'
+gem 'slim-rails', '~> 3.2', '>= 3.2.0'
 gem 'figaro',                                               '~> 1.1.1'
 # Front gems
 # -----------------------
@@ -39,9 +39,9 @@ gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.5'
 gem 'kaminari', '~> 1.1', '>= 1.1.1'
 gem 'meta-tags', '2.11.1'
 gem 'rails-settings-cached', '~> 0.7', '>= 0.7.2'
-gem 'ransack', '~> 2.1', '>= 2.1.1'
+gem 'ransack', '~> 2.3', '>= 2.3.0'
 gem 'select2-rails',                                        '~> 4.0'
-gem 'simple_form', '~> 5.0', '>= 5.0.0'
+gem 'simple_form', '~> 5.0', '>= 5.0.1'
 # gem 'rails-settings-cached', source: 'https://rubygems.org'
 # API ones
 # -----------------------
