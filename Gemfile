@@ -16,9 +16,10 @@ gem 'annotate'
 gem 'coffee-rails', '~> 4.2', '>= 4.2.2'
 gem 'jbuilder',                                             '~> 2.5'
 gem 'pg',                                                   '~> 0.20'
-gem 'rails', '~> 5.0.7', '>= 5.0.7.2'
+gem 'rails',                                                '~> 5.0.7', '>= 5.0.7.2'
 gem 'slim',                                                 '>= 3.0.9'
-gem 'slim-rails', '~> 3.2', '>= 3.2.0'
+gem 'slim-rails',                                           '~> 3.2', '>= 3.2.0'
+gem 'figaro',                                               '~> 1.1.1'
 # Front gems
 # -----------------------
 gem 'bootstrap-sass',                                       '~> 3.3'
@@ -37,8 +38,6 @@ gem 'enum_help',                                            '~> 0.0'
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.5'
 gem 'kaminari', '~> 1.1', '>= 1.1.1'
 gem 'meta-tags', '2.11.1'
-gem 'papercrop', '~> 0.3', '>= 0.3.0'
-gem 'rails-assets-jcrop', source: 'https://rails-assets.org'
 gem 'rails-settings-cached', '~> 0.7', '>= 0.7.2'
 gem 'ransack', '~> 2.1', '>= 2.1.1'
 gem 'select2-rails',                                        '~> 4.0'
@@ -50,17 +49,19 @@ gem 'gibbon',                                               '~> 3.2'
 gem 'google-api-client',                                    '~> 0.23'
 gem 'omniauth-google-oauth2',                               '~> 0.5'
 # https://docs.bugsnag.com/platforms/ruby/rails/
-gem 'bugsnag',                                              '~> 6.8'
+gem 'pundit',                                               '~> 1.1'
 # middleware
 # -----------------------
 # background jogs
 gem 'sidekiq',                                              '~> 5.2.7'
 # -----------------------
+gem 'rails-assets-jcrop', source: 'https://rails-assets.org'
+gem 'papercrop', '~> 0.3', '>= 0.3.0'
 gem 'mini_magick',                                          '~> 4.9'
 gem 'paperclip',                                            '~> 6.0.0'
 gem 'paperclip-i18n',                                       '~> 4.3'
-gem 'pundit',                                               '~> 1.1'
 #---------------------------
+gem 'bugsnag',                                              '~> 6.8'
 
 group :development, :test do
   gem 'puma',                                                 '~> 3.0'
