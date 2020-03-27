@@ -9,6 +9,7 @@
 
 /config/secrets.yml
 /config/database.yml
+/config/application.yml
 /docs/*
 /coverage/*
 /spec/vcr/*
