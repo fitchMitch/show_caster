@@ -1,6 +1,21 @@
 version: '3.4'
 
 services:
+  redis:
+    image: redis:5.0.7
+  database:
+    image: "postgres:latest"
+    ports:
+        - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_USER: sesame
+      POSTGRES_DB: matwo
+    env_file:
+      - .env
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
   app:
     build:
       context: .
@@ -14,18 +29,8 @@ services:
       - .:/app
       - gem_cache:/usr/local/bundle/gems
       - node_modules:/app/node_modules
-    # env_file: .env
-    environment:
-      RAILS_ENV: development
-
-  database:
-    image: postgres:12.1
-    volumes:
-      - db_data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-  redis:
-    image: redis:5.0.7
-
+    env_file:
+      - .env
   sidekiq:
     build:
       context: .
@@ -38,11 +43,10 @@ services:
       - .:/app
       - gem_cache:/usr/local/bundle/gems
       - node_modules:/app/node_modules
-    # env_file: .env
+    env_file: .env
     environment:
       RAILS_ENV: development
       entrypoint: ./entrypoints/sidekiq-entrypoint.sh
-
 volumes:
   gem_cache:
   db_data:

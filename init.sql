@@ -1,2 +1,4 @@
 CREATE USER sesame;
 ALTER USER sesame WITH SUPERUSER;
+CREATE DATABASE showcaster_dev;
+GRANT ALL PRIVILEGES ON DATABASE showcaster_dev TO sesame;

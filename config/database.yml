@@ -1,24 +1,23 @@
 # PostgreSQL. Versions 9.1 and up are supported.
 #
 default: &default
-  host: localhost
+  host: database
   adapter: postgresql
-  username: sesame
   encoding: unicode
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
-  username: <%= ENV.fetch('SHOW_CASTER_DATABASE_USERNAME', 'sesame') %>
+  username: <%= ENV.fetch('SHOW_CASTER_DATABASE_USERNAME') %>
   timeout: 5000
 
 development:
   <<: *default
-  database: show_caster_dev
+  database: showcaster_dev
   password: matwo
 
 test:
   <<: *default
-  database: show_caster_test
+  database: showcaster_test
   password: matwo
 
 production:

@@ -1,5 +1,6 @@
 FROM ruby:2.4-stretch
-
+RUN apt-get update -qq \
+    && apt-get install -y nodejs postgresql-client
 # ENV RAILS_ENV production
 ENV BUNDLER_VERSION=2.1.12
 
@@ -10,21 +11,29 @@ ENV BUNDLER_VERSION=2.1.12
 
 WORKDIR /app
 
-COPY Gemfile Gemfile.lock ./
+COPY Gemfile /app/Gemifile
+COPY Gemfile.lock /app/Gemfile.lock
 
 RUN bundle config build.nokogiri --use-system-libraries
-
 RUN bundle check || bundle install
 
 # COPY package.json yarn.lock ./
 # RUN yarn install --check-files
 
-COPY . ./
+COPY . /app
 
-RUN gem install foreman \
-    && bundle install --deployment --without development test \
-    && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
-    && apt install -y nodejs
 
-ENTRYPOINT ./entrypoints/entrypoint.sh
+COPY ./entrypoints/entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
+EXPOSE 3000
+
+# Start the main process.
+CMD ["rails", "server", "-b", "0.0.0.0"]
+# RUN gem install rake \
+#     && apt install -y nodejs \
+#     && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+#     && bundle install --deployment --without development # test
+
+# ENTRYPOINT ./entrypoints/entrypoint.sh
 
