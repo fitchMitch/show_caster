@@ -27,4 +27,8 @@ class Coach < ApplicationRecord
   def full_name
     first_and_last_name.html_safe
   end
+
+  def archived?
+    true
+  end
 end
