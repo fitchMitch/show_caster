@@ -1,6 +1,6 @@
 FROM ruby:2.4-stretch
 RUN apt-get update -qq \
-    && apt-get install -y nodejs postgresql-client
+    && apt-get install -y nodejs postgresql-client tzdata
 # ENV RAILS_ENV production
 ENV BUNDLER_VERSION=2.1.12
 
@@ -11,9 +11,11 @@ ENV BUNDLER_VERSION=2.1.12
 
 WORKDIR /app
 
-COPY Gemfile /app/Gemifile
+COPY Gemfile /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
 
+RUN echo "Europe/Paris" > /etc/timezone
+RUN gem install bundler -v '~> 2.1.4'
 RUN bundle config build.nokogiri --use-system-libraries
 RUN bundle check || bundle install
 

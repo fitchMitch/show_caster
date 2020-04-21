@@ -27,7 +27,7 @@ gem 'jquery-rails', '~> 4.3', '>= 4.3.5'
 # bootstrap 3 helper for navbar for example~>
 gem 'bh', '~> 1.3', '>= 1.3.6'
 gem 'modernizr-rails',                                      '~> 2.7'
-gem 'sassc-rails', '~> 1.3', '>= 1.3.0'
+gem 'sassc-rails'
 gem 'uglifier',                                             '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -111,6 +111,7 @@ group :test do
 end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data'
 
 group :production do
   gem 'lograge', '~> 0.11', '>= 0.11.2'
