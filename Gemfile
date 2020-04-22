@@ -19,7 +19,8 @@ gem 'pg',                                                   '~> 0.20'
 gem 'rails',                                                '~> 5.0.7', '>= 5.0.7.2'
 gem 'slim',                                                 '>= 3.0.9'
 gem 'slim-rails',                                           '~> 3.2', '>= 3.2.0'
-gem 'figaro',                                               '~> 1.1.1'
+gem 'figaro',                                               '~> 1.1'
+gem 'foreman',                                              '~> 0.87'
 # Front gems
 # -----------------------
 gem 'bootstrap-sass',                                       '~> 3.3'
@@ -68,9 +69,9 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'better_errors',                                        '~> 2.4'
   gem 'binding_of_caller',                                    '~> 0.8'
-  gem 'byebug',                                               '~> 10.0'
-  gem 'pry',                                                  '~> 0.11'
-  gem 'pry-byebug',                                           '~> 3.6'
+  gem 'byebug',                                               '~> 11.1.2'
+  gem 'pry',                                                  '~> 0.13.1'
+  gem 'pry-byebug',                                           '~> 3.9'
 
   # %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
   #   gem lib, git: "https://github.com/rspec/#{lib}.git", branch: 'master'
