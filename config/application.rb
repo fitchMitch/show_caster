@@ -22,8 +22,7 @@ module ShowCaster
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     # Don't generate system test files.
-    config.web_console.whitelisted_ips = ENV['DOCKER_HOST_IP']
-    # config.web_console.whiny_requests = false #if necessary
+
     config.generators.system_tests = nil
 
     # I18n

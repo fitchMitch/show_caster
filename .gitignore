@@ -27,6 +27,7 @@
 /bin/atom-rubocop.sh
 
 # Ignore Byebug command history file.
+/env/*
 .env
 .byebug_history
 .yarn-integrity

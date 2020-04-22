@@ -8,11 +8,8 @@ services:
     ports:
       - "5432"
     restart: always
-    environment:
-      POSTGRES_USER: sesame
-      POSTGRES_DB: matwo
     env_file:
-      - .env
+      - env/database.env
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -30,7 +27,8 @@ services:
       - bundle_cache:/bundle_cache
       - node_modules:/app/node_modules
     env_file:
-      - .env
+      - env/application.env
+      - env/database.env
   sidekiq:
     build:
       context: .
@@ -42,8 +40,10 @@ services:
     volumes:
       - .:/app
       - bundle_cache:/bundle_cache
-      - node_modules:/app/node_modules
-    env_file: .env
+    env_file:
+      - env/application.env
+      - env/sidekiq.env
+      - env/database.env
     environment:
       RAILS_ENV: development
     entrypoint: ./entrypoints/sidekiq-entrypoint.sh
