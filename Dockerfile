@@ -15,7 +15,7 @@ COPY Gemfile /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
 
 RUN echo "Europe/Paris" > /etc/timezone
-RUN gem install bundler -v '~> 2.1.4'
+RUN gem install bundler
 RUN bundle config build.nokogiri --use-system-libraries
 RUN bundle check || bundle install
 

@@ -9,7 +9,7 @@
 
 /config/secrets.yml
 /config/database.yml
-/config/application.yml
+/config/application.yml.old
 /docs/*
 /coverage/*
 /spec/vcr/*

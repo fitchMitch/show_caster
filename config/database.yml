@@ -10,16 +10,15 @@ default: &default
   username: <%= ENV.fetch('SHOW_CASTER_DATABASE_USERNAME') %>
   timeout: 5000
   port: <%= ENV.fetch('SHOW_CASTER_PORT') %>
+  database: <%= ENV.fetch('SHOW_CASTER_DATABASE_NAME') %>
 
 development:
   <<: *default
-  database: showcaster_dev
   password: matwo
 
 test:
   <<: *default
   database: showcaster_test
-  password: matwo
 
 production:
   <<: *default
