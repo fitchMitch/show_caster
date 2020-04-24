@@ -98,9 +98,9 @@ group :test do
   gem 'hashdiff',                                               ['>= 1.0.0.beta1', '< 2.0.0']
   gem 'simplecov', require: false
   # gem 'vcr'
-  gem 'capybara', '~> 3.25', '>= 3.25.0'
+  gem 'capybara',                                               '~> 3.32'
   gem 'launchy',                                                '~> 2.4'
-  gem 'pundit-matchers', '~> 1.4.1'
+  gem 'pundit-matchers',                                        '~> 1.6'
   gem 'rspec',                                                  '~> 3.7.0'
   gem 'rspec-collection_matchers'
   gem 'rspec-rails', '>= 3.7.2'
