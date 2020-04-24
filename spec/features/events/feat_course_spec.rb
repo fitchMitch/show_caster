@@ -132,7 +132,7 @@ RSpec.feature  'Course | ' do
         #--------------------
         expect(page.body).to have_content Event::DURATIONS.rassoc(
           course_w.duration
-        )
+        ).first
         expect(find_field(I18n.t('courses.title')).value).to eq(title)
         expect(find_field(I18n.t('performances.note')).value).to eq(note)
         expect(
