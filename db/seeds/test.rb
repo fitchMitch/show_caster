@@ -16,10 +16,8 @@ end
 User.create!(
   firstname:             'Etienne',
   lastname:              'WEIL',
-  email:                 'weil.etienne@hotmail.fr',
-  password:              '123456',
-  password_confirmation: '123456',
+  email:                 'etienne.weil@gmail.com',
   role:                   2,
-  cell_phone_nr:          '06 23 04 30 52',
-  address:                '18, rue de Cotte Paris 12e'
+  cell_phone_nr:          FFaker::PhoneNumberFR.mobile_phone_number,
+  address:                '29, rue St Jean, Paris 75014'
 )

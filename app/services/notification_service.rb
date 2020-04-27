@@ -33,7 +33,7 @@ class NotificationService < Notification
   rescue StandardError => e
     Bugsnag.notify(e)
     Rails.logger.warn("destroy_all_notifications failure: #{e}")
-    return false
+    false
   end
 
   def self.get_delays(obj)

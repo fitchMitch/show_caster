@@ -81,14 +81,13 @@ RSpec.feature 'PollOpinion' do
     feature 'visiting DELETE' do
       background :each do
         log_in admin
-        poll_opinion = create(:poll_opinion_with_answers)
+        create(:poll_opinion_with_answers)
         visit poll_opinions_path
         page.find('.destroy', match: :first).click
       end
 
-      scenario 'it shall create a PollOpinion' do
-        poll_opinion = PollOpinion.last
-        expect(page.body).to have_content (I18n.t('polls.destroyed'))
+      scenario 'it shall delete a PollOpinion' do
+        expect(page.body).to have_content(I18n.t 'polls.destroyed')
         expect(page.body).to have_selector('h2', text: I18n.t('polls.list'))
       end
     end

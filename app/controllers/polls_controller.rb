@@ -47,16 +47,9 @@ class PollsController < ApplicationController
   end
 
   def destroy
-    res = true
-    Poll.transaction do
-      res = @poll.votes_destroy &&
-            @poll.destroy &&
-            NotificationService.destroy_all_notifications(@poll)
-      unless res
-        raise ActiveRecord::Rollback, "won't destroy poll ? ##{@poll.id}"
-      end
-    end
-    if res
+    errors = destroy_poll_process(@poll)
+
+    if errors.empty?
       redirect_to polls_url, notice: I18n.t('polls.destroyed')
     else
       redirect_to polls_url, alert: I18n.t('polls.destroyed_not')
@@ -72,6 +65,25 @@ class PollsController < ApplicationController
   end
 
   private
+
+  def destroy_poll_process(poll)
+    errors = []
+    Poll.transaction do
+      if poll.votes_destroy.nil?
+        poll.errors.add(:votes, 'associated votes destroy failed')
+      elsif poll.destroy.nil?
+        poll.errors.add(:polls, 'poll destroy failed')
+      elsif NotificationService.destroy_all_notifications(poll)
+        poll.errors.add(:notifications, 'notifications destroying failed')
+      end
+      errors = poll.errors.full_messages
+      unless errors.empty?
+        Rails.logger.error errors.join ", "
+        raise ActiveRecord::Rollback, "won't destroy poll ? ##{poll.id}"
+      end
+    end
+    errors
+  end
 
   def set_poll
     @poll = set_type.classify.constantize.find(params[:id])
