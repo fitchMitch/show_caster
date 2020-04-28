@@ -70,6 +70,9 @@ class User < ApplicationRecord
     user = User.retrieve(access_token[:info])
     return 'unknown user' if user.nil?
 
+    Rails.logger.debug("===> user is not null")
+    Rails.logger.debug("====> #{access_token.keys.join('--')}")
+
     update_parameters = GoogleCalendarService.token_user_information(
       user, access_token
     )
@@ -91,6 +94,7 @@ class User < ApplicationRecord
   def self.retrieve(data)
     user = User.find_by_email(data[:email].downcase)
     if user.nil? && data[:last_name].presence && data[:first_name].presence
+      Rails.logger.debug ("=========> using first and  last names")
       user = User.find_by_firstname_and_lastname(
         data[:first_name], data[:last_name]
       )
