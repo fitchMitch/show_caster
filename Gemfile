@@ -10,7 +10,7 @@ end
 # Technical
 # -----------------------
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-ruby '2.4.9'
+ruby '2.4.10'
 
 gem 'annotate'
 gem 'coffee-rails', '~> 4.2', '>= 4.2.2'
