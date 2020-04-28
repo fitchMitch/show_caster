@@ -4,7 +4,7 @@ fr:
     signed_out: Vous êtes déconnecté
     omniauth_with: Avec
     omniauth:
-      failure: Impossible de s'authentifier avec %{kind}".
+      failure: Impossible de s'authentifier avec %{kind}.
       success: Beau succès d'étape avec votre compte %{kind}.
       unknown: Vous, vous avez besoin d'un Sésame !
       archived_player: Sauf erreur, vous ne faites plus partie des Sésames

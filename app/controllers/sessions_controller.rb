@@ -46,7 +46,8 @@ class SessionsController < ApplicationController
   end
 
   def oauth_failure
-    render text: I18n.t('sessions.omniauth.failure', kind: 'Google')
+    msg = I18n.t('sessions.omniauth.failure', kind: 'Google')
+    render text: "Erreur d'authentification : #{msg}"
   end
 
   protected
