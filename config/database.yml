@@ -19,7 +19,7 @@ development:
 test:
   <<: *default
   database: showcaster_test
-
+  password: <%= ENV.fetch('POSTGRES_PASSWORD')%>
 production:
   <<: *default
   database: show_caster
