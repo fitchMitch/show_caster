@@ -2,8 +2,7 @@
 
 module MailerMacros
   def last_email
-    condition = ActionMailer::Base.deliveries.empty?
-    condition ? nil : ActionMailer::Base.deliveries.last
+    all_emails.empty? ? nil : all_emails.last
   end
 
   def last_email_address
@@ -19,7 +18,7 @@ module MailerMacros
   end
 
   def all_emails_sent_count
-    ActionMailer::Base.deliveries.count
+    all_emails.count
   end
 
   def all_email_addresses

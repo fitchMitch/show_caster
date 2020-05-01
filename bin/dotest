@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+def system!(*args)
+  system(*args) || abort("\n== Command #{args} failed ==")
+end
+
+system! 'sudo docker-compose run -e "RAILS_ENV=test" app rspec spec'

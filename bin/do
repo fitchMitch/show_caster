@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+def system!(*args)
+  system(*args) || abort("\n== Command #{args} failed ==")
+end
+
+puts "\n== starting / dumping docker with up and down=="
+system! "sudo docker-compose #{ARGV[0]}"
