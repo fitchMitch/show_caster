@@ -106,7 +106,8 @@ group :test do
   gem 'rspec-retry'
   gem 'rubocop-rspec', '~> 1.28'
   gem 'shoulda'
-  gem 'webdrivers', '~> 4.3'
+  # Keep your Selenium WebDrivers updated automatically
+  gem 'webdrivers', require: !ENV['SELENIUM_REMOTE_URL']
   gem 'webmock', '~> 3.6'
 end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
