@@ -24,16 +24,17 @@ class NotificationService < Notification
 
   def self.destroy_all_notifications(obj)
     scheduled_jobs = Sidekiq::ScheduledSet.new
+    has_error = false
+
     scheduled_jobs.each do |job|
       next unless job.args.present?
-
       job.delete if destroy_conditions_ok?(obj, job)
     end
-    true
+    has_error
   rescue StandardError => e
     Bugsnag.notify(e)
     Rails.logger.warn("destroy_all_notifications failure: #{e}")
-    false
+    has_error = true
   end
 
   def self.get_delays(obj)

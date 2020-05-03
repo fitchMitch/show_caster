@@ -15,4 +15,4 @@ end
 
 OmniAuth.config.on_failure = SessionsController.action(:oauth_failure)
 
-OmniAuth.config.full_host = Rails.env.production? ? 'https://www.les-sesames.fr' : 'http://localhost:3000'
+# OmniAuth.config.full_host = Rails.env.production? ? 'http://www.les-sesames.fr' : 'http://localhost:3000'
