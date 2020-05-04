@@ -98,6 +98,7 @@ group :test do
   gem 'simplecov', require: false
   # gem 'vcr'
   gem 'capybara', '~> 3.25', '>= 3.25.0'
+  gem 'capybara-screenshot'
   gem 'launchy',                                                '~> 2.4'
   gem 'pundit-matchers', '~> 1.4.1'
   gem 'rspec',                                                  '~> 3.7.0'
@@ -108,6 +109,7 @@ group :test do
   gem 'shoulda'
   # Keep your Selenium WebDrivers updated automatically
   gem 'webdrivers', require: !ENV['SELENIUM_REMOTE_URL']
+
   gem 'webmock', '~> 3.6'
 end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

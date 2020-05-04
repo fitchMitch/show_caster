@@ -42,7 +42,7 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   # config.action_mailer.delivery_method = :smtp
   # Don't use this literally; use your local dev host instead
-  host = 'localhost:3000'
+  host = '0.0.0.0:3000'
   site = host
   config.action_mailer.default_url_options = {
     host: host,
@@ -77,4 +77,9 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  Rails.logger = ActiveSupport::Logger.new(STDOUT)
+  Rails.logger.level = Logger::DEBUG
+  Rails.logger.datetime_format = "%d %b | %H:%M"
+  config.log_tags = [:request_id]
 end

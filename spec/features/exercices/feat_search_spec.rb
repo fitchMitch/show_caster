@@ -27,6 +27,7 @@ RSpec.feature Exercice do
         instructions: 'test instructions'
       )
     end
+
     background do
       log_in admin
       visit exercices_path

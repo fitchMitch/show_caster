@@ -76,6 +76,9 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (~> 1.5)
       xpath (~> 3.2)
+    capybara-screenshot (1.0.24)
+      capybara (>= 1.0, < 4)
+      launchy
     childprocess (3.0.0)
     climate_control (0.2.0)
     cocoon (1.2.14)
@@ -447,6 +450,7 @@ DEPENDENCIES
   bugsnag (~> 6.8)
   byebug (~> 11.1)
   capybara (~> 3.25, >= 3.25.0)
+  capybara-screenshot
   cocoon (~> 1.2)
   coffee-rails (~> 4.2, >= 4.2.2)
   commontator (~> 5.1.0)
