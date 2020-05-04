@@ -1,8 +1,10 @@
 version: '3.4'
 
+
 services:
   redis:
     image: redis:5.0.7
+
   database:
     image: "postgres:12.1"
     ports:
@@ -13,13 +15,16 @@ services:
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
   app:
     build:
       context: .
       dockerfile: Dockerfile
     depends_on:
       - database
+      - bundle_cache
       - redis
+      - chrome
     ports:
       - "3000:3000"
     volumes:
@@ -28,7 +33,11 @@ services:
       - node_modules:/app/node_modules
     env_file:
       - env/application.env
+      - env/sidekiq.env
       - env/database.env
+    stdin_open: true
+    tty: true
+
   sidekiq:
     build:
       context: .
@@ -37,6 +46,7 @@ services:
       - app
       - database
       - redis
+      - bundle_cache
     volumes:
       - .:/app
       - bundle_cache:/bundle_cache
@@ -44,13 +54,21 @@ services:
       - env/application.env
       - env/sidekiq.env
       - env/database.env
-    environment:
-      RAILS_ENV: development
     entrypoint: ./entrypoints/sidekiq-entrypoint.sh
+
   bundle_cache:
     image: busybox
     volumes:
       - bundle_cache:/bundle_cache
+
+  chrome:
+    image: selenium/standalone-chrome
+    # logging:
+    #   driver: "none"
+    ports:
+      - "4444:4444"
+      - "5900:5900"
+
 volumes:
   bundle_cache:
   db_data:

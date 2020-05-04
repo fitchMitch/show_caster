@@ -3,12 +3,14 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
+
 require 'spec_helper'
 require 'rspec/rails'
 require 'webmock/rspec'
 require 'capybara/rspec'
-require 'selenium/webdriver'
-
+require 'capybara-screenshot'
+# require 'selenium/webdriver'
+require 'webdrivers/chromedriver'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
@@ -19,36 +21,34 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
-# WebMock.disable_net_connect!(allow_localhost: true)
-
-# Capybara.register_driver :selenium_chrome do |app|
-#   Capybara::Selenium::Driver.new(app, browser: :chrome)
-# end
-#
-# Capybara.javascript_driver = :selenium_chrome
 # ================================
 # CAPYBARA
 # ================================
-Capybara.register_driver :chrome do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
-end
+# net = Socket.ip_address_list.detect{ |addr| addr.ipv4_private? }
+# ip = net.nil? ? 'localhost' : net.ip_address
+# Capybara.server_port = 4444
+# # Capybara.server_port = 8200
+# Capybara.server_host = ip
+# Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
 
 Capybara.register_driver :headless_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: { args: %w(headless disable-gpu) }
+    chromeOptions: { args: %w(headless no-sandbox disable-gpu ) }
   )
 
-Capybara::Selenium::Driver.new app,
-  browser: :chrome,
-  desired_capabilities: capabilities
-end
+  Capybara::Selenium::Driver.new app,
+    browser: :chrome,
+    desired_capabilities: capabilities,
+    url: ENV['SELENIUM_REMOTE_URL']
+  end
 
-Capybara.javascript_driver = :chrome
+  Capybara::Screenshot.register_driver :headless_chrome do |driver, path|
+    driver.save_screenshot(path)
+  end
+
 Capybara.javascript_driver = :headless_chrome
 
-# Capybara::Screenshot.register_driver :chrome do |driver, path|
-#   driver.save_screenshot(path)
-# end
+
 # ================================
 
 Shoulda::Matchers.configure do |config|
@@ -90,12 +90,12 @@ RSpec.configure do |config|
   config.include SessionsHelper, type: :feature
   config.include PollsHelper, type: :feature
 
-  # show retry status in spec process
-  config.verbose_retry = true
-  # Try twice (retry once)
-  config.default_retry_count = 2
-  # Only retry when Selenium raises Net::ReadTimeout
-  config.exceptions_to_retry = [Net::ReadTimeout]
+  # # show retry status in spec process
+  # config.verbose_retry = true
+  # # Try twice (retry once)
+  # config.default_retry_count = 2
+  # # Only retry when Selenium raises Net::ReadTimeout
+  # config.exceptions_to_retry = [Net::ReadTimeout]
 
   # config.include Capybara::DSL, file_path: "spec/requests"
   # BEFORE
@@ -112,7 +112,7 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.start
   end
-  #AFTER
+  # AFTER
   config.after(:each) do
     DatabaseCleaner.clean
   end

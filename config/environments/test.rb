@@ -34,7 +34,14 @@ Rails.application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
-  host = 'localhost:3000' # Don't use this literally; use your local dev host instead
+
+  net = Socket.ip_address_list.detect{ |addr| addr.ipv4_private? }
+  ip = net.nil? ? 'localhost' : net.ip_address
+
+  config.domain = ip
+  config.action_mailer.default_url_options = { host: config.domain }
+
+  host = "#{ip}:3000"
   site = host
   config.action_mailer.default_url_options = {
     host: host,
