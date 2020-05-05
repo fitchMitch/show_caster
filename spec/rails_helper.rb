@@ -90,6 +90,8 @@ RSpec.configure do |config|
   config.include SessionsHelper, type: :feature
   config.include PollsHelper, type: :feature
 
+  config.include PunditSpecHelper, type: :view
+
   # # show retry status in spec process
   # config.verbose_retry = true
   # # Try twice (retry once)
