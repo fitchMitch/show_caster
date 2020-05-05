@@ -4,4 +4,4 @@ def system!(*args)
   system(*args) || abort("\n== Command #{args} failed ==")
 end
 
-system! 'sudo docker-compose run -e "RAILS_ENV=test" app rspec spec'
+system! "sudo docker-compose run -e 'RAILS_ENV=test' app rspec #{ARGV[0]}"
