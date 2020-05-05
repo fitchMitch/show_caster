@@ -18,7 +18,7 @@ RSpec.feature 'vote opinion feature for secret ballots', type: :feature do
         find(:css, selector).click
         click_button(I18n.t('votes.new_opinion'))
       end
-      it 'should be a success', js: true do
+      it 'should be a success' do
         expect(page.body).to have_content(I18n.t('votes.save_success'))
         visit polls_path
         expect(page.find('#expecting_answer')).not_to have_content(poll_secret.question)

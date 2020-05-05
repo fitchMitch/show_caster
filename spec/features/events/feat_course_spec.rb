@@ -7,11 +7,11 @@ include EventsHelper
 RSpec.feature  'Course | ' do
   feature 'as a registered admin' do
     given!(:admin) { create(:user, :admin, :registered, lastname: 'ADMIN') }
-    given!(:course) { create(:course) }
+    given!(:course) { create(:course) } # in two days (future)
     given!(:passed_course) do
       create(:course, event_date: Time.zone.now - 2.days)
     end
-    given!(:course_w) { create(:course_with_coach) }
+    given!(:course_w) { create(:course_with_coach) } # in two days
     given!(:theater_w) { create(:theater) }
     given(:note) { 'Du nanan' }
     given(:title) { 'Un bien bon petit cours' }
@@ -39,17 +39,12 @@ RSpec.feature  'Course | ' do
       scenario 'should list some courses in the past' do
         expect(page.body).to have_content(passed_course.note)
       end
-      scenario 'delete links and image links according to past or future', js: true do
-        click_link(I18n.t('performances.nexting'))
+      scenario 'you cannot delete links and image in the past' do
+        click_link(I18n.t('courses.passed_events_title'))
+        expect(page.find('.tab-content')).not_to have_selector('a > i.fa.fa-trash.fa-lg')
+      end
+      scenario 'delete links and image links when in the future' do
         expect(page.find('.tab-content')).to have_selector('a > i.fa.fa-trash.fa-lg')
-        click_link(
-          ActionView::Base.full_sanitizer.sanitize(
-            passed_label(Course.all)
-          ).strip
-        )
-        expect(page.find('.tab-content')).not_to have_selector(
-          'a > i.fa.fa-trash.fa-lg'
-        )
       end
     end
 

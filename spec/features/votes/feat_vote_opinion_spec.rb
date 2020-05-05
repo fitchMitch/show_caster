@@ -56,7 +56,7 @@ RSpec.feature 'vote opinion feature', type: :feature do
       click_button(I18n.t('votes.new_opinion'))
     end
     it { expect(page.body).to have_content(I18n.t('votes.save_success')) }
-    it 'empty the poll\'s page', js: true do
+    it 'empty the poll\'s page' do
       expect(page.find('#expecting_answer')).not_to have_content('question')
       click_link(I18n.t('polls.voted'))
       expect(page.find('#voted')).to have_content('question')
