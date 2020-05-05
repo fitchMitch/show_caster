@@ -14,26 +14,18 @@ class PollMailer < ApplicationMailer
   end
 
   def poll_reminder_mail(poll)
-    recipients = poll.missing_voters_ids.map do |uid|
-      User.find(uid).prefered_email
-    end
+    recipients = User.where(id: poll.missing_voters_ids).map(&:prefered_email)
     @initiater = poll.owner.firstname
     @url = get_polls_url
     @url_login = url_login
     @final_call = poll.expiration_date
 
     mail(
-      to: recipients.join(','),
+      to: recipients.compact.join(','),
       subject: I18n.t('polls.mails.reminder.subject'),
       template_path: 'poll_mailer',
       template_name: 'poll_reminder_mail'
     )
-  rescue StandardError => e
-    Bugsnag.notify(e)
-
-    Rails.logger.error("poll_reminder_mail failure: #{e}")
-    Rails.logger.error("Recipients: #{recipients.join(',')}")
-    raise e
   end
 
   def poll_end_reminder_mail(poll)
@@ -54,7 +46,6 @@ class PollMailer < ApplicationMailer
   rescue StandardError => e
     Bugsnag.notify(e)
     Rails.logger.error("poll_end_reminder_mail failure: #{e}")
-    raise e
   end
 
   private

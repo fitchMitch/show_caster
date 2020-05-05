@@ -50,9 +50,8 @@ RSpec.describe 'PollOpinions', type: :request do
         end
 
         it 'redirects to the created poll' do
-          skip 'this one works localy but not with Travis'
+          # skip 'this one works localy but not with Travis'
           post '/poll_opinions', params: { poll_opinion: valid_attributes }
-          PollOpinion.find_by(question: valid_attributes[:question])
           expect(response).to redirect_to polls_path
         end
       end

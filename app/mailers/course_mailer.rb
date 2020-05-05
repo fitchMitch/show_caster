@@ -14,11 +14,5 @@ class CourseMailer < ApplicationMailer
         'Impossible de notifier ce coach sans son adresse email'
       )
     end
-  rescue StandardError => e
-    Bugsnag.notify(e)
-
-    Rails.logger.error("course_reminder_mail failure: #{e}")
-    Rails.logger.error("Recipient: #{recipient.try(:email)}")
-    raise e
   end
 end
