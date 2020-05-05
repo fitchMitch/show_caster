@@ -102,7 +102,7 @@ group :test do
   gem 'capybara-screenshot'
   gem 'launchy',                                                '~> 2.4'
   gem 'pundit-matchers', '~> 1.4.1'
-  gem 'rspec',                                                  '~> 3.7.0'
+  gem 'rspec',                                                  '~> 3.7'
   gem 'rspec-collection_matchers'
   gem 'rspec-rails', '>= 3.7.2'
   gem 'rspec-retry'
