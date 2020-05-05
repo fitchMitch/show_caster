@@ -1,4 +1,5 @@
 Paperclip::Attachment.default_options[:path] = "#{Rails.root}/spec/test_files/:class/:id_partition/:style.:extension"
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -37,7 +38,6 @@ Rails.application.configure do
 
   net = Socket.ip_address_list.detect{ |addr| addr.ipv4_private? }
   ip = net.nil? ? 'localhost' : net.ip_address
-
   config.domain = ip
   config.action_mailer.default_url_options = { host: config.domain }
 

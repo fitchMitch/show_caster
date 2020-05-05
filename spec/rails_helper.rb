@@ -9,6 +9,7 @@ require 'rspec/rails'
 require 'webmock/rspec'
 require 'capybara/rspec'
 require 'capybara-screenshot'
+require 'capybara-screenshot/rspec'
 # require 'selenium/webdriver'
 require 'webdrivers/chromedriver'
 
@@ -74,6 +75,15 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
 
   config.include OmniauthMacros
+
+  # config.before(:each, type: :system) do
+  #   driven_by :rack_test
+  # end
+
+  # config.before(:each, type: :system, js: true) do
+  #   driven_by :headless_chrome
+  # end
+
   config.include Sessions::LoginHelper, type: :controller
 
   config.include Requests::LoginHelper, type: :service
@@ -92,12 +102,12 @@ RSpec.configure do |config|
 
   config.include PunditSpecHelper, type: :view
 
-  # # show retry status in spec process
-  # config.verbose_retry = true
-  # # Try twice (retry once)
-  # config.default_retry_count = 2
-  # # Only retry when Selenium raises Net::ReadTimeout
-  # config.exceptions_to_retry = [Net::ReadTimeout]
+  # show retry status in spec process
+  config.verbose_retry = true
+  # Try twice (retry once)
+  config.default_retry_count = 2
+  # Only retry when Selenium raises Net::ReadTimeout
+  config.exceptions_to_retry = [Net::ReadTimeout]
 
   # config.include Capybara::DSL, file_path: "spec/requests"
   # BEFORE
