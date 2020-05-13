@@ -16,9 +16,9 @@ gem 'annotate'
 gem 'coffee-rails', '~> 4.2', '>= 4.2.2'
 gem 'jbuilder',                                             '~> 2.5'
 gem 'pg',                                                   '~> 0.20'
-gem 'rails',                                                '~> 5.0.7', '>= 5.0.7.2'
+gem 'rails', '~> 5.0.7', '>= 5.0.7.2'
 gem 'slim',                                                 '>= 3.0.9'
-gem 'slim-rails',                                           '~> 3.2', '>= 3.2.0'
+gem 'slim-rails', '~> 3.2', '>= 3.2.0'
 gem 'figaro',                                               '~> 1.1'
 gem 'foreman',                                              '~> 0.87'
 # Front gems
@@ -40,21 +40,21 @@ gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.5'
 gem 'kaminari', '~> 1.1', '>= 1.1.1'
 gem 'meta-tags', '2.11.1'
 gem 'rails-settings-cached', '~> 0.7', '>= 0.7.2'
-gem 'ransack', '~> 2.1', '>= 2.1.1'
+gem 'ransack', '~> 2.3', '>= 2.3.0'
 gem 'select2-rails',                                        '~> 4.0'
-gem 'simple_form', '~> 5.0', '>= 5.0.0'
+gem 'simple_form', '~> 5.0', '>= 5.0.2'
 # gem 'rails-settings-cached', source: 'https://rubygems.org'
 # API ones
 # -----------------------
 gem 'gibbon',                                               '~> 3.2'
 gem 'google-api-client',                                    '~> 0.23'
-gem 'omniauth-google-oauth2',                               '~> 0.5'
+gem 'omniauth-google-oauth2', '~> 0.8', '>= 0.8.0'
 # https://docs.bugsnag.com/platforms/ruby/rails/
 gem 'pundit',                                               '~> 1.1'
 # middleware
 # -----------------------
 # background jogs
-gem 'sidekiq',                                              '~> 5.2.7'
+gem 'sidekiq', '~> 6.0.0'
 # -----------------------
 gem 'rails-assets-jcrop', source: 'https://rails-assets.org'
 gem 'papercrop', '~> 0.3', '>= 0.3.0'
@@ -67,7 +67,7 @@ gem 'bugsnag',                                              '~> 6.8'
 group :development, :test do
   gem 'puma',                                                 '~> 3.0'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'better_errors',                                        '~> 2.4'
+  gem 'better_errors', '~> 2.6', '>= 2.6.0'
   gem 'binding_of_caller',                                    '~> 0.8'
   gem 'byebug',                                               '~> 11.1.2'
   gem 'pry',                                                  '~> 0.13.1'
@@ -98,9 +98,9 @@ group :test do
   gem 'hashdiff',                                               ['>= 1.0.0.beta1', '< 2.0.0']
   gem 'simplecov', require: false
   # gem 'vcr'
-  gem 'capybara',                                               '~> 3.32'
+  gem 'capybara', '~> 3.32', '>= 3.32.1'
   gem 'launchy',                                                '~> 2.4'
-  gem 'pundit-matchers',                                        '~> 1.6'
+  gem 'pundit-matchers', '~> 1.6', '>= 1.6.0'
   gem 'rspec',                                                  '~> 3.7.0'
   gem 'rspec-collection_matchers'
   gem 'rspec-rails', '>= 3.7.2'
