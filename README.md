@@ -23,7 +23,7 @@ synched with the company's Google Agenda. Possibility to upload and crop **photo
 * Rails 5.0.6
 * Ruby  2.2.7
 * pg 9.6
-* Rspec (>75% coverage)
+* Rspec (>76% coverage)
 * Seed for dev and production
 
 ## Contributing
