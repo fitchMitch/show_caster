@@ -24,21 +24,13 @@ class PerformancesController < EventsController
   def create
     @event = Performance.new(event_params)
     authorize @event
-    @service = GoogleCalendarService.new(current_user)
-    result = @service.add_to_google_calendar(@event)
-    if result.nil?
-      flash[:alert] = I18n.t('performances.fail_to_create')
-      format.html { render :new }
+    @event.user_id = current_user.id
+    if @event.save
+      redirect_to events_url(@event),
+                  notice: I18n.t('performances.created')
     else
-      @event.fk = result.id
-      @event.user_id = current_user.id
-      @event.provider = 'google_calendar_v3'
-      if @event.save
-        redirect_to events_url(@event), notice: I18n.t('performances.created')
-      else
-        respond_to do |format|
-          format.html { render :new }
-        end
+      respond_to do |format|
+        format.html { render :new }
       end
     end
   end
@@ -65,8 +57,6 @@ class PerformancesController < EventsController
         :theater_id,
         :progress,
         :uid,
-        :fk,
-        :provider,
         :private_event,
         actors_attributes: %i[
           id

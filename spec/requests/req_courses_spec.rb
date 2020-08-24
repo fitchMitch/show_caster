@@ -11,8 +11,7 @@ RSpec.describe 'Courses', type: :request do
       note: 'a note',
       event_date: 2.days.from_now,
       user_id: user_attribute.id,
-      theater_id: theater.id,
-      provider: 'google'
+      theater_id: theater.id
     }
   end
   let!(:invalid_attributes) do
@@ -21,8 +20,7 @@ RSpec.describe 'Courses', type: :request do
       note: 'a note',
       event_date: 2.days.from_now,
       user_id: user_attribute.id,
-      theater_id: theater.id,
-      provider: 'google'
+      theater_id: theater.id
     }
   end
   let!(:admin) { create(:user) }
@@ -56,13 +54,7 @@ RSpec.describe 'Courses', type: :request do
 
     describe 'POST #create' do
       context 'with form' do
-        let(:google_service) { double('google_service') }
         let(:result) { double('result', id: '0123145874521') }
-        before(:each) do
-          allow(GoogleCalendarService).to receive(:new) { google_service }
-          allow(NotificationService).to receive(:course_creation) { nil }
-          allow(google_service).to receive(:add_to_google_calendar) { result }
-        end
 
         context 'valid conditions' do
           # it 'creates a new Event', :vcr do
@@ -85,8 +77,6 @@ RSpec.describe 'Courses', type: :request do
               )
             )
             expect(Event.last.user_id).to eq(admin.id)
-            expect(Event.last.provider).to eq('google_calendar_v3')
-            expect(Event.last.fk).to eq(result.id)
           end
         end
         context 'valid conditions test for notification planning' do
@@ -107,8 +97,6 @@ RSpec.describe 'Courses', type: :request do
         let(:google_service) { double('google_service') }
         let(:result) { nil }
         before(:each) do
-          allow(GoogleCalendarService).to receive(:new) { google_service }
-          allow(google_service).to receive(:add_to_google_calendar) { result }
         end
         context 'valid conditions' do
           # it 'creates a new Event', :vcr do
@@ -143,9 +131,6 @@ RSpec.describe 'Courses', type: :request do
         describe 'with valid parameters' do
           context 'and exisiting event in Google Calendar' do
             before(:each) do
-              allow(GoogleCalendarService).to receive(:new) { google_service }
-              allow(google_service).to receive(:update_google_calendar) { result }
-              allow(result).to receive(:is_a?) { false }
             end
             it 'redirects to the permances page' do
               put url,
@@ -178,8 +163,6 @@ RSpec.describe 'Courses', type: :request do
           end
           context 'and missing event in Google Calendar' do
             before(:each) do
-              allow(GoogleCalendarService).to receive(:new) { google_service }
-              allow(google_service).to receive(:update_google_calendar) { "a String" }
               put url,
                   params: {
                     id: course.id,
@@ -224,8 +207,6 @@ RSpec.describe 'Courses', type: :request do
       context 'with invalid Google Service' do
         describe 'with valid parameters' do
           before(:each) do
-            allow(GoogleCalendarService).to receive(:new) { google_service }
-            allow(google_service).to receive(:update_google_calendar) { nil }
             put url,
                 params: {
                   id: course.id,
@@ -251,11 +232,6 @@ RSpec.describe 'Courses', type: :request do
       let(:result) { 123456789 }
       # let(:valid_session) { request_log_in( admin ) }
       context 'with every condition ok' do
-        before(:each) do
-          allow(NotificationService).to receive(:destroy_all_notifications) { nil }
-          allow(GoogleCalendarService).to receive(:new) { google_service }
-          allow(google_service).to receive(:delete_google_calendar){ result }
-        end
         after do
           delete url, params: {
             id: course.id,
@@ -269,11 +245,6 @@ RSpec.describe 'Courses', type: :request do
 
       context 'with valid local ActiveRecord service' do
         context 'with valid Google service' do
-          before(:each) do
-            allow(NotificationService).to receive(:destroy_all_notifications) { nil }
-            allow(GoogleCalendarService).to receive(:new) { google_service }
-            allow(google_service).to receive(:delete_google_calendar){ result }
-          end
           it 'destroys the course' do
             expect {
               delete url, params: {
@@ -299,10 +270,6 @@ RSpec.describe 'Courses', type: :request do
         end
 
         context 'with INvalid Google service' do
-          before(:each) do
-            allow(GoogleCalendarService).to receive(:new) { google_service }
-            allow(google_service).to receive(:delete_google_calendar) { nil }
-          end
           it 'destroys the course' do
             expect {
               delete url, params: {
@@ -330,11 +297,6 @@ RSpec.describe 'Courses', type: :request do
 
       context 'with INvalid local ActiveRecord service' do
         context 'with valid Google service' do
-          before(:each) do
-            allow_any_instance_of(Course).to receive(:destroy) { false }
-            allow(GoogleCalendarService).to receive(:new) { google_service }
-            allow(google_service).to receive(:delete_google_calendar) { result }
-          end
           it 'doesn\'t destroy the course' do
             expect {
               delete url, params: {

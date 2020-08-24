@@ -11,8 +11,6 @@
 #  note            :text
 #  user_id         :integer
 #  theater_id      :integer
-#  fk              :string
-#  provider        :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  title           :string
@@ -28,8 +26,6 @@ FactoryBot.define do
     title           { 'Un bon petit cours de derrière les fagots' }
     theater
     user
-    provider        { 'google' }
-    fk              { 'a' * 40 }
     progress        { 0 }
     type            { 'Course' }
 

@@ -9,8 +9,6 @@
 #  note            :text
 #  user_id         :integer
 #  theater_id      :integer
-#  fk              :string
-#  provider        :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  title           :string
@@ -74,30 +72,4 @@ RSpec.describe Performance, type: :model do
     end
   end
 
-  describe '#google_event_params' do
-    let!(:performance) { build(:performance_with_actors) }
-    it 'should return a formatted hash to regiser a google event' do
-      attendees_email = []
-      performance.actors.pluck(:user_id) do |id|
-        email = User.find_by(id: id).email
-        attendees_email << { email: email }
-      end
-      expect(performance.google_event_params).to eq(
-        {
-          title: I18n.t(
-            'performances.g_title_performance',
-            name: performance.theater.theater_name
-          ),
-          location: performance.theater.location,
-          theater_name: performance.theater.theater_name,
-          event_date: performance.event_date.iso8601,
-          event_end: (
-            performance.event_date + performance. duration * 60
-          ).iso8601,
-          attendees_email: attendees_email,
-          fk: performance.fk
-        }
-      )
-    end
-  end
 end

@@ -11,8 +11,6 @@
 #  note            :text
 #  user_id         :integer
 #  theater_id      :integer
-#  fk              :string
-#  provider        :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  title           :string
@@ -29,8 +27,6 @@ FactoryBot.define do
     title           { 'Les mentals enterrés' }
     theater
     user
-    provider        { 'google' }
-    fk              { 'a' * 40 }
 
     factory :performance_with_actors do
       transient do
@@ -41,27 +37,22 @@ FactoryBot.define do
       end
     end
     factory :performance_with_actors_standard do
-      transient do
-        actors_count { 5 }
-        mc_count { 1 }
-        dj_count { 1 }
-      end
-      after(:create) do |performance, evaluator|
+      after(:create) do |performance|
         create_list(
           :actor,
-          evaluator.actors_count,
+          5,
           stage_role: 'player',
           performance: performance
         )
         create_list(
           :actor,
-          evaluator.mc_count,
+          1,
           stage_role: 'mc',
           performance: performance
         )
         create_list(
           :actor,
-          evaluator.dj_count,
+          1,
           stage_role: 'dj',
           performance: performance
         )

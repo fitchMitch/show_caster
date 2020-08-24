@@ -70,25 +70,39 @@ class User < ApplicationRecord
     user = User.retrieve(access_token[:info])
     return 'unknown user' if user.nil?
 
-    Rails.logger.debug("===> user is not null")
-    Rails.logger.debug("====> #{access_token.keys.join('--')}")
-
-    update_parameters = GoogleCalendarService.token_user_information(
-      user, access_token
-    )
-
     if access_token[:credentials][:expires_at].nil? ||
        access_token[:info][:email].nil?
       Rails.logger.error(access_token.to_s)
-      nil # TODO: withdraw
-    elsif user.update_attributes(update_parameters)
+    elsif user.update_attributes(user.token_parameters(access_token))
       user
     else
       Rails.logger.error 'OAuth user updating went wrong'
       Rails.logger.error user_update_parameters
       Bugsnag.notify("Oauth and update user faulty : #{from_token}")
-      nil # TODO: withdraw
     end
+  end
+
+  def token_parameters(access_token)
+    data = access_token[:info]
+    credentials = access_token[:credentials]
+    firstname = data[:first_name].nil? ? self.firstname : data[:first_name]
+    lastname = data[:last_name].nil? ? self.lastname : data[:last_name].upcase
+    from_token = {
+      firstname: firstname,
+      lastname: lastname,
+      email: data[:email].downcase,
+      provider: access_token[:provider],
+      uid: access_token[:uid],
+      photo_url: data[:image],
+      token: credentials[:token],
+      refresh_token: credentials[:refresh_token],
+      expires_at: Time.at(credentials[:expires_at].to_i).to_datetime
+    }
+    # Additional attributes
+    from_token[:status] = :googled if setup? || invited?
+    from_token[:former_connexion_at] = last_sign_in_at
+    from_token[:last_sign_in_at] = Time.zone.now
+    from_token
   end
 
   def self.retrieve(data)
