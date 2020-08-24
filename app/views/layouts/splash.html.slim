@@ -30,10 +30,12 @@ html.no-js
             = link_to t("splash.contact"), "#contact"
             - if user_signed_in?
               = link_to t("users.admin_company"), users_path
-              = link_to fa_icon("sign-out lg", text: t("deconnect")), sign_out_path, :method=>:delete
+              = link_to fa_icon("sign-out lg", text: t("deconnect")),
+                        sign_out_path,
+                        method: :delete
             - else
-              = link_to '/sesame_login' do
-                = image_tag('transp.png')
+              = link_to fa_icon("sign-in lg", text: t("sessions.log_in")),
+                        '/sesame_login'
 
     = yield
 

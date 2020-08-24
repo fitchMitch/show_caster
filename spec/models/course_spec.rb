@@ -9,8 +9,6 @@
 #  note            :text
 #  user_id         :integer
 #  theater_id      :integer
-#  fk              :string
-#  provider        :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  title           :string
@@ -48,22 +46,4 @@ RSpec.describe Course, type: :model do
     it { expect(described_class.days_threshold_for_first_mail_alert).to eq 8 }
   end
 
-  describe '#google_event_params' do
-    let!(:course) { create(:course) }
-    it 'should set google calendar params ok' do
-      expect(course.google_event_params).to eq(
-        {
-          title: I18n.t(
-            'courses.g_title_course', name: course.theater.theater_name
-          ),
-          location: course.theater.location,
-          theater_name: course.theater.theater_name,
-          event_date: course.event_date.iso8601,
-          event_end: (course.event_date + course.duration * 60).iso8601,
-          attendees_email: [],
-          fk: course.fk
-        }
-      )
-    end
-  end
 end

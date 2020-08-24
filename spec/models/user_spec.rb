@@ -63,9 +63,6 @@ RSpec.describe User, type: :model do
       before :each do
         access_token = f1
         allow(User).to receive(:retrieve) { user }
-        allow(GoogleCalendarService).to receive(
-          :token_user_information
-        ) { user.attributes }
       end
       it 'should not retrieve any user' do
         access_token = f1

@@ -15,8 +15,6 @@ RSpec.feature  'Course | ' do
     given!(:theater_w) { create(:theater) }
     given(:note) { 'Du nanan' }
     given(:title) { 'Un bien bon petit cours' }
-    given(:google_service) { double('google_service') }
-    given(:result) { double('result', id: 1_231_045_874_521) }
 
     feature 'visiting INDEX' do
       background :each do
@@ -56,8 +54,6 @@ RSpec.feature  'Course | ' do
     feature 'visiting CREATE' do
       background :each do
         log_in admin
-        allow(GoogleCalendarService).to receive(:new) { google_service }
-        allow(google_service).to receive(:add_to_google_calendar) { result }
       end
       scenario 'it shall create a Course' do
         visit new_course_path
@@ -101,8 +97,6 @@ RSpec.feature  'Course | ' do
     feature 'visiting UPDATE' do
       given(:google_service) { double('google_service') }
       background :each do
-        allow(GoogleCalendarService).to receive(:new) { google_service }
-        allow(google_service).to receive(:update_google_calendar) { result }
         log_in admin
         #--------------------
         # inside new course
@@ -143,8 +137,6 @@ RSpec.feature  'Course | ' do
 
     feature 'visiting UPDATE with Google unknown event' do
       background :each do
-        allow(GoogleCalendarService).to receive(:new) { google_service }
-        allow(google_service).to receive(:update_google_calendar) { 'a string' }
         log_in admin
         #--------------------
         # inside new course
@@ -177,8 +169,6 @@ RSpec.feature  'Course | ' do
       feature 'visiting DELETE fails with an ' \
               ' existing Google event associated' do
         background :each do
-          allow(GoogleCalendarService).to receive(:new) { google_service }
-          allow(google_service).to receive(:delete_google_calendar) { result }
           log_in admin
           visit courses_path
           page.find('.destroy', match: :first).click
@@ -196,8 +186,6 @@ RSpec.feature  'Course | ' do
       end
       feature 'visiting DELETE fails with no Google event associated' do
         background :each do
-          allow(GoogleCalendarService).to receive(:new) { google_service }
-          allow(google_service).to receive(:delete_google_calendar) { nil }
           log_in admin
           visit courses_path
           page.find('.destroy', match: :first).click

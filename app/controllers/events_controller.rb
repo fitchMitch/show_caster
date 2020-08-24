@@ -7,15 +7,8 @@ class EventsController < ApplicationController
 
   def update
     if @event.update(event_params)
-      @service = GoogleCalendarService.new(current_user)
-      result = @service.update_google_calendar(@event)
-      if (result.is_a? String) || result.nil?
-        redirect_to events_url(@event),
-                    notice: I18n.t('events.desynchronized')
-      else
-        redirect_to events_url(@event),
-                    notice: I18n.t('events.updated_with_Google')
-      end
+      redirect_to events_url(@event),
+                  notice: I18n.t('events.updated')
     else
       flash[:alert] = I18n.t('events.update_failed')
       render 'edit'
@@ -23,17 +16,10 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @service = GoogleCalendarService.new(current_user)
     if @event.destroy
       NotificationService.destroy_all_notifications(@event)
-      result = @service.delete_google_calendar(@event)
-      if result.nil?
-        redirect_to events_url(@event),
-                    notice: I18n.t('performances.google_locked')
-      else
-        redirect_to events_url(@event),
-                    notice: I18n.t('performances.destroyed')
-      end
+      redirect_to events_url(@event),
+                  notice: I18n.t('performances.destroyed')
     else
       Rails.logger.debug('Rails event destroy failure')
       redirect_to event_url(@event),

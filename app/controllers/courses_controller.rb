@@ -48,16 +48,8 @@ class CoursesController < EventsController
   def create
     @event = Course.new(event_params)
     authorize @event
-    @service = GoogleCalendarService.new(current_user)
-    result = @service.add_to_google_calendar(@event)
-    if result.nil?
-      flash[:alert] = I18n.t('performances.fail_to_create')
-      format.html { render :new }
-    end
 
-    @event.fk = result.id
     @event.user_id = current_user.id
-    @event.provider = 'google_calendar_v3'
 
     if @event.save
       NotificationService.course_creation(@event)
@@ -100,9 +92,7 @@ class CoursesController < EventsController
         :note,
         :user_id,
         :theater_id,
-        :fk,
         :type,
-        :provider,
         :courseable_type,
         :courseable_id,
         :private_event

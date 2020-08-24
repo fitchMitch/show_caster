@@ -55,8 +55,6 @@ RSpec.feature  'Performance | ' do
     feature 'visiting CREATE' do
       background :each do
         log_in admin
-        allow(GoogleCalendarService).to receive(:new) { google_service }
-        allow(google_service).to receive(:add_to_google_calendar) { result }
       end
       scenario 'it shall create a Performance' do
         visit new_performance_path
@@ -104,8 +102,6 @@ RSpec.feature  'Performance | ' do
     feature 'visiting UPDATE' do
       given(:google_service) { double('google_service') }
       background :each do
-        allow(GoogleCalendarService).to receive(:new) { google_service }
-        allow(google_service).to receive(:update_google_calendar) { result }
         log_in admin
         #--------------------
         # inside new performance
@@ -152,8 +148,6 @@ RSpec.feature  'Performance | ' do
 
     feature 'visiting UPDATE with Google unknown event' do
       background :each do
-        allow(GoogleCalendarService).to receive(:new) { google_service }
-        allow(google_service).to receive(:update_google_calendar) { 'a string' }
         log_in admin
         #--------------------
         # inside new performance
@@ -186,8 +180,6 @@ RSpec.feature  'Performance | ' do
       feature 'visiting DELETE fails with an ' \
               ' existing Google event associated' do
         background :each do
-          allow(GoogleCalendarService).to receive(:new) { google_service }
-          allow(google_service).to receive(:delete_google_calendar) { result }
           log_in admin
           visit performances_path
           page.find('.destroy', match: :first).click
@@ -205,8 +197,6 @@ RSpec.feature  'Performance | ' do
       end
       feature 'visiting DELETE fails with no Google event associated' do
         background :each do
-          allow(GoogleCalendarService).to receive(:new) { google_service }
-          allow(google_service).to receive(:delete_google_calendar) { nil }
           log_in admin
           visit performances_path
           page.find('.destroy', match: :first).click
