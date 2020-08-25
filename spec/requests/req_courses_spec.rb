@@ -54,7 +54,6 @@ RSpec.describe 'Courses', type: :request do
 
     describe 'POST #create' do
       context 'with form' do
-        let(:result) { double('result', id: '0123145874521') }
 
         context 'valid conditions' do
           # it 'creates a new Event', :vcr do
@@ -96,8 +95,6 @@ RSpec.describe 'Courses', type: :request do
       context 'with invalid Google API' do
         let(:google_service) { double('google_service') }
         let(:result) { nil }
-        before(:each) do
-        end
         context 'valid conditions' do
           # it 'creates a new Event', :vcr do
           it 'creates a new Event' do
@@ -130,8 +127,6 @@ RSpec.describe 'Courses', type: :request do
         let(:result) { double('result', id: '0123145874521') }
         describe 'with valid parameters' do
           context 'and exisiting event in Google Calendar' do
-            before(:each) do
-            end
             it 'redirects to the permances page' do
               put url,
                   params: {

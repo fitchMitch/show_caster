@@ -124,7 +124,7 @@ RSpec.feature  'Performance | ' do
         #--------------------
         # inside performances_page
         #--------------------
-        expect(page.body).to have_content I18n.t('events.updated_with_Google')
+        expect(page.body).to have_content I18n.t('events.updated')
         click_link(title)
         #--------------------
         # inside show page
@@ -166,13 +166,6 @@ RSpec.feature  'Performance | ' do
         click_button(I18n.t('helpers.submit.performance.update'))
       end
 
-      scenario 'it shall not update Events though' do
-        expect(page.body).to have_content(I18n.t('events.desynchronized'))
-        expect(page.body).to have_selector(
-          'h2',
-          text: I18n.t('performances.list')
-        )
-      end
     end
 
     feature '#delete' do
@@ -188,25 +181,6 @@ RSpec.feature  'Performance | ' do
         scenario 'it shall delete Events' do
           # scenario "it shall delete Events",:vcr do
           expect(page.body).to have_content(I18n.t('performances.destroyed'))
-          expect(page.body).to have_selector(
-            'h2',
-            text: I18n.t('performances.list')
-          )
-          expect(count).to eq(Performance.all.count + 1)
-        end
-      end
-      feature 'visiting DELETE fails with no Google event associated' do
-        background :each do
-          log_in admin
-          visit performances_path
-          page.find('.destroy', match: :first).click
-        end
-
-        scenario 'it shall delete Events' do
-          # scenario "it shall delete Events",:vcr do
-          expect(page.body).to have_content(
-            I18n.t('performances.google_locked')
-          )
           expect(page.body).to have_selector(
             'h2',
             text: I18n.t('performances.list')

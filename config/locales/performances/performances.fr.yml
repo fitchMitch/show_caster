@@ -5,7 +5,7 @@ fr:
     address: Adresse
     created: Le spectacle a bien été ajouté sur cet agenda et celui de Google
     created_by: Spectacle ajouté par
-    destroyed: Le spectacle a bien été supprimé et sur Google Calendar
+    destroyed: Le spectacle a bien été supprimé
     desynchronized: Shoot ! Les calendriers sont désynchronisés pour ce spectacle
     date: Date du spectacle
     duration: Durée (en minutes)

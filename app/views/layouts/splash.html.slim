@@ -34,8 +34,8 @@ html.no-js
                         sign_out_path,
                         method: :delete
             - else
-              = link_to fa_icon("sign-in lg", text: t("sessions.log_in")),
-                        '/sesame_login'
+              = link_to '/sesame_login' do
+                = fa_icon("sign-out lg", text: 'coulisses')
 
     = yield
 

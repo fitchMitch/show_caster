@@ -119,7 +119,7 @@ RSpec.feature  'Course | ' do
         #--------------------
         # inside courses_page
         #--------------------
-        expect(page.body).to have_content I18n.t('events.updated_with_Google')
+        expect(page.body).to have_content I18n.t('events.updated')
         click_link(title)
         #--------------------
         # inside show page
@@ -135,34 +135,6 @@ RSpec.feature  'Course | ' do
       end
     end
 
-    feature 'visiting UPDATE with Google unknown event' do
-      background :each do
-        log_in admin
-        #--------------------
-        # inside new course
-        #--------------------
-        visit edit_course_path(course_w)
-        within "#edit_course_#{course_w.id}" do
-          fill_in 'course[title]', with: title
-          fill_in 'course[note]', with: note
-        end
-        page.find('#course_theater_id')
-            .find(:xpath, 'option[1]')
-            .select_option
-        page.find('#course_duration')
-            .find(:xpath, 'option[4]')
-            .select_option
-        click_button(I18n.t('helpers.submit.course.update'))
-      end
-
-      scenario 'it shall not update Events though' do
-        expect(page.body).to have_content(I18n.t('events.desynchronized'))
-        expect(page.body).to have_selector(
-          'h2',
-          text: I18n.t('courses.list')
-        )
-      end
-    end
 
     feature '#delete' do
       given!(:count) { Course.all.count }
@@ -177,25 +149,6 @@ RSpec.feature  'Course | ' do
         scenario 'it shall delete Events' do
           # scenario "it shall delete Events",:vcr do
           expect(page.body).to have_content(I18n.t('performances.destroyed'))
-          expect(page.body).to have_selector(
-            'h2',
-            text: I18n.t('courses.list')
-          )
-          expect(count).to eq(Course.all.count + 1)
-        end
-      end
-      feature 'visiting DELETE fails with no Google event associated' do
-        background :each do
-          log_in admin
-          visit courses_path
-          page.find('.destroy', match: :first).click
-        end
-
-        scenario 'it shall delete Events' do
-          # scenario "it shall delete Events",:vcr do
-          expect(page.body).to have_content(
-            I18n.t('performances.google_locked')
-          )
           expect(page.body).to have_selector(
             'h2',
             text: I18n.t('courses.list')
