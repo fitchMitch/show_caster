@@ -107,8 +107,8 @@ class User < ApplicationRecord
 
   def self.retrieve(data)
     user = User.find_by_email(data[:email].downcase)
-    if user.nil? && data[:last_name].presence && data[:first_name].presence
-      Rails.logger.debug ("=========> using first and  last names")
+    if user.nil? && data[:last_name] && data[:first_name]
+      Rails.logger.warn ("=========> using first and  last names")
       user = User.find_by_firstname_and_lastname(
         data[:first_name], data[:last_name]
       )

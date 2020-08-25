@@ -61,16 +61,16 @@ RSpec.describe User, type: :model do
     let(:access_token) { Hash.new }
     context 'when user is retrieved' do
       before :each do
-        access_token = f1
         allow(User).to receive(:retrieve) { user }
+        allow(user).to receive(:update_attributes) { true }
       end
       it 'should not retrieve any user' do
         access_token = f1
-        expect(User.from_omniauth(access_token)).to be_nil
+        expect(User.from_omniauth(access_token)).to be(true)
       end
       it 'should not retrieve any user' do
         access_token = f2
-        expect(User.from_omniauth(access_token)).to be_nil
+        expect(User.from_omniauth(access_token)).to be(true)
       end
       it 'should not retrieve any user' do
         access_token = f
