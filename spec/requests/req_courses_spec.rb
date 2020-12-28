@@ -92,28 +92,6 @@ RSpec.describe 'Courses', type: :request do
           end
         end
       end
-      context 'with invalid Google API' do
-        let(:google_service) { double('google_service') }
-        let(:result) { nil }
-        context 'valid conditions' do
-          # it 'creates a new Event', :vcr do
-          it 'creates a new Event' do
-            expect {
-              post '/courses', params: { course: valid_attributes }
-            }.to change(Event, :count).by(0)
-            expect(flash[:alert]).to eq(
-              I18n.t('performances.fail_to_create')
-            )
-          end
-        end
-        context 'invalid params' do
-          it 'fails building a new Event' do
-            expect {
-              post '/courses', params: { course: invalid_attributes }
-            }.to change(Event, :count).by(0)
-          end
-        end
-      end
     end
 
     describe 'PUT #update' do
@@ -123,100 +101,30 @@ RSpec.describe 'Courses', type: :request do
       let!(:course) { create(:course) }
       let(:url) { "/courses/#{course.to_param}" }
       let(:google_service) { double('google_service') }
-      context 'with valid Google Service' do
-        let(:result) { double('result', id: '0123145874521') }
-        describe 'with valid parameters' do
-          context 'and exisiting event in Google Calendar' do
-            it 'redirects to the permances page' do
-              put url,
-                  params: {
-                    id: course.id,
-                    course: new_attributes_theater
-                  }
-              expect(response).to redirect_to courses_path
-              expect(flash[:notice]).to eq(
-                I18n.t('events.updated_with_Google')
-              )
-            end
-            it 'keeps the number of events the same' do
-              expect {
-                put url,
-                    params: {
-                      id: course.id,
-                      course: new_attributes_theater
-                    }
-              }.to change(Event, :count).by(0)
-            end
-            it 'changes the theater id' do
-              put url,
-                  params: {
-                    id: course.id,
-                    course: new_attributes_theater
-                  }
-              attr_matcher(Event.last, new_attributes_theater.slice(:theater_id))
-            end
-          end
-          context 'and missing event in Google Calendar' do
-            before(:each) do
-              put url,
-                  params: {
-                    id: course.id,
-                    course: new_attributes_theater
-                  }
-            end
-            it 'redirects to the permances page' do
-              expect(response).to redirect_to courses_path
-            end
-            it 'flashes the proper message' do
-              expect(flash[:notice]).to eq(I18n.t('events.desynchronized'))
-            end
-            it 'updates the theater_id' do
-              attr_matcher(Event.last, new_attributes_theater.slice(:theater_id))
-            end
-          end
-        end
-        describe 'with invalid parameters' do
-          before(:each) do
-            put url,
-                params: {
-                  id: course.id,
-                  course: invalid_attributes
-                }
-          end
-          it 'render the edit page again' do
-            expect(response).to render_template :edit
-          end
-          it 'give a flashes an alert' do
-            expect(flash[:alert]).to eq(I18n.t('events.update_failed'))
-          end
-          it 'changes the theater id' do
-            put url,
-                params: {
-                  id: course.id,
-                  course: invalid_attributes
-                }
-            attr_matcher(Event.last, course.attributes.slice(:theater_id))
-          end
-        end
+      let(:result) { double('result', id: '0123145874521') }
+      describe 'with valid parameters' do
       end
-      context 'with invalid Google Service' do
-        describe 'with valid parameters' do
-          before(:each) do
-            put url,
-                params: {
-                  id: course.id,
-                  course: valid_attributes
-                }
-          end
-          it 'redirects to courses page' do
-            expect(response).to redirect_to courses_path
-          end
-          it 'give a flashes an alert' do
-            expect(flash[:notice]).to eq(I18n.t('events.desynchronized'))
-          end
-          it 'changes the theater id' do
-            attr_matcher(Event.last, valid_attributes.slice(:theater_id))
-          end
+      describe 'with invalid parameters' do
+        before(:each) do
+          put url,
+              params: {
+                id: course.id,
+                course: invalid_attributes
+              }
+        end
+        it 'render the edit page again' do
+          expect(response).to render_template :edit
+        end
+        it 'give a flashes an alert' do
+          expect(flash[:alert]).to eq(I18n.t('events.update_failed'))
+        end
+        it 'changes the theater id' do
+          put url,
+              params: {
+                id: course.id,
+                course: invalid_attributes
+              }
+          attr_matcher(Event.last, course.attributes.slice(:theater_id))
         end
       end
     end
@@ -263,61 +171,8 @@ RSpec.describe 'Courses', type: :request do
             expect(flash[:notice]).to eq(I18n.t('performances.destroyed'))
           end
         end
-
-        context 'with INvalid Google service' do
-          it 'destroys the course' do
-            expect {
-              delete url, params: {
-                id: course.id,
-                course: valid_attributes
-              }
-            }.to change(Event, :count).by(-1)
-          end
-          it 'redirects to the course list' do
-            delete url, params: {
-              id: course.id,
-              course: valid_attributes
-            }
-            expect(response).to redirect_to courses_path
-          end
-          it 'flashes a notice' do
-            delete url, params: {
-              id: course.id,
-              course: valid_attributes
-            }
-            expect(flash[:notice]).to eq(I18n.t('performances.google_locked'))
-          end
-        end
       end
 
-      context 'with INvalid local ActiveRecord service' do
-        context 'with valid Google service' do
-          it 'doesn\'t destroy the course' do
-            expect {
-              delete url, params: {
-                id: course.id,
-                course: valid_attributes
-              }
-            }.to change(Event, :count).by(0)
-          end
-          it 'redirects to the course itme' do
-            delete url, params: {
-              id: course.id,
-              course: valid_attributes
-            }
-            expect(response).to redirect_to course_path(course)
-          end
-          it 'flashes a notice' do
-            delete url, params: {
-              id: course.id,
-              course: valid_attributes
-            }
-            expect(flash[:alert]).to eq(
-              I18n.t('performances.fail_to_destroyed')
-            )
-          end
-        end
-      end
     end
   end
 

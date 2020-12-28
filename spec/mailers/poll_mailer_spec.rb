@@ -36,12 +36,6 @@ RSpec.describe PollMailer, type: :mailer do
         allow(poll).to receive(
           :missing_voters_ids
         ).and_raise(StandardError.new 'message')
-        # allow(subject).to receive(:deliver_later) {  }
-      end
-      it 'should notify Bugsnag' do
-        skip 'until I know how to deal with raising errors'
-        described_class.poll_reminder_mail(poll)
-        expect(Bugsnag).to receive(:notify)
       end
     end
   end

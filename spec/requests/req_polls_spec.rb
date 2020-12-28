@@ -1,7 +1,7 @@
 require 'rails_helper'
 # index only !! according to routes
 RSpec.describe 'Polls', type: :request do
-  let(:valid_attributes) do
+  let!(:valid_attributes) do
     {
       question: 'A la belle Etoile ?',
       expiration_date: Time.zone.parse('2019-08-06 14:15:00 +0200')
@@ -16,6 +16,7 @@ RSpec.describe 'Polls', type: :request do
 
     describe 'GET #index' do
       it 'renders polls index' do
+        valid_attributes.merge!({type: 'PollDate'})
         Poll.create! valid_attributes
         get '/polls'
         expect(response).to render_template(:index)

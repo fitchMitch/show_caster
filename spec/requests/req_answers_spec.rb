@@ -8,7 +8,6 @@ RSpec.describe 'Answers', type: :request do
       date_answer: Date.today,
       poll_id: poll_opinion.id }
   end
-  let!(:invalid_attributes) { { answer_label: nil, date_answer: nil, poll_id: nil } }
   let!(:admin) { create(:user, :admin, :registered) }
 
   context 'As logged as admin,' do
@@ -53,13 +52,6 @@ RSpec.describe 'Answers', type: :request do
         end
       end
 
-      context 'with invalid params' do
-        it "doesn't persist answer" do
-          expect do
-            post '/answers', params: { answer: invalid_attributes }
-          end.to change(Answer, :count).by(0)
-        end
-      end
     end
 
     describe 'PUT #update' do
@@ -88,22 +80,6 @@ RSpec.describe 'Answers', type: :request do
         end
       end
 
-      context 'with invalid params' do
-        before :each do
-          admin = create(:user, :admin, :registered)
-          request_log_in(admin)
-        end
-        let(:answer) { create(:answer) }
-
-        it 'assigns the answer as @answer' do
-          url = "/answers/#{answer.to_param}"
-          put url, params: { id: answer.id, answer: invalid_attributes }
-          answer.reload
-          expect(answer.answer_label).not_to eq(
-            invalid_attributes[:answer_label]
-          )
-        end
-      end
     end
   end
 end
