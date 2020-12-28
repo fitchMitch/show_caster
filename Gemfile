@@ -10,7 +10,7 @@ end
 # Technical
 # -----------------------
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-ruby '2.4.1'
+ruby '2.7.2'
 
 gem 'annotate'
 gem 'coffee-rails', '~> 4.2', '>= 4.2.2'
@@ -26,7 +26,7 @@ gem 'foreman',                                              '~> 0.87'
 gem 'bootstrap-sass',                                       '~> 3.3'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.5'
 # bootstrap 3 helper for navbar for example~>
-gem 'bh', '~> 1.3', '>= 1.3.6'
+gem 'bh'
 gem 'modernizr-rails',                                      '~> 2.7'
 gem 'sassc-rails', '~> 1.3', '>= 1.3.0'
 gem 'uglifier',                                             '>= 1.3.0'
@@ -67,7 +67,6 @@ gem 'bugsnag',                                              '~> 6.8'
 group :development, :test do
   gem 'puma',                                                 '~> 3.0'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'better_errors',                                        '~> 2.4'
   gem 'binding_of_caller',                                    '~> 0.8'
   gem 'byebug',                                               '~> 11.1.2'
   gem 'pry',                                                  '~> 0.13.1'
