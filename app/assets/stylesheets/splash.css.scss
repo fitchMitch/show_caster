@@ -5,14 +5,11 @@ $headings-font-weight: 300;
 
 $brand-primary: darken(#428bca, 6.5%);
 @import 'globals/variables';
-// $navbar-default-bg: lighten( $sesame-blue, 10% );
 $navbar-default-bg: $sesame-blue;
 $navbar-default-border: white;
 $navbar-default-link-color: $sesame-yellow;
 $navbar-default-link-hover-color: white;
 
-// $navbar-default-link-hover-bg: lighten( $sesame-blue, 50% );
-// $navbar-default-link-active-bg: lighten( $brand-primary, 30% );
 $navbar-default-link-active-bg: $sesame-orange;
 $navbar-default-link-active-color: white;
 
@@ -49,8 +46,6 @@ hr.splash-next-performance{
 // -------------------
 // END CUSTOMIZING
 // -------------------
-
-// $slideup-navbar-height: $navbar-height !default;
 
 .btn-lg {
   text-transform: uppercase;
@@ -190,52 +185,31 @@ body.splash {
 
 
   .player-image{
-    // width: 260px;
     text-align: center;
     margin: auto;
-    // img{
-    //   border:1px solid $sesame-blue;
-    //
-    //   //border-bottom: 12px dotted $sesame-yellow;
-    //   border-radius: 45px;
-    //   -webkit-border-radius: 45px;
-    //   -moz-border-radius: 45px;
-    // }
     img.one{
-      // border:1px solid $sesame-orange;
       border:2px solid black;
-      // border:1px solid $sesame-yellow;
-      // border-top-left-radius: 60px;
       border-top-right-radius: 100px 100px;
       border-bottom-left-radius: 100px 100px;
       border-bottom-right-radius: 60px;
     }
     img.two{
       border:2px solid $sesame-orange;
-      // border:1px solid black;
-      // border:1px solid $sesame-yellow;
       border-top-left-radius: 100px 100px;
-      // border-top-right-radius: 60px;
       border-bottom-left-radius: 60px;
       border-bottom-right-radius: 100px 100px;
     }
     img.three{
-      // border:1px solid $sesame-orange;
-      // border:1px solid black;
       border:2px solid $sesame-yellow;
       border-top-left-radius: 100px;
       border-top-right-radius: 60px;
-      // border-bottom-left-radius: 60px;
       border-bottom-right-radius: 100px 70px;
     }
     img.four{
-      // border:1px solid $sesame-orange;
-      // border:1px solid black;
       border:2px solid white;
       border-top-left-radius: 60px;
       border-top-right-radius: 100px 140px;
       border-bottom-left-radius: 100px;
-      // border-bottom-right-radius: 60px;
     }
   }
   .player-bio{
