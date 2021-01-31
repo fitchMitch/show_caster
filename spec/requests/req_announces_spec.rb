@@ -15,7 +15,7 @@ RSpec.describe 'AnnouncesController', type: :request do
 
   context "/ As logged as admin," do
     before do
-      request_log_in(admin)
+      sign_in(admin)
     end
 
     describe "GET #index" do
@@ -66,7 +66,7 @@ RSpec.describe 'AnnouncesController', type: :request do
     context "with valid params" do
       before :each do
         # admin = create(:user, :admin, :registered)
-        request_log_in(admin)
+        sign_in(admin)
       end
       let(:new_attributes_title) {
         { title: "SOUS LES PONTS"}
@@ -76,7 +76,7 @@ RSpec.describe 'AnnouncesController', type: :request do
           title: "Tenardier"
         }
       }
-      let(:valid_session) { request_log_in( admin ) }
+      let(:valid_session) { sign_in( admin ) }
       let(:announce) { create(:announce) }
 
       it "updates the requested title with a new title" do
@@ -105,7 +105,7 @@ RSpec.describe 'AnnouncesController', type: :request do
     context "with invalid params" do
       before :each do
         admin = create(:user, :admin, :registered)
-        request_log_in(admin)
+        sign_in(admin)
       end
       let(:announce) { create(:announce) }
 

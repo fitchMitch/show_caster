@@ -16,7 +16,8 @@
         .image-container
           .image-part
             = image_tag(@user.pictures.first.photo(:square), width:350)
-          = render partial: 'pictures/link_part', locals: { imageable: @user, picto: @user.pictures.first }
+          = render partial: 'pictures/link_part',
+                   locals: { imageable: @user, picto: @user.pictures.first }
           i
             small= t("users.photograph_comment")
         p.bio= @user.bio if @user.try(:bio).present?
@@ -31,7 +32,7 @@
                 li role="presentation"
                   a href="#person_role" aria-controls="person_role" role="tab" data-toggle="tab"
                     = t("users.roles_status")
-              li role="presentation"  class="active"
+              li role="presentation" class="active"
                 a href="#person_photograph" aria-controls="person_photograph" role="tab" data-toggle="tab"
                   = t("users.photograph")
               li role="presentation"
@@ -41,7 +42,8 @@
             .tab-content
               - if policy(@user).promote?
                 #person_role.tab-pane.fade role="tabpanel"
-                  = render partial: 'show_role', locals: { user: @user }
+                  - if policy(@user).promote?
+                    = render partial: 'show_role', locals: { user: @user }
               #person_photograph.tab-pane.fade.in.active role="tabpanel"
                 = render partial: 'show_photograph', locals: { user: @user }
               #person_bio.tab-pane.fade role="tabpanel"

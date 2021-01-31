@@ -2,20 +2,25 @@ require 'rails_helper'
 
 RSpec.feature 'user feature', type: :feature do
   let!(:admin) { create(:user, :admin, :registered, lastname: 'ADMIN') }
-  let!(:player) { create(:user, :player, :setup) }
   describe 'invitation' do
-    before :each do
-      log_in admin
-      visit users_path
-    end
 
-    it 'users page should show a red button to invite' do
-      expect(page.body).to have_selector('input.btn.btn-danger.btn-xs')
-      click_button(I18n.t('users.invite'))
+    it 'invitation sends an email' do
+      player_email = "truc@machine.fr"
+      sign_in admin
+      visit users_path
+      click_link('Admin')
+      click_link('Invitations')
+      fill_in "user_email",	with: player_email
+      fill_in "user_firstname",	with: "truc"
+      fill_in "user_lastname",	with: "machine"
+      click_button 'Envoyer'
+      player = User.last
       expect(page.body).to have_content(
-        I18n.t('users.invited', name: player.full_name)
+        I18n.t('devise.invitations.send_instructions', email: player_email)
       )
-      expect(player.reload.status).to eq('invited')
+      expect(last_email_address).to eq(player.email)
+      expect(last_email.subject).to eq(I18n.t 'devise.mailer.invitation_instructions.subject')
+      expect(last_email.body.encoded).to have_content("Quelqu'un de charmant")
     end
   end
 end

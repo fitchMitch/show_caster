@@ -2,8 +2,9 @@
 
 module MailerMacros
   def last_email
-    condition = ActionMailer::Base.deliveries.empty?
-    condition ? nil : ActionMailer::Base.deliveries.last
+    return nil if ActionMailer::Base.deliveries.empty?
+
+    ActionMailer::Base.deliveries.last
   end
 
   def last_email_address

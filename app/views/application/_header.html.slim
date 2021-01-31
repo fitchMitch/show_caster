@@ -1,15 +1,31 @@
-= navbar position: :top, inverted: true do
-  = vertical do
-    = link_to root_path do
-      .inline
-        = image_tag("infinity_h40.png", height: 30)
-        = image_tag("transp.png")
-        = I18n.t('layout.home')
-  = horizontal do
-    = nav class: 'navbar-right' do
-      - if user_signed_in?
-        = render 'admin_dropdown'
-        = render 'polls_and_statistics_dropdown'
-        = render 'shows_and_courses_dropdown'
-        = render 'company_and_me_dropdown'
-        = link_to fa_icon("sign-out lg"), sign_out_path, method: :delete
+nav.navbar.navbar-default.navbar-inverse
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed [type="button"
+                                      data-toggle="collapse"
+                                      data-target="#bs-example-navbar-collapse-1"
+                                      aria-expanded="false"]
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+
+      = link_to root_path, class: "btn-lg" do
+        .inline
+          = image_tag("infinity_h40.png", height: 30)
+          = image_tag("transp.png")
+          = I18n.t('layout.home')
+
+
+    .navbar-right.collapse.navbar-collapse id="bs-example-navbar-collapse-1"
+      ul.nav.navbar-nav
+        - if user_signed_in?
+          = render 'admin_dropdown'
+          = render 'polls_and_statistics_dropdown'
+          = render 'shows_and_courses_dropdown'
+          = render 'company_and_me_dropdown'
+          = link_to destroy_user_session_path,
+                    method: :delete,
+                    class: 'btn-lg' do
+            div.room-left-15= fa_icon("sign-out lg 2x")
+

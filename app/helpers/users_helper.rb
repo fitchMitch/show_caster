@@ -31,38 +31,39 @@ module UsersHelper
     current_user.id == user.id
   end
 
-  def status_label(user)
-    user.status = :archived if user.status.nil?
-    label_hash = {
+  def user_status(user)
+    user.status&.to_sym || :archived
+  end
+
+  def status_style(user)
+    whole_label_hash = {
+      missing_phone_nr: {
+        klass: 'danger',
+        text: t( 'users.state.missing_phone_nr')
+      },
       invited: {
         klass: 'warning',
         text: t('users.state.invited')
-      },
-      googled: {
-        klass: 'info',
-        text: t('users.state.processing')
       },
       archived: {
         klass: 'default',
         text: t('users.state.rip')
       },
-      setup: {
-        klass: 'danger',
-        text: t(
-          'users.state.to_invite', firstname: user.firstname
-        ),
-        link: 'to_user'
+      registered_with_no_pic: {
+        klass: 'info',
+        text: t('users.state.registered_with_no_pic')
       }
     }
-    sym_status = user.status.to_sym
-    label_hash = label_hash[sym_status]
-    if sym_status == :registered
+    whole_label_hash[user_status(user)]
+  end
+
+  def status_label(user)
+    user_style = status_style user
+    if user_status(user) == :registered
       user.role_i18n
-    elsif label_hash[:link].nil?
-      "<span class=\"label label-#{label_hash[:klass]}\">" \
-      "#{label_hash[:text]}</span>".html_safe
     else
-      render partial: 'show_invite_button', locals: { user: user }
+      "<span class=\"label label-#{user_style[:klass]}\">" \
+      "#{user_style[:text]}</span>".html_safe
     end
   end
 

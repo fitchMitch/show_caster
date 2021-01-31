@@ -8,7 +8,7 @@ RSpec.describe "Theaters", type: :request do
 
   context "/ As logged as admin," do
     before do
-      request_log_in(admin)
+      sign_in(admin)
     end
 
     describe "GET #index" do
@@ -60,7 +60,7 @@ RSpec.describe "Theaters", type: :request do
     context "with valid params" do
       before :each do
         # admin = create(:user, :admin, :registered)
-        request_log_in(admin)
+        sign_in(admin)
       end
       let(:new_attributes_theater_name) {
         { theater_name: "SOUS LES PONTS"}
@@ -71,7 +71,7 @@ RSpec.describe "Theaters", type: :request do
           manager_phone: "0666666666"
         }
       }
-      let(:valid_session) { request_log_in( admin ) }
+      let(:valid_session) { sign_in( admin ) }
       let(:theater) { create(:theater) }
 
       it "updates the requested theater_name with a new theater_name" do
@@ -102,7 +102,7 @@ RSpec.describe "Theaters", type: :request do
     context "with invalid params" do
       before :each do
         admin = create(:user, :admin, :registered)
-        request_log_in(admin)
+        sign_in(admin)
       end
       let(:theater) { create(:theater) }
 

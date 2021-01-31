@@ -4,8 +4,6 @@ fr:
   users:
     address: Adresse
     admin_company : Admin troupe
-    alternate_email: Email préféré
-    alternate_email_hint: Pour recevoir les messages courants sur une autre adresse que celle de Google
     back: Retour
     bio: Portrait - Bio
     bio_desc: La bio n'est trop longue ni trop courte. Elle est affichée en première page du site pour présenter les joueurs dans la rubrique "Nous"
@@ -56,11 +54,12 @@ fr:
 
     state:
       invited: Invité.e
+      missing_phone_nr: Téléphone ?
+      registered_with_no_pic: Photo ?
       processing: En cours ?
       rip: a quitté la compagnie
-      to_invite: 'Inviter %{firstname}'
 
     welcome_mail:
-      subject: Bienvenue ô Sésame, bienvenue chez oit
+      subject: Bienvenue ô Sésame, bienvenue chez toi
     promote_mail:
       subject: Votre rôle à changé chez les Sésames

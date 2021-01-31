@@ -106,15 +106,17 @@ hr.thin-hr-spaced{
 }
 
 li.company{
+  display: inline-block;
   background-color: $sesame-blue;
-  a {
+  font-weight: 600;
+  a{
     color: $sesame-yellow ;
-    font-weight: 600;
   }
-  a:hoover {
+  a:hoover{
     color: $sesame-blue ;
   }
 }
+
 
 a.text-muted{
   color: #AAA !important;

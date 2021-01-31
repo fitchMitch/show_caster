@@ -11,19 +11,10 @@
   .row.form-std-height
     .col-sm-4.right.hidden-sm.hidden-xs= t("users.email")
     .col-sm-8= @user.email
-  - if @user.alternate_email.present?
-    .row.form-std-height
-      .col-sm-4.right.hidden-sm.hidden-xs= t("users.alternate_email")
-      .col-sm-8
-        = @user.alternate_email
 .row.form-std-height
   .col-sm-4.right.hidden-sm.hidden-xs= t("users.address")
-  .col-sm-8= @user.address if @user.address.present?
+  .col-sm-8= @user.address if @user.address
 
-- if policy(@user).show_last_connexion?
-  .row.form-std-height
-    .col-sm-4.right.hidden-sm.hidden-xs= t("users.last_connexion")
-    .col-sm-8= @user.last_connexion
 .row.form-std-height
   .col-sm-4.right.hidden-sm.hidden-xs= t("users.cell_phone_nr")
   .col-sm-8

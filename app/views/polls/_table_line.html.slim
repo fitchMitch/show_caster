@@ -1,11 +1,13 @@
 .container
   .row
-    .col-md-6.poll-frame.col-xs-12= panel_question(poll)
+    .col-md-6.poll-frame.col-xs-12
+      = render partial: 'polls/panel/panel_question',
+               locals: { panel_elements: panel_question(poll) }
     .col-md-3.col-xs-6
       span.label.label-primary= poll_date poll.expiration_date
       br
       p.space-up-10.room-left-10
-        = link_to poll , class: 'link-to-vote 'do
+        = link_to poll, class: 'link-to-vote' do
           = image_tag('icons/png/003-vote.png', size: 55)
         end
 

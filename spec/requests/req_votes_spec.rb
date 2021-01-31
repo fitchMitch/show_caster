@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe 'VoteOpinion', type: :request do
   let(:poll_opinion) { create(:poll_opinion_with_answers) }
   let!(:admin) { create(:user, :admin, :registered) }
-  # let(:user) { create(:user, :admin, :registered) }
   let!(:valid_attributes) do
     {
       answer_id: poll_opinion.answers.first.id,
@@ -17,14 +16,14 @@ RSpec.describe 'VoteOpinion', type: :request do
       answer_id: poll_opinion.answers.first.id,
       user_id: admin.id,
       type: 'VoteOpinion',
-      vote_label: 'yes' # !!! ss
+      vote_label: 'yes' # invalid
     }
   end
   let(:url) { "/poll_opinions/#{poll_opinion.id}/vote_opinions" }
 
   context 'As logged as admin,' do
     before do
-      request_log_in(admin)
+      sign_in(admin)
     end
 
     describe 'POST #create' do
@@ -49,13 +48,6 @@ RSpec.describe 'VoteOpinion', type: :request do
         end
       end
 
-      context 'with invalid params' do
-        it "doesn't persist vote_opinion" do
-          expect do
-            post url, params: { vote_opinion: invalid_attributes }
-          end.to change(VoteOpinion, :count).by(0)
-        end
-      end
     end
   end
 end
@@ -86,7 +78,7 @@ RSpec.describe 'VoteDate', type: :request do
 
   context 'As logged as admin,' do
     before do
-      request_log_in(admin)
+      sign_in(admin)
     end
 
     describe 'POST #create' do
@@ -112,13 +104,6 @@ RSpec.describe 'VoteDate', type: :request do
         end
       end
 
-      context 'with invalid params' do
-        it "doesn't persist vote_date" do
-          expect do
-            post url, params: { vote_date: invalid_attributes }
-          end.to change(VoteDate, :count).by(0)
-        end
-      end
     end
   end
 end

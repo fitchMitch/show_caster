@@ -1,0 +1,17 @@
+.container
+  .row
+    .col-md-4.col-sm-3.col-xs-1
+    .col-md-4.col-sm-6.col-xs-10
+      h2 Renvoi des instructions de confirmation d'email
+      = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+        = f.error_notification
+        = f.full_error :confirmation_token
+        .form-inputs
+          = f.input :email,
+                    required: true,
+                    autofocus: true,
+                    value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
+                    input_html: { autocomplete: "email" }
+        .form-actions
+          = f.button :submit, "Renvoyer les instructions", class: 'btn btn-primary'
+      = render "devise/shared/links"

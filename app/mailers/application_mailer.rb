@@ -7,6 +7,6 @@ class ApplicationMailer < ActionMailer::Base
   end
 
   def url_login
-    "http://#{get_site}/sesame_login"
+    "http://#{get_site}/users"
   end
 end

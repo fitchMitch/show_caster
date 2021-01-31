@@ -11,11 +11,11 @@ class UserPolicy < ApplicationPolicy
   end
 
   def new?
-    admin? && registered?
+    admin? && light_registration_done?
   end
 
   def index?
-    registered?
+    just_arrived? || light_registration_done?
   end
 
   def update?
@@ -27,7 +27,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    registered? && me_or_admin?
+    me_or_admin?
   end
 
   def create?
@@ -35,26 +35,23 @@ class UserPolicy < ApplicationPolicy
   end
 
   def invite?
-    registered? && me_or_admin?
+    admin? && (registered? || registered_with_no_pic?)
   end
 
   def bio?
-    registered? && me_or_admin?
+    me_or_admin?
   end
 
   def show_last_connexion?
-    admin?
+    light_registration_done? && admin?
   end
 
   def promote?
-    return false if @user.nil? || @record.nil? || @user.player?
-    c1 = @record.status != 'setup'
-    c2 = communicator_or_admin?
-    c1 && c2 && @record != @user || (User.admin.count > 1)
-  end
+    return false unless admin?
+    # avoid self eviction as admin in case I'm the last admin
+    return false if me_only? && @record&.role != 'admin' && User.admin.count > 1
 
-  def invite?
-    create? && @record.setup?
+    true
   end
 
   def destroy?
@@ -62,17 +59,12 @@ class UserPolicy < ApplicationPolicy
   end
 
   private
-    def me_or_admin?
-      @user.present? &&
-        @record.present? &&
-        ((@record.id == @user.id) || @user.admin?)
-    end
 
-    def googled?
-      @user.googled?
+    def me_or_admin?
+      @user && ((@record&.id == @user&.id) || @user.admin?)
     end
 
     def me_only?
-      @user.present? && @record.present? && (@record.id == @user.id)
+      @user && (@record&.id == @user&.id)
     end
 end

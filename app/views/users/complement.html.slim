@@ -20,13 +20,7 @@
                       required: true
           .col-sm-6
             = f.input :email,
-                      label: t("email"),
-                      disabled: true
-        .row
-          .col-sm-6
-            = f.input :alternate_email,
-                      label: t("users.alternate_email"),
-                      hint: t("users.alternate_email_hint")
+                      label: t("email")
         .row
           .col-xs-12
             = f.input :address,

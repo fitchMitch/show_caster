@@ -32,8 +32,6 @@ RSpec.describe Picture, type: :model do
     it { should validate_attachment_content_type(:photo).
                   allowing('image/png', 'image/gif').
                   rejecting('text/plain', 'text/xml') }
-    it { should validate_attachment_size(:photo).
-                  less_than(4.megabytes) }
   end
 
 

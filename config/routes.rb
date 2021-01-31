@@ -1,5 +1,6 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
+  devise_for :users
   mount Commontator::Engine => '/commontator'
   # Users and Sessions
   resources :settings, only: %i[index edit update]
@@ -14,13 +15,6 @@ Rails.application.routes.draw do
       get '/about_me',      to: 'users#about_me'
     end
   end
-
-  resources :sessions, only: %i[index new create destroy]
-  get '/sesame_login' => 'sessions#new'
-  get '/unknown_user' => 'sessions#unknown'
-  delete '/logout', to: 'sessions#destroy', as: :sign_out
-
-  get '/auth/:provider/callback', to: 'sessions#create'
 
   # Events
   resources :courses, controller: :courses, type: 'Course'
@@ -68,5 +62,5 @@ Rails.application.routes.draw do
   post '/signup'      => 'splash#signup', as: :splash_signup
   get  '/splash'      => 'splash#index'
 
-  root 'splash#index'
+  root to: 'splash#index'
 end

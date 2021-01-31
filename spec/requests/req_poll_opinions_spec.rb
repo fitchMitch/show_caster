@@ -13,7 +13,7 @@ RSpec.describe 'PollOpinions', type: :request do
 
   context '/ As logged as admin,' do
     before do
-      request_log_in(admin)
+      sign_in(admin)
     end
     describe '#new' do
       it 'should make a new poll_opinion' do
@@ -78,7 +78,7 @@ RSpec.describe 'PollOpinions', type: :request do
     describe '#update' do
       context 'with valid params' do
         before :each do
-          request_log_in(admin)
+          sign_in(admin)
         end
         let(:new_attributes_poll_question) do
           {
@@ -126,7 +126,7 @@ RSpec.describe 'PollOpinions', type: :request do
       context 'with invalid params' do
         before :each do
           admin = create(:user, :admin, :registered)
-          request_log_in(admin)
+          sign_in(admin)
         end
         let(:poll) { create(:poll_opinion) }
 

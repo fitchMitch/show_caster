@@ -6,14 +6,14 @@ RSpec.feature 'promotion feature', type: :feature do
     let!(:player) { create(:user, :player, :registered) }
     describe 'real promotion' do
       before :each do
-        log_in admin
+        sign_in admin
         visit user_path(player)
         page.find('.users_promote').find("option[value='admin']").select_option
         click_button(I18n.t('users.promote'))
       end
 
       it 'should send to the user a promote mail' do
-        expect(last_email_address).to eq(player.prefered_email)
+        expect(last_email_address).to eq(player.email)
       end
       it 'welcome mail should have the subject' do
         expect(last_email.subject).to eq(I18n.t('users.promote_mail.subject'))
@@ -37,7 +37,7 @@ RSpec.feature 'promotion feature', type: :feature do
       let!(:future_player) { create(:user, :admin, :registered) }
       before do
         reset_email
-        log_in admin
+        sign_in admin
         visit user_path(future_player)
         page.find('.users_promote').find("option[value='player']").select_option
         click_button(I18n.t('users.promote'))
@@ -52,7 +52,7 @@ RSpec.feature 'promotion feature', type: :feature do
   feature 'PROMOTE - role' do
     given!(:admin) { create(:user, :admin, :registered) }
     background :each do
-      log_in admin
+      sign_in admin
     end
     scenario 'with setup status, it proposes archived status' do
       player = create(:user, :player, :invited)
@@ -70,7 +70,7 @@ RSpec.feature 'promotion feature', type: :feature do
     let!(:admin) { create(:user, :admin, :registered) }
     background :each do
       reset_email
-      log_in admin
+      sign_in admin
     end
     scenario 'with setup status, it proposes archived status' do
       visit user_path(create(:user, :player, :registered))
@@ -80,15 +80,15 @@ RSpec.feature 'promotion feature', type: :feature do
       expect(page.body).to have_selector('h2', text: I18n.t('users.list'))
       expect(page.body).to have_text('RIP')
     end
-    scenario 'with RIP status, it proposes setup status' do
+    scenario 'with RIP status, it proposes missing_phone_nr status' do
       rip_player = create(:user, :player, :archived)
       visit user_path(rip_player)
-      page.find('#user_status').find("option[value='setup']").select_option
+      page.find('#user_status').find("option[value='missing_phone_nr']").select_option
       click_button(I18n.t('users.promote'))
       visit users_path
       expect(page.body).to have_selector('h2', text: I18n.t('users.list'))
-      expect(page.body).to have_selector('.btn.btn-danger')
-      expect(last_email_address).to eq(rip_player.prefered_email)
+      expect(page.body).to have_selector('span.label.label-danger')
+      expect(last_email_address).to eq(rip_player.email)
     end
   end
 end

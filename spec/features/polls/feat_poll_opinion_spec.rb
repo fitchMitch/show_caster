@@ -3,7 +3,7 @@ require 'polls_helper'
 
 RSpec.feature 'PollOpinion' do
   feature 'as a registered admin' do
-    def fill_form(form_type, id=nil, valid=true)
+    def fill_form(form_type, id = nil, valid = true)
       form_label = id.nil? ? "##{form_type}_poll_opinion" : "##{form_type}_poll_opinion_#{id}"
       source = valid == true ? poll_opinion_attributes : poll_opinion_bad_attributes
       within form_label do
@@ -32,7 +32,7 @@ RSpec.feature 'PollOpinion' do
 
     feature 'visiting INDEX' do
       background :each do
-        log_in admin
+        sign_in admin
         visit poll_opinions_path
       end
 
@@ -50,7 +50,7 @@ RSpec.feature 'PollOpinion' do
 
     feature 'visiting NEW and CREATE' do
       background :each do
-        log_in admin
+        sign_in admin
         visit new_poll_opinion_path
         fill_form('new')
         click_button(I18n.t('helpers.submit.poll_opinion.create'))
@@ -65,7 +65,7 @@ RSpec.feature 'PollOpinion' do
 
     feature 'visiting UPDATE fails' do
       background :each do
-        log_in admin
+        sign_in admin
         poll_opinion = create(:poll_opinion_with_answers)
         visit edit_poll_opinion_path(poll_opinion)
         fill_form('edit', poll_opinion.id, false)
@@ -80,7 +80,7 @@ RSpec.feature 'PollOpinion' do
 
     feature 'visiting DELETE' do
       background :each do
-        log_in admin
+        sign_in admin
         poll_opinion = create(:poll_opinion_with_answers)
         visit poll_opinions_path
         page.find('.destroy', match: :first).click

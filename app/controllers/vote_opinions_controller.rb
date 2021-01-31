@@ -4,13 +4,10 @@ class VoteOpinionsController < VotesController
   before_action :set_vote, only: %i[show edit update destroy]
 
   def new
-    # authorize VoteOpinion
-    # @poll_opinion = PollOpinion.find(params[:poll_opinion_id]) #TODO ain't exist !
-    # @vote = @poll_opinion.vote_opinions.build
   end
 
   def create
-    @vote = @current_user.vote_opinions.new(vote_params)
+    @vote = current_user.vote_opinions.new(vote_params)
     authorize @vote
     @answer = Answer.find(@vote.answer_id)
     @vote.poll_id = @answer.poll_id

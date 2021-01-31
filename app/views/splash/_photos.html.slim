@@ -1,11 +1,11 @@
-.container
-  .row
-    .inner-column.showing-off
-      - if photo_list.present?
+- if photo_list.present?
+  .container
+    .row
+      .inner-column.showing-off
         h1 Photos des derniers spectacles
-  .row
-    - photo_list.each do |pic|
-      .col-lg-4.col-md-4.col-sm-6.col-xs-12
-        = link_to pic.photo.url, target: '_blank'
-          = image_tag  pic.photo.url(:square),
-                       class: 'photo-galery'
+    .row
+      - photo_list.each do |pic|
+        .col-lg-4.col-md-4.col-sm-6.col-xs-12
+          = link_to pic.photo.url, target: '_blank'
+            = image_tag  pic.photo.url(:square),
+                        class: 'photo-galery'

@@ -10,7 +10,7 @@ RSpec.describe User, type: :model do
         email: 'gogo@lele.fr',
         cell_phone_nr: '0123456789',
         uid: '1a',
-        status: 'googled'
+        status: 'registered'
       }
     end
 
@@ -53,67 +53,36 @@ RSpec.describe User, type: :model do
     it { expect(User.active_admins.count).to eq(2) }
   end
 
-  describe '.from_omniauth' do
-    let!(:user) { create(:user) }
-    let(:f) { { info: { email: 'g' }, credentials: { expires_at: 'g' } } }
-    let(:f1) { { info: { email: 'g' }, credentials: { expires_at: nil } } }
-    let(:f2) { { info: { email: nil }, credentials: { expires_at: 'g' } } }
-    let(:access_token) { Hash.new }
-    context 'when user is retrieved' do
-      before :each do
-        allow(User).to receive(:retrieve) { user }
-        allow(user).to receive(:update_attributes) { true }
-      end
-      it 'should not retrieve any user' do
-        access_token = f1
-        expect(User.from_omniauth(access_token)).to be(true)
-      end
-      it 'should not retrieve any user' do
-        access_token = f2
-        expect(User.from_omniauth(access_token)).to be(true)
-      end
-      it 'should not retrieve any user' do
-        access_token = f
-        expect(User.from_omniauth(access_token).id).to eq(user.id)
-      end
-    end
-    context 'when user is NOT retrieved' do
-      before do
-        allow(User).to receive(:retrieve) { nil }
-      end
-      it 'should not retrieve any user' do
-        expect(User.from_omniauth(access_token)).to eq('unknown user')
-      end
-    end
-  end
-
-  describe '.retrieve' do
-    let!(:user) { create(:user) }
-    let!(:user_clone) do
-      create(:user, firstname: user.firstname, lastname: user.lastname)
-    end
-    let!(:data) { { email: user.email } }
-    let!(:data_no_user) do
-      { email: 'x', first_name: user.firstname, last_name: user.lastname }
-    end
-    let!(:data_no_user_no_name) do
-      { email: 'x', first_name: user.firstname }
-    end
-    it 'should render a user when his email is ok' do
-      expect(User.retrieve(data).id).to eq user.id
-    end
-    it 'should render a user when his account gives ' \
-        'a correct firstname and lastame' do
-      expect(User.retrieve(data_no_user).id).to eq user.id
-    end
-    it 'should return nil when no lastname is given' do
-      expect(User.retrieve(data_no_user_no_name)).to be(nil)
-    end
-  end
-
   describe '#is_commontator' do
     it 'should always be true' do
       expect(subject.is_commontator).to be(true)
+    end
+  end
+
+  describe '#update_status' do
+    describe 'with no parameters or cell_phone_nr' do
+      let(:invited) { create(:user, :invited) }
+      let(:params_with_phone) { {cell_phone_nr: '1234567890'}}
+
+      it {expect(invited.update_status({}).status).to eq('missing_phone_nr')}
+      it {expect(invited.update_status(params_with_phone).status).to eq('registered_with_no_pic')}
+    end
+    describe 'with no parameters nor cell_phone_nr' do
+      let(:user_with_no_phone) { create(:user, :missing_phone_nr) }
+      let(:params_with_phone) { {cell_phone_nr: '1234567890'}}
+
+      it {expect(user_with_no_phone.update_status({}).status).to eq('missing_phone_nr')}
+      it {expect(user_with_no_phone.update_status(params_with_phone).status).to eq('registered_with_no_pic')}
+    end
+    describe 'gets registered when all parameters are ok' do
+      let(:registered_with_no_pic) { create(:user, :registered_with_no_pic) }
+      it {expect(registered_with_no_pic.update_status({}).status).to eq('registered_with_no_pic')}
+      describe 'with_picture' do
+        before do
+          allow(registered_with_no_pic).to receive(:has_downloaded_his_picture?).and_return true
+        end
+        it {expect(registered_with_no_pic.update_status({}).status).to eq('registered')}
+      end
     end
   end
 
@@ -153,12 +122,12 @@ RSpec.describe User, type: :model do
   describe '#restricted_statuses' do
     context 'user is archived' do
       let(:user) { create(:user, :archived) }
-      it 'should allow promotion to be setup or archived' do
-        expect(user.restricted_statuses).to eq(%w[setup archived])
+      it 'should allow promotion to be registered or archived' do
+        expect(user.restricted_statuses).to eq(%w[missing_phone_nr archived])
       end
     end
     context 'user is not archived' do
-      let(:status) { %i[setup invited googled registered].sample }
+      let(:status) { %i[invited registered].sample }
       let(:user) { create(:user, status) }
       it 'should allow promotion to be original status or archived' do
         expect(user.restricted_statuses).to eq([status.to_s, 'archived'])
@@ -385,31 +354,19 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#has_more_privileges?' do
+  describe '#more_privileges?' do
     let(:user) { create(:user, :admin_com) }
     context 'when stronger ' do
       let(:o_user) { create(:user, :player) }
       it 'user is stronger' do
-        expect(user.send(:has_more_privileges?, o_user)).to be true
+        expect(user.send(:more_privileges?, o_user)).to be true
       end
     end
     context 'when weaker ' do
       let(:o_user) { create(:user, :admin) }
       it 'user is stronger' do
-        expect(user.send(:has_more_privileges?, o_user)).to be false
+        expect(user.send(:more_privileges?, o_user)).to be false
       end
-    end
-  end
-
-  describe '#prefered_email' do
-    subject { user.prefered_email}
-    context 'when there is no alternate email' do
-      let(:user) { build(:user, alternate_email: nil) }
-      it { expect(subject).to eq user.email }
-    end
-    context 'when there is an alternate email' do
-      let(:user) { build(:user, alternate_email: 'test@test.fr') }
-      it { expect(subject).to eq user.alternate_email }
     end
   end
 end

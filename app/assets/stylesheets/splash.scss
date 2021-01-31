@@ -5,19 +5,16 @@ $headings-font-weight: 300;
 
 $brand-primary: darken(#428bca, 6.5%);
 @import 'globals/variables';
-// $navbar-default-bg: lighten( $sesame-blue, 10% );
 $navbar-default-bg: $sesame-blue;
 $navbar-default-border: white;
 $navbar-default-link-color: $sesame-yellow;
 $navbar-default-link-hover-color: white;
 
-// $navbar-default-link-hover-bg: lighten( $sesame-blue, 50% );
-// $navbar-default-link-active-bg: lighten( $brand-primary, 30% );
 $navbar-default-link-active-bg: $sesame-orange;
 $navbar-default-link-active-color: white;
 
 // $body-bg: $sesame-blue;
-$body-bg: $sesame-blue;
+$body-bg: white;
 
 $slideup-navbar-height: 150px;
 
@@ -31,6 +28,10 @@ $border-radius-large: 2px;
 // CUSTOMIZING
 // -------------------
 @import 'globals/common';
+.container-fluid{
+  background: $sesame-blue;
+}
+
 .showing-off{
   line-height: 2.2em;
   font-weight: 600;
@@ -49,23 +50,43 @@ hr.splash-next-performance{
 // -------------------
 // END CUSTOMIZING
 // -------------------
-
-// $slideup-navbar-height: $navbar-height !default;
-
+.navbar-inverse .navbar-nav > li > a, a.inline{
+  font-size: 1.2em;
+  line-height: 1.8em;
+  vertical-align: middle;
+}
 .btn-lg {
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-size: 12px;
+  font-size: 0.9em;
 }
-ul.navbar-right{
-  li{
-    a:hover{
-      color: white;
-    }
-  }
+.navbar{
+  vertical-align: bottom;
+}
+.public.navbar{
+  line-height: 3.5em;
+}
+a.btn-lg {
+  text-decoration: none;
+  color: $sesame-yellow;
+}
+a:hover.btn-lg {
+  text-decoration: none;
+  color: white;
+}
+a.dropdown-toggle {
+  text-decoration: none;
+  color: white;
+
+}
+ul.navbar{
+  line-height: 2em;
+}
+ul a li{
+  line-height: 1em;
 }
 
-$splash-section-padding: 4em;
+$splash-section-padding: 3em;
 .inner-column {
   h1 { color:$sesame-yellow;}
   input { background-color: $sesame-blue;}
@@ -95,9 +116,9 @@ body.splash {
   }
 
   .lightimage {
-    padding-top: 4 * $font-size-base + $slideup-navbar-height;
+    padding-top: 2 * $font-size-base + $slideup-navbar-height;
     background-size: cover;
-    min-height: 600px;
+    min-height: 400px;
     p { padding: 2em 0;}
     overflow: hidden;
     position: relative;
@@ -190,52 +211,31 @@ body.splash {
 
 
   .player-image{
-    // width: 260px;
     text-align: center;
     margin: auto;
-    // img{
-    //   border:1px solid $sesame-blue;
-    //
-    //   //border-bottom: 12px dotted $sesame-yellow;
-    //   border-radius: 45px;
-    //   -webkit-border-radius: 45px;
-    //   -moz-border-radius: 45px;
-    // }
     img.one{
-      // border:1px solid $sesame-orange;
       border:2px solid black;
-      // border:1px solid $sesame-yellow;
-      // border-top-left-radius: 60px;
       border-top-right-radius: 100px 100px;
       border-bottom-left-radius: 100px 100px;
       border-bottom-right-radius: 60px;
     }
     img.two{
       border:2px solid $sesame-orange;
-      // border:1px solid black;
-      // border:1px solid $sesame-yellow;
       border-top-left-radius: 100px 100px;
-      // border-top-right-radius: 60px;
       border-bottom-left-radius: 60px;
       border-bottom-right-radius: 100px 100px;
     }
     img.three{
-      // border:1px solid $sesame-orange;
-      // border:1px solid black;
       border:2px solid $sesame-yellow;
       border-top-left-radius: 100px;
       border-top-right-radius: 60px;
-      // border-bottom-left-radius: 60px;
       border-bottom-right-radius: 100px 70px;
     }
     img.four{
-      // border:1px solid $sesame-orange;
-      // border:1px solid black;
       border:2px solid white;
       border-top-left-radius: 60px;
       border-top-right-radius: 100px 140px;
       border-bottom-left-radius: 100px;
-      // border-bottom-right-radius: 60px;
     }
   }
   .player-bio{

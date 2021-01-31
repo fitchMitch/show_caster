@@ -9,7 +9,7 @@ RSpec.feature  'Users list' do
     given!(:player) { create(:user, :player, :registered, lastname: 'PLAYER') }
 
     background :each do
-      log_in admin
+      sign_in admin
       visit users_path
     end
 
