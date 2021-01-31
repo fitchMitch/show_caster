@@ -1,0 +1,12 @@
+h3= "Hello et bienvenue !"
+p
+  |  Tu fais maintenant partie des Sésames et ce message provient du site www.les-sesames.fr. Pour 'entrer' sur le site, il faudra passer par les 'coulisses'. Normal, non ?
+p
+  | Pour avancer, ce serait bien de préparer une photo qui te représente, et une petite bio rigolote à mettre sous la photo (rubrique "La Troupe des Sésames" > ton_nom > onglet bio)
+p
+  | Vive nous !
+p
+  | A très vite, mais auparavant clique sur la
+  = " "
+  = link_to 'confirmation de compte', confirmation_url(@resource, confirmation_token: @token)
+

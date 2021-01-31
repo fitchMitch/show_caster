@@ -4,12 +4,13 @@
       = t("layout.company_and_me")
       span.caret
     ul.dropdown-menu
-      = link_to users_path do
         li.company
-          = t("layout.users", theater_company: I18n.t('company_name_short'))
-          = image_tag("transp.png")
-          span.badge
-            = User.active.count
+          = link_to users_path do
+            = t("layout.users", theater_company: I18n.t('company_name_short'))
+            = image_tag("transp.png")
+            span.badge
+              = User.active.count
         li= link_to t('account_details'), edit_user_path(current_user)
         li= link_to t('layout.wham'), about_me_user_path(current_user)
         li= link_to t('announces.announces'), announces_path
+

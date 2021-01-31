@@ -18,7 +18,7 @@ RSpec.feature  'Course | ' do
 
     feature 'visiting INDEX' do
       background :each do
-        log_in admin
+        sign_in admin
         visit courses_path
       end
 
@@ -53,7 +53,7 @@ RSpec.feature  'Course | ' do
 
     feature 'visiting CREATE' do
       background :each do
-        log_in admin
+        sign_in admin
       end
       scenario 'it shall create a Course' do
         visit new_course_path
@@ -97,7 +97,7 @@ RSpec.feature  'Course | ' do
     feature 'visiting UPDATE' do
       given(:google_service) { double('google_service') }
       background :each do
-        log_in admin
+        sign_in admin
         #--------------------
         # inside new course
         #--------------------
@@ -141,7 +141,7 @@ RSpec.feature  'Course | ' do
       feature 'visiting DELETE fails with an ' \
               ' existing Google event associated' do
         background :each do
-          log_in admin
+          sign_in admin
           visit courses_path
           page.find('.destroy', match: :first).click
         end

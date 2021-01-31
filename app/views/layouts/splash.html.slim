@@ -19,23 +19,36 @@ html.no-js
     = render 'flashes'
 
     header.slideup.affix-top  data={ spy: "affix", "offset-top": 10 }
-      = navbar id: "navbar", fluid: true, position: :top, padding: 0 do
-        = vertical do
-          = link_to t("theater_company"), "#top"
-        = horizontal do
-          = nav class: 'navbar-right' do
-            = link_to t("splash.next"), "#about" if @next_performances.present?
-            = link_to t("splash.us"), "#features"
-            = link_to t("splash.photos"), "#photos" if @photo_list.present?
-            = link_to t("splash.contact"), "#contact"
-            - if user_signed_in?
-              = link_to t("users.admin_company"), users_path
-              = link_to fa_icon("sign-out lg", text: t("deconnect")),
-                        sign_out_path,
-                        method: :delete
-            - else
-              = link_to '/sesame_login' do
-                = fa_icon("sign-out lg", text: 'coulisses')
+      nav.public.navbar.navbar-default.navbar-fixed-top id="navbar"
+        .container-fluid
+          / !-- Brand and toggle get grouped for better mobile display -->
+          .navbar-header
+            button.navbar-toggle.collapsed [type="button"
+                                      data-toggle="collapse"
+                                      data-target="#bs-example-navbar-collapse-1"
+                                      aria-expanded="false"]
+              span.sr-onlyToggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+
+            = link_to t("theater_company"), "#top", class: 'btn-lg active'
+
+          / !-- Collect the nav links, forms, and other content for toggling -->
+          div.collapse.navbar-collapse id="bs-example-navbar-collapse-1"
+            ul.nav.navbar-nav.navbar-right
+              = link_to t("splash.next"), "#about", class: 'btn-lg' if @next_performances.present?
+              = link_to t("splash.us"), "#features", class: 'btn-lg'
+              = link_to t("splash.photos"), "#photos", class: 'btn-lg' if @photo_list.present?
+              = link_to t("splash.contact"), "#contact", class: 'btn-lg'
+              - if user_signed_in?
+                = link_to t("users.admin_company"), users_path, class: 'btn-lg'
+                = link_to fa_icon("sign-out lg", text: t("deconnect")),
+                          destroy_user_session_path,
+                          class: 'btn-lg',
+                          method: :delete
+              - else
+                = link_to "coulisses", users_path , class: 'btn-lg'
 
     = yield
 

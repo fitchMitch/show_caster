@@ -20,7 +20,7 @@ RSpec.feature  'Performance | ' do
 
     feature 'visiting INDEX' do
       background :each do
-        log_in admin
+        sign_in admin
         visit performances_path
       end
 
@@ -54,7 +54,7 @@ RSpec.feature  'Performance | ' do
 
     feature 'visiting CREATE' do
       background :each do
-        log_in admin
+        sign_in admin
       end
       scenario 'it shall create a Performance' do
         visit new_performance_path
@@ -102,7 +102,7 @@ RSpec.feature  'Performance | ' do
     feature 'visiting UPDATE' do
       given(:google_service) { double('google_service') }
       background :each do
-        log_in admin
+        sign_in admin
         #--------------------
         # inside new performance
         #--------------------
@@ -148,7 +148,7 @@ RSpec.feature  'Performance | ' do
 
     feature 'visiting UPDATE with Google unknown event' do
       background :each do
-        log_in admin
+        sign_in admin
         #--------------------
         # inside new performance
         #--------------------
@@ -173,7 +173,7 @@ RSpec.feature  'Performance | ' do
       feature 'visiting DELETE fails with an ' \
               ' existing Google event associated' do
         background :each do
-          log_in admin
+          sign_in admin
           visit performances_path
           page.find('.destroy', match: :first).click
         end

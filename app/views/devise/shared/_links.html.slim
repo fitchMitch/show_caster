@@ -1,0 +1,13 @@
+hr
+.space-up-15.text-center
+  - if controller_name != 'sessions'
+    = link_to "Connexion", new_session_path(resource_name)
+    br/
+  p.space-up-20
+  - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+    = link_to "<strong>Mot de passe oublié ?</strong>".html_safe, new_password_path(resource_name)
+  p.space-up-20
+  - if devise_mapping.confirmable? && controller_name != 'confirmations'
+    = link_to "Please, renvoyez-moi les instructions de confirmation",
+              new_confirmation_path(resource_name)
+  p.space-up-50

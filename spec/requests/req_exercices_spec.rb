@@ -14,7 +14,7 @@ RSpec.describe "Exercices", type: :request do
 
   context "/ As logged as admin," do
     before do
-      request_log_in(admin)
+      sign_in admin
     end
 
     describe "GET #index" do
@@ -65,12 +65,12 @@ RSpec.describe "Exercices", type: :request do
     context "with valid params" do
       before :each do
         # admin = create(:user, :admin, :registered)
-        request_log_in(admin)
+        sign_in(admin)
       end
       let(:new_attributes_title) {
         { title: "SOUS LES PONTS"}
       }
-      let(:valid_session) { request_log_in( admin ) }
+      let(:valid_session) { sign_in( admin ) }
       let(:exercice) { create(:exercice) }
 
       it "updates the requested title with a new title" do
@@ -92,7 +92,7 @@ RSpec.describe "Exercices", type: :request do
     context "with invalid params" do
       before :each do
         admin = create(:user, :admin, :registered)
-        request_log_in(admin)
+        sign_in(admin)
       end
       let(:exercice) { create(:exercice) }
 
@@ -114,11 +114,11 @@ RSpec.describe "Exercices", type: :request do
   describe "#destroyed" do
     let!(:exercice) { create(:exercice) }
     let!(:exercice2) { create(:exercice) }
-    let(:valid_session) { request_log_in( admin ) }
+    let(:valid_session) { sign_in( admin ) }
     let(:url) { "/exercices/#{exercice.to_param}" }
     context 'with valid DB' do
       before :each do
-        request_log_in(admin)
+        sign_in(admin)
       end
       it "destroys the requested exercice " do
         expect {
@@ -133,7 +133,7 @@ RSpec.describe "Exercices", type: :request do
     end
     context 'with INvalid DB' do
       before :each do
-        request_log_in(admin)
+        sign_in(admin)
         allow_any_instance_of(Exercice).to receive(:destroy) { false }
       end
 

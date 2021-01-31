@@ -30,8 +30,8 @@ RSpec.describe 'Coachs', type: :request do
   end
   context 'As logged as admin,' do
     describe 'GET #index' do
-      before :each do
-        request_log_in_admin
+      before  do
+        sign_in create(:user, :admin, :registered)
       end
       it 'renders coaches index' do
         get '/coaches/new'
@@ -39,8 +39,8 @@ RSpec.describe 'Coachs', type: :request do
       end
     end
     describe 'NEW' do
-      before :each do
-        request_log_in_admin
+      before do
+        sign_in create(:user, :admin, :registered)
       end
       it 'builds a new Coach' do
         coach = Coach.new valid_attributes
@@ -53,16 +53,16 @@ RSpec.describe 'Coachs', type: :request do
       it 'builds edits Coach' do
         admin = create(:user, :admin, :registered)
         coach = create(:coach)
-        request_log_in(admin)
+        sign_in(admin)
         get edit_coach_path(coach)
         expect(response).to render_template :edit
       end
     end
     describe 'POST #create' do
+      before :each do
+        sign_in create(:user, :admin, :registered)
+      end
       context 'with valid params' do
-        before :each do
-          request_log_in_admin
-        end
         it 'creates a new Coach' do
           coach = Coach.new valid_attributes
           expect(coach).to be_valid
@@ -71,9 +71,6 @@ RSpec.describe 'Coachs', type: :request do
         end
       end
       context 'with invalid params' do
-        before :each do
-          request_log_in_admin
-        end
         it 'fails to create a new Coach' do
           coach = Coach.new invalid_attributes
           expect(coach).not_to be_valid
@@ -83,11 +80,11 @@ RSpec.describe 'Coachs', type: :request do
       end
     end
     describe 'UPDATE' do
+      before :each do
+        @admin = create(:user, :admin, :registered)
+        sign_in @admin
+      end
       context 'with valid params' do
-        before :each do
-          @admin = create(:user, :admin, :setup)
-          request_log_in @admin
-        end
         it 'is ok' do
           coach = create(:coach)
           @url = "/coaches/#{coach.id}"
@@ -96,10 +93,6 @@ RSpec.describe 'Coachs', type: :request do
         end
       end
       context 'with invalid params' do
-        before :each do
-          @admin = create(:user, :admin, :setup)
-          request_log_in @admin
-        end
         it 'fails to update coach' do
           coach = create(:coach)
           @url = "/coaches/#{coach.id}"

@@ -15,7 +15,7 @@ class PollMailer < ApplicationMailer
 
   def poll_reminder_mail(poll)
     recipients = poll.missing_voters_ids.map do |uid|
-      User.find(uid).prefered_email
+      User.find(uid).email
     end
     @initiater = poll.owner.firstname
     @url = get_polls_url
@@ -40,7 +40,7 @@ class PollMailer < ApplicationMailer
     @url = get_polls_url
     @url_login = url_login
     @poll = poll
-    recipient_email = poll.try(:owner).try(:prefered_email)
+    recipient_email = poll.try(:owner).try(:email)
     if recipient_email.nil?
       Rails.logger('PollMailer: unable to find out poll\'s email for emailing')
     else

@@ -32,7 +32,7 @@ RSpec.feature 'PollSecretBallot' do
 
     feature 'visiting INDEX' do
       background :each do
-        log_in admin
+        sign_in admin
         visit poll_secret_ballots_path
       end
 
@@ -50,7 +50,7 @@ RSpec.feature 'PollSecretBallot' do
 
     feature 'visiting NEW and CREATE' do
       background :each do
-        log_in admin
+        sign_in admin
         visit new_poll_secret_ballot_path
         fill_form('new')
         click_button(I18n.t('helpers.submit.poll_secret_ballot.create'))
@@ -65,7 +65,7 @@ RSpec.feature 'PollSecretBallot' do
 
     feature 'visiting UPDATE fails' do
       background :each do
-        log_in admin
+        sign_in admin
         poll_secret_ballot = create(:secret_ballot_with_answers)
         visit edit_poll_secret_ballot_path(poll_secret_ballot)
         fill_form('edit', poll_secret_ballot.id, false)
@@ -80,7 +80,7 @@ RSpec.feature 'PollSecretBallot' do
 
     feature 'visiting DELETE' do
       background :each do
-        log_in admin
+        sign_in admin
         create(:secret_ballot_with_answers, owner: admin)
         visit poll_secret_ballots_path
         page.find('.destroy', match: :first).click

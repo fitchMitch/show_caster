@@ -42,11 +42,31 @@ class ApplicationPolicy
   end
 
   def registered?
-    !@user.nil? && @user.registered?
+    @user&.registered?
+  end
+
+  def registered_with_no_pic?
+    @user&.registered_with_no_pic?
+  end
+
+  def invited?
+    @user && @user&.invited?
+  end
+
+  def missing_phone_nr?
+    @user&.missing_phone_nr? && invited?
   end
 
   def admin?
-    !@user.nil? && @user.admin?
+    @user&.admin?
+  end
+
+  def light_registration_done?
+    registered? || registered_with_no_pic? || missing_phone_nr?
+  end
+
+  def just_arrived?
+    @user && (@user.invited? || @user.invited_to_sign_up?)
   end
 
   def scope

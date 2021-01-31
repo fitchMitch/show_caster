@@ -5,7 +5,7 @@ RSpec.feature  'Theater' do
     given!(:admin) { create(:user, :admin, :registered, lastname: 'ADMIN') }
     feature 'visiting INDEX' do
       background :each do
-        log_in admin
+        sign_in admin
         3.times { create(:theater) }
         visit theaters_path
       end
@@ -27,7 +27,7 @@ RSpec.feature  'Theater' do
 
     feature 'visiting NEW and CREATE' do
       background :each do
-        log_in admin
+        sign_in admin
         visit new_theater_path
         within '#new_theater' do
           fill_in 'theater_theater_name', with: 'Edouard IV'
@@ -49,7 +49,7 @@ RSpec.feature  'Theater' do
 
     feature 'visiting UPDATE' do
       background :each do
-        log_in admin
+        sign_in admin
         theater = create(:theater)
         visit edit_theater_path(theater)
         within "#edit_theater_#{theater.id}" do
@@ -72,7 +72,7 @@ RSpec.feature  'Theater' do
 
     feature 'visiting UPDATE fails' do
       background :each do
-        log_in admin
+        sign_in admin
         theater = create(:theater)
         visit edit_theater_path(theater)
         within "#edit_theater_#{theater.id}" do

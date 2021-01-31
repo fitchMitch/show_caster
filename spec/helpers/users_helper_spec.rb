@@ -25,9 +25,7 @@ RSpec.describe UsersHelper, type: :helper do
   end
 
   describe '#status_label' do
-    let!(:setup)              { create(:user, :setup, :player) }
     let!(:invited)            { create(:user, :invited, :player) }
-    let!(:googled)            { create(:user, :googled, :player) }
     let!(:archived)           { create(:user, :archived, :player) }
     let!(:registered)         { create(:user, :registered, :player) }
     # let!(:a_policy)           { double('policy_double') }
@@ -39,27 +37,14 @@ RSpec.describe UsersHelper, type: :helper do
     it 'shoud label invited with warning ' do
       expect(helper.status_label(invited)).to include('label-warning')
     end
-    it 'shoud label googled status players with info ' do
-      expect(helper.status_label(googled)).to include('label-info')
-    end
     it 'shoud label archived players with default ' do
       expect(helper.status_label(archived)).to include('label-default')
     end
     it 'shoud label foreigners with danger '
-    # do
-      # - if policy(user).invite?
-    #   expect(helper.status_label(setup)).to include('label-danger')
-    # end
     it 'shoud label invited with warning ' do
       expect(helper.status_label(registered)).not_to include('label-')
     end
     it 'shoud invited foreigners to have an "invite" button'
-    # do
-    #   expect(status_label(setup)).to render_template(
-    #     partial: 'show_invite_button',
-    #     locals: { user: setup }
-    #   )
-    # end
   end
 
   describe '#event_date_link' do

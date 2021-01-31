@@ -1,0 +1,32 @@
+fr:
+  devise:
+    failure:
+      invited: 'Une invitation est en souffrance, acceptez la pour finir la création de compte'
+    invitations:
+      edit:
+        header: "Saisissez votre mot de passe"
+        submit_button: "Choisir mon mot de passe"
+      invitation_token_invalid: "Le token de cette invitation est invalide (je sais, c'est du chinois, la prochaine fois, il faudra juste aller plus vite :-)"
+      invitation_removed: "Votre invitation a été retirée "
+      new:
+        header: "Inviter un nouveau joueur"
+        submit_button: "Envoyer une invitation"
+      no_invitations_remaining: "Plus d'invitation en souffrance"
+      send_instructions: "Une invitation a été envoyée à cette adresse %{email}."
+      updated: "Votre mot de passe a été inscrit et vous êtes loggué !"
+      updated_not_active: "Votre mot de passe est inscrit à présent"
+    mailer:
+      invitation_instructions:
+        subject: "Voici le Sésame !"
+        hello: "Hello %{firstname}"
+        someone_invited_you: "Quelqu'un de charmant vous à invité à %{url}, vous pouvez accepter en cliquant le lien ci-dessous"
+        accept: "Accepter l'invitation"
+        accept_until: "Cette invitation arrivera à échéance le  %{due_date}."
+        ignore: " Si vous ne voulez pas répondre positivement à cette invitation oubliez-la. Votre compte ne sera pas créé tant que vous n'aurez cliqué sur le lien et choisi votre mot de passe"
+        user_subject: "Voici le Sésame !"
+  time:
+    formats:
+      devise:
+        mailer:
+          invitation_instructions:
+            accept_until_format: "%d %B"

@@ -6,7 +6,7 @@ class UserMailer < ApplicationMailer
     @user = user
     @url = login_url
     mail(
-      to: @user.prefered_email,
+      to: @user.email,
       subject: I18n.t('users.welcome_mail.subject')
     )
   end
@@ -22,7 +22,7 @@ class UserMailer < ApplicationMailer
     @committee_minus = to_sentence(changes.fetch(:lost_committees, nil))
 
     mail(
-      to: @user.prefered_email,
+      to: @user.email,
       subject: I18n.t('users.promote_mail.subject')
     )
   end

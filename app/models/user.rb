@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :lockable, :timeoutable, :trackable and :omniauthable
+  devise :invitable, :database_authenticatable, :registerable, :confirmable,
+         :recoverable, :rememberable, :validatable
   acts_as_commontator
   acts_as_taggable_on :committees
   # includes
@@ -7,12 +11,14 @@ class User < ApplicationRecord
   include Users::Validating
   # Pre and Post processing
   before_validation :format_fields, on: %i[create update]
+  after_invitation_accepted :ask_for_phone_number
+  after_invitation_accepted :format_fields
 
   # Enums
   enum status: {
-    setup: 0,
-    invited: 1,
-    googled: 2,
+    invited: 0,
+    missing_phone_nr: 1,
+    registered_with_no_pic: 2,
     registered: 3,
     archived: 4
   }
@@ -38,8 +44,7 @@ class User < ApplicationRecord
   #       }
   scope :active,
         lambda {
-          where(status: %i[invited googled registered]).where
-                                                       .not(role: :other)
+          where(status: %i[invited registered]).where.not(role: :other)
         }
   scope :active_admins,
         -> { active.where(role: :admin) }
@@ -54,11 +59,6 @@ class User < ApplicationRecord
             length: { maximum: 255, minimum: 5 },
             format: { with: VALID_EMAIL_REGEX },
             uniqueness: { case_sensitive: false }
-  validates :alternate_email,
-            allow_blank: true,
-            length: { maximum: 255, minimum: 5 },
-            format: { with: VALID_EMAIL_REGEX },
-            uniqueness: { case_sensitive: false }
 
   validates :uid, uniqueness: { case_sensitive: true }, allow_nil: true
   validates :bio, length: { maximum: 250 }
@@ -66,62 +66,15 @@ class User < ApplicationRecord
   # =====================
   # --    PUBLIC      ---
   # =====================
-  def self.from_omniauth(access_token)
-    user = User.retrieve(access_token[:info])
-    return 'unknown user' if user.nil?
-
-    if access_token[:credentials][:expires_at].nil? ||
-       access_token[:info][:email].nil?
-      Rails.logger.error(access_token.to_s)
-    elsif user.update_attributes(user.token_parameters(access_token))
-      user
-    else
-      Rails.logger.error 'OAuth user updating went wrong'
-      Rails.logger.error user_update_parameters
-      Bugsnag.notify("Oauth and update user faulty : #{from_token}")
-    end
-  end
-
-  def token_parameters(access_token)
-    data = access_token[:info]
-    credentials = access_token[:credentials]
-    firstname = data[:first_name].nil? ? self.firstname : data[:first_name]
-    lastname = data[:last_name].nil? ? self.lastname : data[:last_name].upcase
-    from_token = {
-      firstname: firstname,
-      lastname: lastname,
-      email: data[:email].downcase,
-      provider: access_token[:provider],
-      uid: access_token[:uid],
-      photo_url: data[:image],
-      token: credentials[:token],
-      refresh_token: credentials[:refresh_token],
-      expires_at: Time.at(credentials[:expires_at].to_i).to_datetime
-    }
-    # Additional attributes
-    from_token[:status] = :googled if setup? || invited?
-    from_token[:former_connexion_at] = last_sign_in_at
-    from_token[:last_sign_in_at] = Time.zone.now
-    from_token
-  end
-
-  def self.retrieve(data)
-    user = User.find_by_email(data[:email].downcase)
-    if user.nil? && data[:last_name] && data[:first_name]
-      Rails.logger.warn ("=========> using first and  last names")
-      user = User.find_by_firstname_and_lastname(
-        data[:first_name], data[:last_name]
-      )
-    end
-    user
-  end
 
   def self.company_mails
-    User.active.map(&:prefered_email)
+    User.active.pluck(:email)
   end
 
   def has_downloaded_his_picture?
-    Picture.where(imageable_id: id).where(imageable_type: 'User').present?
+    Picture.where(imageable_id: id)
+           .where(imageable_type: 'User')
+           .present?
   end
 
   def last_connexion_at
@@ -140,6 +93,17 @@ class User < ApplicationRecord
     true
   end
 
+  def update_status(user_params)
+    if invited? && user_params[:cell_phone_nr].blank?
+      missing_phone_nr!
+    elsif (invited? || missing_phone_nr?) && user_params[:cell_phone_nr].present?
+      registered_with_no_pic!
+    elsif registered_with_no_pic? && has_downloaded_his_picture?
+      registered!
+    end
+    self
+  end
+
   def welcome_mail
     UserMailer.welcome_mail(self).deliver_now
   end
@@ -149,7 +113,7 @@ class User < ApplicationRecord
   end
 
   def restricted_statuses
-    archived? ? %w[setup archived] : [status, 'archived']
+    archived? ? ['missing_phone_nr', 'archived'] : [status.to_s, 'archived']
   end
 
   def hsl_user_color1
@@ -197,10 +161,6 @@ class User < ApplicationRecord
     flash_promotion_with((role_changed && !muted_promotion) || committee_changed)
   end
 
-  def prefered_email
-    alternate_email.present? ? alternate_email : email
-  end
-
   def self.active_count
     User.active.count
   end
@@ -208,7 +168,7 @@ class User < ApplicationRecord
   protected
 
   def promotions_to_mute(old_user)
-    show_promotion = old_user.status == 'archived' || has_more_privileges?(old_user)
+    show_promotion = old_user.status == 'archived' || more_privileges?(old_user)
     !show_promotion
   end
 
@@ -216,18 +176,21 @@ class User < ApplicationRecord
     changes ? 'users.promoted' : 'users.promoted_muted'
   end
 
-  def has_more_privileges?(o_user)
-    return true if o_user.role == 'other'
+  def more_privileges?(previous_user)
+    return true if previous_user.role == 'other'
 
-    User.roles[role] >= User.roles[o_user.role]
+    User.roles[role] >= User.roles[previous_user.role]
   end
 
   def format_fields
     self.lastname = lastname.upcase if lastname.present?
     self.email = email.downcase if email.present?
-    self.alternate_email = alternate_email.downcase if alternate_email.present?
     self.role ||= 'player'
     self.color ||= pick_color
     phone_number_format
+  end
+
+  def ask_for_piask_for_phone_numbercture
+    missing_phone_nr!
   end
 end

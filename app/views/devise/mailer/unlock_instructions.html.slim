@@ -1,0 +1,7 @@
+p
+  | Hello #{@resource.email}!
+p Ton compte a été bloqué suite à de trop nombreux essais
+p Click ce lien pour le débloquer :
+p= link_to 'Débloquer mon compte', unlock_url(@resource, unlock_token: @token)
+p
+  | A mon sens un petit coup de 'mot de passe oublié' serait probablement envisageable

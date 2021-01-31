@@ -5,7 +5,7 @@ fr:
     author: Créateur
     body: Corps de l'annonce
     created_ok: Annonce bien créée
-    destroyed_ok: L'annonce a été détruite
+    destroyed_ok: L'annonce a été supprimée
     errors:
       future_not_passed: -> Après le début, la fin se situe !
     expiration_date: Date d'expiration

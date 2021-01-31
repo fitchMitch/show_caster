@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature 'vote opinion feature', type: :feature do
-  given!(:admin) { create(:user, :admin, :registered, lastname: 'ADMIN') }
+  given(:admin) { create(:user, :admin, :registered, lastname: 'ADMIN') }
   describe 'creating the poll' do
     before do
-      log_in admin
+      sign_in admin
       visit new_poll_opinion_path
       within '#new_poll_opinion' do
         fill_in 'poll_opinion[question]', with: 'question'
@@ -20,7 +20,7 @@ RSpec.feature 'vote opinion feature', type: :feature do
 # -----------------------------
   describe 'before voting' do
     before :each do
-      log_in admin
+      sign_in admin
       visit new_poll_opinion_path
       within '#new_poll_opinion' do
         fill_in 'poll_opinion[question]',
@@ -40,7 +40,7 @@ RSpec.feature 'vote opinion feature', type: :feature do
   # -----------------------------
   describe 'as admin after voting' do
     before :each do
-      log_in admin
+      sign_in admin
       visit new_poll_opinion_path
       within '#new_poll_opinion' do
         fill_in 'poll_opinion[question]',

@@ -14,7 +14,8 @@
       .orange-bar-150
   .row
     .col-md-6
-      = panel_question(@poll)
+      = render partial: 'polls/panel/panel_question',
+               locals: { panel_elements: panel_question(@poll)}
       br
       = render partial: '/vote_opinions/form',
                locals: {poll_opinion: @poll, vote: @vote, answer_id: @answer_id}

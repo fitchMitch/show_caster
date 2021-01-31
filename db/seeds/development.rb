@@ -37,7 +37,8 @@ committees = [
 User.create!(
   firstname:             'Etienne',
   lastname:              'WEIL',
-  email:                 'etienne.weil@gmail.com',
+  email:                 'weil.etienne@hotmail.fr',
+  password:              '123456',
   role:                   2,
   cell_phone_nr:          FFaker::PhoneNumberFR.mobile_phone_number,
   address:                '29, rue St Jean, Paris 75014'
@@ -47,31 +48,31 @@ User.create!(
   firstname =        FFaker::NameFR.first_name
   lastname =         FFaker::NameFR.unique.last_name
   email =            FFaker::Internet.free_email
+  password =         '123456'
   role =             randy(4)
   is_registered =    n_out_of_m?(8, 11)
   cell_phone_nr =    nil
   address =          nil
-  alternate_email =  FFaker::Internet.email if n_out_of_m?(2, 5)
   # committee =        committees.sample
   if is_registered
     cell_phone_nr =  FFaker::PhoneNumberFR.mobile_phone_number
     address =        FFaker::AddressFR.unique.full_address
-    # setup: 0, invited: 1, googled: 2, registered: 3, archived: 4
+    # invited: 0, missing_phone_nr: 1, registered_with_no_pic: 2 registered: 3, archived: 4
     status =         3
   else
-    status =        randy(4)
+    status =        randy(5)
     status =        4 if status == 3
   end
 
   User.create!(
     email: email,
+    password: password,
     firstname: firstname,
     lastname: lastname,
     status: status,
     cell_phone_nr: cell_phone_nr,
     address: address,
-    role: role,
-    alternate_email: alternate_email
+    role: role
   )
 end
 users = User.all

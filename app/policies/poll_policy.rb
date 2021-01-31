@@ -6,19 +6,19 @@ class PollPolicy < EventPolicy
   end
 
   def new?
-    registered?
+    light_registration_done?
   end
 
   def edit?
-    registered?
+    light_registration_done?
   end
 
   def index?
-    registered?
+    light_registration_done?
   end
 
   def show?
-    registered?
+    light_registration_done?
   end
 
   def update?

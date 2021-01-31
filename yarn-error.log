@@ -1,0 +1,26 @@
+Arguments: 
+  /usr/local/bin/node /usr/share/yarn/bin/yarn.js add bootstrap popper.js
+
+PATH: 
+  /home/etienne/.rvm/gems/ruby-2.7.2/bin:/home/etienne/.rvm/gems/ruby-2.7.2@global/bin:/usr/share/rvm/rubies/ruby-2.7.2/bin:/usr/share/rvm/bin:/home/etienne/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/postgresql/12/bin:/snap/bin
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  15.3.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: EACCES: permission denied, mkdir '/home/etienne/dev/ruby-projects/show_caster/node_modules/bootstrap'
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

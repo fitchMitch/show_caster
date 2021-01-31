@@ -7,7 +7,7 @@ RSpec.feature Exercice do
   feature 'as a registered admin' do
     describe 'searching through categories' do
       background do
-        log_in admin
+        sign_in admin
         visit exercices_path
       end
       it { expect(page.body).to have_selector('#q_title_or_instructions_cont') }
@@ -28,7 +28,7 @@ RSpec.feature Exercice do
       )
     end
     background do
-      log_in admin
+      sign_in admin
       visit exercices_path
       select(I18n.t('enums.exercice.category.imagination'), from: 'q[category_eq]')
       sleep 0.95
@@ -61,7 +61,7 @@ RSpec.feature Exercice do
       )
     end
     background do
-      log_in admin
+      sign_in admin
       visit exercices_path
       fill_in(
         'q[title_or_instructions_cont]', with: 'test'
