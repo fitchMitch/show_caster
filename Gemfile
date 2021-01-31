@@ -63,7 +63,7 @@ gem 'paperclip-i18n',                                       '~> 4.3'
 gem 'bugsnag',                                              '~> 6.8'
 
 group :development, :test do
-  gem 'puma',                                                 '~> 3.0'
+  gem 'puma',                                                 '~> 3.12'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'binding_of_caller',                                    '~> 0.8'
   gem 'byebug',                                               '~> 11.1.2'
