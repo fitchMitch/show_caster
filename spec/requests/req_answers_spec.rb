@@ -12,7 +12,7 @@ RSpec.describe 'Answers', type: :request do
 
   context 'As logged as admin,' do
     before do
-      request_log_in(admin)
+      sign_in(admin)
     end
 
     describe 'DELETE #destroy' do

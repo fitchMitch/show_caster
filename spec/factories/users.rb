@@ -38,10 +38,11 @@ FactoryBot.define do
     lastname
     email
     role                    { 2 } # Default is admin
+    password                {'123456'}
+    password_confirmation   {'123456'}
     status                  { 3 } # Default is registered
     uid
     bio                     { "Sa bio : #{FFaker::Lorem.sentence(7).truncate(250)}" }
-    alternate_email         { FFaker::Internet.email }
 
     trait :player do
       role                 { 0 }
@@ -55,23 +56,27 @@ FactoryBot.define do
     trait :other_player do
       role                  { 3 }
     end
-
-    trait :setup do
+    trait :invited do
       status                { 0 }
     end
-    trait :invited do
+    trait :missing_phone_nr do
       status                { 1 }
+      confirmed_at          { DateTime.now - 3.days }
     end
-    trait :googled do
+    trait :registered_with_no_pic do
       status                { 2 }
+      cell_phone_nr         { '0123456789' }
+      confirmed_at          { DateTime.now - 3.days }
     end
     trait :registered do
       status                { 3 }
       cell_phone_nr
+      confirmed_at          { DateTime.now - 3.days }
       address
     end
     trait :archived do
-      status { 4 }
+      confirmed_at          { DateTime.now - 3.years }
+      status                { 4 }
       cell_phone_nr
       address
     end

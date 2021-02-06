@@ -56,22 +56,22 @@ RSpec.describe PollsHelper, type: :helper do
     let!(:poll_secret_ballot) { create(:secret_ballot_with_answers) }
     let!(:no_poll) { create(:user) }
     it 'shall give a panel question to poll date' do
-      expect(helper.panel_question(poll_date)).to include(
-        poll_date.question
-      )
-      expect(helper.panel_question(poll_date)).to include('info')
+      str_question = helper.strip_tags helper.panel_question(poll_date)[:question]
+      str_context = helper.panel_question(poll_date)[:context]
+      expect(poll_date.question).to eq(str_question)
+      expect(str_context).to eq(:info)
     end
     it 'shall give a panel question to poll opinion' do
-      expect(helper.panel_question(poll_opinion)).to include(
-        poll_opinion.question
-      )
-      expect(helper.panel_question(poll_opinion)).to include('warning')
+      str_question = helper.strip_tags helper.panel_question(poll_opinion)[:question]
+      str_context = helper.panel_question(poll_opinion)[:context]
+      expect(poll_opinion.question).to eq(str_question)
+      expect(str_context).to eq(:warning)
     end
     it 'shall give a panel question to poll opinion' do
-      expect(helper.panel_question(poll_secret_ballot)).to include(
-        poll_secret_ballot.question
-      )
-      expect(helper.panel_question(poll_secret_ballot)).to include('danger')
+      str_question = helper.strip_tags helper.panel_question(poll_secret_ballot)[:question]
+      str_context = helper.panel_question(poll_secret_ballot)[:context]
+      expect(poll_secret_ballot.question).to eq(str_question)
+      expect(str_context).to eq(:danger)
     end
     it 'shall give nil when no poll is submitted' do
       expect(helper.panel_question(no_poll)).to be(nil)

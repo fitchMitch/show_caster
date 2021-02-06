@@ -1,0 +1,8 @@
+p
+  | Hello #{@resource.firstname}!
+- if @resource.try(:unconfirmed_email?)
+  p
+    | Je te contacte pour confirmer que tu as choisi cette nouvelle adresse email :  #{@resource.unconfirmed_email}.
+- else
+  p
+    |  Je t'écris pour te confirmer que ta nouvelle adresse email #{@resource.email} a bien été confirmée.

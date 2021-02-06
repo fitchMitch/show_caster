@@ -24,8 +24,6 @@ class VoteDate < Vote
 
   # Scope
   #-----------
-  # scope :found_by, -> (user) { where('user_id = ?', user_id) }
-  # scope :expecting_answer, -> { where(status: [:invited, :googled, :registered])}
   # ------------------------
   # --    PUBLIC      ---
   # ------------------------

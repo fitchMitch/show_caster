@@ -48,5 +48,9 @@ module ShowCaster
     config.autoload_paths += %W(#{config.root}/lib)
 
     config.active_job.queue_adapter = :sidekiq
+
+    config.to_prepare do
+      Devise::Mailer.layout "mailer"
+    end
   end
 end

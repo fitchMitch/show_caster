@@ -23,7 +23,7 @@ RSpec.describe 'VoteOpinion', type: :request do
 
   context 'As logged as admin,' do
     before do
-      request_log_in(admin)
+      sign_in(admin)
     end
 
     describe 'POST #create' do
@@ -78,7 +78,7 @@ RSpec.describe 'VoteDate', type: :request do
 
   context 'As logged as admin,' do
     before do
-      request_log_in(admin)
+      sign_in(admin)
     end
 
     describe 'POST #create' do

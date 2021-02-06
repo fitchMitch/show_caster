@@ -26,7 +26,7 @@ RSpec.describe PollMailer, type: :mailer do
         allow(User).to receive(:find).with(2) { user2 }
       end
       it { expect(subject.from).to eq(['no-reply@les-sesames.fr']) }
-      it { expect(subject.to).to eq([user1.prefered_email, user2.prefered_email]) }
+      it { expect(subject.to).to eq([user1.email, user2.email]) }
       it { expect(subject.subject).to eq(I18n.t('polls.mails.reminder.subject', firstname: poll.owner.firstname)) }
       it { expect(subject.body.encoded.to_s).to include('Plus que') }
     end
@@ -47,7 +47,7 @@ RSpec.describe PollMailer, type: :mailer do
         allow(described_class.poll_end_reminder_mail).to receive(:deliver_later)
       end
       it { expect(mailing.from).to eq(['no-reply@les-sesames.fr']) }
-      it { expect(mailing.to).to eq([poll.owner.prefered_email]) }
+      it { expect(mailing.to).to eq([poll.owner.email]) }
       it { expect(mailing.subject).to eq(I18n.t('polls.mails.reminder.end_subject')) }
       it { expect(mailing.body.encoded.to_s).to include('Tu peux penser ') }
     end

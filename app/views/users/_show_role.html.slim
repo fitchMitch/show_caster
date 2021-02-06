@@ -1,32 +1,35 @@
-- if policy(user).promote?
-  = simple_form_for(user,
-                    as: :user,
-                    url: promote_user_path(user),
-                    html: { method: :patch, class: 'form-horizontal' }) do |f|
-    #edit_user_role.container-fluid
-      .row.users_promote
-        .col-xs-12
-          .row
-            .col-md-5.col-xs-12
-              = f.input :role,
-                label: t("users.role"),
-                include_blank: false
-            .col-md-2.col-xs-hidden
-            .col-md-5.col-xs-12
-              = f.input :id,
-                as: :hidden,
-                input_html:{ value: user.id }
-              = f.input :status,
-               collection: user.restricted_statuses,
-               label: t("users.status"),
-               include_blank: false
-          .row
-            .col-xs-12
-              = f.input :committee_list,
-                        collection: User.committee_names_list,
-                        label: "#{t('committees')} ",
-                        input_html: { value: user.committee_list, multiple: 'multiple', data: { placeholder: "Tags" } }
-          .row
-            .col-lg-12
-              .buttons
-                = f.button :submit, I18n.t('users.promote'), class: "btn-primary"
+= simple_form_for(user,
+                  as: :user,
+                  url: promote_user_path(user),
+                  html: { method: :patch, class: 'form-horizontal' }) do |f|
+  #edit_user_role
+    .row.users_promote
+      .col-xs-12
+        .row
+          .col-md-5.col-xs-12
+            = f.input :role,
+                      label: t("users.role"),
+                      include_blank: false
+          .col-md-2.col-xs-hidden
+          .col-md-5.col-xs-12
+            = f.input :id,
+                      as: :hidden,
+                      input_html:{ value: user.id }
+            = f.input :status,
+                      collection: user.restricted_statuses,
+                      label: t("users.status"),
+                      include_blank: false
+        .row
+          .col-xs-12
+            = f.input :committee_list,
+                      collection: User.committee_names_list,
+                      label: "#{t('committees')} ",
+                      input_html: { value: user.committee_list,
+                                    multiple: 'multiple',
+                                    data: { placeholder: "Tags" } }
+        .row
+          .col-lg-12
+            .buttons
+              = f.button :submit,
+                         I18n.t('users.promote'),
+                         class: "btn-primary"

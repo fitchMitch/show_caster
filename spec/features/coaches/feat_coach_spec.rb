@@ -7,7 +7,7 @@ RSpec.feature 'Coach' do
     given!(:admin) { create(:user, :admin, :registered, lastname: 'ADMIN') }
     feature 'visiting INDEX' do
       background :each do
-        log_in admin
+        sign_in admin
         3.times { create(:coach) }
         visit coaches_path
       end
@@ -28,7 +28,7 @@ RSpec.feature 'Coach' do
 
     feature 'visiting NEW and CREATE' do
       background :each do
-        log_in admin
+        sign_in admin
         visit new_coach_path
         within '#coach_new' do
           fill_in 'coach_firstname', with: 'Edouard IV'
@@ -52,7 +52,7 @@ RSpec.feature 'Coach' do
 
     feature 'visiting UPDATE' do
       background :each do
-        log_in admin
+        sign_in admin
         coach = create(:coach)
         visit edit_coach_path(coach)
         within '#coach_new' do
@@ -74,7 +74,7 @@ RSpec.feature 'Coach' do
 
     feature 'visiting UPDATE fails' do
       background :each do
-        log_in admin
+        sign_in admin
         coach = create(:coach)
         visit edit_coach_path(coach)
         within '#coach_new' do

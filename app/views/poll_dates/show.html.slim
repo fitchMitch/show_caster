@@ -6,7 +6,8 @@
   .center-div
     .row
       .col-md-6
-        = panel_question(@poll)
+        = render partial: 'polls/panel/panel_question',
+                 locals: { panel_elements: panel_question(@poll) }
         small.text-muted
           .row
             .col-md-8

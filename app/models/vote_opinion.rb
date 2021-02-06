@@ -39,7 +39,6 @@ class VoteOpinion < Vote
                                    .pluck(:answer_id)
                                    .uniq
   }
-  # scope :expecting_answer, -> { where(status: [:invited, :googled, :registered])}
   # ------------------------
   # --    PUBLIC      ---
   # ------------------------

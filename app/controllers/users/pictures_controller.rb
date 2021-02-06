@@ -11,6 +11,7 @@ class Users::PicturesController < PicturesController
     @picture = @imageable.pictures.new(picture_params)
     respond_to do |format|
       if @picture.save
+        current_user.update_status({}).save if @imageable.class.name == 'User'
         format.html do
           redirect_to @imageable, notice: I18n.t('pictures.save_success')
         end

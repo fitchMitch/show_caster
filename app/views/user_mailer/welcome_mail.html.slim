@@ -1,9 +1,13 @@
-h3= "Hello et bienvenue #{@user.firstname } !"
-p
-  |  Tu fais partie des Sésames et ce message provient du site www.les-sesames.fr. Pourrais-tu t'inscrire le lien ci
-  | -dessous ? Idéalement, tu pourrais le mettre en marque page. Si tu oublies ton marque page, tu peux cliquer en haut et à droite sur 'Coulisses'.
-p
-  | Pour avancer, ce serait bien de préparer une photo qui te représente, et une petite bio rigolote à mettre sous la photo (rubrique "La Troupe des Sésames" > ton_nom > onglet bio)
-p= link_to 'Rendez-vous ici', @url
-p
-  | Vive nous !
+.container
+  .row
+    .col-4
+    .col-4
+      h3= "Hello et bienvenue #{@user.firstname } !"
+      p
+        |  Tu fais maintenant partie des Sésames et ce message provient du site www.les-sesames.fr. Pourrais-tu t'inscrire le lien ci
+        | -dessous ? Idéalement, tu pourrais le mettre en marque page. Si tu oublies ton marque page, tu peux cliquer en haut et à droite sur 'Coulisses'.
+      p
+        | Pour avancer, ce serait bien de préparer une photo qui te représente, et une petite bio rigolote à mettre sous la photo (rubrique "La Troupe des Sésames" > ton_nom > onglet bio)
+      p= link_to 'Rendez-vous ici', @url
+      p
+        | Vive nous !

@@ -38,29 +38,20 @@ module PollsHelper
     question = "<strong>#{poll.question}</strong>".html_safe
     case poll.type
     when 'PollOpinion'
-      panel question,
-            heading: panel_header(
-              '010-opinion.png',
-              'opinion_question',
-              poll
-            ),
-            context: :warning
+      { question: question,
+        heading: panel_header( '010-opinion.png', 'opinion_question', poll ),
+        context: :warning
+      }
     when 'PollSecretBallot'
-      panel question,
-            heading: panel_header(
-              '033-woman.png',
-              'secret_ballot_question',
-              poll
-            ),
-            context: :danger
+      { question: question,
+        heading: panel_header('033-woman.png', 'secret_ballot_question', poll),
+        context: :danger
+      }
     when 'PollDate'
-      panel question,
-            heading: panel_header(
-              '023-calendar.png',
-              'calendar_question',
-              poll
-            ),
-            context: :info
+      { question: question,
+        heading: panel_header( '023-calendar.png', 'calendar_question', poll ),
+        context: :info
+      }
     else
       Rails.logger.debug("unexpected poll type : #{poll.type}")
     end

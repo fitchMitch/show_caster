@@ -1,23 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe UserMailer, type: :mailer do
-  describe 'User Mailer new_player_notice_mail' do
-    let!(:admin) { create(:user, :admin, :registered) }
-    let!(:player) { create(:user, :player, :setup) }
-    let(:url) { "http://localhost:3000/users/#{player.id}" }
-    let(:to) { player.prefered_email }
-    let(:w_mail) { UserMailer.welcome_mail(player)}
-    before do
-      allow(UserMailer.welcome_mail).to receive(:deliver_later) {  }
-    end
-    it { expect(w_mail.from).to eq(['no-reply@les-sesames.fr']) }
-    it { expect(w_mail.to.first).to eq(to) }
-    it { expect(w_mail.subject).to eq(I18n.t('users.welcome_mail.subject')) }
-    it { expect(w_mail.body.encoded.to_s).to include('marque page') }
-  end
 
   describe 'User Mailer send_promotion_mail' do
-    let(:player) { create(:user, :player, :setup) }
+    let(:player) { create(:user, :player, :registered) }
     let(:admin) { create(:user, :admin, :registered) }
     let!(:changes) do
       {
@@ -28,7 +14,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
     let(:w_mail) { UserMailer.send_promotion_mail(player, changes) }
     let(:url) { "http://localhost:3000/users/#{player.id}" }
-    let(:to) { player.prefered_email }
+    let(:to) { player.email }
 
     it { expect(w_mail.from).to eq(['no-reply@les-sesames.fr']) }
     it { expect(w_mail.to.first).to eq(to) }

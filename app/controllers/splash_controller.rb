@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SplashController < ApplicationController
-  skip_before_action :require_login
+  skip_before_filter :authenticate_user!
 
   def index
     front_page_service = FrontPageService.new

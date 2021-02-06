@@ -21,12 +21,12 @@ gem 'slim',                                                 '>= 3.0.9'
 gem 'slim-rails',                                           '~> 3.2', '>= 3.2.0'
 gem 'figaro',                                               '~> 1.1'
 gem 'foreman',                                              '~> 0.87'
+gem 'devise'
+gem 'devise_invitable'
 # Front gems
 # -----------------------
 gem 'bootstrap-sass',                                       '~> 3.3'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.5'
-# bootstrap 3 helper for navbar for example~>
-gem 'bh'
 gem 'modernizr-rails',                                      '~> 2.7'
 gem 'sassc-rails', '~> 1.3', '>= 1.3.0'
 gem 'uglifier',                                             '>= 1.3.0'
@@ -47,8 +47,6 @@ gem 'simple_form', '~> 5.0', '>= 5.0.0'
 # API ones
 # -----------------------
 gem 'gibbon',                                               '~> 3.2'
-gem 'google-api-client',                                    '~> 0.23'
-gem 'omniauth-google-oauth2',                               '~> 0.5'
 # https://docs.bugsnag.com/platforms/ruby/rails/
 gem 'pundit',                                               '~> 1.1'
 # middleware

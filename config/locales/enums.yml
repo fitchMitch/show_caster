@@ -7,9 +7,9 @@ fr:
         admin_com: Editeur
         other: Autre
       status:
-        setup: Pré-inscrit
         invited: Invité
-        googled: Incription partielle
+        missing_phone_number: Sans numéro de téléphone
+        registered_with_no_pic: En attente de photo
         registered: Actif
         archived: A quitté les Sésames
     actor:

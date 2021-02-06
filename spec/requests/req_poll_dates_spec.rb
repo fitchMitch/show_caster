@@ -19,7 +19,7 @@ RSpec.describe 'PollDates', type: :request do
   context '/ As logged as admin,' do
     let!(:poll) { create(:poll_date) }
     before do
-      request_log_in(admin)
+      sign_in(admin)
     end
 
     describe 'DELETE #destroy' do

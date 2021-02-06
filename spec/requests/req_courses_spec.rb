@@ -1,5 +1,4 @@
 require 'rails_helper'
-# require 'vcr' TODO
 
 RSpec.describe 'Courses', type: :request do
   let!(:user_attribute) { create(:user) }
@@ -23,11 +22,11 @@ RSpec.describe 'Courses', type: :request do
       theater_id: theater.id
     }
   end
-  let!(:admin) { create(:user) }
+  let(:admin) { create(:user, :admin, :registered) }
 
   context '/ As logged as admin,' do
     before :each do
-      request_log_in(admin)
+      sign_in admin
     end
 
     describe '#new' do
@@ -133,7 +132,7 @@ RSpec.describe 'Courses', type: :request do
       let!(:url) { "/courses/#{course.to_param}" }
       let(:google_service) { double('google_service') }
       let(:result) { 123456789 }
-      # let(:valid_session) { request_log_in( admin ) }
+      # let(:valid_session) { sign_in( admin ) }
       context 'with every condition ok' do
         after do
           delete url, params: {

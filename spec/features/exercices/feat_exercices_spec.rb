@@ -5,7 +5,7 @@ RSpec.feature Exercice do
     given!(:admin) { create(:user, :admin, :registered, lastname: 'ADMIN') }
     feature 'visiting INDEX' do
       background :each do
-        log_in admin
+        sign_in admin
         3.times { create(:exercice) }
         visit exercices_path
       end
@@ -27,7 +27,7 @@ RSpec.feature Exercice do
 
     feature 'visiting NEW and CREATE' do
       background :each do
-        log_in admin
+        sign_in admin
         visit new_exercice_path
         within '#new_exercice' do
           fill_in 'exercice_title', with: 'Edouard IV'
@@ -55,7 +55,7 @@ RSpec.feature Exercice do
 
     feature 'visiting UPDATE' do
       background :each do
-        log_in admin
+        sign_in admin
         exercice = create(:exercice)
         visit edit_exercice_path(exercice)
         within "#edit_exercice_#{exercice.id}" do
@@ -87,7 +87,7 @@ RSpec.feature Exercice do
 
     feature 'visiting UPDATE fails' do
       background :each do
-        log_in admin
+        sign_in admin
         exercice = create(:exercice)
         visit edit_exercice_path(exercice)
         within "#edit_exercice_#{exercice.id}" do

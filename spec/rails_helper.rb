@@ -8,8 +8,6 @@ require 'rspec/rails'
 require 'webmock/rspec'
 require 'capybara/rspec'
 require 'selenium/webdriver'
-
-
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 begin
@@ -19,13 +17,6 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
-# WebMock.disable_net_connect!(allow_localhost: true)
-
-# Capybara.register_driver :selenium_chrome do |app|
-#   Capybara::Selenium::Driver.new(app, browser: :chrome)
-# end
-#
-# Capybara.javascript_driver = :selenium_chrome
 # ================================
 # CAPYBARA
 # ================================
@@ -38,12 +29,12 @@ Capybara.register_driver :headless_chrome do |app|
     chromeOptions: { args: %w(headless disable-gpu) }
   )
 
-Capybara::Selenium::Driver.new app,
-  browser: :chrome,
-  desired_capabilities: capabilities
+  Capybara::Selenium::Driver.new app,
+                                 browser: :chrome,
+                                 desired_capabilities: capabilities
 end
 
-Capybara.javascript_driver = :chrome
+# Capybara.javascript_driver = :chrome
 Capybara.javascript_driver = :headless_chrome
 
 # Capybara::Screenshot.register_driver :chrome do |driver, path|
@@ -58,11 +49,6 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-# VCR.configure do |c|
-#   c.cassette_library_dir = Rails.root.join('spec', 'vcr')
-#   c.hook_into :webmock
-# end
-
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root }/spec/fixtures"
 
@@ -73,21 +59,17 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 
-  config.include OmniauthMacros
-  config.include Sessions::LoginHelper, type: :controller
-
-  config.include Requests::LoginHelper, type: :service
-
-  config.include Requests::LoginHelper, type: :request
-  config.include Requests::Loging, type: :request
   config.include AttributesMatcher, type: :request
+
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Devise::Test::IntegrationHelpers, type: :feature
 
   config.include AttributesMatcher, type: :feature
   config.include ActiveJob::TestHelper, type: :feature
   config.include Selectors, type: :feature
-  config.include Features::SessionHelpers, type: :feature
   config.include MailerMacros, type: :feature
-  config.include SessionsHelper, type: :feature
   config.include PollsHelper, type: :feature
 
   # show retry status in spec process

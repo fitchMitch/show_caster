@@ -4,9 +4,11 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[
     show edit update destroy promote invite bio
   ]
+  # after_confirmation :update_to_registered
+
 
   def index
-    authorize User
+    authorize current_user
     @users_count = User.active_count
     @users = policy_scope(User).page(params[:page])
                                .per(25)
@@ -29,11 +31,16 @@ class UsersController < ApplicationController
   end
 
   def edit
-    target = @user.setup? ? 'edit' : 'complement'
-    render target
+    authorize @user
+    render 'complement'
   end
 
   def show
+    if Setting.committees.blank?
+      @committee_full_list = ''
+      return nil
+    end
+
     @committee_full_list = Setting.committees
                                   .split(',')
                                   .map(&:strip)
@@ -41,8 +48,8 @@ class UsersController < ApplicationController
   end
 
   def update
-    phone_exists = user_params[:cell_phone_nr].blank?
-    params[:user][:status] = 'registered' unless phone_exists
+    authorize @user
+    @user.update_status(user_params)
     if @user.update_attributes(user_params)
       redirect_to users_path, notice: I18n.t('users.updated')
     else
@@ -53,15 +60,16 @@ class UsersController < ApplicationController
   def destroy; end
 
   def promote
+    authorize @user
     old_user = @user.dup
     old_user_committees = @user.committee_list
 
     user_updates = {
-      role: params[:user][:role],
-      status: params[:user][:status],
-      committee_list: params[:user][:committee_list]
+      role: user_params[:role],
+      status: user_params[:status],
+      committee_list: user_params[:committee_list]
     }
-    if @user&.update(user_updates)
+    if @user.update(user_updates)
       message = @user.inform_promoted_person(
         current_user,
         old_user,
@@ -74,19 +82,8 @@ class UsersController < ApplicationController
     end
   end
 
-  def invite
-    if @user&.update(status: 'invited')
-      @user.welcome_mail
-      redirect_to user_path(@user),
-                  notice: I18n.t('users.invited', name: @user.full_name)
-    else
-      flash[:alert] = I18n.t('users.invited_failed', name: @user.full_name)
-      render :show
-    end
-  end
-
   def bio
-    if @user&.update(bio: params[:user][:bio])
+    if @user.update(bio: user_params[:bio])
       redirect_to user_path(@user),
                   notice: I18n.t('users.bio_successfull')
     else
@@ -108,6 +105,11 @@ class UsersController < ApplicationController
 
   private
 
+  def update_to_registered
+    self.status = :registered
+    save!
+  end
+
   def set_user
     @user = User.find(params[:id])
     authorize(@user)
@@ -123,7 +125,7 @@ class UsersController < ApplicationController
             :cell_phone_nr,
             :status,
             :bio,
-            :alternate_email,
+            :role,
             committee_lists: []
           )
   end
