@@ -52,7 +52,7 @@ gem 'pundit',                                               '~> 1.1'
 # middleware
 # -----------------------
 # background jogs
-gem 'sidekiq',                                              '~> 5.2.7'
+gem 'sidekiq',                                              '~> 6.4.0'
 # -----------------------
 gem 'rails-assets-jcrop', source: 'https://rails-assets.org'
 gem 'papercrop', '~> 0.3', '>= 0.3.0'
