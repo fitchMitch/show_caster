@@ -112,5 +112,5 @@ end
 
 group :production do
   gem 'lograge', '~> 0.11', '>= 0.11.2'
-  gem 'passenger', '5.1.12', require: 'phusion_passenger/rack_handler'
+  gem 'passenger', '5.3.2', require: 'phusion_passenger/rack_handler'
 end
